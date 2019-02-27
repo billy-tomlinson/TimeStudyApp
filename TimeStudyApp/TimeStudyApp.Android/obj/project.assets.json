@@ -780,11 +780,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp.Android/TimeStudyApp.Android.csproj",
+      "projectUniqueName": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/TimeStudyApp.Android.csproj",
       "projectName": "TimeStudyApp.Android",
-      "projectPath": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp.Android/TimeStudyApp.Android.csproj",
+      "projectPath": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/TimeStudyApp.Android.csproj",
       "packagesPath": "/Users/billytomlinson/.nuget/packages/",
-      "outputPath": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp.Android/obj/",
+      "outputPath": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
@@ -799,8 +799,8 @@
       "frameworks": {
         "monoandroid81": {
           "projectReferences": {
-            "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj": {
-              "projectPath": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj"
+            "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj": {
+              "projectPath": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj"
             }
           }
         }

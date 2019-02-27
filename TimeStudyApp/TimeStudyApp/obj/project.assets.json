@@ -346,11 +346,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj",
+      "projectUniqueName": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj",
       "projectName": "TimeStudyApp",
-      "projectPath": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj",
+      "projectPath": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj",
       "packagesPath": "/Users/billytomlinson/.nuget/packages/",
-      "outputPath": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp/obj/",
+      "outputPath": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp/obj/",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

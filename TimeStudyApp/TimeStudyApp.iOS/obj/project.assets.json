@@ -718,11 +718,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp.iOS/TimeStudyApp.iOS.csproj",
+      "projectUniqueName": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.iOS/TimeStudyApp.iOS.csproj",
       "projectName": "TimeStudyApp.iOS",
-      "projectPath": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp.iOS/TimeStudyApp.iOS.csproj",
+      "projectPath": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.iOS/TimeStudyApp.iOS.csproj",
       "packagesPath": "/Users/billytomlinson/.nuget/packages/",
-      "outputPath": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp.iOS/obj/",
+      "outputPath": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.iOS/obj/",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "configFilePaths": [
@@ -737,8 +737,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj": {
-              "projectPath": "/Users/billytomlinson/Projects/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj"
+            "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj": {
+              "projectPath": "/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp/TimeStudyApp.csproj"
             }
           }
         }
