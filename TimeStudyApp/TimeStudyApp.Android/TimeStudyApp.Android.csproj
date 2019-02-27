@@ -118,6 +118,25 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\launcher_foreground.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\launcher_foreground.png" />
+    <AndroidResource Include="Resources\drawable\alert.png" />
+    <AndroidResource Include="Resources\drawable\chart.png" />
+    <AndroidResource Include="Resources\drawable\comments.png" />
+    <AndroidResource Include="Resources\drawable\delete.png" />
+    <AndroidResource Include="Resources\drawable\group.png" />
+    <AndroidResource Include="Resources\drawable\hamburger.png" />
+    <AndroidResource Include="Resources\drawable\hourglassempty.png" />
+    <AndroidResource Include="Resources\drawable\hourglassfull.png" />
+    <AndroidResource Include="Resources\drawable\merge.png" />
+    <AndroidResource Include="Resources\drawable\new.png" />
+    <AndroidResource Include="Resources\drawable\operators.png" />
+    <AndroidResource Include="Resources\drawable\sandtimer.png" />
+    <AndroidResource Include="Resources\drawable\settings.png" />
+    <AndroidResource Include="Resources\drawable\stopwatch.png" />
+    <AndroidResource Include="Resources\drawable\studysetup.png" />
+    <AndroidResource Include="Resources\drawable\thumb.png" />
+    <AndroidResource Include="Resources\drawable\thumbsUp.png" />
+    <AndroidResource Include="Resources\drawable\tools.png" />
+    <AndroidResource Include="Resources\drawable\undo.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
