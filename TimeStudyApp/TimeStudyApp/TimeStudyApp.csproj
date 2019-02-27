@@ -11,5 +11,55 @@
 
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="3.4.0.1008975" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="16.4.0.54" />
+    <PackageReference Include="Xam.Plugins.Messaging" Version="5.2.0" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
+    <PackageReference Include="SQLiteNetExtensions" Version="2.1.0" />
+    <PackageReference Include="XLabs.Forms" Version="2.0.5782" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.13.2" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.13.2" />
+    <PackageReference Include="Xam.Plugins.Vibrate" Version="4.0.0.5" />
+    <PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="TimeStudy\Pages\.DS_Store" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Pages\AddElementsPage.xaml" />
+    <None Include="Pages\AddForeignElementsPage.xaml" />
+    <None Include="Pages\AlarmPage.xaml" />
+    <None Include="Pages\AllActivitiesPage.xaml" />
+    <None Include="Pages\App.xaml" />
+    <None Include="Pages\CompletedStudiesPage.xaml" />
+    <None Include="Pages\EditActivitiesPage.xaml" />
+    <None Include="Pages\ExistingStudiesTabbedPage.xaml" />
+    <None Include="Pages\LocalNotificationPage.xaml" />
+    <None Include="Pages\MainPage.xaml" />
+    <None Include="Pages\MainPageTabbedPage.xaml" />
+    <None Include="Pages\MenuPage.xaml" />
+    <None Include="Pages\PausedStudiesPage.xaml" />
+    <None Include="Pages\ReportsPage.xaml" />
+    <None Include="Pages\RootPage.xaml" />
+    <None Include="Pages\StudyDetailsPage.xaml" />
+    <None Include="Pages\StudyMenuPage.xaml" />
+    <None Include="Pages\StudySetUpTabbedPage.xaml" />
+    <None Include="Pages\TestDatabasePage.xaml" />
+    <None Include="Pages\TimeStudyPage.xaml" />
+    <None Include="Pages\VibratePage.xaml" />
+    <None Include="Pages\WelcomePage.xaml" />
+    <None Include="Views\ActivitiesView.xaml" />
+    <None Include="Views\CategoriesView.xaml" />
+    <None Include="Views\ExistingStudiesView1.xaml" />
+    <None Include="Views\ForeignElementsView.xaml" />
+    <None Include="Views\PageNotAllowedView.xaml" />
+    <None Include="Views\RatingView.xaml" />
+    <None Include="Views\RepeaterControlView.xaml" />
+    <None Include="Views\RunningTotalsView.xaml" />
+    <None Include="Views\StudyDetailsView.xaml" />
+    <None Include="Views\ValidationView.xaml" />
   </ItemGroup>
 </Project>

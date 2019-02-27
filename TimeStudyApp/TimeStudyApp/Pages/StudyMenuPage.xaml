@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
+             x:Class="TimeStudy.Pages.StudyMenuPage">
+  <ContentPage.BindingContext>
+        <TimeStudy:StudyMenuViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+          <AbsoluteLayout HorizontalOptions="Center" 
+                            VerticalOptions="StartAndExpand" 
+                            BackgroundColor="Transparent">
+                <StackLayout BackgroundColor="Transparent"
+                             Padding="2" 
+                             Margin="2" 
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Label Text="Study Options" FontSize="20" HorizontalOptions="Center" />
+                </StackLayout>
+                <Button Text="Begin New Study" WidthRequest="200" 
+                    Command="{Binding NewStudy}"/>
+                <Button Text="View Existing Studies" WidthRequest="200" 
+                    Command="{Binding ExistingStudy}"/>
+        </StackLayout>
+            </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

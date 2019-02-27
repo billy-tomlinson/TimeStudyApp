@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:TimeStudy.ViewModels" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             xmlns:views="clr-namespace:TimeStudy.Views" 
+             x:Class="TimeStudy.Pages.AddElementsPage">
+    <ContentPage.BindingContext>
+        <viewModels:AddElementsViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+          <AbsoluteLayout HorizontalOptions="Center" 
+                            VerticalOptions="StartAndExpand" 
+                            BackgroundColor="Transparent">
+                <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+                <StackLayout BackgroundColor="Transparent"
+                             Padding="2" 
+                             Margin="2" 
+                             IsVisible="{Binding IsPageVisible}" 
+                             Opacity="{Binding Opacity}" 
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All">
+                <views:StudyDetailsView Padding="10" 
+                                        Margin="10" />
+                <StackLayout Orientation="Horizontal" 
+                             HeightRequest="60" 
+                             BackgroundColor="#FCFAFA" 
+                             VerticalOptions="Center" >
+                    <Entry Style="{StaticResource inputEntry}" 
+                           MaxLength="20"
+                           Placeholder="Element Name" 
+                           Text="{Binding Name}" 
+                           WidthRequest="240"
+                           HeightRequest="50"/>
+                    <Button Style="{StaticResource plusButton}" 
+                            Command="{Binding SaveActivity}" 
+                            BackgroundColor="Transparent" 
+                            WidthRequest="50"/>
+                </StackLayout>
+                <views:RepeaterControlView/>
+                <StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" VerticalOptions="FillAndExpand">
+                    <Grid Padding="0,0,0,5" Margin="5,0,5,5" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*">
+                            </RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="5.5*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="2*">
+                            </ColumnDefinition>
+                            <ColumnDefinition Width="2.5*">
+                            </ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Text="Sequence Elements" HorizontalOptions="Fill" />
+                        <Button Grid.Row="0" Grid.Column="1" Text="Move Up" Command="{Binding MoveUpSelected}" HorizontalOptions="Fill" />
+                        <Button Grid.Row="0" Grid.Column="2" Text="Move Down" Command="{Binding MoveDownSelected}" HorizontalOptions="Fill" />
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+            <ContentView x:Name="commentView" 
+                         BackgroundColor="Transparent" 
+                         IsVisible="{Binding CommentsVisible}" 
+                         AbsoluteLayout.LayoutBounds="0.1, 0.1, 1, 0.7" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" 
+                             HorizontalOptions="Center" 
+                             BackgroundColor="#FCFAFA">
+                    <StackLayout Orientation="Vertical" 
+                                 Padding="5" Margin="5" 
+                                 WidthRequest="260" 
+                                 HeightRequest="200" 
+                                 BackgroundColor="#FCFAFA">
+                        <Label Text="Comments" TextColor="Black" />
+                        <Editor Text="{Binding Comment}" HeightRequest="90" />
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Button Text="Save" 
+                                    Command="{Binding SaveComment}" Style="{StaticResource popUpButton}" />
+                            <Button Text="Cancel" 
+                                    Command="{Binding CancelComment}" Style="{StaticResource popUpButton}" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
+            <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

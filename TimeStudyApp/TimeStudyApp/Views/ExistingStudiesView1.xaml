@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="TimeStudy.Views.ExistingStudiesView1" 
+             xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             xmlns:views="clr-namespace:TimeStudy.Views" 
+             BackgroundColor="Transparent">
+    <ContentView.Content>
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent" 
+                        HeightRequest="800"
+                        WidthRequest="420">
+            <StackLayout BackgroundColor="Transparent" 
+                         WidthRequest="320"
+                         Padding="2" 
+                         Margin="2" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All"
+                         Opacity="{Binding Opacity}">
+                <StackLayout Margin="10" Padding="10">
+                    <Label Text="Existing Studies" FontSize="20"/>
+                </StackLayout>
+                <local:CustomListView x:Name="List" Margin="0,10" 
+                                      ItemsSource="{Binding ActivitySamples}" 
+                                      BackgroundColor="Gray" 
+                                      HasUnevenRows="true" 
+                                      ItemClickedCommand="{Binding ItemClickedCommand}" 
+                                      HorizontalOptions="Center" SeparatorVisibility="Default" 
+                                      SeparatorColor="#605F5F" HeightRequest="500">
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                    </x:Arguments>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="0" BackgroundColor="{Binding ObservedColour}">
+                                    <Grid Padding="5" Margin="5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="*">
+                                            </ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0" Grid.Column="0" Text="NAME: " FontSize="12" HorizontalTextAlignment="Start" />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="STUDY NUMBER: " HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding StudyNumber}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="2" Grid.Column="0" Text="DATE: " HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding DateTimeFormatted}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="3" Grid.Column="0" Text="STUDIED BY: " HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" HorizontalTextAlignment="Start" 
+                                               FontSize="12" />
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </local:CustomListView>
+            </StackLayout>
+            <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional"
+                 AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentView.Content>
+</ContentView>

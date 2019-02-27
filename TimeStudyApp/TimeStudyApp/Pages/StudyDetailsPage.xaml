@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:TimeStudy.ViewModels" 
+             xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
+             xmlns:views="clr-namespace:TimeStudy.Views" 
+             x:Name="StudyDetailsView" 
+             x:Class="TimeStudy.Pages.StudyDetailsPage">
+    <ContentPage.BindingContext>
+        <local:StudyDetailsViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <ScrollView>
+            <AbsoluteLayout HorizontalOptions="Center" 
+                            VerticalOptions="StartAndExpand"
+                            IsVisible="{Binding IsPageVisible}" 
+                            BackgroundColor="Transparent">
+                <StackLayout BackgroundColor="Transparent" 
+                             IsVisible="{Binding IsPageVisible}" 
+                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                             AbsoluteLayout.LayoutFlags="All">
+                    <StackLayout BindingContext="{Binding SampleStudy}" 
+                                 Padding="20,0,20,0" 
+                                 Opacity="{Binding Path = BindingContext.StudyPageOpacity, Source={x:Reference StudyDetailsView}}" 
+                                 IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference StudyDetailsView}}">
+                        <Grid Padding="5,5,5,5" Margin="5,5,5,5">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2.5*" />
+                                <ColumnDefinition Width="2.5*" />
+                                <ColumnDefinition Width="2.5*" />
+                                <ColumnDefinition Width="2.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" Text="Study Details" HeightRequest="40" FontSize="30" />
+                            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Study Number" />
+                            <Label Grid.Row="1" Grid.Column="2" Grid.ColumnSpan="1" Style="{StaticResource studyLabel}" Text="{Binding StudyNumber}" />
+                            <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Study Name" />
+                            <Entry Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2" x:Name="studyName" Placeholder="Name" Text="{Binding Name}" MaxLength="20" IsEnabled="{Binding IsActive}" />
+                            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Department" />
+                            <Entry Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" x:Name="studyDepartment" Placeholder="Department" Text="{Binding Department}" MaxLength="20" IsEnabled="{Binding IsActive}" />
+                            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Studied By" />
+                            <Entry Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" x:Name="studiedBy" Placeholder="Studied By" Text="{Binding StudiedBy}" MaxLength="20" />
+                            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Date" />
+                            <Label Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="{Binding DateTimeFormatted}" />
+                            <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Study type" />
+                            <Switch Grid.Row="6" Grid.Column="2" IsToggled="{Binding Path = BindingContext.IsUnRated, Source={x:Reference StudyDetailsView}, Mode=TwoWay}" HorizontalOptions="Start" VerticalOptions="Center" />
+                            <Label Grid.Row="6" Grid.Column="3" Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.StudyType, Source={x:Reference StudyDetailsView}}" FontSize="13" />
+                        </Grid>
+                    </StackLayout>
+                    <StackLayout WidthRequest="170" HorizontalOptions="Center" Margin="0,0,0,30">
+                        <Button Text="Submit Details" Command="{Binding SubmitAndFocusActivities}" CommandParameter="{x:Reference StudyDetailsView}" IsVisible="{Binding IsActive}" />
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                    <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+                </StackLayout>
+            </AbsoluteLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="TimeStudy.Views.PageNotAllowedView" 
+             HorizontalOptions="CenterAndExpand">
+    <ContentView.Content>
+        <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand" 
+                     VerticalOptions="Center" Padding="0,50,0,0">
+            <Label Text="{Binding InvalidText}" FontSize="20"  
+                   HorizontalTextAlignment="Center" HorizontalOptions="Center"/>
+            <Image Source="alert.png"  HorizontalOptions="Center" />
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

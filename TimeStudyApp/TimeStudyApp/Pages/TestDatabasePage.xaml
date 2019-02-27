@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             x:Class="WorkStudy.Pages.TestDatabasePage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="StudyId" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
+                    <Button Text="Add Study" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit_Clicked" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="TotalStudies" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
+                    <Button Text="Get Studies" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit1_Clicked" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="ActivityId" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
+                    <Button Text="Add Activity" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit2_Clicked" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="TotalActivities" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
+                    <Button Text="Get Activities" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit3_Clicked" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="OperatorId" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
+                    <Button Text="Add Operator" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit4_Clicked" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="TotalOperators" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
+                    <Button Text="Get Operators" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit5_Clicked" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="ObservationId" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
+                    <Button Text="Add Observation" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit6_Clicked" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Padding="2" Margin="2" VerticalOptions="Center" HorizontalOptions="Center" BackgroundColor="Transparent">
+                <StackLayout Orientation="Horizontal">
+                    <Label x:Name="TotalObservations" FontSize="10" TextColor="Black" HorizontalOptions="Center" />
+                    <Button Text="Get Observations" WidthRequest="110" FontSize="10" BackgroundColor="#E8AD00" TextColor="Black" Clicked="Submit7_Clicked" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

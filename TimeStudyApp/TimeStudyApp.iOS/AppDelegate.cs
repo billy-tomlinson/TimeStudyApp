@@ -1,9 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
+using System.IO;
+using CoreGraphics;
 using Foundation;
+using TimeStudy;
 using UIKit;
+using Xamarin.Forms;
+using Xamarin.Forms.Platform.iOS;
 
 namespace TimeStudyApp.iOS
 {
@@ -13,6 +15,7 @@ namespace TimeStudyApp.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -23,9 +26,37 @@ namespace TimeStudyApp.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            LoadApplication(new App());
+            UINavigationBar.Appearance.TintColor = Color.White.ToUIColor();
+            UINavigationBar.Appearance.BackIndicatorImage = new UIImage();
+            UINavigationBar.Appearance.BackIndicatorTransitionMaskImage = new UIImage();
+
+
+            UITabBar.Appearance.ShadowImage = new UIImage();
+            UITabBar.Appearance.BackgroundImage = new UIImage();
+
+            UITabBar.Appearance.SelectedImageTintColor = UIColor.Black;
+
+            UITabBarItem.Appearance.SetTitleTextAttributes(
+                new UITextAttributes()
+                {
+                    TextColor = UIColor.Black
+                },
+                UIControlState.Selected);
+                
+            string dbName = "TimeStudyNew.db3";
+            string alarmDbName = "Alarm.db3";
+            //string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
+            string folderPath = "/Users/billytomlinson";
+            string dbPath = Path.Combine(folderPath, dbName);
+            string alarmDbPath = Path.Combine(folderPath, alarmDbName);
+            LoadApplication(new App(dbPath, alarmDbPath));
 
             return base.FinishedLaunching(app, options);
+        }
+
+        public static CGColor ToCGColor(Color color)
+        {
+            return new CGColor(CGColorSpace.CreateSrgb(), new nfloat[] { (float)color.R, (float)color.G, (float)color.B, (float)color.A });
         }
     }
 }

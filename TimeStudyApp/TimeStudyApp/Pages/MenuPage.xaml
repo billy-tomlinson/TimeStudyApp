@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage BackgroundColor="White"
+             xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:TimeStudy.ViewModels"
+             x:Class="TimeStudy.Pages.MenuPage">
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness" iOS=" 0 , 20 , 0 , 0" />
+    </ContentPage.Padding>
+    <ContentPage.BindingContext>
+        <viewModels:MenuPageViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White" Padding="10 , 30 , 10, 10">
+            <Button Text="Home" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding StudyMenu}" />
+            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+            <Button Text="Current Time Study" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />
+            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+            <Button Text="Existing Studies" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding ExistingStudies}" />
+            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+            <Button Text="Reports" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding Reports}" />
+            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+            <Button Text="Study Set Up" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding StudySetUp}" />
+            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+            <Button Text="Study Details" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding AlarmSetUp}" />
+            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+            <Button Text="Close Application" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CloseApplication}" />
+            <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

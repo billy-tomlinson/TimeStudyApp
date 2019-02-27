@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:views="clr-namespace:TimeStudy.Views" 
+             xmlns:viewModels="clr-namespace:TimeStudy.ViewModels" 
+             x:Name="AllActivitiesView" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             x:Class="TimeStudy.Pages.AllActivitiesPage">
+    <ContentPage.BindingContext>
+        <viewModels:AllActivitiesViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent" >
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+            <StackLayout IsVisible="{Binding IsPageVisible}"
+                         Opacity="{Binding Opacity}"
+                         BackgroundColor="Transparent" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         Padding="2" 
+                         Margin="2" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <StackLayout Padding="10" Margin ="10">
+                    <Label Text="All Existing Activities" FontSize="20"/>
+                </StackLayout>
+                <local:CustomListView 
+                    ItemsSource="{Binding ItemsCollection}"
+                    BackgroundColor="Gray" 
+                    HasUnevenRows="true" 
+                    HorizontalOptions="Center" 
+                    SeparatorVisibility="Default" 
+                    SeparatorColor="#605F5F" HeightRequest="500"
+                    >
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                    </x:Arguments>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid Margin="0,0,0,10">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackLayout VerticalOptions="CenterAndExpand">
+                                        <Label Text="{Binding Name}" 
+                                               HorizontalTextAlignment="Start" 
+                                               TextColor="White" 
+                                               Margin="5,5,5,5"/>
+                                    </StackLayout>
+                                    <Switch IsToggled="{Binding Selected}" 
+                                            Grid.Column="1" 
+                                            Margin="5,5,5,5"/>
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </local:CustomListView>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Add to Study" WidthRequest="205" 
+                            MinimumWidthRequest="205" 
+                            Command="{Binding Submit}" 
+                            CommandParameter="{x:Reference AllActivitiesView}"  />
+                </StackLayout>
+            </StackLayout>
+                    <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
+                <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

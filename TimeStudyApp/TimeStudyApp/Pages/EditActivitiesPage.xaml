@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels1="clr-namespace:TimeStudy.ViewModels" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             x:Class="TimeStudy.Pages.EditActivitiesPage" 
+             xmlns:views="clr-namespace:TimeStudy.Views">
+    <ContentPage.BindingContext>
+        <viewModels1:EditActivitiesViewModel />
+    </ContentPage.BindingContext>
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent" 
+                        HeightRequest="800" 
+                        WidthRequest="420">
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}"/>
+            <StackLayout BackgroundColor="#4174f4" 
+                         Opacity="{Binding Opacity}"
+                         IsVisible="{Binding IsPageVisible}" 
+                         Padding="2" 
+                         Margin="2" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <views:StudyDetailsView BackgroundColor="#4174f4" 
+                                        Padding="10" 
+                                        Margin="10"/>
+                <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" 
+                                      BackgroundColor="#FCFAFA" 
+                                      HeightRequest="400" 
+                                      VerticalOptions="Center" 
+                                      HorizontalOptions="Center"/>
+                <StackLayout Orientation="Horizontal" 
+                             HorizontalOptions="Center" 
+                             Padding="5" 
+                             Margin="5">
+                    <Button Padding="10" Text="Merge" FontSize="13" Command="{Binding SaveActivities}" />
+                    <Button Padding="10" Text="UnMerge" FontSize="13" Command="{Binding UnMergeActivities}" />
+                    <Button Padding="10" Text="UnSelect" FontSize="13"  Command="{Binding CancelActivities}" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>

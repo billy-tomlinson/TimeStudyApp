@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             x:Class="TimeStudy.Views.RepeaterControlView" 
+             x:Name="RepeaterPage">
+    <ContentView.Content>
+        <StackLayout>
+            <Frame HasShadow="true" BackgroundColor="Transparent" 
+                   BorderColor="White" OutlineColor="White" 
+                   Padding="0" Margin="0">
+            <StackLayout HeightRequest="320" Margin="7,5,10,5">
+                <ScrollView MinimumHeightRequest="320">
+                    <local:RepeaterView ItemsSource="{Binding ItemsCollection}">
+                        <local:RepeaterView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8*" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackLayout BackgroundColor="{Binding ConvertedColour}" Orientation="Horizontal" Grid.Row="0" 
+                                                     Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="40" >
+                                            <local:CustomLabel Text="{Binding Name}" FontSize="20" Grid.Row="0" 
+                                                               Grid.Column="0"
+                                                               Opacity="{Binding Opacity}"
+                                                               BackgroundColor="{Binding ItemColour}"
+                                                               FontAttributes="Bold" VerticalTextAlignment="Center" 
+                                                               HorizontalTextAlignment="Start" WidthRequest="300">
+                                                <local:CustomLabel.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.ItemSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
+                                                </local:CustomLabel.GestureRecognizers>
+                                            </local:CustomLabel>
+                                            <local:CustomImage Source="{Binding SettingsIcon}" Grid.Row="0"
+                                                               BackgroundColor="{Binding ItemColour}"
+                                                               Grid.Column="1" Margin="3"
+                                                               IsEnabled="{Binding IsEnabled}">
+                                                <local:CustomImage.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.SettingsSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
+                                                </local:CustomImage.GestureRecognizers>
+                                            </local:CustomImage>
+                                            <local:CustomImage Source="{Binding DeleteIcon}" Grid.Row="0"
+                                                               BackgroundColor="{Binding ItemColour}"
+                                                               Grid.Column="2"
+                                                               Margin="3">
+                                                <local:CustomImage.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.DeleteSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
+                                                </local:CustomImage.GestureRecognizers>
+                                            </local:CustomImage>
+                                        </StackLayout>
+                                    </Grid>
+                                </ViewCell>
+                            </DataTemplate>
+                        </local:RepeaterView.ItemTemplate>
+                    </local:RepeaterView>
+                </ScrollView>
+            </StackLayout>
+                </Frame>
+            <StackLayout>
+                <Button Text="Continue" Command="{Binding SubmitDetails}" Grid.Row="3" IsVisible="false" />
+            </StackLayout>
+        </StackLayout>
+    </ContentView.Content>
+</ContentView>

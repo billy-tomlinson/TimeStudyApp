@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             xmlns:views="clr-namespace:TimeStudy.Views" 
+             x:Class="TimeStudy.Pages.MainPage" 
+             x:Name="MainPage1">
+    <ContentPage.Content>
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+            <StackLayout BackgroundColor="Transparent" 
+                         IsVisible="{Binding IsPageVisible}" 
+                         Opacity="{Binding Opacity}" 
+                         Padding="2" Margin="2" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <Grid Margin="3" Padding="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.6*" />
+                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition Width="1.2*" />
+                        <ColumnDefinition Width="2.4*" />
+                        <ColumnDefinition Width="1.6*" />
+                        <ColumnDefinition Width="0.4*" />
+                        <ColumnDefinition Width="1.6*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Text="Study:" IsVisible="{Binding Isvisible}" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding StudyNumber}" IsVisible="{Binding Isvisible}" Style="{StaticResource mainPageLabel}" />
+                    <Label Grid.Row="0" Grid.Column="2" Text="Time:" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding CurrentTime}" Style="{StaticResource mainPageLabel}" />
+                    <Label Grid.Row="0" Grid.Column="4" Text="Alarm:" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2" Text="{Binding AlarmStatus}" Style="{StaticResource mainPageLabel}" FontSize="11" />
+                    <Label Grid.Row="1" Grid.Column="0" Text="Round:" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="1" Grid.Column="1" Text="{Binding ObservationRound}" Style="{StaticResource mainPageLabel}" />
+                    <Label Grid.Row="1" Grid.Column="2" Text="Next:" Style="{StaticResource mainPageLabel}" FontSize="12" />
+                    <Label Grid.Row="1" Grid.Column="3" Text="{Binding TimeOfNextObservation}" Style="{StaticResource mainPageLabel}" TextColor="Black" />
+                    <Label Grid.Row="1" Grid.Column="4" Grid.ColumnSpan="2" Text="Complete:" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
+                    <Label Grid.Row="1" Grid.Column="6" Text="{Binding TotalPercentFormatted}" IsVisible="{Binding PercentagesVisible}" Style="{StaticResource mainPageLabel}" FontSize="11" />
+                </Grid>
+                <local:CustomListView x:Name="List" 
+                                      Margin="0,10" 
+                                      ItemsSource="{Binding OperatorObservations}" 
+                                      BackgroundColor="Gray" 
+                                      HasUnevenRows="true" 
+                                      ItemClickedCommand="{Binding ItemClickedCommand}" 
+                                      HorizontalOptions="Center" HeightRequest="380">
+                    <x:Arguments>
+                        <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                    </x:Arguments>
+                    <ListView.Header>
+                        <StackLayout Padding="5,2,5,2" BackgroundColor="White">
+                            <Grid Padding="5,2,5,2" Margin="5,2,5,2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*">
+                                    </RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="6*">
+                                    </ColumnDefinition>
+                                    <ColumnDefinition Width="2*">
+                                    </ColumnDefinition>
+                                    <ColumnDefinition Width="2*">
+                                    </ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="2" Text="Element" WidthRequest="150" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="3" Text="Element Time" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                                <Label Grid.Row="0" Grid.Column="3" Text="Rating" WidthRequest="50" FontSize="10" TextColor="Black" HorizontalTextAlignment="Start" />
+                            </Grid>
+                        </StackLayout>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Padding="5,5,5,5" BackgroundColor="{Binding ObservedColour}">
+                                    <Grid Padding="5,5,5,5" Margin="5,5,5,5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="6*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="2*">
+                                            </ColumnDefinition>
+                                            <ColumnDefinition Width="2*">
+                                            </ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding ActivityName}" HorizontalTextAlignment="Start" FontSize="12" WidthRequest="150" />
+                                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
+                                        <Label Grid.Row="0" Grid.Column="3" Text="{Binding Rating}" WidthRequest="50" IsVisible="{Binding IsRated}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
+                                    </Grid>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </local:CustomListView>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Button Text="Elemenet Lap" WidthRequest="170" MinimumWidthRequest="160" Command="{Binding SaveObservations}" FontSize="12" Margin="3" Padding="3" />
+                    <Button Text="Pause" WidthRequest="60" Command="{Binding PauseStudy}" FontSize="12" Margin="3" Padding="3" />
+                    <Button Text="Finish" WidthRequest="60" BackgroundColor="Red" TextColor="White" Command="{Binding EndStudy}" FontSize="12" Margin="3" Padding="3" />
+                </StackLayout>
+            </StackLayout>
+            <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="10, 0, 20 ,0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All" />
+            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
+            </StackLayout>
+        </AbsoluteLayout>
+    </ContentPage.Content>
+</ContentPage>
