@@ -127,7 +127,6 @@
     <AndroidResource Include="Resources\drawable\hourglassempty.png" />
     <AndroidResource Include="Resources\drawable\hourglassfull.png" />
     <AndroidResource Include="Resources\drawable\merge.png" />
-    <AndroidResource Include="Resources\drawable\new.png" />
     <AndroidResource Include="Resources\drawable\operators.png" />
     <AndroidResource Include="Resources\drawable\sandtimer.png" />
     <AndroidResource Include="Resources\drawable\settings.png" />

@@ -24,4 +24,26 @@
     <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">#FF4081</item>
     </style>
+    <style name="MyTheme" parent="MyTheme.Base">
+    </style>
+    <style name="DrawerArrowStyle" parent="@style/Widget.AppCompat.DrawerArrowToggle">
+        <item name="spinBars">true</item>
+        <item name="color">#FFFFFF</item>
+    </style>
+    <style name="MyTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">#003399</item>
+        <item name="colorPrimaryDark">#003399</item>
+        <item name="colorControlHighlight">#003399</item>
+        <item name="colorAccent">#012348</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+     <style name="MyTabLayout" parent="Base.Widget.Design.TabLayout">
+    <item name="tabTextAppearance">@style/MyTabTextAppearance</item>
+  </style>
+
+  <style name="MyTabTextAppearance" parent="TextAppearance.AppCompat.Button">
+    <item name="android:textSize">7sp</item>
+  </style>
 </resources>
