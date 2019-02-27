@@ -32,8 +32,8 @@ namespace TimeStudy.ViewModels
                 {
                     Device.BeginInvokeOnMainThread(() =>
                     {
-                        var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
-                        Utilities.SendEmail(spreadsheet);
+                        //var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
+                        //Utilities.SendEmail(spreadsheet);
                     });
                 });
 

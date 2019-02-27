@@ -201,37 +201,6 @@
           "lib/Xamarin.iOS10/SQLitePCLRaw.provider.sqlite3.dll": {}
         }
       },
-      "Syncfusion.Licensing/16.4.0.54": {
-        "type": "package",
-        "compile": {
-          "lib/Xamarin.iOS10/Syncfusion.Licensing.dll": {}
-        },
-        "runtime": {
-          "lib/Xamarin.iOS10/Syncfusion.Licensing.dll": {}
-        }
-      },
-      "Syncfusion.Xamarin.Compression/16.4.0.54": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
-        }
-      },
-      "Syncfusion.Xamarin.XlsIO/16.4.0.54": {
-        "type": "package",
-        "dependencies": {
-          "Syncfusion.Licensing": "16.4.0.54",
-          "Syncfusion.Xamarin.Compression": "16.4.0.54"
-        },
-        "compile": {
-          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
-        }
-      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "compile": {
@@ -925,7 +894,6 @@
           "Microsoft.AppCenter.Analytics": "1.13.2",
           "Microsoft.AppCenter.Crashes": "1.13.2",
           "SQLiteNetExtensions": "2.1.0",
-          "Syncfusion.Xamarin.XlsIO": "16.4.0.54",
           "Toasts.Forms.Plugin": "3.3.2",
           "XLabs.Forms": "2.0.5782",
           "Xam.Plugins.Messaging": "5.2.0",
@@ -1128,37 +1096,6 @@
           "lib/Xamarin.iOS10/SQLitePCLRaw.provider.sqlite3.dll": {}
         }
       },
-      "Syncfusion.Licensing/16.4.0.54": {
-        "type": "package",
-        "compile": {
-          "lib/Xamarin.iOS10/Syncfusion.Licensing.dll": {}
-        },
-        "runtime": {
-          "lib/Xamarin.iOS10/Syncfusion.Licensing.dll": {}
-        }
-      },
-      "Syncfusion.Xamarin.Compression/16.4.0.54": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
-        }
-      },
-      "Syncfusion.Xamarin.XlsIO/16.4.0.54": {
-        "type": "package",
-        "dependencies": {
-          "Syncfusion.Licensing": "16.4.0.54",
-          "Syncfusion.Xamarin.Compression": "16.4.0.54"
-        },
-        "compile": {
-          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
-        }
-      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "compile": {
@@ -1788,7 +1725,6 @@
           "Microsoft.AppCenter.Analytics": "1.13.2",
           "Microsoft.AppCenter.Crashes": "1.13.2",
           "SQLiteNetExtensions": "2.1.0",
-          "Syncfusion.Xamarin.XlsIO": "16.4.0.54",
           "Toasts.Forms.Plugin": "3.3.2",
           "XLabs.Forms": "2.0.5782",
           "Xam.Plugins.Messaging": "5.2.0",
@@ -1991,37 +1927,6 @@
           "lib/Xamarin.iOS10/SQLitePCLRaw.provider.sqlite3.dll": {}
         }
       },
-      "Syncfusion.Licensing/16.4.0.54": {
-        "type": "package",
-        "compile": {
-          "lib/Xamarin.iOS10/Syncfusion.Licensing.dll": {}
-        },
-        "runtime": {
-          "lib/Xamarin.iOS10/Syncfusion.Licensing.dll": {}
-        }
-      },
-      "Syncfusion.Xamarin.Compression/16.4.0.54": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
-        }
-      },
-      "Syncfusion.Xamarin.XlsIO/16.4.0.54": {
-        "type": "package",
-        "dependencies": {
-          "Syncfusion.Licensing": "16.4.0.54",
-          "Syncfusion.Xamarin.Compression": "16.4.0.54"
-        },
-        "compile": {
-          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
-        }
-      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "compile": {
@@ -2651,7 +2556,6 @@
           "Microsoft.AppCenter.Analytics": "1.13.2",
           "Microsoft.AppCenter.Crashes": "1.13.2",
           "SQLiteNetExtensions": "2.1.0",
-          "Syncfusion.Xamarin.XlsIO": "16.4.0.54",
           "Toasts.Forms.Plugin": "3.3.2",
           "XLabs.Forms": "2.0.5782",
           "Xam.Plugins.Messaging": "5.2.0",
@@ -2854,37 +2758,6 @@
           "lib/Xamarin.iOS10/SQLitePCLRaw.provider.sqlite3.dll": {}
         }
       },
-      "Syncfusion.Licensing/16.4.0.54": {
-        "type": "package",
-        "compile": {
-          "lib/Xamarin.iOS10/Syncfusion.Licensing.dll": {}
-        },
-        "runtime": {
-          "lib/Xamarin.iOS10/Syncfusion.Licensing.dll": {}
-        }
-      },
-      "Syncfusion.Xamarin.Compression/16.4.0.54": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Syncfusion.Compression.Portable.dll": {}
-        }
-      },
-      "Syncfusion.Xamarin.XlsIO/16.4.0.54": {
-        "type": "package",
-        "dependencies": {
-          "Syncfusion.Licensing": "16.4.0.54",
-          "Syncfusion.Xamarin.Compression": "16.4.0.54"
-        },
-        "compile": {
-          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll": {}
-        }
-      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "compile": {
@@ -3514,7 +3387,6 @@
           "Microsoft.AppCenter.Analytics": "1.13.2",
           "Microsoft.AppCenter.Crashes": "1.13.2",
           "SQLiteNetExtensions": "2.1.0",
-          "Syncfusion.Xamarin.XlsIO": "16.4.0.54",
           "Toasts.Forms.Plugin": "3.3.2",
           "XLabs.Forms": "2.0.5782",
           "Xam.Plugins.Messaging": "5.2.0",
@@ -3820,67 +3692,6 @@
         "lib/Xamarin.iOS10/SQLitePCLRaw.provider.sqlite3.dll",
         "sqlitepclraw.provider.sqlite3.ios_unified.1.1.11.nupkg.sha512",
         "sqlitepclraw.provider.sqlite3.ios_unified.nuspec"
-      ]
-    },
-    "Syncfusion.Licensing/16.4.0.54": {
-      "sha512": "iPdeYFNMXQ/K+bHtPh8Pfa55Yi4/ZsuKPjcuvxKwhqquF8/6rKmIH6iYYJ3Xhs1NpJRF+wyNNiXw5tyPaiNPZw==",
-      "type": "package",
-      "path": "syncfusion.licensing/16.4.0.54",
-      "files": [
-        ".signature.p7s",
-        "lib/MonoAndroid10/Syncfusion.Licensing.dll",
-        "lib/Xamarin.Mac/Syncfusion.Licensing.dll",
-        "lib/Xamarin.iOS10/Syncfusion.Licensing.dll",
-        "lib/net20/Syncfusion.Licensing.dll",
-        "lib/net35/Syncfusion.Licensing.dll",
-        "lib/net40/Syncfusion.Licensing.dll",
-        "lib/net45/Syncfusion.Licensing.dll",
-        "lib/net451/Syncfusion.Licensing.dll",
-        "lib/net46/Syncfusion.Licensing.dll",
-        "lib/netstandard1.0/Syncfusion.Licensing.dll",
-        "lib/netstandard1.2/Syncfusion.Licensing.dll",
-        "lib/netstandard1.4/Syncfusion.Licensing.dll",
-        "lib/netstandard2.0/Syncfusion.Licensing.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.Licensing.dll",
-        "lib/uap10.0/Syncfusion.Licensing.dll",
-        "syncfusion.licensing.16.4.0.54.nupkg.sha512",
-        "syncfusion.licensing.nuspec"
-      ]
-    },
-    "Syncfusion.Xamarin.Compression/16.4.0.54": {
-      "sha512": "mm4np3sk3q+CMuoWy6z4IRJJSVpNDiN19GEn78nxFrnBNPtrMGTul9EMC+6wLgNSjEiHmOI/s3VyCeo977YnWw==",
-      "type": "package",
-      "path": "syncfusion.xamarin.compression/16.4.0.54",
-      "files": [
-        ".signature.p7s",
-        "lib/netstandard1.0/Syncfusion.Compression.Portable.dll",
-        "lib/netstandard1.0/Syncfusion.Compression.Portable.xml",
-        "lib/netstandard1.4/Syncfusion.Compression.Portable.dll",
-        "lib/netstandard1.4/Syncfusion.Compression.Portable.xml",
-        "lib/netstandard2.0/Syncfusion.Compression.Portable.dll",
-        "lib/netstandard2.0/Syncfusion.Compression.Portable.xml",
-        "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.Compression.Portable.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.Compression.Portable.xml",
-        "syncfusion.xamarin.compression.16.4.0.54.nupkg.sha512",
-        "syncfusion.xamarin.compression.nuspec"
-      ]
-    },
-    "Syncfusion.Xamarin.XlsIO/16.4.0.54": {
-      "sha512": "ykXMZTpOLWKb0r0XIJ5b6WLfswMKuXsA0c/t0985EVLqqyEymjauAmCgM2JZCZVk6kYG7hXvn6aG+3DXFTPbIg==",
-      "type": "package",
-      "path": "syncfusion.xamarin.xlsio/16.4.0.54",
-      "files": [
-        ".signature.p7s",
-        "lib/netstandard1.0/Syncfusion.XlsIO.Portable.dll",
-        "lib/netstandard1.0/Syncfusion.XlsIO.Portable.xml",
-        "lib/netstandard1.4/Syncfusion.XlsIO.Portable.dll",
-        "lib/netstandard1.4/Syncfusion.XlsIO.Portable.xml",
-        "lib/netstandard2.0/Syncfusion.XlsIO.Portable.dll",
-        "lib/netstandard2.0/Syncfusion.XlsIO.Portable.xml",
-        "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.XlsIO.Portable.dll",
-        "lib/portable-win+net45+wp80+win81+wpa81/Syncfusion.XlsIO.Portable.xml",
-        "syncfusion.xamarin.xlsio.16.4.0.54.nupkg.sha512",
-        "syncfusion.xamarin.xlsio.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -6846,7 +6657,6 @@
       "Microsoft.AppCenter.Analytics >= 1.13.2",
       "Microsoft.AppCenter.Crashes >= 1.13.2",
       "SQLiteNetExtensions >= 2.1.0",
-      "Syncfusion.Xamarin.XlsIO >= 16.4.0.54",
       "TimeStudyApp >= 1.0.0",
       "Toasts.Forms.Plugin >= 3.3.2",
       "XLabs.Forms >= 2.0.5782",
@@ -6903,10 +6713,6 @@
           "SQLiteNetExtensions": {
             "target": "Package",
             "version": "[2.1.0, )"
-          },
-          "Syncfusion.Xamarin.XlsIO": {
-            "target": "Package",
-            "version": "[16.4.0.54, )"
           },
           "Toasts.Forms.Plugin": {
             "target": "Package",

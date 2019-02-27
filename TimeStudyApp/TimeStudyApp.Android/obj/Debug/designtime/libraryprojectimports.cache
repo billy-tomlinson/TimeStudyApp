@@ -3,11 +3,14 @@
   <Jars>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/1/jl/formsviewgroup.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/2/jl/bin/classes.jar</Jar>
-    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/26/jl/arch-core-common.jar</Jar>
-    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/27/jl/arch-lifecycle-common.jar</Jar>
+    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/23/jl/arch-core-common.jar</Jar>
+    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/24/jl/arch-lifecycle-common.jar</Jar>
+    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/25/jl/bin/classes.jar</Jar>
+    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/26/jl/bin/classes.jar</Jar>
+    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/27/jl/support-annotations.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/28/jl/bin/classes.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/29/jl/bin/classes.jar</Jar>
-    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/30/jl/support-annotations.jar</Jar>
+    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/30/jl/bin/classes.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/31/jl/bin/classes.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/32/jl/bin/classes.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/33/jl/bin/classes.jar</Jar>
@@ -21,9 +24,6 @@
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/40/jl/bin/classes.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/41/jl/bin/classes.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/42/jl/bin/classes.jar</Jar>
-    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/43/jl/bin/classes.jar</Jar>
-    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/44/jl/bin/classes.jar</Jar>
-    <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/45/jl/bin/classes.jar</Jar>
     <Jar>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/5/jl/bin/classes.jar</Jar>
   </Jars>
   <ResolvedResourceDirectories>
@@ -35,18 +35,18 @@
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/16/jl/res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/17/jl/res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/18/jl/res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/25/jl/res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/31/jl/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/22/jl/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/28/jl/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/32/jl/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/34/jl/res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/35/jl/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/36/jl/res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/37/jl/res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/38/jl/res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/39/jl/res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/40/jl/res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/41/jl/res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/42/jl/res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/44/jl/res</ResolvedResourceDirectory>
+    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/50/jl/res</ResolvedResourceDirectory>
     <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/53/jl/res</ResolvedResourceDirectory>
-    <ResolvedResourceDirectory>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/56/jl/res</ResolvedResourceDirectory>
   </ResolvedResourceDirectories>
   <ResolvedAssetDirectories>
     <ResolvedAssetDirectory>obj/Debug/lp/3/jl/assets</ResolvedAssetDirectory>
@@ -57,10 +57,10 @@
     <ResolvedAssetDirectory>obj/Debug/lp/16/jl/assets</ResolvedAssetDirectory>
     <ResolvedAssetDirectory>obj/Debug/lp/17/jl/assets</ResolvedAssetDirectory>
     <ResolvedAssetDirectory>obj/Debug/lp/18/jl/assets</ResolvedAssetDirectory>
-    <ResolvedAssetDirectory>obj/Debug/lp/25/jl/assets</ResolvedAssetDirectory>
-    <ResolvedAssetDirectory>obj/Debug/lp/39/jl/assets</ResolvedAssetDirectory>
+    <ResolvedAssetDirectory>obj/Debug/lp/22/jl/assets</ResolvedAssetDirectory>
+    <ResolvedAssetDirectory>obj/Debug/lp/36/jl/assets</ResolvedAssetDirectory>
+    <ResolvedAssetDirectory>obj/Debug/lp/50/jl/assets</ResolvedAssetDirectory>
     <ResolvedAssetDirectory>obj/Debug/lp/53/jl/assets</ResolvedAssetDirectory>
-    <ResolvedAssetDirectory>obj/Debug/lp/56/jl/assets</ResolvedAssetDirectory>
   </ResolvedAssetDirectories>
   <ResolvedEnvironmentFiles />
   <ResolvedResourceDirectoryStamps>
@@ -72,17 +72,17 @@
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/16.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/17.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/18.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/25.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/31.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/22.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/28.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/32.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/34.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/35.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/36.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/37.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/38.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/39.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/40.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/41.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/42.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/44.stamp</ResolvedResourceDirectoryStamp>
+    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/50.stamp</ResolvedResourceDirectoryStamp>
     <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/53.stamp</ResolvedResourceDirectoryStamp>
-    <ResolvedResourceDirectoryStamp>/Users/billytomlinson/TimeStudyApp.git/TimeStudyApp/TimeStudyApp.Android/obj/Debug/lp/56.stamp</ResolvedResourceDirectoryStamp>
   </ResolvedResourceDirectoryStamps>
 </Paths>

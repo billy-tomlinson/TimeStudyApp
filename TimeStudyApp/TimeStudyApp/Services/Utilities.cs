@@ -5,7 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Messaging;
-using Syncfusion.XlsIO;
+//using Syncfusion.XlsIO;
 using TimeStudy.Model;
 using Xamarin.Forms;
 
@@ -143,55 +143,56 @@ namespace TimeStudy.Services
 
         public static SpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
         {
-            string path;
-            Guid guid = Guid.NewGuid();
-            string fileName = $"TimeStudy_{guid}_{StudyId}.xlsx";
+            //string path;
+            //Guid guid = Guid.NewGuid();
+            //string fileName = $"TimeStudy_{guid}_{StudyId}.xlsx";
 
 
-            var obsRepo = new BaseRepository<Observation>(Connection);
-            var opsRepo = new BaseRepository<Operator>(Connection);
+            //var obsRepo = new BaseRepository<Observation>(Connection);
+            //var opsRepo = new BaseRepository<Operator>(Connection);
 
-            var operators = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId);
-                                   
-            using (var excelEngine = new ExcelEngine())
-            {
-                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+            //var operators = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId);
 
-                var workbook = excelEngine.Excel.Workbooks.Create(1);
+            //using (var excelEngine = new ExcelEngine())
+            //{
+            //excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
 
-                foreach (var op in operators)
-                {
-                    var data = new List<SpreadSheetObservation>();
-                    var obs = obsRepo.GetItems().Where(x => x.OperatorId == op.Id);
+            //var workbook = excelEngine.Excel.Workbooks.Create(1);
 
-                    foreach (var observation in obs)
-                    {
-                        data.Add(new SpreadSheetObservation()
-                        {
-                            ActivityName = observation.ActivityName,
-                           // StudyId = StudyId,
-                            OperatorName = op.Name,
-                            ObservationNumber = observation.ObservationNumber,
-                            Rating = observation.Rating
+            //foreach (var op in operators)
+            //{
+            //    var data = new List<SpreadSheetObservation>();
+            //    var obs = obsRepo.GetItems().Where(x => x.OperatorId == op.Id);
 
-                        });
-                    }
-                    var destSheet = workbook.Worksheets.Create(op.Name);
-                    destSheet.ImportData(data, 1, 1, true);
+            //    foreach (var observation in obs)
+            //    {
+            //        data.Add(new SpreadSheetObservation()
+            //        {
+            //            ActivityName = observation.ActivityName,
+            //           // StudyId = StudyId,
+            //            OperatorName = op.Name,
+            //            ObservationNumber = observation.ObservationNumber,
+            //            Rating = observation.Rating
 
-                }
+            //        });
+            //    }
+            //    var destSheet = workbook.Worksheets.Create(op.Name);
+            //    destSheet.ImportData(data, 1, 1, true);
 
-                MemoryStream stream = new MemoryStream();
+            //}
 
-                workbook.SaveAs(stream);
-                workbook.Close();
+            //MemoryStream stream = new MemoryStream();
 
-                path = DependencyService.Get<ISave>()
-                                        .SaveSpreadSheet(fileName, "application/msexcel", stream)
-                                        .Result;
-            }
+            //workbook.SaveAs(stream);
+            //workbook.Close();
 
-            return new SpreadSheet() { FileName = fileName, FilePath = path };
+            //path = DependencyService.Get<ISave>()
+            //.SaveSpreadSheet(fileName, "application/msexcel", stream)
+            //.Result;
+            //}
+
+            //return new SpreadSheet() { FileName = fileName, FilePath = path };
+            return new SpreadSheet();
         }
 
         public static void SendEmail(SpreadSheet spreadSheet)
