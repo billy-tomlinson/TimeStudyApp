@@ -19,8 +19,8 @@ namespace TimeStudyApp.Droid
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
-            //TabLayoutResource = WorkStudy.Droid.Resource.Layout.Tabbar;
-            //ToolbarResource = WorkStudy.Droid.Resource.Layout.Toolbar;
+            TabLayoutResource = Resource.Layout.Tabbar;
+            ToolbarResource = Resource.Layout.Toolbar;
 
             base.OnCreate(savedInstanceState);
 
