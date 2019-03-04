@@ -15,7 +15,7 @@ namespace TimeStudy.Model
 
         public int Cycle { get; set; }
 
-        public int Sequence { get; set; }
+        public double Sequence { get; set; }
 
         public int Rating { get; set; }
 

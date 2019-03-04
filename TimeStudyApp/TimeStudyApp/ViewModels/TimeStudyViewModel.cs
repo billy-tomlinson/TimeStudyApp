@@ -17,6 +17,7 @@ namespace TimeStudy.ViewModels
         public Command ClearLaps { get; set; }
         public Command RatingSelected { get; set; }
         public Command ItemClickedCommand { get; set; }
+        public Command RunningItemClickedCommand { get; set; }
         public Command ShowForeignElements { get; set; }
         public Command CloseForeignElements { get; set; }
         public Command ForeignElementSelected { get; set; }
@@ -53,6 +54,7 @@ namespace TimeStudy.ViewModels
             CloseForeignElements = new Command(CloseForeignElementsEvent);
             ForeignElementSelected = new Command(ForeignElementSelectedEvent);
             ItemClickedCommand = new Command(ShowForeignElementsEvent);
+            RunningItemClickedCommand = new Command(RunningItemClickedCommandEvent);
 
             LapTimes = new ObservableCollection<LapTime>();
             LapTimesList = new List<LapTime>();
@@ -167,6 +169,12 @@ namespace TimeStudy.ViewModels
             Opacity = 1;
         }
 
+        void RunningItemClickedCommandEvent(object sender)
+        {
+            Opacity = 0.2;
+            ActivitiesVisible = true;
+        }
+
         void RatingSelectedEvent(object sender)
         {
             var button = sender as Custom.CustomButton;
@@ -197,8 +205,12 @@ namespace TimeStudy.ViewModels
         {
             Opacity = 1;
 
-            SelectedForeignElements.Add(AllForeignElements.Where(x => x.Id == (int)sender).FirstOrDefault());
+            var value = (int)sender;
+
+            var foreign = AllForeignElements.Where(x => x.Id == value).FirstOrDefault();
+            SelectedForeignElements.Add(foreign);
             ForeignElementCount = SelectedForeignElements.Count;
+            AddForeignElementWithoutLapTimeToList(foreign);
             ActivitiesVisible = false;
         }
 
@@ -294,6 +306,26 @@ namespace TimeStudy.ViewModels
             });
         }
 
+
+        private void AddForeignElementWithoutLapTimeToList(Activity foreign)
+        {
+
+            var currentForeign = new LapTime
+            {
+                Cycle = CycleCount,
+                Element = foreign.Name,
+                TotalElapsedTime = "Running",
+                Count = ActivitiesCounter,
+                Sequence = CurrentSequence + 0.01
+            };
+
+            LapTimesList.Add(currentForeign);
+
+            LapTimes = new ObservableCollection<LapTime>(LapTimesList
+                .OrderByDescending(x => x.Cycle)
+                .ThenByDescending(x => x.Sequence));
+        }
+
         private void AddCurrentWithoutLapTimeToList()
         {
             if (ActivitiesCounter == 0) ActivitiesCounter = 1;
@@ -314,10 +346,17 @@ namespace TimeStudy.ViewModels
             }
 
             CurrentElementWithoutLapTimeName = element.Name;
+            CurrentSequence = element.Sequence;
+            CurrentCycle = CycleCount;
 
             LapTimesList.Add(CurrentWithoutLapTime);
 
+            //LapTimes = new ObservableCollection<LapTime>(LapTimesList
+            //.OrderByDescending(x => x.Cycle)
+            //.ThenByDescending(x => x.Sequence));
+
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
+                .Where(x => x.TotalElapsedTime != "Running")
                 .OrderByDescending(x => x.Cycle)
                 .ThenByDescending(x => x.Sequence));
         }
@@ -555,6 +594,7 @@ namespace TimeStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
         static int foreignElementCount;
         public int ForeignElementCount
         {
@@ -562,6 +602,28 @@ namespace TimeStudy.ViewModels
             set
             {
                 foreignElementCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static int currentSequence;
+        public int CurrentSequence
+        {
+            get => currentSequence;
+            set
+            {
+                currentSequence = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static int currentCycle;
+        public int CurrentCycle
+        {
+            get => currentCycle;
+            set
+            {
+                currentCycle = value;
                 OnPropertyChanged();
             }
         }
@@ -574,6 +636,7 @@ namespace TimeStudy.ViewModels
             get
             {
                 return new ObservableCollection<LapTime>(LapTimesList
+                .Where(x => x.TotalElapsedTime != "Running")
                 .OrderByDescending(x => x.Cycle)
                 .ThenByDescending(x => x.Count));
             }
@@ -583,6 +646,5 @@ namespace TimeStudy.ViewModels
                 OnPropertyChanged();
             }
         }
-
     }
 }
