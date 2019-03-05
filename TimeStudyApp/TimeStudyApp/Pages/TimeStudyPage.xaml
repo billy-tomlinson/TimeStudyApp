@@ -31,7 +31,7 @@
                         <Label Grid.Row="2" Grid.Column="0" Text="Foreign" HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
                         <Label Grid.Row="3" Grid.Column="0" Text="{Binding ForeignElementCount}" HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" FontAttributes="Bold" />
                         <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Text="{Binding StopWatchTime}" FontSize="45" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                        <!--<Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Text="Foreign" Command="{Binding ShowForeignElements}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}"  HeightRequest="20"/>-->
+                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Text="Foreign" Command="{Binding ShowForeignElements}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}"  HeightRequest="20"/>
                     </Grid>
                 </StackLayout>
                 <StackLayout Padding="5,2,5,0" BackgroundColor="White">

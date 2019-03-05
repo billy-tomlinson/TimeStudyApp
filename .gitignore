@@ -3,3 +3,8 @@
 ################################################################################
 
 /TimeStudyApp/.vs/TimeStudyApp/v15
+/TimeStudyApp/TimeStudyApp.iOS/obj/iPhoneSimulator/Debug
+/TimeStudyApp/TimeStudyApp.Android
+/.vs/VSWorkspaceState.json
+/TimeStudyApp/TimeStudyApp/obj/Debug/netstandard2.0
+/TimeStudyApp/TimeStudyApp/bin/Debug/netstandard2.0

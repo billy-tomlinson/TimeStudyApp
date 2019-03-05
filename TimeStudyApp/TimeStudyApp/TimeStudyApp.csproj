@@ -28,37 +28,101 @@
     <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pages\AddElementsPage.xaml" />
-    <None Include="Pages\AddForeignElementsPage.xaml" />
-    <None Include="Pages\AlarmPage.xaml" />
-    <None Include="Pages\AllActivitiesPage.xaml" />
-    <None Include="Pages\App.xaml" />
-    <None Include="Pages\CompletedStudiesPage.xaml" />
-    <None Include="Pages\EditActivitiesPage.xaml" />
-    <None Include="Pages\ExistingStudiesTabbedPage.xaml" />
-    <None Include="Pages\LocalNotificationPage.xaml" />
-    <None Include="Pages\MainPage.xaml" />
-    <None Include="Pages\MainPageTabbedPage.xaml" />
-    <None Include="Pages\MenuPage.xaml" />
-    <None Include="Pages\PausedStudiesPage.xaml" />
-    <None Include="Pages\ReportsPage.xaml" />
-    <None Include="Pages\RootPage.xaml" />
-    <None Include="Pages\StudyDetailsPage.xaml" />
-    <None Include="Pages\StudyMenuPage.xaml" />
-    <None Include="Pages\StudySetUpTabbedPage.xaml" />
-    <None Include="Pages\TestDatabasePage.xaml" />
-    <None Include="Pages\TimeStudyPage.xaml" />
-    <None Include="Pages\VibratePage.xaml" />
-    <None Include="Pages\WelcomePage.xaml" />
-    <None Include="Views\ActivitiesView.xaml" />
-    <None Include="Views\CategoriesView.xaml" />
-    <None Include="Views\ExistingStudiesView1.xaml" />
-    <None Include="Views\ForeignElementsView.xaml" />
-    <None Include="Views\PageNotAllowedView.xaml" />
-    <None Include="Views\RatingView.xaml" />
-    <None Include="Views\RepeaterControlView.xaml" />
-    <None Include="Views\RunningTotalsView.xaml" />
-    <None Include="Views\StudyDetailsView.xaml" />
-    <None Include="Views\ValidationView.xaml" />
+    <None Include="Pages\AddElementsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\AddForeignElementsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\AlarmPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\AllActivitiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\CompletedStudiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\EditActivitiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\ExistingStudiesTabbedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\LocalNotificationPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\MainPageTabbedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\MenuPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\PausedStudiesPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\ReportsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\RootPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\StudyDetailsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\StudyMenuPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\StudySetUpTabbedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\TestDatabasePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\TimeStudyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\VibratePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Pages\WelcomePage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\ActivitiesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\CategoriesView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\ExistingStudiesView1.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\ForeignElementsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\PageNotAllowedView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\RatingView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\RepeaterControlView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\RunningTotalsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\StudyDetailsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Include="Views\ValidationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
 </Project>

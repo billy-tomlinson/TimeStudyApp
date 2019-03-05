@@ -319,7 +319,17 @@ namespace TimeStudy.ViewModels
                 Sequence = CurrentSequence + 0.01
             };
 
+            LapTimesList.Remove(CurrentWithoutLapTime);
+
             LapTimesList.Add(currentForeign);
+
+            var currentPausedLap = CurrentLapTime;
+
+            currentPausedLap.TotalElapsedTime = "Paused";
+
+            LapTimesList.Add(currentPausedLap);
+
+            PausedLapTime = CurrentLapTime;
 
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
                 .OrderByDescending(x => x.Cycle)
@@ -354,6 +364,24 @@ namespace TimeStudy.ViewModels
             //LapTimes = new ObservableCollection<LapTime>(LapTimesList
             //.OrderByDescending(x => x.Cycle)
             //.ThenByDescending(x => x.Sequence));
+
+            LapTimes = new ObservableCollection<LapTime>(LapTimesList
+                .Where(x => x.TotalElapsedTime != "Running")
+                .OrderByDescending(x => x.Cycle)
+                .ThenByDescending(x => x.Sequence));
+        }
+
+
+        private void AddPausedWithoutLapTimeToList()
+        {
+
+            CurrentWithoutLapTime = PausedLapTime;
+
+            CurrentElementWithoutLapTimeName = PausedLapTime.Element;
+            CurrentSequence = (int)PausedLapTime.Sequence;
+            CurrentCycle = CycleCount;
+
+            LapTimesList.Add(CurrentWithoutLapTime);
 
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
                 .Where(x => x.TotalElapsedTime != "Running")
@@ -415,6 +443,17 @@ namespace TimeStudy.ViewModels
             set
             {
                 lapTimeSelected = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static LapTime pausedLapTime;
+        public LapTime PausedLapTime
+        {
+            get => pausedLapTime;
+            set
+            {
+                pausedLapTime = value;
                 OnPropertyChanged();
             }
         }
