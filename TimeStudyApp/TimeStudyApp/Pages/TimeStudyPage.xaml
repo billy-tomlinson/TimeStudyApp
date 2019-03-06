@@ -127,7 +127,7 @@
                                             <Label Grid.Row="0" Grid.Column="1" Text="{Binding Sequence}" FontSize="11" HorizontalTextAlignment="Start" />
                                             <Label Grid.Row="0" Grid.Column="2" Text="{Binding Element}" HorizontalTextAlignment="Start" FontSize="13" />
                                             <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="12" />
-                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="12" />
+                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTimeFormatted}" HorizontalTextAlignment="Start" FontSize="12" />
                                             <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="11" />
                                         </Grid>
                                     </StackLayout>

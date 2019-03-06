@@ -15,13 +15,15 @@ namespace TimeStudy.Model
 
         public string Element { get; set; }
 
-        public string IndividualLapTime { get; set; }
+        public string IndividualLapTimeFormatted { get; set; }
+
+        public double IndividualLapTime { get; set; }
 
         public int Cycle { get; set; }
 
-        public double? Sequence { get; set; }
+        public int? Sequence { get; set; }
 
-        public int Rating { get; set; }
+        public int? Rating { get; set; }
 
         public Color ElementColour { get; set; }
 
