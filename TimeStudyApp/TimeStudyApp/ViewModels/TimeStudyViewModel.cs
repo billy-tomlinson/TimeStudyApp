@@ -251,44 +251,80 @@ namespace TimeStudy.ViewModels
 
         public void LapTimerEvent()
         {
-
-            SetUpButtonsAndTimeVariables();
-
-            ForceRoundingToLapTime();
-
-            string lapTimeTimeFormatted = LapTime.ToString("0.000");
-
-            Activity element;
-
-            if (ActivitiesCounter == 0) 
-                ActivitiesCounter = 1;
-            else
-                ActivitiesCounter = ActivitiesCounter + 1;
-
-            if (ActivitiesCounter > ActivitiesCount)
+            if (PausedLapTime == null)
             {
-                ActivitiesCounter = 1;
-                CycleCount = CycleCount + 1;
+                SetUpButtonsAndTimeVariables();
+
+                ForceRoundingToLapTime();
+
+                string lapTimeTimeFormatted = LapTime.ToString("0.000");
+
+                Activity element;
+
+                if (ActivitiesCounter == 0)
+                    ActivitiesCounter = 1;
+                else
+                    ActivitiesCounter = ActivitiesCounter + 1;
+
+                if (ActivitiesCounter > ActivitiesCount)
+                {
+                    ActivitiesCounter = 1;
+                    CycleCount = CycleCount + 1;
+                }
+
+                element = Activities.FirstOrDefault(x => x.Sequence == ActivitiesCounter);
+
+                LapTimesList.Remove(CurrentWithoutLapTime);
+
+                CurrentLapTime = CurrentWithoutLapTime;
+                CurrentLapTime.IndividualLapTime = lapTimeTimeFormatted;
+                CurrentLapTime.TotalElapsedTime = CurrentTimeFormattedDecimal;
+                CurrentLapTime.ElementColour = Color.Gray;
+                CurrentLapTime.ForeignElements = SelectedForeignElements;
+
+                if (SelectedForeignElements.Count > 0)
+                    CurrentLapTime.ElementColour = Color.Orange;
+
+                SelectedForeignElements = new List<Activity>();
+
+                TimeWhenLapButtonClicked = RealTimeTicks;
+
+                CheckIfRatedStudy();
+            }
+            else 
+            {
+                LapTimesList.Remove(CurrentWithoutLapTime);
+
+                ForceRoundingToLapTime();
+
+                string lapTimeTimeFormatted = LapTime.ToString("0.000");
+
+                CurrentLapTime = CurrentWithoutLapTime;
+                CurrentLapTime.IndividualLapTime = lapTimeTimeFormatted;
+                CurrentLapTime.TotalElapsedTime = CurrentTimeFormattedDecimal;
+                CurrentLapTime.ElementColour = Color.Gray;
+                CurrentLapTime.ForeignElements = SelectedForeignElements;
+
+                LapTimesList.Add(CurrentLapTime);
+
+                LapTimesList.Remove(PausedLapTime);
+
+                CurrentWithoutLapTime = PausedLapTime;
+                CurrentWithoutLapTime.TotalElapsedTime = "Running";
+
+                LapTimesList.Add(CurrentWithoutLapTime);
+
+                CurrentElementWithoutLapTimeName = CurrentWithoutLapTime.Element;
+                CurrentSequence = (int)CurrentWithoutLapTime.Sequence;
+                CurrentCycle = CycleCount;
+
+                LapTimes = new ObservableCollection<LapTime>(LapTimesList
+                    .Where(x => x.TotalElapsedTime != "Running")
+                    .OrderByDescending(x => x.TotalElapsedTime));
+
+                PausedLapTime = null;
             }
 
-            element = Activities.FirstOrDefault(x => x.Sequence == ActivitiesCounter);
-
-            LapTimesList.Remove(CurrentWithoutLapTime);
-
-            CurrentLapTime = CurrentWithoutLapTime;
-            CurrentLapTime.IndividualLapTime = lapTimeTimeFormatted;
-            CurrentLapTime.TotalElapsedTime = CurrentTimeFormattedDecimal;
-            CurrentLapTime.ElementColour = Color.Gray;
-            CurrentLapTime.ForeignElements = SelectedForeignElements;
-
-            if (SelectedForeignElements.Count > 0)
-                CurrentLapTime.ElementColour = Color.Orange;
-
-            SelectedForeignElements = new List<Activity>();
-
-            TimeWhenLapButtonClicked = RealTimeTicks;
-
-            CheckIfRatedStudy();
         }
 
         public void RunTimer()
@@ -318,37 +354,85 @@ namespace TimeStudy.ViewModels
         private void AddForeignElementWithoutLapTimeToList(Activity foreign)
         {
 
-            var currentForeign = new LapTime
+            if (PausedLapTime == null)
             {
-                Cycle = CycleCount,
-                Element = foreign.Name,
-                TotalElapsedTime = "Running",
-                //Sequence = CurrentSequence + 0.01,
-                IsForeignElement = true,
-                ParentIdentity = CurrentWithoutLapTime.LapIdentity
-            };
+                LapTimesList.Remove(CurrentWithoutLapTime);
+                PausedLapTime = CurrentWithoutLapTime;
+                PausedLapTime.IndividualLapTime = "Paused";
+                PausedLapTime.TotalElapsedTime =  RealTimeTicks.ToString("0.000");
+                LapTimesList.Add(PausedLapTime);
 
-            LapTimesList.Remove(CurrentWithoutLapTime);
+                var currentForeignLap = new LapTime
+                {
+                    Cycle = CycleCount,
+                    Element = foreign.Name,
+                    TotalElapsedTime = "Running"
+                };
 
-            LapTimesList.Add(currentForeign);
+                CurrentWithoutLapTime = currentForeignLap;
 
-            var currentPausedLap = CurrentWithoutLapTime;
+                LapTimesList.Add(CurrentWithoutLapTime);
+            }
+            else 
+            {
+                LapTimesList.Remove(CurrentWithoutLapTime);
 
-            currentPausedLap.TotalElapsedTime = RealTimeTicks.ToString("0.000");
-            currentPausedLap.IndividualLapTime = "Paused";
+                ForceRoundingToLapTime();
 
-            LapTimesList.Add(currentPausedLap);
+                string lapTimeTimeFormatted = LapTime.ToString("0.000");
 
-            PausedLapTime = CurrentWithoutLapTime;
+                CurrentLapTime = CurrentWithoutLapTime;
+                CurrentLapTime.IndividualLapTime = lapTimeTimeFormatted;
+                CurrentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+                CurrentLapTime.ElementColour = Color.Gray;
+                CurrentLapTime.ForeignElements = SelectedForeignElements;
 
-            CurrentElementWithoutLapTimeName = currentForeign.Element;
-            CurrentSequence = 0;
+                LapTimesList.Add(CurrentLapTime);
+
+                var currentForeign = new LapTime
+                {
+                    Cycle = CycleCount,
+                    Element = foreign.Name,
+                    TotalElapsedTime = "Running"
+                };
+
+                CurrentWithoutLapTime = currentForeign;
+
+                LapTimesList.Add(CurrentWithoutLapTime);
+
+            }
+
+
+            //CurrentWithoutLapTime = new LapTime
+            //{
+            //    Cycle = CycleCount,
+            //    Element = foreign.Name,
+            //    TotalElapsedTime = "Running"
+            //};
+
+            //var currentForiegnInProgress = CurrentWithoutLapTime;
+            //currentForiegnInProgress.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+            //currentForiegnInProgress.IndividualLapTime = LapTime.ToString("0.000");
+
+            //LapTimesList.Add(currentForiegnInProgress);
+            //LapTimesList.Add(currentForeign);
+
+            //var currentPausedLap = CurrentWithoutLapTime;
+
+            //currentPausedLap.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+            //currentPausedLap.IndividualLapTime = "Paused";
+
+            //LapTimesList.Add(currentPausedLap);
+
+            //CurrentWithoutLapTime = currentForeign;
+
+            CurrentElementWithoutLapTimeName = foreign.Name;
+            CurrentSequence = null;
             CurrentCycle = CycleCount;
 
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
                 .Where(x => x.TotalElapsedTime != "Running")
                 .OrderByDescending(x => x.TotalElapsedTime));
-                //.ThenByDescending(x => x.Sequence));
         }
 
         private void AddCurrentWithoutLapTimeToList()
@@ -370,7 +454,7 @@ namespace TimeStudy.ViewModels
             }
 
             CurrentElementWithoutLapTimeName = element.Name;
-            CurrentSequence = null;
+            CurrentSequence = element.Sequence;
             CurrentCycle = CycleCount;
 
             LapTimesList.Add(CurrentWithoutLapTime);
@@ -396,8 +480,6 @@ namespace TimeStudy.ViewModels
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
                 .Where(x => x.TotalElapsedTime != "Running")
                 .OrderByDescending(x => x.TotalElapsedTime));
-                //.OrderByDescending(x => x.Cycle)
-                //.ThenByDescending(x => x.Sequence));
         }
 
         private void SetUpButtonsAndTimeVariables()
