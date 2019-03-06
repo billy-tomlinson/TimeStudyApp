@@ -211,28 +211,36 @@ namespace TimeStudy.ViewModels
             SelectedForeignElements.Add(foreign);
             ForeignElementCount = SelectedForeignElements.Count;
             AddForeignElementWithoutLapTimeToList(foreign);
+
+            //CurrentElementWithoutLapTimeName = foreign.Name;
+            //CurrentSequence = foreign.Sequence;
+            //CurrentCycle = CycleCount;
+
             ActivitiesVisible = false;
         }
 
         void ShowForeignElementsEvent(object sender)
         {
-            var value = (LapTime)sender;
+            Opacity = 0.2;
+            ActivitiesVisible = true;
 
-            if (value.IndividualLapTime == null)
-            {
-                Opacity = 0.2;
-                ActivitiesVisible = true;
-            }
-            else
-            {
-                if(value.ForeignElements.Any())
-                {
-                    Opacity = 0.2;
-                    LapTimeSelected = value;
-                    ForeignElements = new ObservableCollection<Activity>(value.ForeignElements);
-                    ForeignElementsVisible = true;
-                }
-            }
+            //var value = (LapTime)sender;
+
+            //if (value.IndividualLapTime == null)
+            //{
+            //    Opacity = 0.2;
+            //    ActivitiesVisible = true;
+            //}
+            //else
+            //{
+            //    if(value.ForeignElements.Any())
+            //    {
+            //        Opacity = 0.2;
+            //        LapTimeSelected = value;
+            //        ForeignElements = new ObservableCollection<Activity>(value.ForeignElements);
+            //        ForeignElementsVisible = true;
+            //    }
+            //}
         }
 
         void CloseForeignElementsEvent(object sender)
@@ -315,25 +323,32 @@ namespace TimeStudy.ViewModels
                 Cycle = CycleCount,
                 Element = foreign.Name,
                 TotalElapsedTime = "Running",
-                Count = ActivitiesCounter,
-                Sequence = CurrentSequence + 0.01
+                //Sequence = CurrentSequence + 0.01,
+                IsForeignElement = true,
+                ParentIdentity = CurrentWithoutLapTime.LapIdentity
             };
 
             LapTimesList.Remove(CurrentWithoutLapTime);
 
             LapTimesList.Add(currentForeign);
 
-            var currentPausedLap = CurrentLapTime;
+            var currentPausedLap = CurrentWithoutLapTime;
 
-            currentPausedLap.TotalElapsedTime = "Paused";
+            currentPausedLap.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+            currentPausedLap.IndividualLapTime = "Paused";
 
             LapTimesList.Add(currentPausedLap);
 
-            PausedLapTime = CurrentLapTime;
+            PausedLapTime = CurrentWithoutLapTime;
+
+            CurrentElementWithoutLapTimeName = currentForeign.Element;
+            CurrentSequence = 0;
+            CurrentCycle = CycleCount;
 
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
-                .OrderByDescending(x => x.Cycle)
-                .ThenByDescending(x => x.Sequence));
+                .Where(x => x.TotalElapsedTime != "Running")
+                .OrderByDescending(x => x.TotalElapsedTime));
+                //.ThenByDescending(x => x.Sequence));
         }
 
         private void AddCurrentWithoutLapTimeToList()
@@ -349,21 +364,16 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = element.Name,
                     TotalElapsedTime = "Running",
-                    Count = ActivitiesCounter + 1,
                     Sequence = element.Sequence,
                     ElementColour = Color.Silver
                 };
             }
 
             CurrentElementWithoutLapTimeName = element.Name;
-            CurrentSequence = element.Sequence;
+            CurrentSequence = null;
             CurrentCycle = CycleCount;
 
             LapTimesList.Add(CurrentWithoutLapTime);
-
-            //LapTimes = new ObservableCollection<LapTime>(LapTimesList
-            //.OrderByDescending(x => x.Cycle)
-            //.ThenByDescending(x => x.Sequence));
 
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
                 .Where(x => x.TotalElapsedTime != "Running")
@@ -385,8 +395,9 @@ namespace TimeStudy.ViewModels
 
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
                 .Where(x => x.TotalElapsedTime != "Running")
-                .OrderByDescending(x => x.Cycle)
-                .ThenByDescending(x => x.Sequence));
+                .OrderByDescending(x => x.TotalElapsedTime));
+                //.OrderByDescending(x => x.Cycle)
+                //.ThenByDescending(x => x.Sequence));
         }
 
         private void SetUpButtonsAndTimeVariables()
@@ -645,8 +656,8 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static int currentSequence;
-        public int CurrentSequence
+        static int? currentSequence;
+        public int? CurrentSequence
         {
             get => currentSequence;
             set
@@ -676,8 +687,9 @@ namespace TimeStudy.ViewModels
             {
                 return new ObservableCollection<LapTime>(LapTimesList
                 .Where(x => x.TotalElapsedTime != "Running")
-                .OrderByDescending(x => x.Cycle)
-                .ThenByDescending(x => x.Count));
+                .OrderByDescending(x => x.TotalElapsedTime));
+                //.OrderByDescending(x => x.Cycle)
+                //.ThenByDescending(x => x.Sequence));
             }
             set
             {
