@@ -13,6 +13,8 @@ namespace TimeStudy.Model
 
         public string TotalElapsedTime { get; set; }
 
+        public double TotalElapsedTimeDouble { get; set; }
+
         public string Element { get; set; }
 
         public string IndividualLapTimeFormatted { get; set; }
