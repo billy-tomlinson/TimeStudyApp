@@ -11,12 +11,6 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto">
                             </RowDefinition>
-                            <RowDefinition Height="Auto">
-                            </RowDefinition>
-                            <RowDefinition Height="Auto">
-                            </RowDefinition>
-                            <RowDefinition Height="Auto">
-                            </RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2.5*">
@@ -26,12 +20,9 @@
                             <ColumnDefinition Width="2.5*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Text="Current Element" HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
-                        <Label Grid.Row="1" Grid.Column="0" Text="{Binding CurrentElementWithoutLapTimeName}" HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" FontAttributes="Bold" />
-                        <Label Grid.Row="2" Grid.Column="0" Text="Foreign" HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
-                        <Label Grid.Row="3" Grid.Column="0" Text="{Binding ForeignElementCount}" HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" FontAttributes="Bold" />
+                        <Label Grid.Row="0" Grid.Column="0" Text="         " HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
                         <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Text="{Binding StopWatchTime}" FontSize="45" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Text="Foreign" Command="{Binding ShowForeignElements}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}"  HeightRequest="20"/>
+                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Text="Foreign" Command="{Binding ShowForeignElements}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" HeightRequest="20" />
                     </Grid>
                 </StackLayout>
                 <StackLayout Padding="5,2,5,0" BackgroundColor="White">
@@ -54,13 +45,13 @@
                             <ColumnDefinition Width="1*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                            <Label Grid.Row="0" Grid.Column="0" Text="Cycle" FontSize="9" TextColor="Black" HorizontalTextAlignment="Start" />
-                            <Label Grid.Row="0" Grid.Column="1" Text="Lap" FontSize="9" TextColor="Black" HorizontalTextAlignment="Start" />
-                            <Label Grid.Row="0" Grid.Column="2" Text="Element" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
-                            <Label Grid.Row="0" Grid.Column="3" Text="Elapsed" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
-                            <Label Grid.Row="0" Grid.Column="4" Text="Lap Time" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
-                            <Label Grid.Row="0" Grid.Column="5" Text="Rating" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
-                        </Grid>
+                        <Label Grid.Row="0" Grid.Column="0" Text="Cycle" FontSize="9" TextColor="Black" HorizontalTextAlignment="Start" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="Lap" FontSize="9" TextColor="Black" HorizontalTextAlignment="Start" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="Element" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
+                        <Label Grid.Row="0" Grid.Column="3" Text="Elapsed" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
+                        <Label Grid.Row="0" Grid.Column="4" Text="Lap Time" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
+                        <Label Grid.Row="0" Grid.Column="5" Text="Rating" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
+                    </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
                     <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" ItemClickedCommand="{Binding ItemClickedCommand}" HeightRequest="430">
@@ -91,12 +82,12 @@
                                         <ColumnDefinition Width="1*">
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding CurrentCycle}" FontSize="11" HorizontalTextAlignment="Start" TextColor="Black"/>
-                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentSequence}" FontSize="11" HorizontalTextAlignment="Start" TextColor="Black"/>
-                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding CurrentElementWithoutLapTimeName}" HorizontalTextAlignment="Start" FontSize="13" TextColor="Black"/>
-                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding StopWatchTime}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black"/>
-                                    <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black"/>
-                                    <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="11" TextColor="Black"/>
+                                    <Label Grid.Row="0" Grid.Column="0" Text="{Binding CurrentCycle}" FontSize="11" HorizontalTextAlignment="Start" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentSequence}" FontSize="11" HorizontalTextAlignment="Start" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="2" Text="{Binding CurrentElementWithoutLapTimeName}" HorizontalTextAlignment="Start" FontSize="13" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding StopWatchTime}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="11" TextColor="Black" />
                                 </Grid>
                             </StackLayout>
                         </ListView.Header>
@@ -153,7 +144,7 @@
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Row="0" Grid.Column="0" Text=" Start " Command="{Binding StartTimer}" IsEnabled="{Binding IsStartEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
-                        <Button Grid.Row="0" Grid.Column="1" Text="   Lap   " Command="{Binding LapTimer}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="1" Text="{Binding LapButtonText}" Command="{Binding LapTimer}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                         <Button Grid.Row="0" Grid.Column="2" Text=" Stop " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                         <Button Grid.Row="0" Grid.Column="3" Text=" Reset " Command="{Binding ClearLaps}" IsEnabled="{Binding IsClearEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                     </Grid>

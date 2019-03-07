@@ -21,6 +21,7 @@ namespace TimeStudy.ViewModels
         public Command ShowForeignElements { get; set; }
         public Command CloseForeignElements { get; set; }
         public Command ForeignElementSelected { get; set; }
+        public Command CloseView { get; set; }
 
         private bool IsRunning;
         private bool HasBeenStopped;
@@ -59,6 +60,7 @@ namespace TimeStudy.ViewModels
             ForeignElementSelected = new Command(ForeignElementSelectedEvent);
             ItemClickedCommand = new Command(ShowForeignElementsEvent);
             RunningItemClickedCommand = new Command(RunningItemClickedCommandEvent);
+            CloseView = new Command(CloseActivitiesView);
 
             LapTimes = new ObservableCollection<LapTime>();
             LapTimesList = new List<LapTime>();
@@ -93,6 +95,8 @@ namespace TimeStudy.ViewModels
             IsClearEnabled = false;
             ActivitiesCount = Activities.Count;
             CycleCount = 1;
+
+            LapButtonText = "   Lap   ";
         }
 
         private bool IsStudyValid()
@@ -108,6 +112,12 @@ namespace TimeStudy.ViewModels
             }
 
             return true;
+        }
+
+        public void CloseActivitiesView()
+        {
+            Opacity = 1;
+            ActivitiesVisible = false;
         }
 
         public void StartTimerEvent()
@@ -228,6 +238,8 @@ namespace TimeStudy.ViewModels
 
         void ShowForeignElementsEvent(object sender)
         {
+            if (CurrentWithoutLapTime == null) return;
+
             Opacity = 0.2;
             ActivitiesVisible = true;
         }
@@ -240,13 +252,13 @@ namespace TimeStudy.ViewModels
 
         public void LapTimerEvent()
         {
+
+            LapButtonText = "   Lap   ";
             if (PausedLapTime == null)
             {
                 SetUpButtonsAndTimeVariables();
 
                 ForceRoundingToLapTime(true);
-
-                string lapTimeTimeFormatted = LapTime.ToString("0.000");
 
                 Activity element;
 
@@ -265,13 +277,7 @@ namespace TimeStudy.ViewModels
 
                 LapTimesList.Remove(CurrentWithoutLapTime);
 
-                CurrentLapTime = CurrentWithoutLapTime;
-                CurrentLapTime.IndividualLapTime = LapTime;
-                CurrentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
-                CurrentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
-                CurrentLapTime.TotalElapsedTime = CurrentTimeFormattedDecimal;
-                CurrentLapTime.ElementColour = Color.Gray;
-                CurrentLapTime.ForeignElements = SelectedForeignElements;
+                SetUpCurrentLapTime();
 
                 if (SelectedForeignElements.Count > 0)
                     CurrentLapTime.ElementColour = Color.Orange;
@@ -291,15 +297,7 @@ namespace TimeStudy.ViewModels
 
                 ForceRoundingToLapTime();
 
-                string lapTimeTimeFormatted = LapTime.ToString("0.000");
-
-                CurrentLapTime = CurrentWithoutLapTime;
-                CurrentLapTime.IndividualLapTime = LapTime;
-                CurrentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
-                CurrentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
-                CurrentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
-                CurrentLapTime.ElementColour = Color.Gray;
-                CurrentLapTime.ForeignElements = SelectedForeignElements;
+                SetUpCurrentLapTime();
 
                 LapTimesList.Add(CurrentLapTime);
 
@@ -357,7 +355,8 @@ namespace TimeStudy.ViewModels
 
         private void AddForeignElementWithoutLapTimeToList(Activity foreign)
         {
-        
+            LapButtonText = "  Resume ";
+
             if (PausedLapTime == null)
             {
                 LapTimesList.Remove(CurrentWithoutLapTime);
@@ -381,21 +380,13 @@ namespace TimeStudy.ViewModels
 
                 LapTimesList.Add(CurrentWithoutLapTime);
             }
-            else 
+            else
             {
                 LapTimesList.Remove(CurrentWithoutLapTime);
 
                 ForceRoundingToLapTime();
 
-                string lapTimeTimeFormatted = LapTime.ToString("0.000");
-
-                CurrentLapTime = CurrentWithoutLapTime;
-                CurrentLapTime.IndividualLapTime = LapTime;
-                CurrentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
-                CurrentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
-                CurrentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
-                CurrentLapTime.ElementColour = Color.Gray;
-                CurrentLapTime.ForeignElements = SelectedForeignElements;
+                SetUpCurrentLapTime();
 
                 LapTimesList.Add(CurrentLapTime);
 
@@ -423,6 +414,19 @@ namespace TimeStudy.ViewModels
             LapTimes = new ObservableCollection<LapTime>(LapTimesList
                 .Where(x => x.TotalElapsedTime != "Running")
                 .OrderByDescending(x => x.TotalElapsedTime));
+        }
+
+        private void SetUpCurrentLapTime()
+        {
+            string lapTimeTimeFormatted = LapTime.ToString("0.000");
+
+            CurrentLapTime = CurrentWithoutLapTime;
+            CurrentLapTime.IndividualLapTime = LapTime;
+            CurrentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
+            CurrentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
+            CurrentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+            CurrentLapTime.ElementColour = Color.Gray;
+            CurrentLapTime.ForeignElements = SelectedForeignElements;
         }
 
         private void AddCurrentWithoutLapTimeToList()
@@ -707,6 +711,16 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        static string lapButtonText;
+        public string LapButtonText
+        {
+            get => lapButtonText;
+            set
+            {
+                lapButtonText = value;
+                OnPropertyChanged();
+            }
+        }
 
         static string currentElementWithoutLapTimeName;
         public string CurrentElementWithoutLapTimeName

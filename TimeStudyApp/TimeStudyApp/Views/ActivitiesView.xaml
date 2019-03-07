@@ -1,19 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:local="clr-namespace:TimeStudy.Custom" 
-             x:Class="TimeStudy.Views.ActivitiesView" 
-             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-             AbsoluteLayout.LayoutFlags="All"
-             x:Name="ActivitiesViewPage">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:TimeStudy.Custom" x:Class="TimeStudy.Views.ActivitiesView" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="ActivitiesViewPage">
     <ContentView.Content>
         <StackLayout>
             <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
-                <Label Text="Activities" IsVisible="{Binding Isvisible}" 
-                       TextColor="Black" />
-                <StackLayout IsVisible="{Binding Isvisible}" 
-                             Orientation="Horizontal" 
-                             Margin="10" >
+                <Label Text="Activities" IsVisible="{Binding Isvisible}" TextColor="Black" />
+                <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="10">
                     <ScrollView>
                         <local:RepeaterView ItemsSource="{Binding GroupActivities}">
                             <local:RepeaterView.ItemTemplate>
@@ -53,6 +44,9 @@
                         </local:RepeaterView>
                     </ScrollView>
                 </StackLayout>
+            </StackLayout>
+            <Button Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseView}" FontSize="12" />
+            <StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentView.Content>
