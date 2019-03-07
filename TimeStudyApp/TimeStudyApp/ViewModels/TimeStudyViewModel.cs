@@ -349,7 +349,6 @@ namespace TimeStudy.ViewModels
 
                 PausedLapTime = null;
 
-                //CheckIfRatedStudy();
             }
 
         }
