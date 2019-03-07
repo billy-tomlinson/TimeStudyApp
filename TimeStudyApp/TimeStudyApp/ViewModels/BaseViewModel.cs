@@ -344,10 +344,10 @@ namespace TimeStudy.ViewModels
                                          .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
-        public ObservableCollection<Activity> Get_UnRated_Enabled_Activities()
+        public ObservableCollection<Activity> Get_All_NonValueAdded_Enabled_Activities()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                                         .Where(x => x.IsEnabled && !x.Rated && x.StudyId == Utilities.StudyId));
+                                         .Where(x => x.IsEnabled && !x.IsValueAdded && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities()
@@ -383,10 +383,10 @@ namespace TimeStudy.ViewModels
                                         .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
-        public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
+        public ObservableCollection<Activity> Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
+                .Where(x => x.IsEnabled && x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<ActivityName> Get_All_ActivityNames()

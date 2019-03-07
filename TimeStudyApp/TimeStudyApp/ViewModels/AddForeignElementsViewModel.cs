@@ -138,9 +138,9 @@ namespace TimeStudy.ViewModels
                     {
                         ActivityName = activityName,
                         IsEnabled = true,
-                        Rated = false,
-                        ObservedColour = Utilities.InactiveColour,
-                        ItemColour = Utilities.InactiveColour,
+                        Rated = true,
+                        ObservedColour = Utilities.NonValueAddedColour,
+                        ItemColour = Utilities.NonValueAddedColour,
                         IsValueAdded = false
                     };
 
@@ -155,7 +155,7 @@ namespace TimeStudy.ViewModels
                     ShowClose = true;
                 }
 
-                ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities().OrderBy(x => x.Sequence));
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
                 ActivitiesCount = ItemsCollection.Count;
                 Name = string.Empty;
             }
@@ -232,7 +232,7 @@ namespace TimeStudy.ViewModels
             ShowClose = true;
             Opacity = 0.2;
 
-            var activities = Get_UnRated_Enabled_Activities();
+            var activities = Get_All_NonValueAdded_Enabled_Activities();
 
             if ((activities.Count > 0))
             {
@@ -263,7 +263,7 @@ namespace TimeStudy.ViewModels
             Activity.IsValueAdded = !IsNonValueAdded;
             ActivityRepo.SaveItem(Activity);
             Opacity = 1.0;
-            ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities()
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities()
                 .OrderByDescending(x => x.Id));
 
             CategoriesVisible = false;
@@ -286,7 +286,7 @@ namespace TimeStudy.ViewModels
             ActivityRepo.SaveItem(activity1);
             ActivityRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities().OrderBy(x => x.Sequence));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
         }
 
         void MoveElementDownOnePlace(object sender)
@@ -306,7 +306,7 @@ namespace TimeStudy.ViewModels
             ActivityRepo.SaveItem(activity1);
             ActivityRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities().OrderBy(x => x.Sequence));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
         }
 
         void ActivitySelectedEvent(object sender)
@@ -324,7 +324,7 @@ namespace TimeStudy.ViewModels
 
         private void SetElementsColour()
         {
-            var activities = Get_UnRated_Enabled_Activities();
+            var activities = Get_All_NonValueAdded_Enabled_Activities();
 
             foreach (var item in activities)
             {
@@ -387,7 +387,7 @@ namespace TimeStudy.ViewModels
                 if (!activities.Any())
                     ActivityNameRepo.DeleteItem(Activity.ActivityName);
 
-                ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities().OrderByDescending(x => x.Id));
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
             });
 
             await deleteTask;
@@ -413,8 +413,7 @@ namespace TimeStudy.ViewModels
             Name = string.Empty;
             CheckActivitiesInUse();
             SetElementsColour();
-            ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities()
-                .Where(z => !z.Rated)
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities()
                 .OrderBy(x => x.Id));
             ActivitiesCount = ItemsCollection.Count;
             var count = ItemsCollection.Count;

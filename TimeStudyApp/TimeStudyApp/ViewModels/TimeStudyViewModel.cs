@@ -66,9 +66,9 @@ namespace TimeStudy.ViewModels
             LapTimesList = new List<LapTime>();
             SelectedForeignElements = new List<Activity>();
 
-            Activities = Get_Rated_Enabled_Activities();
+            Activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
 
-            AllForeignElements = Get_UnRated_Enabled_Activities();
+            AllForeignElements = Get_All_NonValueAdded_Enabled_Activities();
 
             IEnumerable<Activity> obsCollection = AllForeignElements;
 
@@ -373,7 +373,8 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
-                    IsForeignElement = true
+                    IsForeignElement = true,
+                    IsRated = foreign.Rated
                 };
 
                 CurrentWithoutLapTime = currentForeignLap;
@@ -381,7 +382,7 @@ namespace TimeStudy.ViewModels
                 LapTimesList.Add(CurrentWithoutLapTime);
             }
             else
-            {
+            { 
                 LapTimesList.Remove(CurrentWithoutLapTime);
 
                 ForceRoundingToLapTime();
@@ -397,7 +398,8 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
-                    IsForeignElement = true
+                    IsForeignElement = true,
+                    IsRated = foreign.Rated
                 };
 
                 CurrentWithoutLapTime = currentForeign;
@@ -443,7 +445,8 @@ namespace TimeStudy.ViewModels
                     Element = element.Name,
                     TotalElapsedTime = "Running",
                     Sequence = element.Sequence,
-                    ElementColour = Color.Silver
+                    ElementColour = Color.Silver,
+                    IsRated = element.Rated
                 };
             }
 

@@ -27,6 +27,8 @@ namespace TimeStudy.Model
 
         public int? Rating { get; set; }
 
+        public bool IsRated { get; set; }
+
         public Color ElementColour { get; set; }
 
         public List<Activity> ForeignElements { get; set; }

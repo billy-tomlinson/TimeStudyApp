@@ -77,7 +77,7 @@ namespace TimeStudy.ViewModels
         {
 
             MergedActivities = new List<Activity>();
-            Activities = Get_All_Enabled_Activities_WithChildren();
+            Activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
 
             IEnumerable<Activity> obsCollection = Activities;
 
@@ -243,7 +243,7 @@ namespace TimeStudy.ViewModels
             CancelActivities = new Command(CancelActivityDetails);
             ActivitySelected = new Command(ActivitySelectedEvent);
 
-            Activities = Get_All_Enabled_Activities_WithChildren();
+            Activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
             GroupActivities = ChangeButtonColourOnLoad();
             MergedActivities = new List<Activity>();
             var studyNumber = Utilities.StudyId > 0 ? Utilities.StudyId.ToString() : string.Empty;
