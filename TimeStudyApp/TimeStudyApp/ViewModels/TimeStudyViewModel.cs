@@ -25,9 +25,11 @@ namespace TimeStudy.ViewModels
         private bool IsRunning;
         private bool HasBeenStopped;
         public double TimeWhenLapButtonClicked { get; set; }
+        public double TimeWhenForiegnButtonClicked { get; set; }
         public double TimeWhenStopButtonClicked { get; set; }
         public double LapTime { get; set; }
         public double CurrentTicks { get; set; }
+        public double LastSuccesstulLapTime { get; set; }
         public TimeSpan StartTime { get; set; }
 
         ObservableCollection<Activity> AllForeignElements;
@@ -236,7 +238,7 @@ namespace TimeStudy.ViewModels
             {
                 SetUpButtonsAndTimeVariables();
 
-                ForceRoundingToLapTime();
+                ForceRoundingToLapTime(true);
 
                 string lapTimeTimeFormatted = LapTime.ToString("0.000");
 
@@ -271,13 +273,16 @@ namespace TimeStudy.ViewModels
 
                 TimeWhenLapButtonClicked = RealTimeTicks;
 
+                if(!CurrentLapTime.IsForeignElement)
+                    LastSuccesstulLapTime = TimeWhenLapButtonClicked;
+
                 CheckIfRatedStudy();
             }
             else 
             {
                 LapTimesList.Remove(CurrentWithoutLapTime);
 
-                ForceRoundingToLapTime(true);
+                ForceRoundingToLapTime();
 
                 string lapTimeTimeFormatted = LapTime.ToString("0.000");
 
@@ -338,7 +343,7 @@ namespace TimeStudy.ViewModels
 
         private void AddForeignElementWithoutLapTimeToList(Activity foreign)
         {
-
+        
             if (PausedLapTime == null)
             {
                 LapTimesList.Remove(CurrentWithoutLapTime);
@@ -351,7 +356,8 @@ namespace TimeStudy.ViewModels
                 {
                     Cycle = CycleCount,
                     Element = foreign.Name,
-                    TotalElapsedTime = "Running"
+                    TotalElapsedTime = "Running",
+                    IsForeignElement = true
                 };
 
                 CurrentWithoutLapTime = currentForeignLap;
@@ -381,12 +387,15 @@ namespace TimeStudy.ViewModels
                 {
                     Cycle = CycleCount,
                     Element = foreign.Name,
-                    TotalElapsedTime = "Running"
+                    TotalElapsedTime = "Running",
+                    IsForeignElement = true
                 };
 
                 CurrentWithoutLapTime = currentForeign;
 
                 LapTimesList.Add(CurrentWithoutLapTime);
+
+                TimeWhenForiegnButtonClicked = RealTimeTicks;
 
             }
 
@@ -479,19 +488,29 @@ namespace TimeStudy.ViewModels
 
         private void ForceRoundingToLapTime(bool isLapTime = false)
         {
-            LapTime = RealTimeTicks - TimeWhenLapButtonClicked;
+            if(!CurrentWithoutLapTime.IsForeignElement)
+                LapTime = RealTimeTicks - TimeWhenLapButtonClicked;
+            else
+            {
+                if(TimeWhenForiegnButtonClicked != 0)
+                    LapTime = RealTimeTicks - TimeWhenForiegnButtonClicked;
+                else
+                    LapTime = RealTimeTicks - TimeWhenLapButtonClicked;
+            }
 
-            //if(isLapTime)
-            //{
-            //    double foriegnLapTimesTotal = 0;
-            //    foreach (var item in AllForiegnLapTimes)
-            //    {
-            //        foriegnLapTimesTotal = foriegnLapTimesTotal + item.IndividualLapTime;
-            //    }
 
-            //    LapTime = LapTime - foriegnLapTimesTotal;
+            if (isLapTime && !CurrentWithoutLapTime.IsForeignElement)
+            {
+                double foriegnLapTimesTotal = 0;
+                foreach (var item in AllForiegnLapTimes)
+                {
+                    foriegnLapTimesTotal = foriegnLapTimesTotal + item.IndividualLapTime;
+                }
 
-            //}
+                LapTime = LapTime - foriegnLapTimesTotal; //- LastSuccesstulLapTime;
+                AllForiegnLapTimes = new List<LapTime>();
+                TimeWhenForiegnButtonClicked = 0;
+            }
 
             double randomToForceRounding;
 
