@@ -367,6 +367,8 @@ namespace TimeStudy.ViewModels
                 PausedLapTime.TotalElapsedTime =  RealTimeTicks.ToString("0.000");
                 LapTimesList.Add(PausedLapTime);
 
+                TimeWhenForiegnButtonClicked = RealTimeTicks;
+
                 var currentForeignLap = new LapTime
                 {
                     Cycle = CycleCount,
@@ -397,12 +399,6 @@ namespace TimeStudy.ViewModels
 
                 LapTimesList.Add(CurrentLapTime);
 
-                if (!CurrentLapTime.IsForeignElement)
-                {
-                    AllForiegnLapTimes = new List<LapTime>();
-                    TimeWhenForiegnButtonClicked = 0;
-                }
-
                 AllForiegnLapTimes.Add(CurrentLapTime);
 
                 var currentForeign = new LapTime
@@ -418,7 +414,6 @@ namespace TimeStudy.ViewModels
                 LapTimesList.Add(CurrentWithoutLapTime);
 
                 TimeWhenForiegnButtonClicked = RealTimeTicks;
-
             }
 
             CurrentElementWithoutLapTimeName = foreign.Name;
