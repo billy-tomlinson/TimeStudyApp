@@ -359,7 +359,7 @@ namespace TimeStudy.ViewModels
 
         private void ProcessForeignElementWithRating(bool rated, string name, int? rating = null)
         {
-            ProcessForeignLapTime(rating);
+            AddForeignLapTimetoListAsCompleted(rating);
 
             var currentForeign = new LapTime
             {
@@ -389,8 +389,13 @@ namespace TimeStudy.ViewModels
 
         private void ProcessForeignElementLapTime()
         {
-            ProcessForeignLapTime();
+            AddForeignLapTimetoListAsCompleted();
 
+            ReInstatePausedLapTimeToCurrentRunning();
+        }
+
+        private void ReInstatePausedLapTimeToCurrentRunning()
+        {
             LapTimesList.Remove(PausedLapTime);
 
             CurrentWithoutLapTime = PausedLapTime;
@@ -411,7 +416,7 @@ namespace TimeStudy.ViewModels
             PausedLapTime = null;
         }
 
-        private void ProcessForeignLapTime(int? rating = null)
+        private void AddForeignLapTimetoListAsCompleted(int? rating = null)
         {
             LapTimesList.Remove(CurrentWithoutLapTime);
 
@@ -426,7 +431,6 @@ namespace TimeStudy.ViewModels
 
             AllForiegnLapTimes.Add(CurrentLapTime);
         }
-
 
         private void RemoveDuplicate()
         {
