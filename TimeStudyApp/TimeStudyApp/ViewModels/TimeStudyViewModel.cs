@@ -122,7 +122,6 @@ namespace TimeStudy.ViewModels
             Opacity = 1;
             LapTimerEvent();
             ActivitiesVisible = false;
-            //cancelActivitiesView = true;
         }
 
         public void StartTimerEvent()
@@ -275,8 +274,16 @@ namespace TimeStudy.ViewModels
                 RatingsVisible = true;
                 Opacity = 0.2;
             }
+            else if (CurrentWithoutLapTime.IsForeignElement && !CurrentWithoutLapTime.IsRated && CurrentWithoutLapTime.Rating == null)
+            {
+                ProcessForeignElementLapTime();
+                RatingsVisible = false;
+                ActivitiesVisible = false;
+                Opacity = 1.0;
+            }
             else
             {
+
                 Opacity = 0.2;
                 ActivitiesVisible = true;
             }
@@ -319,9 +326,6 @@ namespace TimeStudy.ViewModels
 
                 SetUpCurrentLapTime();
 
-                //if (SelectedForeignElements.Count > 0)
-                    //CurrentLapTime.ElementColour = Color.Orange;
-
                 SelectedForeignElements = new List<Activity>();
 
                 TimeWhenLapButtonClicked = RealTimeTicks;
@@ -354,6 +358,8 @@ namespace TimeStudy.ViewModels
             ForceRoundingToLapTime();
 
             SetUpCurrentLapTime();
+
+            CurrentLapTime.ElementColour = Color.Orange;
 
             LapTimesList.Add(CurrentLapTime);
 
@@ -418,7 +424,6 @@ namespace TimeStudy.ViewModels
                 return IsRunning;
             });
         }
-
 
         private void AddForeignElementWithoutLapTimeToList(Activity foreign)
         {

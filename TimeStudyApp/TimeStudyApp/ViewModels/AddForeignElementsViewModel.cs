@@ -324,12 +324,21 @@ namespace TimeStudy.ViewModels
 
         private void SetElementsColour()
         {
-            var activities = Get_All_NonValueAdded_Enabled_Activities();
+            var activities = Get_All_NonValueAdded_Enabled_Unrated_Activities();
 
             foreach (var item in activities)
             {
                 item.ItemColour = Utilities.InactiveColour;
                 item.ObservedColour = Utilities.InactiveColour;
+                ActivityRepo.SaveItem(item);
+            }
+
+            activities = Get_All_NonValueAdded_Enabled_Rated_Activities();
+
+            foreach (var item in activities)
+            {
+                item.ItemColour = Utilities.NonValueAddedColour;
+                item.ObservedColour = Utilities.NonValueAddedColour;
                 ActivityRepo.SaveItem(item);
             }
         }

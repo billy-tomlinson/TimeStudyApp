@@ -128,7 +128,7 @@ namespace TimeStudy.ViewModels
 
                 if (duplicatesCheck == null)
                 {
-                    var activities = Get_Rated_Enabled_Activities().Count();
+                    var activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().Count();
 
                     var activityName = new ActivityName()
                     {

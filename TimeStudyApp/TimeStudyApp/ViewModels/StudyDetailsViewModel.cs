@@ -38,7 +38,7 @@ namespace TimeStudy.ViewModels
                     );
 
                     StudyNumber = Utilities.StudyId;
-                    //CreateUnratedActivities();
+                    CreateUnratedActivities();
 
                     Utilities.RatedStudy = SampleStudy.IsRated;
 
@@ -164,10 +164,10 @@ namespace TimeStudy.ViewModels
 
         public void CreateUnratedActivities()
         {
-            var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "ABSENT");
+            var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "INEFFECTIVE");
 
             if(activityName == null)
-                activityName = new ActivityName { Name = "ABSENT" };
+                activityName = new ActivityName { Name = "INEFFECTIVE" };
                 
             var unrated1 = new Activity()
             {
@@ -177,14 +177,15 @@ namespace TimeStudy.ViewModels
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty,
                 ItemColour = Utilities.InactiveColour,
-                ObservedColour = Utilities.InactiveColour
+                ObservedColour = Utilities.InactiveColour,
+                IsValueAdded = false
 
             };
 
-            activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "INACTIVE");
+            activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "LOST TIME");
 
             if (activityName == null)
-                activityName = new ActivityName { Name = "INACTIVE" };
+                activityName = new ActivityName { Name = "LOST TIME" };
                 
             var unrated2 = new Activity()
             {
@@ -194,24 +195,25 @@ namespace TimeStudy.ViewModels
                 StudyId = Utilities.StudyId,
                 DeleteIcon = string.Empty,
                 ItemColour = Utilities.InactiveColour,
-                ObservedColour = Utilities.InactiveColour
+                ObservedColour = Utilities.InactiveColour,
+                IsValueAdded = false
             };
 
-            activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
+            //activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
 
-            if (activityName == null)
-                activityName = new ActivityName { Name = "OTHER" };
+            //if (activityName == null)
+            //    activityName = new ActivityName { Name = "OTHER" };
 
-            var unrated3 = new Activity()
-            {
-                ActivityName = activityName,
-                IsEnabled = true,
-                Rated = false,
-                StudyId = Utilities.StudyId,
-                DeleteIcon = string.Empty,
-                ItemColour = Utilities.InactiveColour,
-                ObservedColour = Utilities.InactiveColour
-            };
+            //var unrated3 = new Activity()
+            //{
+            //    ActivityName = activityName,
+            //    IsEnabled = true,
+            //    Rated = false,
+            //    StudyId = Utilities.StudyId,
+            //    DeleteIcon = string.Empty,
+            //    ItemColour = Utilities.InactiveColour,
+            //    ObservedColour = Utilities.InactiveColour
+            //};
 
             ActivityNameRepo.SaveItem(unrated1.ActivityName);
             ActivityRepo.SaveItem(unrated1);
@@ -221,9 +223,9 @@ namespace TimeStudy.ViewModels
             ActivityRepo.SaveItem(unrated2);
             ActivityRepo.UpdateWithChildren(unrated2);
 
-            ActivityNameRepo.SaveItem(unrated3.ActivityName);
-            ActivityRepo.SaveItem(unrated3);
-            ActivityRepo.UpdateWithChildren(unrated3);
+            //ActivityNameRepo.SaveItem(unrated3.ActivityName);
+            //ActivityRepo.SaveItem(unrated3);
+            //ActivityRepo.UpdateWithChildren(unrated3);
 
         }
     }

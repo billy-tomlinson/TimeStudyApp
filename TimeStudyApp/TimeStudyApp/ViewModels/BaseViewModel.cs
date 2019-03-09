@@ -350,6 +350,20 @@ namespace TimeStudy.ViewModels
                                          .Where(x => x.IsEnabled && !x.IsValueAdded && x.StudyId == Utilities.StudyId));
         }
 
+
+        public ObservableCollection<Activity> Get_All_NonValueAdded_Enabled_Unrated_Activities()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                                         .Where(x => x.IsEnabled && !x.IsValueAdded && !x.Rated && x.StudyId == Utilities.StudyId));
+        }
+
+
+        public ObservableCollection<Activity> Get_All_NonValueAdded_Enabled_Rated_Activities()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                                         .Where(x => x.IsEnabled && !x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
+        }
+
         public ObservableCollection<Activity> Get_All_Enabled_Activities()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
