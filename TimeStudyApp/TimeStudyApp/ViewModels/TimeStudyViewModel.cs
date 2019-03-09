@@ -26,6 +26,7 @@ namespace TimeStudy.ViewModels
         private bool IsRunning;
         private bool cancelActivitiesView;
         private bool HasBeenStopped;
+        private bool lapTimerEventClicked;
         public double TimeWhenLapButtonClicked { get; set; }
         public double TimeWhenForiegnButtonClicked { get; set; }
         public double TimeWhenStopButtonClicked { get; set; }
@@ -250,6 +251,8 @@ namespace TimeStudy.ViewModels
 
         void ForeignElementSelectedEvent(object sender)
         {
+            lapTimerEventClicked = false;
+
             Opacity = 1;
 
             var value = (int)sender;
@@ -279,10 +282,17 @@ namespace TimeStudy.ViewModels
                 ProcessForeignElementLapTime();
                 RatingsVisible = false;
                 Opacity = 0.2;
-                ActivitiesVisible = true;
-                //ActivitiesVisible = false;
-                //Opacity = 1.0;
-            }
+
+                if(!lapTimerEventClicked)
+                {
+                    ActivitiesVisible = true;
+                    Opacity = 0.2;
+                }
+                else 
+                {
+                    ActivitiesVisible = false;
+                    Opacity = 1.0;}
+                }
             else
             {
 
@@ -299,7 +309,7 @@ namespace TimeStudy.ViewModels
 
         public void LapTimerEvent()
         {
-
+            lapTimerEventClicked = true;
             LapButtonText = "   Lap   ";
             if (PausedLapTime == null)
             {
