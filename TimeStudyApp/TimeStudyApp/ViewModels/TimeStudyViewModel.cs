@@ -235,7 +235,7 @@ namespace TimeStudy.ViewModels
                 }
                 else 
                 {
-                    ProcessForeignElementLapTime();
+                    CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
                     ActivitiesVisible = false;
                     RatingsVisible = false;
                     Opacity = 1.0;
@@ -273,7 +273,7 @@ namespace TimeStudy.ViewModels
             }
             else if (CurrentWithoutLapTime.IsForeignElement && !CurrentWithoutLapTime.IsRated && CurrentWithoutLapTime.Rating == null)
             {
-                ProcessForeignElementLapTime();
+                CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
                 RatingsVisible = false;
                 Opacity = 0.2;
 
@@ -350,7 +350,7 @@ namespace TimeStudy.ViewModels
                     return;
                 }
 
-                ProcessForeignElementLapTime();
+                CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
             }
 
             cancelActivitiesView = false;
@@ -387,7 +387,7 @@ namespace TimeStudy.ViewModels
                 .OrderByDescending(x => x.TotalElapsedTime));
         }
 
-        private void ProcessForeignElementLapTime()
+        private void CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning()
         {
             AddForeignLapTimetoListAsCompleted();
 
