@@ -118,10 +118,11 @@ namespace TimeStudy.ViewModels
 
         public void CloseActivitiesView()
         {
+            cancelActivitiesView = true;
             Opacity = 1;
             LapTimerEvent();
             ActivitiesVisible = false;
-            cancelActivitiesView = true;
+            //cancelActivitiesView = true;
         }
 
         public void StartTimerEvent()
@@ -195,6 +196,8 @@ namespace TimeStudy.ViewModels
 
         void RatingSelectedEvent(object sender)
         {
+            if (CurrentLapTime == null)
+                SetUpCurrentLapTime();
 
             var button = sender as Custom.CustomButton;
             CurrentLapTime.Rating = button.Rating;
@@ -316,8 +319,8 @@ namespace TimeStudy.ViewModels
 
                 SetUpCurrentLapTime();
 
-                if (SelectedForeignElements.Count > 0)
-                    CurrentLapTime.ElementColour = Color.Orange;
+                //if (SelectedForeignElements.Count > 0)
+                    //CurrentLapTime.ElementColour = Color.Orange;
 
                 SelectedForeignElements = new List<Activity>();
 
@@ -487,6 +490,7 @@ namespace TimeStudy.ViewModels
             SetUpCurrentLapTime();
 
             CurrentLapTime.Rating = rating;
+            CurrentLapTime.ElementColour = Color.Orange;
 
             LapTimesList.Add(CurrentLapTime);
 
