@@ -118,8 +118,8 @@ namespace TimeStudy.ViewModels
         public void CloseActivitiesView()
         {
             Opacity = 1;
-            ActivitiesVisible = false;
             LapTimerEvent();
+            ActivitiesVisible = false;
         }
 
         public void StartTimerEvent()
@@ -289,6 +289,8 @@ namespace TimeStudy.ViewModels
             LapButtonText = "   Lap   ";
             if (PausedLapTime == null)
             {
+                if (ActivitiesVisible) return;
+
                 SetUpButtonsAndTimeVariables();
 
                 ForceRoundingToLapTime(true);
