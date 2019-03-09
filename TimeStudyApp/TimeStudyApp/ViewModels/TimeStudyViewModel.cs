@@ -24,6 +24,7 @@ namespace TimeStudy.ViewModels
         public Command CloseView { get; set; }
 
         private bool IsRunning;
+        private bool cancelActivitiesView;
         private bool HasBeenStopped;
         public double TimeWhenLapButtonClicked { get; set; }
         public double TimeWhenForiegnButtonClicked { get; set; }
@@ -120,6 +121,7 @@ namespace TimeStudy.ViewModels
             Opacity = 1;
             LapTimerEvent();
             ActivitiesVisible = false;
+            cancelActivitiesView = true;
         }
 
         public void StartTimerEvent()
@@ -328,7 +330,7 @@ namespace TimeStudy.ViewModels
             }
             else
             {
-                if (CurrentWithoutLapTime.IsForeignElement)
+                if (CurrentWithoutLapTime.IsForeignElement && !cancelActivitiesView)
                 {
                     SetUpCurrentLapTime();
                     ShowForeignElementsEvent();
@@ -337,6 +339,8 @@ namespace TimeStudy.ViewModels
 
                 ProcessForeignElementLapTime();
             }
+
+            cancelActivitiesView = false;
 
         }
 
