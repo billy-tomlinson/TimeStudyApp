@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
@@ -23,7 +23,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <local:CustomButton Style="{StaticResource plainButton}" x:Name="myButton0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" />
+                    <local:CustomButton Style="{StaticResource plainButton}" x:Name="myButton0" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="{Binding CurrentElementWithoutLapTimeName}" FontSize="15" TextColor="Red"/>
                     <local:CustomButton Style="{StaticResource plainButton}" x:Name="myButton1" Text="140" Rating="140" Grid.Row="0" Grid.Column="0"  Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton1}" />
                     <local:CustomButton Style="{StaticResource plainButton}" x:Name="myButton2" Text="120" Rating="120" Grid.Row="1" Grid.Column="0"  Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton2}" />
                     <local:CustomButton Style="{StaticResource plainButton}" x:Name="myButton3" Text="125" Rating="125" Grid.Row="1" Grid.Column="1"  Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton3}" />

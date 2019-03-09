@@ -278,8 +278,10 @@ namespace TimeStudy.ViewModels
             {
                 ProcessForeignElementLapTime();
                 RatingsVisible = false;
-                ActivitiesVisible = false;
-                Opacity = 1.0;
+                Opacity = 0.2;
+                ActivitiesVisible = true;
+                //ActivitiesVisible = false;
+                //Opacity = 1.0;
             }
             else
             {
