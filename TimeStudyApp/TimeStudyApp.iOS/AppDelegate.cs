@@ -44,12 +44,10 @@ namespace TimeStudyApp.iOS
                 UIControlState.Selected);
                 
             string dbName = "TimeStudyNewDB.db3";
-            string alarmDbName = "AlarmDB.db3";
             string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
             //string folderPath = "/Users/billytomlinson";
             string dbPath = Path.Combine(folderPath, dbName);
-            string alarmDbPath = Path.Combine(folderPath, alarmDbName);
-            LoadApplication(new App(dbPath, alarmDbPath));
+            LoadApplication(new App(dbPath));
 
             return base.FinishedLaunching(app, options);
         }

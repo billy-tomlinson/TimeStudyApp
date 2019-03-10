@@ -1,14 +1,9 @@
-﻿using System;
-
+﻿
 using Android.App;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 using Android.OS;
-using TimeStudy;
-using Plugin.Toasts;
-using Android.Content;
 using System.IO;
 
 namespace TimeStudyApp.Droid
@@ -41,13 +36,12 @@ namespace TimeStudyApp.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
             string dbName = "TimeStudy4.db3";
-            //string alarmDbName = "Alarm.db3";
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string dbPath = Path.Combine(folderPath, dbName);
             string alarmDbPath = Path.Combine(folderPath, string.Empty);
 
 
-            LoadApplication(new TimeStudy.App(dbPath, alarmDbPath));
+            LoadApplication(new TimeStudy.App(dbPath));
         }
 
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

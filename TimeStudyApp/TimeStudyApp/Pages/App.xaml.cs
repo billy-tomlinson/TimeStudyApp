@@ -12,10 +12,9 @@ namespace TimeStudy
     public partial class App : Application
     {
         public static string DatabasePath = string.Empty;
-        public static string AlarmDatabasePath = string.Empty;
         public App(){ }
 
-        public App(string databasePath, string alarmPath)
+        public App(string databasePath)
         {
 
             InitializeComponent();
@@ -23,9 +22,7 @@ namespace TimeStudy
             NavigationPage.SetBackButtonTitle(this, "");
 
             DatabasePath = databasePath;
-            AlarmDatabasePath = alarmPath;
             Utilities.Connection = DatabasePath;
-            Utilities.AlarmConnection = AlarmDatabasePath;
             CallMain();
             //MainPage = new NavigationPage(new StopWatch());
         }
