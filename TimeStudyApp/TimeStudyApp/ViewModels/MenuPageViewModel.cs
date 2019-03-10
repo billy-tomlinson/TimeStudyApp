@@ -16,7 +16,6 @@ namespace TimeStudy.ViewModels
         public ICommand Reports { get; set; }
         public ICommand CurrentStudy { get; set; }
         public ICommand StudySetUp { get; set; }
-        public ICommand AlarmSetUp { get; set; }
         public ICommand CloseApplication { get; set; }
 
         public MenuPageViewModel()
@@ -30,20 +29,11 @@ namespace TimeStudy.ViewModels
             Reports = new Command(GoReports);
             CurrentStudy = new Command(GoCurrentStudy);
             StudySetUp = new Command(GoStudySetUp);
-            AlarmSetUp = new Command(AlarmSetUpEvent);
             CloseApplication = new Command(CloseApplicationEvent);
-        }
-
-        void AlarmSetUpEvent(object obj)
-        {
-            Utilities.Navigate(new AlarmPage());
-            App.MenuIsPresented = false;
         }
 
         void CloseApplicationEvent(object obj)
         {
-            AlarmNotificationService.DisableAlarmInDatabase();
-            AlarmNotificationService.DisableAlarm();
             DependencyService.Get<ITerminateApplication>()
                 .CloseApplication();
             App.MenuIsPresented = false;

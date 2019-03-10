@@ -86,12 +86,8 @@
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DependencyServices\LocalNotificationService.cs" />
     <Compile Include="DependencyServices\TerminateApplication.cs" />
-    <Compile Include="AlarmReceiver.cs" />
-    <Compile Include="BootReciever.cs" />
     <Compile Include="SaveAndroid.cs" />
-    <Compile Include="SecondActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

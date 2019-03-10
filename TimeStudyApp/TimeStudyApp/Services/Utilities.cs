@@ -26,9 +26,9 @@ namespace TimeStudy.Services
         public static bool ObservationTableUpdated { get; set; }
         public static bool ActivitySampleTableUpdated { get; set; }
 
-        public static bool MainPageHasUpdatedActivityChanges { get; set; }
-        public static bool MainPageHasUpdatedOperatorChanges { get; set; }
-        public static bool MainPageHasUpdatedObservationChanges { get; set; }
+        public static bool TimeStudyPageHasUpdatedActivityChanges { get; set; }
+        public static bool TimeStudyPageHasUpdatedOperatorChanges { get; set; }
+        public static bool TimeStudyPageHasUpdatedObservationChanges { get; set; }
 
         public static bool ActivityPageHasUpdatedActivityChanges { get; set; }
         public static bool ActivityPageHasUpdatedOperatorChanges { get; set; }
@@ -48,16 +48,16 @@ namespace TimeStudy.Services
             
         public static void UpdateTableFlags()
         {
-            if (MainPageHasUpdatedActivityChanges && ActivityPageHasUpdatedActivityChanges 
+            if (TimeStudyPageHasUpdatedActivityChanges && ActivityPageHasUpdatedActivityChanges 
                     && ForeignElementsPageHasUpdatedActivityChanges && MergePageHasUpdatedActivityChanges
                     && AllActivitiesPageHasUpdatedActivityChanges)
                 ActivityTableUpdated = false;
 
-            if (MainPageHasUpdatedOperatorChanges && ActivityPageHasUpdatedOperatorChanges
+            if (TimeStudyPageHasUpdatedOperatorChanges && ActivityPageHasUpdatedOperatorChanges
                     && ForeignElementsPageHasUpdatedOperatorChanges)
                 OperatorTableUpdated = false;
 
-            if (MainPageHasUpdatedObservationChanges && ActivityPageHasUpdatedObservationChanges)
+            if (TimeStudyPageHasUpdatedObservationChanges && ActivityPageHasUpdatedObservationChanges)
                 ObservationTableUpdated = false;
 
             if(ActivityPageHasUpdatedActivitySampleChanges && ForeignElementsPageHasUpdatedActivitySampleChanges)

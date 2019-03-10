@@ -30,13 +30,13 @@ namespace TimeStudy.Pages
 
             if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
             {
-                if(!Utilities.MainPageHasUpdatedActivityChanges 
-                    || !Utilities.MainPageHasUpdatedOperatorChanges
-                    || !Utilities.MainPageHasUpdatedObservationChanges)
+                if(!Utilities.TimeStudyPageHasUpdatedActivityChanges 
+                    || !Utilities.TimeStudyPageHasUpdatedOperatorChanges
+                    || !Utilities.TimeStudyPageHasUpdatedObservationChanges)
                 {
-                    Utilities.MainPageHasUpdatedActivityChanges = true;
-                    Utilities.MainPageHasUpdatedOperatorChanges = true;
-                    Utilities.MainPageHasUpdatedObservationChanges = true;
+                    Utilities.TimeStudyPageHasUpdatedActivityChanges = true;
+                    Utilities.TimeStudyPageHasUpdatedOperatorChanges = true;
+                    Utilities.TimeStudyPageHasUpdatedObservationChanges = true;
 
                     Utilities.UpdateTableFlags();
 

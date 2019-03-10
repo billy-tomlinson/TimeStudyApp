@@ -125,4 +125,7 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Pages\MainPage.xaml.cs" />
+  </ItemGroup>
 </Project>

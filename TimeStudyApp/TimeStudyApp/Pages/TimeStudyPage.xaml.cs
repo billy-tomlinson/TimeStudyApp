@@ -19,6 +19,27 @@ namespace TimeStudy.Pages
         }
         protected override void OnAppearing()
         {
+            if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated)
+            {
+                if (!Utilities.TimeStudyPageHasUpdatedActivityChanges
+                    || !Utilities.TimeStudyPageHasUpdatedOperatorChanges
+                    || !Utilities.TimeStudyPageHasUpdatedObservationChanges)
+                {
+                    Utilities.TimeStudyPageHasUpdatedActivityChanges = true;
+                    Utilities.TimeStudyPageHasUpdatedOperatorChanges = true;
+                    Utilities.TimeStudyPageHasUpdatedObservationChanges = true;
+
+                    Utilities.UpdateTableFlags();
+
+                    var viewModel = new TimeStudyViewModel
+                    {
+                        RatingsVisible = false,
+                        ActivitiesVisible = false,
+                    };
+                    BindingContext = viewModel;
+                }
+            }
+
             Utilities.ClearNavigation();
             base.OnAppearing();
         }

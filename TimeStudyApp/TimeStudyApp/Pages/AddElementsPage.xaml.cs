@@ -52,15 +52,15 @@ namespace TimeStudy.Pages
 
         private static void UpdateTableFlags()
         {
-            if (Utilities.MainPageHasUpdatedActivityChanges
+            if (Utilities.TimeStudyPageHasUpdatedActivityChanges
                                     && Utilities.ActivityPageHasUpdatedActivityChanges)
                 Utilities.ActivityTableUpdated = false;
 
-            if (Utilities.MainPageHasUpdatedOperatorChanges
+            if (Utilities.TimeStudyPageHasUpdatedOperatorChanges
                 && Utilities.ActivityPageHasUpdatedOperatorChanges)
                 Utilities.OperatorTableUpdated = false;
 
-            if (Utilities.MainPageHasUpdatedObservationChanges
+            if (Utilities.TimeStudyPageHasUpdatedObservationChanges
                 && Utilities.ActivityPageHasUpdatedObservationChanges)
                 Utilities.ObservationTableUpdated = false;
         }
