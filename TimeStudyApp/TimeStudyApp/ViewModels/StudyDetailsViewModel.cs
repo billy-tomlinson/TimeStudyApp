@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class StudyDetailsViewModel : BaseAlarmViewModel
+    public class StudyDetailsViewModel : BaseViewModel
     {
         public StudyDetailsViewModel(string conn) : base(conn) { ConstructorSetUp(); }
 
@@ -25,22 +25,12 @@ namespace TimeStudy.ViewModels
                 if (!IsInvalid)
                 {
                     StudyPageOpacity = 0.5;
-                    SampleStudy.IsRated = !IsUnRated;
+                    SampleStudy.IsRated = true;
                     Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
-
-                    AlarmRepo.SaveItem(new AlarmDetails 
-                        {  
-                            IsActive = IsAlarmEnabled, 
-                            Type = AlarmType, 
-                            Interval = IntervalTime,
-                            StudyId = Utilities.StudyId
-                        }
-                    );
-
                     StudyNumber = Utilities.StudyId;
                     CreateUnratedActivities();
 
-                    Utilities.RatedStudy = SampleStudy.IsRated;
+                    Utilities.RatedStudy = true;
 
                     var page = parameter as ContentPage;
                     var parentPage = page.Parent as TabbedPage;
@@ -54,18 +44,6 @@ namespace TimeStudy.ViewModels
             }
         );
 
-        bool _isUnRated;
-        public bool IsUnRated
-        {
-            get => _isUnRated;
-            set
-            {
-                _isUnRated = value;
-                OnPropertyChanged();
-                Switch_Toggled();
-            }
-        }
-
         double studyPageOpacity = 1;
         public double StudyPageOpacity
         {
@@ -75,22 +53,6 @@ namespace TimeStudy.ViewModels
                 studyPageOpacity = value;
                 OnPropertyChanged();
             }
-        }
-
-        string studyType = "RATED";
-        public string StudyType
-        {
-            get { return studyType; }
-            set
-            {
-                studyType = value;
-                OnPropertyChanged();
-            }
-        }
-
-        void Switch_Toggled()
-        {
-            StudyType = _isUnRated == false ? "RATED" : "UNRATED";
         }
 
         bool isActive;
@@ -121,11 +83,9 @@ namespace TimeStudy.ViewModels
             IsActive = true;
             Utilities.StudyId = 0;
 
-            IsRandom = false;
-
             SampleStudy = new ActivitySampleStudy()
             {
-                IsRated = !IsUnRated,
+                IsRated = true,
                 Date = DateTime.Now,
                 Time = DateTime.Now.TimeOfDay
             };
@@ -199,22 +159,6 @@ namespace TimeStudy.ViewModels
                 IsValueAdded = false
             };
 
-            //activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "OTHER");
-
-            //if (activityName == null)
-            //    activityName = new ActivityName { Name = "OTHER" };
-
-            //var unrated3 = new Activity()
-            //{
-            //    ActivityName = activityName,
-            //    IsEnabled = true,
-            //    Rated = false,
-            //    StudyId = Utilities.StudyId,
-            //    DeleteIcon = string.Empty,
-            //    ItemColour = Utilities.InactiveColour,
-            //    ObservedColour = Utilities.InactiveColour
-            //};
-
             ActivityNameRepo.SaveItem(unrated1.ActivityName);
             ActivityRepo.SaveItem(unrated1);
             ActivityRepo.UpdateWithChildren(unrated1);
@@ -222,11 +166,6 @@ namespace TimeStudy.ViewModels
             ActivityNameRepo.SaveItem(unrated2.ActivityName);
             ActivityRepo.SaveItem(unrated2);
             ActivityRepo.UpdateWithChildren(unrated2);
-
-            //ActivityNameRepo.SaveItem(unrated3.ActivityName);
-            //ActivityRepo.SaveItem(unrated3);
-            //ActivityRepo.UpdateWithChildren(unrated3);
-
         }
     }
 }
