@@ -18,7 +18,6 @@ namespace TimeStudy.Services
         public static bool RatedStudy { get; set; }
         public static bool AllObservationsTaken { get; set; }
         public static string Connection { get; set; }
-        public static string AlarmConnection { get; set; }
         public static DateTime LastNotification { get; set; } = DateTime.Now;
 
         public static bool OperatorTableUpdated { get; set; }
@@ -43,9 +42,6 @@ namespace TimeStudy.Services
 
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
-        public static IBaseRepository<AlarmDetails> AlarmRepo = 
-            new BaseRepository<AlarmDetails>(AlarmConnection);
-            
         public static void UpdateTableFlags()
         {
             if (TimeStudyPageHasUpdatedActivityChanges && ActivityPageHasUpdatedActivityChanges 
@@ -85,13 +81,9 @@ namespace TimeStudy.Services
         public const string CommentsImage = "comments.png";
         public const string MoveUpImage = "chevronup.png";
         public static string MoveDownImage = "chevrondown.png";
-        public static bool   CancelAlarm { get; set; }
-
-        public static bool ContinueTimer { get; set; } = true;
 
         public static void ClearNavigation()
         {
-
             var existingPages = App.NavigationPage?.Navigation.NavigationStack.ToList();
 
             for (int i = 0; i < existingPages?.Count; i++)

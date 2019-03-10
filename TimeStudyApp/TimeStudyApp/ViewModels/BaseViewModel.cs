@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using TimeStudy.Model;
@@ -18,14 +16,12 @@ namespace TimeStudy.ViewModels
         public Command Override { get; set; }
 
         private readonly string conn;
-        private readonly string alarmconn;
 
         public Operator Operator;
 
-        public BaseViewModel(string conn = null, string alarmconn = null)
+        public BaseViewModel(string conn = null)
         {
             this.conn = conn;
-            this.alarmconn = alarmconn;
             SubmitDetails = new Command(SubmitDetailsAndNavigate);
             CloseView = new Command(CloseValidationView);
             EnsureTableCreation();
@@ -37,8 +33,6 @@ namespace TimeStudy.ViewModels
         public Command SubmitDetails { get; set; }
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
-
-        public IBaseRepository<AlarmDetails> AlarmRepo => new BaseRepository<AlarmDetails>(alarmconn);
 
         public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
 
@@ -424,7 +418,6 @@ namespace TimeStudy.ViewModels
 
         private void EnsureTableCreation()
         {
-            AlarmRepo.CreateTable();
             OperatorRepo.CreateTable();
             ObservationRepo.CreateTable();
             ActivityRepo.CreateTable();
@@ -438,75 +431,6 @@ namespace TimeStudy.ViewModels
         {
             Opacity = 1;
             IsInvalid = false;
-        }
-
-        public List<OperatorRunningTotal> GetRunningTotals(Operator op)
-        {
-            var totals = new List<OperatorRunningTotal>();
-
-            var observations = op.Observations;
-            var totalObs = observations.Count;
-
-            var observationsTaken = ObservationRepo.GetItems().Where(x => x.OperatorId == op.Id).ToList();
-
-            if (observationsTaken.Count < 10)
-            {
-                PercentagesVisible = false;
-                return totals;
-            }
-
-            PercentagesVisible = true;
-
-            TotalObservationsTaken = totalObs;
-
-            var activtyIds = observationsTaken.Select(x => new { Id = x.AliasActivityId })
-                                              .Distinct().ToList();
-
-            var distinctActivities = new List<dynamic>();
-
-            foreach (var item in activtyIds)
-            {
-                distinctActivities.Add(item);
-            }
-
-            var totalRequiredForOperator = 0;
-
-            foreach (var item in distinctActivities)
-            {
-                var count = observations.Count(x => x.AliasActivityId == item.Id);
-                double percentage = count > 0 ? (double)count / totalObs : 0;
-                percentage = Math.Round(percentage * 100, 1);
-
-                var totalRequired = Utilities.CalculateObservationsRequired(percentage);
-
-                totalRequiredForOperator = totalRequiredForOperator + totalRequired;
-
-                var runningTotal = new OperatorRunningTotal()
-                {
-                    ActivityId = item.Id,
-                    OperatorId = op.Id,
-                    ActivityName = ActivityRepo.GetWithChildren(item.Id).ActivityName.Name,
-                    NumberOfObservations = count,
-                    ObservationsRequired = totalRequired,
-                    Percentage = percentage,
-                    PercentageFormatted = $"{percentage.ToString(CultureInfo.InvariantCulture)}%"
-                };
-
-                totals.Add(runningTotal);
-            }
-
-            TotalOperatorPercentage = string.Empty;
-            TotalObservationsRequired = totalRequiredForOperator;
-            double totalPercentage = 0;
-
-            if (TotalObservationsRequired > 0)
-            {
-                totalPercentage = Math.Ceiling((double)TotalObservationsTaken / TotalObservationsRequired * 100);
-                var percentage = totalPercentage < 100 ? totalPercentage : 100;
-                TotalOperatorPercentage = $"{percentage.ToString(CultureInfo.InvariantCulture)}%";
-            }
-
-            return totals;
         }
     }
 }
