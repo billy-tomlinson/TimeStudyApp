@@ -21,7 +21,7 @@ namespace TimeStudy.ViewModels
         public Command ShowForeignElements { get; set; }
         public Command CloseForeignElements { get; set; }
         public Command ForeignElementSelected { get; set; }
-        public Command CloseView { get; set; }
+        public Command CloseActivitiesView { get; set; }
 
         private bool IsRunning;
         private bool cancelActivitiesView;
@@ -51,6 +51,11 @@ namespace TimeStudy.ViewModels
 
         public TimeStudyViewModel()
         {
+            ConstructorSetUp();
+        }
+
+        private void ConstructorSetUp()
+        {
 
             StartTimer = new Command(StartTimerEvent);
             StopTimer = new Command(StopTimerEvent);
@@ -62,7 +67,7 @@ namespace TimeStudy.ViewModels
             CloseForeignElements = new Command(CloseForeignElementsEvent);
             ForeignElementSelected = new Command(ForeignElementSelectedEvent);
             ItemClickedCommand = new Command(ShowForeignElementsEvent);
-            CloseView = new Command(CloseActivitiesView);
+            CloseActivitiesView = new Command(CloseActivitiesViewEvent);
 
             LapTimes = new ObservableCollection<LapTime>();
             LapTimesList = new List<LapTime>();
@@ -116,7 +121,7 @@ namespace TimeStudy.ViewModels
             return true;
         }
 
-        public void CloseActivitiesView()
+        public void CloseActivitiesViewEvent()
         {
             cancelActivitiesView = true;
             Opacity = 1;
@@ -170,22 +175,26 @@ namespace TimeStudy.ViewModels
 
         void OverrideEvent(object sender)
         {
-            LapTimes = new ObservableCollection<LapTime>();
-            OnPropertyChanged("LapTimes");
-
-            LapTimesList = new List<LapTime>();
-            StopWatchTime = "0.000";
-            IsLapEnabled = false;
-            IsStopEnabled = false;
-            IsClearEnabled = false;
-            IsStartEnabled = true;
-
-            TimeWhenStopButtonClicked = 0;
-            TimeWhenLapButtonClicked = 0;
-            LapTime = 0;
-
+            ConstructorSetUp();
+            ShowOkCancel = false;
             IsInvalid = false;
-            Opacity = 1;
+            IsOverrideVisible = false;
+            Opacity = 1.0;
+            IsRunning = false;
+            cancelActivitiesView = false;
+            HasBeenStopped = false;
+            lapTimerEventClicked = false;
+            TimeWhenLapButtonClicked = 0;
+            TimeWhenForiegnButtonClicked = 0;
+            TimeWhenStopButtonClicked = 0;
+            LapTime = 0;
+            CurrentTicks = 0;
+            LastSuccesstulLapTime = 0;
+            ActivitiesCounter = 0;
+            CurrentCycle = 0;
+            CurrentSequence = null;
+            CurrentElementWithoutLapTimeName = null;
+            CurrentWithoutLapTime = null;
         }
 
         void RatingSelectedEvent(object sender)

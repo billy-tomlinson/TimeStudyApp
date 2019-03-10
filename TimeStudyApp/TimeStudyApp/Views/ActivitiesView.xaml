@@ -45,7 +45,7 @@
                     </ScrollView>
                 </StackLayout>
             </StackLayout>
-            <Button Text="CANCEL/RESUME" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseView}" FontSize="12" />
+            <Button Text="CANCEL/RESUME" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseActivitiesView}" FontSize="12" />
             <StackLayout>
             </StackLayout>
         </StackLayout>
