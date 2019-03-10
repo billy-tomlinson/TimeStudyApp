@@ -50,9 +50,6 @@
                             <Entry Grid.Row="4" Grid.Column="2" Grid.ColumnSpan="2" x:Name="studiedBy" Placeholder="Studied By" Text="{Binding StudiedBy}" MaxLength="20" />
                             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Date" />
                             <Label Grid.Row="5" Grid.Column="2" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="{Binding DateTimeFormatted}" />
-                            <Label Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource studyLabel}" Text="Study type" />
-                            <Switch Grid.Row="6" Grid.Column="2" IsToggled="{Binding Path = BindingContext.IsUnRated, Source={x:Reference StudyDetailsView}, Mode=TwoWay}" HorizontalOptions="Start" VerticalOptions="Center" />
-                            <Label Grid.Row="6" Grid.Column="3" Style="{StaticResource studyLabel}" Text="{Binding Path = BindingContext.StudyType, Source={x:Reference StudyDetailsView}}" FontSize="13" />
                         </Grid>
                     </StackLayout>
                     <StackLayout WidthRequest="170" HorizontalOptions="Center" Margin="0,0,0,30">
