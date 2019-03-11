@@ -3,7 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
             xmlns:pages="clr-namespace:TimeStudy.Pages" 
             x:Class="TimeStudy.Pages.MainPageTabbedPage" >
-    <pages:TimeStudyPage Title="Time Study"  Icon="sandtimer.png" />
-    <pages:AddElementsPage Title="Elements" Icon="tools.png" />
+    <pages:TimeStudyUnsequencedPage Title="Time Study"  Icon="sandtimer.png" />
+    <pages:AddElementsUnsequencedPage Title="Elements" Icon="tools.png" />
     <pages:AddForeignElementsPage Title="Foreign" Icon="tools.png" />
 </TabbedPage>

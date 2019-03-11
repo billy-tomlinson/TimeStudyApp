@@ -35,6 +35,8 @@ namespace TimeStudy.Model
 
         public int Sequence { get; set; }
 
+        public bool IsForeignElement { get; set; }
+
         public bool IsValueAdded { get; set; } = true;
 
         public string ItemColour { get; set; } = Utilities.ValueAddedColour;

@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class AddForeignElementsViewModel : BaseViewModel
+    public class AddElementsUnsequencedViewModel : BaseViewModel
     {
         public Command SaveActivity { get; set; }
         public Command SaveComment { get; set; }
@@ -23,13 +23,13 @@ namespace TimeStudy.ViewModels
         public Command DeleteSelected { get; set; }
         public Activity Activity;
         public int ActivitiesCount;
-
-        public AddForeignElementsViewModel()
+       
+        public AddElementsUnsequencedViewModel()
         {
             ConstructorSetUp();
         }
 
-        public AddForeignElementsViewModel(string conn) : base(conn)
+        public AddElementsUnsequencedViewModel(string conn) : base(conn)
         {
             ConstructorSetUp();
         }
@@ -128,7 +128,7 @@ namespace TimeStudy.ViewModels
 
                 if (duplicatesCheck == null)
                 {
-                    var activities = ActivityRepo.GetItems().Count(x => x.StudyId == Utilities.StudyId);
+                    var activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().Count();
 
                     var activityName = new ActivityName()
                     {
@@ -139,10 +139,9 @@ namespace TimeStudy.ViewModels
                         ActivityName = activityName,
                         IsEnabled = true,
                         Rated = true,
-                        ObservedColour = Utilities.NonValueAddedColour,
-                        ItemColour = Utilities.NonValueAddedColour,
-                        IsValueAdded = false,
-                        IsForeignElement = true
+                        ObservedColour = Utilities.ValueAddedColour,
+                        IsValueAdded = true,
+                        Sequence = activities + 1
                     };
 
                     SaveActivityDetails(activity);
@@ -156,7 +155,7 @@ namespace TimeStudy.ViewModels
                     ShowClose = true;
                 }
 
-                ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
                 ActivitiesCount = ItemsCollection.Count;
                 Name = string.Empty;
             }
@@ -233,7 +232,7 @@ namespace TimeStudy.ViewModels
             ShowClose = true;
             Opacity = 0.2;
 
-            var activities = Get_All_NonValueAdded_Enabled_Activities();
+            var activities = Get_Rated_Enabled_Activities();
 
             if ((activities.Count > 0))
             {
@@ -264,7 +263,7 @@ namespace TimeStudy.ViewModels
             Activity.IsValueAdded = !IsNonValueAdded;
             ActivityRepo.SaveItem(Activity);
             Opacity = 1.0;
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities()
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
                 .OrderByDescending(x => x.Id));
 
             CategoriesVisible = false;
@@ -287,7 +286,7 @@ namespace TimeStudy.ViewModels
             ActivityRepo.SaveItem(activity1);
             ActivityRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
         }
 
         void MoveElementDownOnePlace(object sender)
@@ -307,39 +306,30 @@ namespace TimeStudy.ViewModels
             ActivityRepo.SaveItem(activity1);
             ActivityRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
         }
 
         void ActivitySelectedEvent(object sender)
         {
-            //SetElementsColour();
+            SetElementsColour();
 
-            //var value = (int)sender;
-            //Activity = ActivityRepo.GetItem(value);
-            //Activity.ItemColour = Utilities.NonValueAddedColour;
-            //Activity.ObservedColour = Utilities.NonValueAddedColour;
-            //ActivityRepo.SaveItem(Activity);
+            var value = (int)sender;
+            Activity = ActivityRepo.GetItem(value);
+            Activity.ItemColour = Utilities.NonValueAddedColour;
+            Activity.ObservedColour = Utilities.NonValueAddedColour;
+            ActivityRepo.SaveItem(Activity);
 
-            //ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities().OrderBy(x => x.Sequence));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
         }
 
         private void SetElementsColour()
         {
-            var activities = Get_All_NonValueAdded_Enabled_Unrated_Activities();
+            var activities = Get_All_Enabled_Activities();
 
             foreach (var item in activities)
             {
-                item.ItemColour = Utilities.InactiveColour;
-                item.ObservedColour = Utilities.InactiveColour;
-                ActivityRepo.SaveItem(item);
-            }
-
-            activities = Get_All_NonValueAdded_Enabled_Rated_Activities();
-
-            foreach (var item in activities)
-            {
-                item.ItemColour = Utilities.NonValueAddedColour;
-                item.ObservedColour = Utilities.NonValueAddedColour;
+                item.ItemColour = Utilities.ValueAddedColour;
+                item.ObservedColour = Utilities.ValueAddedColour;
                 ActivityRepo.SaveItem(item);
             }
         }
@@ -358,15 +348,33 @@ namespace TimeStudy.ViewModels
             var value = (int)sender;
 
             if (!StudyInProcess)
+            {
+                Activity = ActivityRepo.GetItem(value);
+
+                var activitiesToBeSequenced = ActivityRepo.GetItems()
+                    .Where(x => x.Sequence > Activity.Sequence && x.StudyId == Utilities.StudyId);
+
+                if (!activitiesToBeSequenced.Any())
+                {
+                    await DeleteActivity(value);
+                    return;
+                }
+
+                foreach (var item in activitiesToBeSequenced)
+                {
+                    item.Sequence = item.Sequence - 1;
+                    ActivityRepo.SaveItem(item);
+                }
+
                 await DeleteActivity(value);
+            }
+
             else
             {
                 var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == value
                           && x.StudyId == Utilities.StudyId);
 
-                var merged = MergedActivityRepo.GetItems().Where(x => x.ActivityId == value);
-
-                if (obs.Any() || merged.Any())
+                if (obs.Any())
                 {
                     ValidationText = "Cannot delete an element once used in Study.";
                     Opacity = 0.2;
@@ -374,7 +382,10 @@ namespace TimeStudy.ViewModels
                     ShowClose = true;
                 }
                 else
+                {
                     await DeleteActivity(value);
+                }
+
             }
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
@@ -397,7 +408,9 @@ namespace TimeStudy.ViewModels
                 if (!activities.Any())
                     ActivityNameRepo.DeleteItem(Activity.ActivityName);
 
-                ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
+                SetElementsColour();
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
+                ActivitiesCount = ItemsCollection.Count;
             });
 
             await deleteTask;
@@ -423,8 +436,7 @@ namespace TimeStudy.ViewModels
             Name = string.Empty;
             CheckActivitiesInUse();
             SetElementsColour();
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities()
-                .OrderBy(x => x.Id));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
             ActivitiesCount = ItemsCollection.Count;
             var count = ItemsCollection.Count;
             Activity = new Activity
@@ -464,4 +476,5 @@ namespace TimeStudy.ViewModels
         }
     }
 }
+
 

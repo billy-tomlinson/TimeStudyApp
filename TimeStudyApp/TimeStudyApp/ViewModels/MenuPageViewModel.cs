@@ -47,7 +47,7 @@ namespace TimeStudy.ViewModels
 
         void GoStopWatch(object obj)
         {
-            Utilities.Navigate(new TimeStudyPage());
+            Utilities.Navigate(new TimeStudyUnsequencedPage());
             App.MenuIsPresented = false;
         }
 

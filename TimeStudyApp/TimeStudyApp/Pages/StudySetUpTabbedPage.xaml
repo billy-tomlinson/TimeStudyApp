@@ -4,6 +4,6 @@
             xmlns:pages="clr-namespace:TimeStudy.Pages" 
             x:Class="TimeStudy.Pages.StudySetUpTabbedPage">
     <pages:StudyDetailsPage Title="Study Details" Icon="studysetup.png"/>
-    <pages:AddElementsPage Title="Elements" Icon="tools.png"/>
+    <pages:AddElementsUnsequencedPage Title="Elements" Icon="tools.png"/>
     <pages:AddForeignElementsPage Title="Foreign" Icon="tools.png"/>
 </TabbedPage>

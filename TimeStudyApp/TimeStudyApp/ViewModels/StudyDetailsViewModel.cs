@@ -138,7 +138,8 @@ namespace TimeStudy.ViewModels
                 DeleteIcon = string.Empty,
                 ItemColour = Utilities.InactiveColour,
                 ObservedColour = Utilities.InactiveColour,
-                IsValueAdded = false
+                IsValueAdded = false,
+                IsForeignElement = true
 
             };
 
@@ -156,7 +157,8 @@ namespace TimeStudy.ViewModels
                 DeleteIcon = string.Empty,
                 ItemColour = Utilities.InactiveColour,
                 ObservedColour = Utilities.InactiveColour,
-                IsValueAdded = false
+                IsValueAdded = false,
+                IsForeignElement = true
             };
 
             ActivityNameRepo.SaveItem(unrated1.ActivityName);
