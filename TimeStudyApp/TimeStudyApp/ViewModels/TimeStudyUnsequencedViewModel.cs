@@ -243,6 +243,7 @@ namespace TimeStudy.ViewModels
 
                 Opacity = 1;
                 RatingsVisible = false;
+                ActivitiesVisible = true;
             }
             else
             {
@@ -276,6 +277,17 @@ namespace TimeStudy.ViewModels
             var value = (int)sender;
 
             CurrentForeignElement = AllForeignElements.Where(x => x.Id == value).FirstOrDefault();
+
+            var currentForeign = new LapTime
+            {
+                Cycle = CycleCount,
+                Element = CurrentForeignElement.Name,
+                TotalElapsedTime = "Running",
+                IsForeignElement = CurrentForeignElement.IsForeignElement
+            };
+
+            CurrentWithoutLapTime = currentForeign;
+
             SelectedForeignElements.Add(CurrentForeignElement);
             ForeignElementCount = SelectedForeignElements.Count;
             AddForeignElementWithoutLapTimeToList(CurrentForeignElement);
@@ -302,23 +314,25 @@ namespace TimeStudy.ViewModels
                 RatingsVisible = true;
                 Opacity = 0.2;
             }
-            //else if (CurrentWithoutLapTime.IsForeignElement && !CurrentWithoutLapTime.IsRated && CurrentWithoutLapTime.Rating == null)
-            //{
-            //    CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
-            //    RatingsVisible = false;
-            //    Opacity = 0.2;
+            else if (!CurrentWithoutLapTime.IsForeignElement)
+            //else if (!CurrentWithoutLapTime.IsForeignElement && CurrentWithoutLapTime.Rating == null)
+            {
+                LapTimerEvent();
+                //CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
+                //RatingsVisible = false;
+                //Opacity = 0.2;
 
-            //    if (!lapTimerEventClicked)
-            //    {
-            //        ActivitiesVisible = true;
-            //        Opacity = 0.2;
-            //    }
-            //    else
-            //    {
-            //        ActivitiesVisible = false;
-            //        Opacity = 1.0;
-            //    }
-            //}
+                //if (!lapTimerEventClicked)
+                //{
+                //    ActivitiesVisible = true;
+                //    Opacity = 0.2;
+                //}
+                //else
+                //{
+                //    ActivitiesVisible = false;
+                //    Opacity = 1.0;
+                //}
+            }
             else
             {
 
@@ -345,33 +359,38 @@ namespace TimeStudy.ViewModels
 
                 ForceRoundingToLapTime(true);
 
-                Activity element;
-
-                if (ActivitiesCounter == 0)
-                    ActivitiesCounter = 1;
-                else
-                    ActivitiesCounter = ActivitiesCounter + 1;
-
-                if (ActivitiesCounter > ActivitiesCount)
-                {
-                    ActivitiesCounter = 1;
-                    CycleCount = CycleCount + 1;
-                }
-
-                element = Activities.FirstOrDefault(x => x.Sequence == ActivitiesCounter);
-
                 LapTimesList.Remove(CurrentWithoutLapTime);
 
                 SetUpCurrentLapTime();
 
-                SelectedForeignElements = new List<Activity>();
-
-                TimeWhenLapButtonClicked = RealTimeTicks;
-
-                if (!CurrentLapTime.IsForeignElement)
-                    LastSuccesstulLapTime = TimeWhenLapButtonClicked;
-
                 CheckIfRatedStudy();
+                //Activity element;
+
+                //if (ActivitiesCounter == 0)
+                //    ActivitiesCounter = 1;
+                //else
+                //    ActivitiesCounter = ActivitiesCounter + 1;
+
+                //if (ActivitiesCounter > ActivitiesCount)
+                //{
+                //    ActivitiesCounter = 1;
+                //    CycleCount = CycleCount + 1;
+                //}
+
+                //element = Activities.FirstOrDefault(x => x.Sequence == ActivitiesCounter);
+
+                //LapTimesList.Remove(CurrentWithoutLapTime);
+
+                //SetUpCurrentLapTime();
+
+                //SelectedForeignElements = new List<Activity>();
+
+                //TimeWhenLapButtonClicked = RealTimeTicks;
+
+                //if (!CurrentLapTime.IsForeignElement)
+                //    LastSuccesstulLapTime = TimeWhenLapButtonClicked;
+
+                //CheckIfRatedStudy();
             }
             else
             {
