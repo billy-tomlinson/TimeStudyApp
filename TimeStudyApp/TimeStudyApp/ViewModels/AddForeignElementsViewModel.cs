@@ -138,7 +138,6 @@ namespace TimeStudy.ViewModels
                     {
                         ActivityName = activityName,
                         IsEnabled = true,
-                        Rated = true,
                         ObservedColour = Utilities.NonValueAddedColour,
                         ItemColour = Utilities.NonValueAddedColour,
                         IsValueAdded = false,
