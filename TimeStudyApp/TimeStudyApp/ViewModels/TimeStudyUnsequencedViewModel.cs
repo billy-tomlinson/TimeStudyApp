@@ -75,8 +75,8 @@ namespace TimeStudy.ViewModels
 
             Activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
 
-            AllForeignElements = Get_All_NonValueAdded_Enabled_Activities();
-
+            //AllForeignElements = Get_All_NonValueAdded_Enabled_Activities();
+            AllForeignElements = Get_All_Enabled_Activities();
             IEnumerable<Activity> obsCollection = AllForeignElements;
 
             var list1 = new List<Activity>(obsCollection);
@@ -125,7 +125,7 @@ namespace TimeStudy.ViewModels
         {
             cancelActivitiesView = true;
             Opacity = 1;
-            LapTimerEvent();
+            //LapTimerEvent();
             ActivitiesVisible = false;
             lapTimerEventClicked = false;
         }
@@ -235,7 +235,7 @@ namespace TimeStudy.ViewModels
             }
             else
             {
-                ProcessForeignElementWithRating(CurrentForeignElement.Rated, CurrentForeignElement.Name, button.Rating);
+                ProcessForeignElementWithRating(CurrentForeignElement.Rated, CurrentForeignElement.Name, CurrentForeignElement.IsForeignElement, button.Rating);
 
                 if (LapButtonText != "   Lap   ")
                 {
@@ -378,7 +378,7 @@ namespace TimeStudy.ViewModels
 
         }
 
-        private void ProcessForeignElementWithRating(bool rated, string name, int? rating = null)
+        private void ProcessForeignElementWithRating(bool rated, string name, bool isForeign, int? rating = null)
         {
             AddForeignLapTimetoListAsCompleted(rating);
 
@@ -450,7 +450,9 @@ namespace TimeStudy.ViewModels
             SetUpCurrentLapTime();
 
             CurrentLapTime.Rating = rating;
-            CurrentLapTime.ElementColour = Color.Orange;
+
+            //if(CurrentLapTime.IsForeignElement)
+                //CurrentLapTime.ElementColour = Color.Orange;
 
             LapTimesList.Add(CurrentLapTime);
 
@@ -493,7 +495,7 @@ namespace TimeStudy.ViewModels
 
         private void AddForeignElementWithoutLapTimeToList(Activity foreign)
         {
-            LapButtonText = "  Resume ";
+            LapButtonText = "  Lap ";
 
             //if (PausedLapTime == null)
             //{

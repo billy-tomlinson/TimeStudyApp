@@ -141,7 +141,8 @@ namespace TimeStudy.ViewModels
                         Rated = true,
                         ObservedColour = Utilities.ValueAddedColour,
                         IsValueAdded = true,
-                        Sequence = activities + 1
+                        Sequence = activities + 1,
+                        IsForeignElement = false
                     };
 
                     SaveActivityDetails(activity);

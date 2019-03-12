@@ -439,7 +439,9 @@ namespace TimeStudy.ViewModels
             SetUpCurrentLapTime();
 
             CurrentLapTime.Rating = rating;
-            CurrentLapTime.ElementColour = Color.Orange;
+
+            //if (CurrentLapTime.IsForeignElement)
+                //CurrentLapTime.ElementColour = Color.Orange;
 
             LapTimesList.Add(CurrentLapTime);
 
@@ -500,7 +502,7 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
-                    IsForeignElement = true,
+                    IsForeignElement = foreign.IsForeignElement,
                     IsRated = foreign.Rated
                 };
 
@@ -515,7 +517,7 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
-                    IsForeignElement = true,
+                    IsForeignElement = foreign.IsForeignElement,
                     IsRated = foreign.Rated
                 };
 
