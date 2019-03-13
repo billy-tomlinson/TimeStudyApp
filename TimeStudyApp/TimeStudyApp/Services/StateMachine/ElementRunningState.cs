@@ -59,9 +59,11 @@ namespace TimeStudyApp.Services.StateMachine
             }
         }
 
-        public override void ElementSelectedEvent()
+        public override void ElementSelectedEvent(int id)
         {
-            if(viewModel.CurrentSelectedElement.IsForeignElement)
+            viewModel.CurrentSelectedElement = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
+
+            if (viewModel.CurrentSelectedElement.IsForeignElement)
             {
                 viewModel.IsForeignEnabled = false;
                 viewModel.CurrentApplicationState.CurrentState = Model.Status.ForeignElementRunning;

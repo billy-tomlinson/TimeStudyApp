@@ -1,4 +1,5 @@
-﻿using TimeStudy.Model;
+﻿using System.Linq;
+using TimeStudy.Model;
 using TimeStudy.Services;
 using TimeStudy.ViewModels;
 
@@ -27,6 +28,9 @@ namespace TimeStudyApp.Services.StateMachine
 
             viewModel.CurrentWithoutLapTime = currentForeignLap;
 
+            var id = viewModel.LapTimeRepo.SaveItem(viewModel.CurrentWithoutLapTime);
+            viewModel.CurrentWithoutLapTime = viewModel.Get_Running_LapTime(id);
+
             viewModel.Opacity = 0.2;
             viewModel.RatingsVisible = true;
 
@@ -34,8 +38,9 @@ namespace TimeStudyApp.Services.StateMachine
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 
-        public override void ElementSelectedEvent()
+        public override void ElementSelectedEvent(int id)
         {
+            viewModel.CurrentSelectedElement = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
             viewModel.IsForeignEnabled = false;
         }
 

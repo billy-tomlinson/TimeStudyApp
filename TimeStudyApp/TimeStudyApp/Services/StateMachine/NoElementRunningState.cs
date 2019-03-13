@@ -1,4 +1,5 @@
-﻿using TimeStudy.Model;
+﻿using System.Linq;
+using TimeStudy.Model;
 using TimeStudy.ViewModels;
 
 namespace TimeStudyApp.Services.StateMachine
@@ -19,8 +20,9 @@ namespace TimeStudyApp.Services.StateMachine
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 
-        public override void ElementSelectedEvent()
+        public override void ElementSelectedEvent(int id)
         {
+            viewModel.CurrentSelectedElement = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
             viewModel.StartTimerEvent();
             viewModel.IsForeignEnabled = true;
 
