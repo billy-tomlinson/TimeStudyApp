@@ -27,7 +27,7 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Text="         " HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
                         <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Text="{Binding StopWatchTime}" FontSize="45" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Text="Foreign" Command="{Binding ShowForeignElements}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" HeightRequest="20" />
+                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Text="Foreign" Command="{Binding ShowForeignElements}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" HeightRequest="20" IsEnabled="{Binding IsForeignEnabled}"/>
                     </Grid>
                 </StackLayout>
                 <StackLayout Padding="5,2,5,0" BackgroundColor="White">
@@ -148,7 +148,7 @@
                             <ColumnDefinition Width="*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LapButtonText}" Command="{Binding ShowForeignElements}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LapButtonText}" Command="{Binding ShowNonForeignElements}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                         <Button Grid.Row="0" Grid.Column="2" Text=" Stop " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                         <Button Grid.Row="0" Grid.Column="3" Text=" Reset " Command="{Binding ClearLaps}" IsEnabled="{Binding IsClearEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                     </Grid>

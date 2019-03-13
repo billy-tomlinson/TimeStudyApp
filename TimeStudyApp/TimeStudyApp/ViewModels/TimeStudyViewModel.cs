@@ -216,8 +216,8 @@ namespace TimeStudy.ViewModels
                 LapTimesList.Add(CurrentLapTime);
 
                 LapTimes = new ObservableCollection<LapTime>(LapTimesList
-                    .OrderByDescending(x => x.Cycle)
-                    .ThenByDescending(x => x.Sequence));
+                    .OrderByDescending(x => x.Cycle));
+                   //.ThenByDescending(x => x.Sequence));
                     
                 if (ActivitiesCounter == ActivitiesCount)
                 {
@@ -377,7 +377,8 @@ namespace TimeStudy.ViewModels
                 Element = name,
                 TotalElapsedTime = "Running",
                 IsForeignElement = true,
-                IsRated = rated
+                IsRated = rated,
+                StudyId = Utilities.StudyId
             };
 
             CurrentWithoutLapTime = currentForeign;
@@ -419,7 +420,7 @@ namespace TimeStudy.ViewModels
             }
 
             CurrentElementWithoutLapTimeName = CurrentWithoutLapTime.Element;
-            CurrentSequence = CurrentWithoutLapTime.Sequence != null ? CurrentWithoutLapTime.Sequence : null;
+            //CurrentSequence = CurrentWithoutLapTime.Sequence != null ? CurrentWithoutLapTime.Sequence : null;
             CurrentCycle = CycleCount;
 
             RemoveDuplicate();
@@ -503,7 +504,8 @@ namespace TimeStudy.ViewModels
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
                     IsForeignElement = foreign.IsForeignElement,
-                    IsRated = foreign.Rated
+                    IsRated = foreign.Rated,
+                    StudyId = Utilities.StudyId
                 };
 
                 CurrentWithoutLapTime = currentForeignLap;
@@ -518,7 +520,8 @@ namespace TimeStudy.ViewModels
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
                     IsForeignElement = foreign.IsForeignElement,
-                    IsRated = foreign.Rated
+                    IsRated = foreign.Rated,
+                    StudyId = Utilities.StudyId
                 };
 
                 CurrentWithoutLapTime = currentForeignLap;
@@ -567,7 +570,7 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = element.Name,
                     TotalElapsedTime = "Running",
-                    Sequence = element.Sequence,
+                    //Sequence = element.Sequence,
                     ElementColour = Color.Silver,
                     IsRated = element.Rated
                 };

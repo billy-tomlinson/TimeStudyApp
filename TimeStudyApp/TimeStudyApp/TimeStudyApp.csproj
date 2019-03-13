@@ -128,4 +128,7 @@
   <ItemGroup>
     <Compile Remove="Pages\MainPage.xaml.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\StateMachine\" />
+  </ItemGroup>
 </Project>

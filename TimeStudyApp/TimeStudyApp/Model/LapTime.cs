@@ -1,13 +1,20 @@
 ﻿using System.Collections.Generic;
+using SQLite;
+using SQLiteNetExtensions.Attributes;
+using TimeStudy.Services;
 using Xamarin.Forms;
 
 namespace TimeStudy.Model
 {
-    public class LapTime
+    [Table("LapTime")]
+    public class LapTime : BaseEntity
     {
-        public string LapIdentity => $"{Cycle}{Sequence}";
+        //public string LapIdentity => $"{Cycle}{Sequence}";
 
-        public string ParentIdentity { get; set; }
+        //public string ParentIdentity { get; set; }
+
+        [ForeignKey(typeof(ActivitySampleStudy))]
+        public int StudyId { get; set; }
 
         public bool IsForeignElement { get; set; }
 
@@ -29,8 +36,10 @@ namespace TimeStudy.Model
 
         public bool IsRated { get; set; }
 
+        [Ignore]
         public Color ElementColour { get; set; }
 
+        [Ignore]
         public List<Activity> ForeignElements { get; set; }
     }
 }

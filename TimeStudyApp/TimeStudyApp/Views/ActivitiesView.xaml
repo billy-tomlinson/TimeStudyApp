@@ -22,19 +22,19 @@
                                             <BoxView Grid.Row="0" Grid.Column="0" IsVisible="{Binding ActivityOne.IsEnabled}" />
                                             <local:CustomLabel IsVisible="{Binding ActivityOne.IsEnabled}" Text="{Binding ActivityOne.Name}" Style="{StaticResource activityLabel}" BackgroundColor="{Binding ActivityOne.Colour}" FontSize="15" Grid.Row="0" Grid.Column="0" TextColor="Black">
                                                 <local:CustomLabel.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.ForeignElementSelected, Source={x:Reference ActivitiesViewPage}}" CommandParameter="{Binding ActivityOne.Id}" />
+                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.ElementSelected, Source={x:Reference ActivitiesViewPage}}" CommandParameter="{Binding ActivityOne.Id}" />
                                                 </local:CustomLabel.GestureRecognizers>
                                             </local:CustomLabel>
                                             <BoxView Grid.Row="0" Grid.Column="1" IsVisible="{Binding ActivityTwo.IsEnabled}" />
                                             <local:CustomLabel IsVisible="{Binding ActivityTwo.IsEnabled}" Text="{Binding ActivityTwo.Name}" Style="{StaticResource activityLabel}" FontSize="15" Grid.Row="0" Grid.Column="1" BackgroundColor="{Binding ActivityTwo.Colour}" TextColor="Black">
                                                 <local:CustomLabel.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.ForeignElementSelected, Source={x:Reference ActivitiesViewPage}}" CommandParameter="{Binding ActivityTwo.Id}" />
+                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.ElementSelected, Source={x:Reference ActivitiesViewPage}}" CommandParameter="{Binding ActivityTwo.Id}" />
                                                 </local:CustomLabel.GestureRecognizers>
                                             </local:CustomLabel>
                                             <BoxView Grid.Row="0" Grid.Column="2" IsVisible="{Binding ActivityThree.IsEnabled}" />
                                             <local:CustomLabel IsVisible="{Binding ActivityThree.IsEnabled}" Text="{Binding ActivityThree.Name}" Style="{StaticResource activityLabel}" FontSize="15" Grid.Row="0" Grid.Column="2" BackgroundColor="{Binding ActivityThree.Colour}" TextColor="Black">
                                                 <local:CustomLabel.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.ForeignElementSelected, Source={x:Reference ActivitiesViewPage}}" CommandParameter="{Binding ActivityThree.Id}" />
+                                                    <TapGestureRecognizer Command="{Binding Path = BindingContext.ElementSelected, Source={x:Reference ActivitiesViewPage}}" CommandParameter="{Binding ActivityThree.Id}" />
                                                 </local:CustomLabel.GestureRecognizers>
                                             </local:CustomLabel>
                                         </Grid>

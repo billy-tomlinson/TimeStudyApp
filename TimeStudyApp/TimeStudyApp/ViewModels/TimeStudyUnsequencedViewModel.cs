@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using TimeStudy.Model;
 using TimeStudy.Services;
+using TimeStudyApp.Model;
+using TimeStudyApp.Services.StateMachine;
 using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
@@ -19,9 +21,10 @@ namespace TimeStudy.ViewModels
         public Command ItemClickedCommand { get; set; }
         public Command RunningItemClickedCommand { get; set; }
         public Command ShowForeignElements { get; set; }
+        public Command ShowNonForeignElements { get; set; }
         public Command CloseForeignElements { get; set; }
         public Command ResumePased { get; set; }
-        public Command ForeignElementSelected { get; set; }
+        public Command ElementSelected { get; set; }
         public Command CloseActivitiesView { get; set; }
 
         private bool IsRunning;
@@ -36,19 +39,24 @@ namespace TimeStudy.ViewModels
         public double LastSuccesstulLapTime { get; set; }
         public TimeSpan StartTime { get; set; }
 
-        ObservableCollection<Activity> AllForeignElements;
 
-        List<Activity> SelectedForeignElements;
+        public BaseState ApplicationState { get; set; }
+        public StateFactory ApplicationStateFactory { get; set; }
 
-        List<LapTime> AllForiegnLapTimes = new List<LapTime>();
+        public State CurrentApplicationState { get; set; }
+        public ApplicationState StateService { get; set; }
 
-        static int ActivitiesCount;
-        static int ActivitiesCounter;
-        static int CycleCount;
+        public List<Activity> SelectedForeignElements;
 
-        LapTime CurrentLapTime;
-        LapTime CurrentWithoutLapTime;
-        Activity CurrentForeignElement;
+        public List<LapTime> AllForiegnLapTimes = new List<LapTime>();
+
+        public int ActivitiesCount;
+        public int ActivitiesCounter;
+        public int CycleCount;
+
+        public LapTime CurrentLapTime;
+        public LapTime CurrentWithoutLapTime;
+        public Activity CurrentSelectedElement;
 
         public TimeStudyUnsequencedViewModel()
         {
@@ -65,32 +73,44 @@ namespace TimeStudy.ViewModels
             Override = new Command(OverrideEvent);
             RatingSelected = new Command(RatingSelectedEvent);
             ShowForeignElements = new Command(ShowForeignElementsEvent);
+            ShowNonForeignElements = new Command(ShowNonForeignElementsEvent);
             CloseForeignElements = new Command(CloseForeignElementsEvent);
             ResumePased = new Command(ResumePausedEvent);
-            ForeignElementSelected = new Command(ForeignElementSelectedEvent);
+            ElementSelected = new Command(ElementsSelectedEvent);
             ItemClickedCommand = new Command(ShowForeignElementsEvent);
             CloseActivitiesView = new Command(CloseActivitiesViewEvent);
 
+            ApplicationStateFactory = new StateFactory(this);
+
+            StateService = new ApplicationState();
+            var state = StateService.GetApplicationState();
+
+            if (state != null)
+                CurrentApplicationState = new State()
+                {
+                    Id = state.Id,
+                    CurrentState = Status.NoElementRunning
+                };
+            else
+            {
+                CurrentApplicationState = new State()
+                {
+                    CurrentState = Status.NoElementRunning
+                };
+            }
+            StateService.SaveApplicationState(CurrentApplicationState);
+
             LapTimes = new ObservableCollection<LapTime>();
-            LapTimesList = new List<LapTime>();
+            //LapTimesList = new List<LapTime>();
             SelectedForeignElements = new List<Activity>();
+
 
             Activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
 
             //AllForeignElements = Get_All_NonValueAdded_Enabled_Activities();
-            AllForeignElements = Get_All_Enabled_Activities();
-            IEnumerable<Activity> obsCollection = AllForeignElements;
+            CollectionOfElements = Get_All_Enabled_Activities();
 
-            var list1 = new List<Activity>(obsCollection);
-
-            foreach (var activity in list1)
-            {
-                activity.Colour = Color.FromHex(activity.ItemColour);
-            };
-
-            AllForeignElements = ConvertListToObservable(list1);
-
-            GroupActivities = Utilities.BuildGroupOfActivities(AllForeignElements);
+            GroupElementsForActivitiesView();
 
             IsPageVisible = IsStudyValid();
 
@@ -102,10 +122,27 @@ namespace TimeStudy.ViewModels
             IsLapEnabled = true;
             IsStopEnabled = false;
             IsClearEnabled = false;
+            IsForeignEnabled = false;
             ActivitiesCount = Activities.Count;
             CycleCount = 1;
 
             LapButtonText = "   Start   ";
+        }
+
+        private void GroupElementsForActivitiesView()
+        {
+            IEnumerable<Activity> obsCollection = CollectionOfElements;
+
+            var list1 = new List<Activity>(obsCollection);
+
+            foreach (var activity in list1)
+            {
+                activity.Colour = Color.FromHex(activity.ItemColour);
+            };
+
+            CollectionOfElements = ConvertListToObservable(list1);
+
+            GroupActivities = Utilities.BuildGroupOfActivities(CollectionOfElements);
         }
 
         private bool IsStudyValid()
@@ -131,7 +168,6 @@ namespace TimeStudy.ViewModels
             lapTimerEventClicked = false;
         }
 
-
         public void ResumePausedEvent()
         {
             cancelActivitiesView = true;
@@ -150,8 +186,6 @@ namespace TimeStudy.ViewModels
             IsClearEnabled = false;
             StartTime = DateTime.Now.TimeOfDay;
             StartTimeFormatted = StartTime.ToString(@"c");
-            //CurrentElement = Activities.FirstOrDefault(x => x.Sequence == ActivitiesCounter + 1);
-            //CurrentElementName = CurrentElement?.Name;
 
             RunTimer();
             if (!HasBeenStopped)
@@ -206,69 +240,26 @@ namespace TimeStudy.ViewModels
             CurrentSequence = null;
             CurrentElementWithoutLapTimeName = null;
             CurrentWithoutLapTime = null;
+
+            CurrentApplicationState.CurrentState = Status.NoElementRunning;
+            StateService.SaveApplicationState(CurrentApplicationState);
         }
 
+        public Custom.CustomButton RatingButton;
         void RatingSelectedEvent(object sender)
         {
-            if (CurrentLapTime == null)
-                SetUpCurrentLapTime();
+            RatingButton = sender as Custom.CustomButton;
+            CurrentLapTime.Rating = RatingButton.Rating;
 
-            var button = sender as Custom.CustomButton;
-            CurrentLapTime.Rating = button.Rating;
-
-            if (!CurrentLapTime.IsForeignElement)
-            {
-                AllForiegnLapTimes = new List<LapTime>();
-                TimeWhenForiegnButtonClicked = 0;
-            }
-
-            if (!CurrentWithoutLapTime.IsForeignElement)
-            {
-                LapTimesList.Add(CurrentLapTime);
-
-                LapTimes = new ObservableCollection<LapTime>(LapTimesList
-                    .OrderByDescending(x => x.Cycle)
-                    .ThenByDescending(x => x.Sequence));
-
-                if (ActivitiesCounter == ActivitiesCount)
-                {
-                    CurrentElementName = Activities.FirstOrDefault(x => x.Sequence == 1).Name;
-                }
-                else
-                    CurrentElementName = Activities.FirstOrDefault(x => x.Sequence == ActivitiesCounter + 1).Name;
-
-                AddCurrentWithoutLapTimeToList();
-
-                ForeignElementCount = 0;
-
-                Opacity = 1;
-                RatingsVisible = false;
-                ActivitiesVisible = true;
-            }
-            else
-            {
-                ProcessForeignElementWithRating(CurrentForeignElement.Rated, CurrentForeignElement.Name, CurrentForeignElement.IsForeignElement, button.Rating);
-
-                if (LapButtonText != "   Lap   ")
-                {
-                    ActivitiesVisible = true;
-                    RatingsVisible = false;
-                    Opacity = 0.2;
-                }
-                else
-                {
-                    CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
-                    ActivitiesVisible = false;
-                    RatingsVisible = false;
-                    Opacity = 1.0;
-                }
-            }
+            ApplicationState = ApplicationStateFactory.GetCurrentState();
+            ApplicationState.RatingSelectedEvent();
         }
 
-        void ForeignElementSelectedEvent(object sender)
+        void ElementsSelectedEvent(object sender)
         {
-            if (!IsRunning)
-                StartTimerEvent();
+
+            ApplicationState = ApplicationStateFactory.GetCurrentState();
+            ApplicationState.ElementSelectedEvent();
 
             lapTimerEventClicked = false;
 
@@ -276,21 +267,29 @@ namespace TimeStudy.ViewModels
 
             var value = (int)sender;
 
-            CurrentForeignElement = AllForeignElements.Where(x => x.Id == value).FirstOrDefault();
+            CurrentSelectedElement = CollectionOfElements.FirstOrDefault(x => x.Id == value);
 
-            var currentForeign = new LapTime
-            {
-                Cycle = CycleCount,
-                Element = CurrentForeignElement.Name,
-                TotalElapsedTime = "Running",
-                IsForeignElement = CurrentForeignElement.IsForeignElement
-            };
+            //var currentRunningElement = new LapTime
+            //{
+            //    Cycle = CycleCount,
+            //    Element = CurrentSelectedElement.Name,
+            //    TotalElapsedTime = "Running",
+            //    IsForeignElement = CurrentSelectedElement.IsForeignElement
+            //};
 
-            CurrentWithoutLapTime = currentForeign;
+            //CurrentWithoutLapTime = currentRunningElement;
 
-            SelectedForeignElements.Add(CurrentForeignElement);
-            ForeignElementCount = SelectedForeignElements.Count;
-            AddForeignElementWithoutLapTimeToList(CurrentForeignElement);
+            CurrentWithoutLapTime = Get_Running_LapTime(CurrentWithoutLapTime.Id);
+
+            ApplicationState.AddElementWithoutLapTimeToList(CurrentSelectedElement);
+
+            //if(CurrentSelectedElement.IsForeignElement)
+            //{
+            //    SelectedForeignElements.Add(CurrentSelectedElement);
+            //    ForeignElementCount = SelectedForeignElements.Count;
+            //}
+
+            //AddElementWithoutLapTimeToList(CurrentSelectedElement);
 
 
             ActivitiesVisible = false;
@@ -302,43 +301,21 @@ namespace TimeStudy.ViewModels
 
         void ShowForeignElementsEvent()
         {
-            if (CurrentWithoutLapTime == null)
-            {
-                Opacity = 0.2;
-                ActivitiesVisible = true;
-                return;
-            }
+            CollectionOfElements = Get_All_Foreign_Enabled_Activities_WithChildren();
+            GroupElementsForActivitiesView();
 
-            if (CurrentWithoutLapTime.IsForeignElement && CurrentWithoutLapTime.Rating == null)
-            {
-                RatingsVisible = true;
-                Opacity = 0.2;
-            }
-            else if (!CurrentWithoutLapTime.IsForeignElement)
-            //else if (!CurrentWithoutLapTime.IsForeignElement && CurrentWithoutLapTime.Rating == null)
-            {
-                LapTimerEvent();
-                //CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
-                //RatingsVisible = false;
-                //Opacity = 0.2;
+            ApplicationState = ApplicationStateFactory.GetCurrentState();
+            ApplicationState.ShowForeignElements();
+        }
 
-                //if (!lapTimerEventClicked)
-                //{
-                //    ActivitiesVisible = true;
-                //    Opacity = 0.2;
-                //}
-                //else
-                //{
-                //    ActivitiesVisible = false;
-                //    Opacity = 1.0;
-                //}
-            }
-            else
-            {
 
-                Opacity = 0.2;
-                ActivitiesVisible = true;
-            }
+        void ShowNonForeignElementsEvent()
+        {
+            CollectionOfElements = Get_All_NonForeign_Enabled_Activities_WithChildren();
+            GroupElementsForActivitiesView();
+
+            ApplicationState = ApplicationStateFactory.GetCurrentState();
+            ApplicationState.ShowNonForeignElements(); ;
         }
 
         void CloseForeignElementsEvent(object sender)
@@ -359,7 +336,7 @@ namespace TimeStudy.ViewModels
 
                 ForceRoundingToLapTime(true);
 
-                LapTimesList.Remove(CurrentWithoutLapTime);
+                //LapTimesList.Remove(CurrentWithoutLapTime);
 
                 SetUpCurrentLapTime();
 
@@ -408,7 +385,7 @@ namespace TimeStudy.ViewModels
 
         }
 
-        private void ProcessForeignElementWithRating(bool rated, string name, bool isForeign, int? rating = null)
+        public void ProcessForeignElementWithRating(bool rated, string name, bool isForeign, int? rating = null)
         {
             AddForeignLapTimetoListAsCompleted(rating);
 
@@ -417,12 +394,16 @@ namespace TimeStudy.ViewModels
                 Cycle = CycleCount,
                 Element = name,
                 TotalElapsedTime = "Running",
-                IsForeignElement = isForeign
+                IsForeignElement = isForeign,
+                StudyId = Utilities.StudyId
             };
 
-            CurrentWithoutLapTime = currentForeign;
+            //CurrentWithoutLapTime = currentForeign;
 
-            LapTimesList.Add(CurrentWithoutLapTime);
+            //LapTimesList.Add(CurrentWithoutLapTime);
+
+            var id = LapTimeRepo.SaveItem(CurrentWithoutLapTime);
+            CurrentWithoutLapTime = Get_Running_LapTime(id);
 
             TimeWhenForiegnButtonClicked = RealTimeTicks;
 
@@ -432,12 +413,14 @@ namespace TimeStudy.ViewModels
 
             RemoveDuplicate();
 
-            LapTimes = new ObservableCollection<LapTime>(LapTimesList
-                .Where(x => x.TotalElapsedTime != "Running")
-                .OrderByDescending(x => x.TotalElapsedTime));
+            //LapTimes = new ObservableCollection<LapTime>(LapTimesList
+                //.Where(x => x.TotalElapsedTime != "Running")
+                //.OrderByDescending(x => x.TotalElapsedTime));
+
+            LapTimes = Get_All_LapTimes_Not_Running();
         }
 
-        private void CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning()
+        public void CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning()
         {
             AddForeignLapTimetoListAsCompleted();
 
@@ -448,31 +431,35 @@ namespace TimeStudy.ViewModels
         {
             if (lapTimerEventClicked)
             {
-                LapTimesList.Remove(PausedLapTime);
+                //LapTimesList.Remove(PausedLapTime);
 
                 CurrentWithoutLapTime = PausedLapTime;
                 CurrentWithoutLapTime.TotalElapsedTime = "Running";
 
-                LapTimesList.Add(CurrentWithoutLapTime);
+                //LapTimesList.Add(CurrentWithoutLapTime);
+
+                LapTimeRepo.SaveItem(CurrentWithoutLapTime);
 
                 PausedLapTime = null;
             }
 
             CurrentElementWithoutLapTimeName = CurrentWithoutLapTime.Element;
-            CurrentSequence = CurrentWithoutLapTime.Sequence != null ? CurrentWithoutLapTime.Sequence : null;
+            //CurrentSequence = CurrentWithoutLapTime.Sequence != null ? CurrentWithoutLapTime.Sequence : null;
             CurrentCycle = CycleCount;
 
             RemoveDuplicate();
 
-            LapTimes = new ObservableCollection<LapTime>(LapTimesList
-                .Where(x => x.TotalElapsedTime != "Running")
-                .OrderByDescending(x => x.TotalElapsedTime));
+            LapTimes = Get_All_LapTimes_Not_Running();
+
+            //LapTimes = new ObservableCollection<LapTime>(LapTimesList
+                //.Where(x => x.TotalElapsedTime != "Running")
+                //.OrderByDescending(x => x.TotalElapsedTime));
 
         }
 
         private void AddForeignLapTimetoListAsCompleted(int? rating = null)
         {
-            LapTimesList.Remove(CurrentWithoutLapTime);
+            //LapTimesList.Remove(CurrentWithoutLapTime);
 
             ForceRoundingToLapTime();
 
@@ -481,22 +468,24 @@ namespace TimeStudy.ViewModels
             CurrentLapTime.Rating = rating;
 
             //if(CurrentLapTime.IsForeignElement)
-                //CurrentLapTime.ElementColour = Color.Orange;
+            //CurrentLapTime.ElementColour = Color.Orange;
 
-            LapTimesList.Add(CurrentLapTime);
+            //LapTimesList.Add(CurrentLapTime);
+
+            LapTimeRepo.SaveItem(CurrentLapTime);
 
             AllForiegnLapTimes.Add(CurrentLapTime);
         }
 
         private void RemoveDuplicate()
         {
-            //** HACK
-            var lap = LapTimesList.Find(x => x.IsForeignElement
-                && x.IndividualLapTimeFormatted != string.Empty && x.TotalElapsedTime != string.Empty
-                && x.Rating == null);
+            ////** HACK
+            //var lap = LapTimesList.Find(x => x.IsForeignElement
+            //    && x.IndividualLapTimeFormatted != string.Empty && x.TotalElapsedTime != string.Empty
+            //    && x.Rating == null);
 
-            if (lap != null)
-                LapTimesList.Remove(lap);
+            //if (lap != null)
+                //LapTimesList.Remove(lap);
         }
 
         public void RunTimer()
@@ -522,34 +511,41 @@ namespace TimeStudy.ViewModels
             });
         }
 
-        private void AddForeignElementWithoutLapTimeToList(Activity foreign)
+        private void AddElementWithoutLapTimeToList(Activity element)
         {
             LapButtonText = "  Lap ";
 
             if (PausedLapTime == null)
             {
-                if(foreign.IsForeignElement)
+                if (element.IsForeignElement)
                 {
-                    LapTimesList.Remove(CurrentWithoutLapTime);
+                    //LapTimesList.Remove(CurrentWithoutLapTime);
                     PausedLapTime = CurrentWithoutLapTime;
                     PausedLapTime.IndividualLapTimeFormatted = "Paused";
                     PausedLapTime.TotalElapsedTimeDouble = RealTimeTicks;
                     PausedLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
-                    LapTimesList.Add(PausedLapTime);
+
+                    LapTimeRepo.SaveItem(CurrentWithoutLapTime);
+                    //LapTimesList.Add(PausedLapTime);
 
                     TimeWhenForiegnButtonClicked = RealTimeTicks;
 
                     var currentForeignLap = new LapTime
                     {
                         Cycle = CycleCount,
-                        Element = foreign.Name,
+                        Element = element.Name,
                         TotalElapsedTime = "Running",
-                        IsForeignElement = foreign.IsForeignElement
+                        IsForeignElement = element.IsForeignElement,
+                        StudyId = Utilities.StudyId
                     };
 
-                    CurrentWithoutLapTime = currentForeignLap;
+                    //CurrentWithoutLapTime = currentForeignLap;
 
-                    LapTimesList.Add(CurrentWithoutLapTime);
+                    //LapTimesList.Add(CurrentWithoutLapTime);
+
+                    var id = LapTimeRepo.SaveItem(currentForeignLap);
+                    CurrentWithoutLapTime = Get_Running_LapTime(id);
+
                 }
             }
             else
@@ -557,32 +553,34 @@ namespace TimeStudy.ViewModels
                 var currentForeignLap = new LapTime
                 {
                     Cycle = CycleCount,
-                    Element = foreign.Name,
+                    Element = element.Name,
                     TotalElapsedTime = "Running",
-                    IsForeignElement = foreign.IsForeignElement
+                    IsForeignElement = element.IsForeignElement,
+                    StudyId = Utilities.StudyId
                 };
 
                 CurrentWithoutLapTime = currentForeignLap;
                 //if (CurrentWithoutLapTime.IsRated)
                 //{
 
-                    Opacity = 0.2;
-                    RatingsVisible = true;
+                Opacity = 0.2;
+                RatingsVisible = true;
                 //}
             }
 
-            CurrentElementWithoutLapTimeName = foreign.Name;
+            CurrentElementWithoutLapTimeName = element.Name;
             CurrentSequence = null;
             CurrentCycle = CycleCount;
 
-            RemoveDuplicate();
+            //RemoveDuplicate();
 
-            LapTimes = new ObservableCollection<LapTime>(LapTimesList
-                .Where(x => x.TotalElapsedTime != "Running")
-                .OrderByDescending(x => x.TotalElapsedTime));
+            LapTimes = Get_All_LapTimes_Not_Running();
+            //LapTimes = new ObservableCollection<LapTime>(LapTimesList
+                //.Where(x => x.TotalElapsedTime != "Running")
+                //.OrderByDescending(x => x.TotalElapsedTime));
         }
 
-        private void SetUpCurrentLapTime()
+        public void SetUpCurrentLapTime()
         {
             string lapTimeTimeFormatted = LapTime.ToString("0.000");
 
@@ -595,7 +593,7 @@ namespace TimeStudy.ViewModels
             CurrentLapTime.ForeignElements = SelectedForeignElements;
         }
 
-        private void AddCurrentWithoutLapTimeToList()
+        public void AddCurrentWithoutLapTimeToList()
         {
             if (ActivitiesCounter == 0) ActivitiesCounter = 1;
 
@@ -608,8 +606,9 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = element.Name,
                     TotalElapsedTime = "Running",
-                    Sequence = element.Sequence,
-                    ElementColour = Color.Silver
+                    //Sequence = element.Sequence,
+                    ElementColour = Color.Silver,
+                    StudyId = Utilities.StudyId
                 };
             }
 
@@ -617,13 +616,16 @@ namespace TimeStudy.ViewModels
             CurrentSequence = element.Sequence;
             CurrentCycle = CycleCount;
 
-            LapTimesList.Add(CurrentWithoutLapTime);
+            //LapTimesList.Add(CurrentWithoutLapTime);
 
-            RemoveDuplicate();
+            var id = LapTimeRepo.SaveItem(CurrentWithoutLapTime);
+            CurrentWithoutLapTime = Get_Running_LapTime(id);
+            //RemoveDuplicate();
 
-            LapTimes = new ObservableCollection<LapTime>(LapTimesList
-                .Where(x => x.TotalElapsedTime != "Running")
-                .OrderByDescending(x => x.TotalElapsedTime));
+            LapTimes = Get_All_LapTimes_Not_Running();
+            //LapTimes = new ObservableCollection<LapTime>(LapTimesList
+                //.Where(x => x.TotalElapsedTime != "Running")
+                //.OrderByDescending(x => x.TotalElapsedTime));
         }
 
         private void SetUpButtonsAndTimeVariables()
@@ -645,7 +647,7 @@ namespace TimeStudy.ViewModels
         {
             if (!Utilities.RatedStudy)
             {
-                LapTimesList.Add(CurrentLapTime);
+                //LapTimesList.Add(CurrentLapTime);
 
                 AddCurrentWithoutLapTimeToList();
 
@@ -676,12 +678,12 @@ namespace TimeStudy.ViewModels
             //if (isLapTime && !CurrentWithoutLapTime.IsForeignElement)
             //{
             double foriegnLapTimesTotal = 0;
-                foreach (var item in AllForiegnLapTimes)
-                {
-                    foriegnLapTimesTotal = foriegnLapTimesTotal + item.IndividualLapTime;
-                }
+            foreach (var item in AllForiegnLapTimes)
+            {
+                foriegnLapTimesTotal = foriegnLapTimesTotal + item.IndividualLapTime;
+            }
 
-                LapTime = LapTime - foriegnLapTimesTotal; //- LastSuccesstulLapTime;
+            LapTime = LapTime - foriegnLapTimesTotal; //- LastSuccesstulLapTime;
             //}
 
             double randomToForceRounding;
@@ -749,6 +751,7 @@ namespace TimeStudy.ViewModels
                 OnPropertyChanged();
             }
         }
+
         static string currentTimeFormatted;
         public string CurrentTimeFormatted
         {
@@ -789,6 +792,17 @@ namespace TimeStudy.ViewModels
             set
             {
                 isStartEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static bool isForeignEnabled;
+        public bool IsForeignEnabled
+        {
+            get => isForeignEnabled;
+            set
+            {
+                isForeignEnabled = value;
                 OnPropertyChanged();
             }
         }
@@ -936,16 +950,23 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static List<LapTime> LapTimesList = new List<LapTime>();
+        static ObservableCollection<Activity> collectionOfElements;
+        public ObservableCollection<Activity> CollectionOfElements
+        {
+            get => collectionOfElements;
+            set
+            {
+                collectionOfElements = value;
+                OnPropertyChanged();
+            }
+        }
 
         static ObservableCollection<LapTime> lapTimes;
         public ObservableCollection<LapTime> LapTimes
         {
             get
             {
-                return new ObservableCollection<LapTime>(LapTimesList
-                .Where(x => x.TotalElapsedTime != "Running")
-                .OrderByDescending(x => x.TotalElapsedTime));
+                return lapTimes;
             }
             set
             {

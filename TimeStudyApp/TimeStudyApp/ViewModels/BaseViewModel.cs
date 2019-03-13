@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using TimeStudy.Model;
 using TimeStudy.Services;
+using TimeStudyApp.Model;
 using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
@@ -33,6 +34,10 @@ namespace TimeStudy.ViewModels
         public Command SubmitDetails { get; set; }
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
+
+        public IBaseRepository<LapTime> LapTimeRepo => new BaseRepository<LapTime>(conn);
+
+        public IBaseRepository<State> StateRepo => new BaseRepository<State>(conn);
 
         public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
 
@@ -319,7 +324,7 @@ namespace TimeStudy.ViewModels
             }
         }
 
-       
+
         public bool StudyInProcess
         {
             get => Get_Observations_By_StudyId().Count > 0;
@@ -397,6 +402,35 @@ namespace TimeStudy.ViewModels
                 .Where(x => x.IsEnabled && x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
+        public ObservableCollection<Activity> Get_All_NonForeign_Enabled_Activities_WithChildren()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                .Where(x => x.IsEnabled && !x.IsForeignElement && x.StudyId == Utilities.StudyId));
+        }
+
+
+        public ObservableCollection<Activity> Get_All_Foreign_Enabled_Activities_WithChildren()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                .Where(x => x.IsEnabled && x.IsForeignElement && x.StudyId == Utilities.StudyId));
+        }
+
+
+        public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()
+        {
+            return new ObservableCollection<LapTime>(LapTimeRepo.GetAllWithChildren()
+                .Where(x => x.TotalElapsedTime != "Running" && x.StudyId == Utilities.StudyId)
+                .OrderByDescending(x => x.TotalElapsedTime));
+        }
+
+
+        public LapTime Get_Running_LapTime(int id)
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .FirstOrDefault(x => x.TotalElapsedTime == "Running" 
+                && x.Id == id
+                && x.StudyId == Utilities.StudyId);
+        }
         public ObservableCollection<ActivityName> Get_All_ActivityNames()
         {
             return new ObservableCollection<ActivityName>(ActivityNameRepo.GetItems());
@@ -406,6 +440,18 @@ namespace TimeStudy.ViewModels
         public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
         {
             return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled));
+        }
+
+
+        public State GetApplicationState()
+        {
+            return StateRepo.GetItems().FirstOrDefault();
+        }
+
+
+        public int SaveApplicationState(State state)
+        {
+            return StateRepo.SaveItem(state);
         }
 
         public int SaveActivityDetails(Activity activity)
@@ -418,6 +464,8 @@ namespace TimeStudy.ViewModels
 
         private void EnsureTableCreation()
         {
+            StateRepo.CreateTable();
+            LapTimeRepo.CreateTable();
             OperatorRepo.CreateTable();
             ObservationRepo.CreateTable();
             ActivityRepo.CreateTable();
