@@ -6,8 +6,8 @@ namespace TimeStudyApp.Services.StateMachine
     {
         public abstract void ShowForeignElements();
         public abstract void ShowNonForeignElements();
-        public abstract void ElementSelectedEvent(int id);
+        public abstract void ElementSelectedEvent();
         public abstract void RatingSelectedEvent();
-        public abstract void AddElementWithoutLapTimeToList(Activity element);
+        public abstract void AddElementWithoutLapTimeToList();
     }
 }

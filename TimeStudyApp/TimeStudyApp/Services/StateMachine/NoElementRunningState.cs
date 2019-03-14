@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using TimeStudy.Model;
+using TimeStudy.Services;
 using TimeStudy.ViewModels;
 
 namespace TimeStudyApp.Services.StateMachine
@@ -14,15 +15,15 @@ namespace TimeStudyApp.Services.StateMachine
             this.viewModel = viewModel;
         }
 
-        public override void AddElementWithoutLapTimeToList(Activity element)
+        public override void AddElementWithoutLapTimeToList()
         {
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 
-        public override void ElementSelectedEvent(int id)
+        public override void ElementSelectedEvent()
         {
-            viewModel.CurrentSelectedElement = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
+            //Utilities.CurrentSelectedElementId = id;  //viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
             viewModel.StartTimerEvent();
             viewModel.IsForeignEnabled = true;
 

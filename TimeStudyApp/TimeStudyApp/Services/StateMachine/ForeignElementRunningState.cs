@@ -15,21 +15,22 @@ namespace TimeStudyApp.Services.StateMachine
             this.viewModel = viewModel;
         }
 
-        public override void AddElementWithoutLapTimeToList(Activity element)
+        public override void AddElementWithoutLapTimeToList()
         {
+            var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
             var currentForeignLap = new LapTime
             {
                 Cycle = viewModel.CycleCount,
-                Element = element.Name,
+                Element = currentSelected.Name,
                 TotalElapsedTime = "Running",
-                IsForeignElement = element.IsForeignElement,
+                IsForeignElement = currentSelected.IsForeignElement,
                 StudyId = Utilities.StudyId
             };
 
-            viewModel.CurrentWithoutLapTime = currentForeignLap;
+            //viewModel.CurrentWithoutLapTime = currentForeignLap;
 
-            var id = viewModel.LapTimeRepo.SaveItem(viewModel.CurrentWithoutLapTime);
-            viewModel.CurrentWithoutLapTime = viewModel.Get_Running_LapTime(id);
+            var id = viewModel.LapTimeRepo.SaveItem(currentForeignLap);
+            //viewModel.CurrentWithoutLapTime = viewModel.Get_Running_LapTime(id);
 
             viewModel.Opacity = 0.2;
             viewModel.RatingsVisible = true;
@@ -38,16 +39,17 @@ namespace TimeStudyApp.Services.StateMachine
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 
-        public override void ElementSelectedEvent(int id)
+        public override void ElementSelectedEvent()
         {
-            viewModel.CurrentSelectedElement = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
+            //Utilities.CurrentSelectedElementId = id; // viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
             viewModel.IsForeignEnabled = false;
         }
 
         public override void RatingSelectedEvent()
         {
-            viewModel.ProcessForeignElementWithRating(viewModel.CurrentSelectedElement.Rated, viewModel.CurrentSelectedElement.Name,
-                viewModel.CurrentSelectedElement.IsForeignElement, viewModel.RatingButton.Rating);
+            var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
+            viewModel.ProcessForeignElementWithRating(currentSelected.Rated, currentSelected.Name,
+                currentSelected.IsForeignElement, viewModel.RatingButton.Rating);
 
             if (viewModel.LapButtonText != "   Lap   ")
             {
@@ -69,7 +71,8 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowForeignElements()
         {
-            if (viewModel.CurrentWithoutLapTime.Rating == null)
+            var runningLapTime = viewModel.Get_Running_LapTime();
+            if (runningLapTime.Rating == null)
             {
                 viewModel.CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
 
@@ -88,7 +91,8 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowNonForeignElements()
         {
-            if (viewModel.CurrentWithoutLapTime.Rating == null)
+            var runningLapTime = viewModel.Get_Running_LapTime();
+            if (runningLapTime.Rating == null)
             {
                 viewModel.RatingsVisible = true;
                 viewModel.Opacity = 0.2;

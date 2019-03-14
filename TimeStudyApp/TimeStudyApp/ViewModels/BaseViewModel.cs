@@ -424,13 +424,27 @@ namespace TimeStudy.ViewModels
         }
 
 
-        public LapTime Get_Running_LapTime(int id)
+        public LapTime Get_Running_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
                 .FirstOrDefault(x => x.TotalElapsedTime == "Running" 
-                && x.Id == id
                 && x.StudyId == Utilities.StudyId);
         }
+
+        public LapTime Get_Running_Unrated_LapTime()
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .FirstOrDefault(x => x.TotalElapsedTime != "Running" && x.Rating == null
+                && x.StudyId == Utilities.StudyId);
+        }
+
+        public LapTime Get_Paused_LapTime()
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .FirstOrDefault(x => x.TotalElapsedTime == "Paused"
+                && x.StudyId == Utilities.StudyId);
+        }
+
         public ObservableCollection<ActivityName> Get_All_ActivityNames()
         {
             return new ObservableCollection<ActivityName>(ActivityNameRepo.GetItems());
