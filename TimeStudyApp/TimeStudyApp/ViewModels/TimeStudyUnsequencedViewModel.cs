@@ -294,6 +294,7 @@ namespace TimeStudy.ViewModels
 
         void ShowNonForeignElementsEvent()
         {
+            TimeWhenLapButtonClicked = RealTimeTicks;
             CollectionOfElements = Get_All_NonForeign_Enabled_Activities_WithChildren();
             GroupElementsForActivitiesView();
 
@@ -336,7 +337,7 @@ namespace TimeStudy.ViewModels
                     return;
                 }
 
-                CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
+                ReInstatePausedLapTimeToCurrentRunning();
             }
 
             cancelActivitiesView = false;
@@ -365,14 +366,7 @@ namespace TimeStudy.ViewModels
             LapTimes = Get_All_LapTimes_Not_Running();
         }
 
-        public void CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning()
-        {
-            AddForeignLapTimetoListAsCompleted();
-
-            ReInstatePausedLapTimeToCurrentRunning();
-        }
-
-        private void ReInstatePausedLapTimeToCurrentRunning()
+        public void ReInstatePausedLapTimeToCurrentRunning()
         {
             LapTime current;
 
@@ -398,7 +392,8 @@ namespace TimeStudy.ViewModels
 
             SetUpCurrentLapTime();
 
-            var current = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
+            var current = Get_Current_Foreign_LapTime();
+            //var current = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
             current.Rating = rating;
 
             LapTimeRepo.SaveItem(current);
@@ -561,15 +556,20 @@ namespace TimeStudy.ViewModels
 
         private void ForceRoundingToLapTime(bool isLapTime = false)
         {
-            LapTime = RealTimeTicks - TimeWhenLapButtonClicked;
+            //LapTime = RealTimeTicks - TimeWhenLapButtonClicked;
+            var lastRecordedLapTime = Get_Last_Recorded_LapTime();
+            //double foriegnLapTimesTotal = 0;
+            //foreach (var item in AllForiegnLapTimes)
+            //{
+            //    foriegnLapTimesTotal = foriegnLapTimesTotal + item.IndividualLapTime;
+            //}
 
-            double foriegnLapTimesTotal = 0;
-            foreach (var item in AllForiegnLapTimes)
-            {
-                foriegnLapTimesTotal = foriegnLapTimesTotal + item.IndividualLapTime;
-            }
+            //LapTime = LapTime - foriegnLapTimesTotal; 
 
-            LapTime = LapTime - foriegnLapTimesTotal; 
+            if (lastRecordedLapTime != null)
+                LapTime = RealTimeTicks - lastRecordedLapTime.TotalElapsedTimeDouble;
+            else
+                LapTime = RealTimeTicks;
 
             double randomToForceRounding;
 

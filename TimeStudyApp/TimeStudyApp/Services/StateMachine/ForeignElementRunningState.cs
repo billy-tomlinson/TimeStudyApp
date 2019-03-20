@@ -70,7 +70,7 @@ namespace TimeStudyApp.Services.StateMachine
             }
             else
             {
-                viewModel.CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
+                viewModel.ReInstatePausedLapTimeToCurrentRunning();
                 viewModel.ActivitiesVisible = false;
                 viewModel.RatingsVisible = false;
                 viewModel.Opacity = 1.0;
@@ -88,8 +88,7 @@ namespace TimeStudyApp.Services.StateMachine
             var runningLapTime = viewModel.Get_Running_LapTime();
             if (runningLapTime.Rating == null)
             {
-                viewModel.CompleteCurrentForeignLapAndReinsatePausedLapToCurrentRunning();
-
+                viewModel.ReInstatePausedLapTimeToCurrentRunning();
                 viewModel.RatingsVisible = false;
                 viewModel.ActivitiesVisible = true;
                 viewModel.Opacity = 0.2;
