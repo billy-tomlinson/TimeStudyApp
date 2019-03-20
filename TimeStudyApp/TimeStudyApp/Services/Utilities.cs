@@ -15,6 +15,7 @@ namespace TimeStudy.Services
     {
         public static int StudyId { get; set; }
         public static int CurrentSelectedElementId { get; set; }
+        public static int LastRatedLapTimeId { get; set; }
         public static bool IsCompleted { get; set; }
         public static bool RatedStudy { get; set; }
         public static bool AllObservationsTaken { get; set; }

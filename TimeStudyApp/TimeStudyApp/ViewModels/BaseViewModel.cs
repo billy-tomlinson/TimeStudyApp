@@ -423,6 +423,12 @@ namespace TimeStudy.ViewModels
                 .OrderByDescending(x => x.TotalElapsedTime));
         }
 
+        public LapTime Get_Current_LapTime(int lapId)
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .FirstOrDefault(x => x.Id == lapId
+                && x.StudyId == Utilities.StudyId);
+        }
 
         public LapTime Get_Running_LapTime()
         {
@@ -434,7 +440,7 @@ namespace TimeStudy.ViewModels
         public LapTime Get_Running_Unrated_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
-                .FirstOrDefault(x => x.TotalElapsedTime != "Running" && x.Rating == null
+                .FirstOrDefault(x => x.TotalElapsedTime != "Running" && x.TotalElapsedTime != "Paused" && x.Rating == null
                 && x.StudyId == Utilities.StudyId);
         }
 

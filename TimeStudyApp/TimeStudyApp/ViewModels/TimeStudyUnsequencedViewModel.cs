@@ -129,7 +129,7 @@ namespace TimeStudy.ViewModels
             LapButtonText = "   Start   ";
         }
 
-        private void GroupElementsForActivitiesView()
+        public void GroupElementsForActivitiesView()
         {
             IEnumerable<Activity> obsCollection = CollectionOfElements;
 
@@ -251,8 +251,14 @@ namespace TimeStudy.ViewModels
         {
             RatingButton = sender as Custom.CustomButton;
             var current = Get_Running_Unrated_LapTime(); //Get_Running_LapTime();
-            current.Rating = RatingButton.Rating;
-            LapTimeRepo.SaveItem(current);
+            if(current != null) 
+            {
+                current.Rating = RatingButton.Rating;
+
+                Utilities.LastRatedLapTimeId = current.Id;
+
+                LapTimeRepo.SaveItem(current);
+            }
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.RatingSelectedEvent();
@@ -429,8 +435,8 @@ namespace TimeStudy.ViewModels
         private void ReInstatePausedLapTimeToCurrentRunning()
         {
             LapTime current;
-            if (lapTimerEventClicked)
-            {
+            //if (lapTimerEventClicked)
+            //{
                 //LapTimesList.Remove(PausedLapTime);
 
                 current = Get_Paused_LapTime();
@@ -442,15 +448,19 @@ namespace TimeStudy.ViewModels
                 LapTimeRepo.SaveItem(current);
 
                 //PausedLapTime = null;
-            }
+            ///}
 
             //CurrentElementWithoutLapTimeName = current.Element;
 
             CurrentCycle = CycleCount;
 
             //RemoveDuplicate();
+            CurrentElementWithoutLapTimeName = current.Element;
+            CurrentSequence = null;
+            CurrentCycle = CycleCount;
 
             LapTimes = Get_All_LapTimes_Not_Running();
+            //LapTimes = Get_All_LapTimes_Not_Running();
         }
 
         private void AddForeignLapTimetoListAsCompleted(int? rating = null)
@@ -461,7 +471,7 @@ namespace TimeStudy.ViewModels
 
             SetUpCurrentLapTime();
 
-            var current = Get_Running_LapTime();
+            var current = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
             current.Rating = rating;
 
             LapTimeRepo.SaveItem(current);
@@ -567,7 +577,13 @@ namespace TimeStudy.ViewModels
         public void SetUpCurrentLapTime()
         {
             string lapTimeTimeFormatted = LapTime.ToString("0.000");
+
             var currentLapTime = Get_Running_LapTime();
+            if(currentLapTime == null)
+                currentLapTime = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
+
+            //Utilities.LastRatedLapTimeId = currentLapTime.Id;
+
             //CurrentLapTime = CurrentWithoutLapTime;
             currentLapTime.IndividualLapTime = LapTime;
             currentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
