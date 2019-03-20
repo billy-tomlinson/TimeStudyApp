@@ -32,15 +32,10 @@ namespace TimeStudyApp.Services.StateMachine
                 StudyId = Utilities.StudyId
             };
 
-            //viewModel.CurrentWithoutLapTime = currentForeignLap;
-
             var id = viewModel.LapTimeRepo.SaveItem(currentForeignLap);
-            //viewModel.CurrentWithoutLapTime = viewModel.Get_Running_LapTime(id);
-
 
             viewModel.CurrentElementWithoutLapTimeName = currentForeignLap.Element;
             viewModel.CurrentSequence = null;
-            //viewModel.CurrentCycle = CycleCount;
 
             viewModel.LapTimes = viewModel.Get_All_LapTimes_Not_Running();
 
@@ -53,7 +48,6 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ElementSelectedEvent()
         {
-            //Utilities.CurrentSelectedElementId = id; // viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
             viewModel.IsForeignEnabled = false;
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ForeignElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);

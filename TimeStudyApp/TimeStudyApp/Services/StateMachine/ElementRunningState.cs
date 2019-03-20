@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TimeStudy.Model;
 using TimeStudy.Services;
@@ -23,20 +21,14 @@ namespace TimeStudyApp.Services.StateMachine
             var element = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
             if (element.IsForeignElement)
             {
-                //if (viewModel.CurrentSelectedElement.IsForeignElement)
-                //{
-                    viewModel.SelectedForeignElements.Add(element);
-                    viewModel.ForeignElementCount = viewModel.SelectedForeignElements.Count;
-                //}
+                viewModel.SelectedForeignElements.Add(element);
+                viewModel.ForeignElementCount = viewModel.SelectedForeignElements.Count;
 
                 var current = viewModel.Get_Running_LapTime();
-                //viewModel.LapTimesList.Remove(viewModel.CurrentWithoutLapTime);
-                //viewModel.PausedLapTime = viewModel.CurrentWithoutLapTime;
                 current.IndividualLapTimeFormatted = "Paused";
                 current.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
                 current.TotalElapsedTime = viewModel.RealTimeTicks.ToString("0.000");
 
-                //viewModel.LapTimesList.Add(viewModel.PausedLapTime);
                 viewModel.LapTimeRepo.SaveItem(current);
 
                 viewModel.TimeWhenForiegnButtonClicked = viewModel.RealTimeTicks;
@@ -49,12 +41,6 @@ namespace TimeStudyApp.Services.StateMachine
                     IsForeignElement = element.IsForeignElement,
                     StudyId = Utilities.StudyId
                 };
-
-                //viewModel.CurrentWithoutLapTime = currentForeignLap;
-
-                //viewModel.LapTimesList.Add(viewModel.CurrentWithoutLapTime);
-                //var id = viewModel.LapTimeRepo.SaveItem(viewModel.CurrentWithoutLapTime);
-                //viewModel.CurrentWithoutLapTime = viewModel.Get_Running_LapTime(id);
 
                 viewModel.CurrentApplicationState.CurrentState = Model.Status.ForeignElementRunning;
                 stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
@@ -84,7 +70,6 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ElementSelectedEvent()
         {
-         //viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == id);
 
             var current = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
             if (current.IsForeignElement)
@@ -106,14 +91,6 @@ namespace TimeStudyApp.Services.StateMachine
             viewModel.AllForiegnLapTimes = new List<LapTime>();
             viewModel.TimeWhenForiegnButtonClicked = 0;
 
-            //var current = viewModel.Get_Running_LapTime();
-            //viewModel.LapTimesList.Add(viewModel.CurrentLapTime);
-            //viewModel.CurrentLapTime = viewModel.Get_Running_LapTime(viewModel.CurrentWithoutLapTime.Id);
-            //viewModel.LapTimeRepo.SaveItem(current);
-            //viewModel.LapTimes = new ObservableCollection<LapTime>(viewModel.LapTimesList
-            //.OrderByDescending(x => x.Cycle)
-            //.ThenByDescending(x => x.Sequence));
-
             viewModel.LapTimes = viewModel.Get_All_LapTimes_Not_Running();
 
             if (viewModel.ActivitiesCounter == viewModel.ActivitiesCount)
@@ -122,9 +99,7 @@ namespace TimeStudyApp.Services.StateMachine
             }
             else
                 viewModel.CurrentElementName = viewModel.Activities.FirstOrDefault(x => x.Sequence == viewModel.ActivitiesCounter + 1).Name;
-
-            //viewModel.AddCurrentWithoutLapTimeToList();
-
+                
             viewModel.ForeignElementCount = 0;
 
             viewModel.Opacity = 1;
