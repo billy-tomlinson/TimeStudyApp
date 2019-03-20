@@ -419,7 +419,7 @@ namespace TimeStudy.ViewModels
         public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()
         {
             return new ObservableCollection<LapTime>(LapTimeRepo.GetAllWithChildren()
-                .Where(x => x.TotalElapsedTime != "Running" && x.StudyId == Utilities.StudyId)
+                .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused && x.StudyId == Utilities.StudyId)
                 .OrderByDescending(x => x.TotalElapsedTime));
         }
 
@@ -441,14 +441,14 @@ namespace TimeStudy.ViewModels
         public LapTime Get_Running_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
-                .FirstOrDefault(x => x.TotalElapsedTime == "Running" 
+                .FirstOrDefault(x => x.Status == RunningStatus.Running
                 && x.StudyId == Utilities.StudyId);
         }
 
         public LapTime Get_Running_Unrated_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
-                .FirstOrDefault(x => x.TotalElapsedTime != "Running" && x.TotalElapsedTime != "Paused" && x.Rating == null
+                .FirstOrDefault(x => x.Status != RunningStatus.Running && x.Status != RunningStatus.Paused && x.Rating == null
                 && x.StudyId == Utilities.StudyId);
         }
 
@@ -456,13 +456,13 @@ namespace TimeStudy.ViewModels
         {
             return LapTimeRepo.GetAllWithChildren()
                 .OrderByDescending(x => x.Id)
-                .FirstOrDefault(x => x.TotalElapsedTime != "Running" && x.TotalElapsedTime != "Paused" && x.Rating != null
+                .FirstOrDefault(x => x.Status != RunningStatus.Running && x.Status != RunningStatus.Paused && x.Rating != null
                 && x.StudyId == Utilities.StudyId);
         }
         public LapTime Get_Paused_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
-                .FirstOrDefault(x => x.TotalElapsedTime == "Paused"
+                .FirstOrDefault(x => x.Status == RunningStatus.Paused
                 && x.StudyId == Utilities.StudyId);
         }
 

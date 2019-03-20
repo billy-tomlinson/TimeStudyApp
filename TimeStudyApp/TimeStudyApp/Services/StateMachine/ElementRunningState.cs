@@ -25,7 +25,7 @@ namespace TimeStudyApp.Services.StateMachine
                 viewModel.ForeignElementCount = viewModel.SelectedForeignElements.Count;
 
                 var current = viewModel.Get_Running_LapTime();
-                current.IndividualLapTimeFormatted = "Paused";
+                current.Status = Model.RunningStatus.Paused;
                 current.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
                 current.TotalElapsedTime = viewModel.RealTimeTicks.ToString("0.000");
 
@@ -37,7 +37,7 @@ namespace TimeStudyApp.Services.StateMachine
                 {
                     Cycle = viewModel.CycleCount,
                     Element = element.Name,
-                    TotalElapsedTime = "Running",
+                    Status = Model.RunningStatus.Running,
                     IsForeignElement = element.IsForeignElement,
                     StudyId = Utilities.StudyId
                 };
@@ -54,7 +54,7 @@ namespace TimeStudyApp.Services.StateMachine
                     {
                         Cycle = viewModel.CycleCount,
                         Element = element.Name,
-                        TotalElapsedTime = "Running",
+                        Status = Model.RunningStatus.Running,
                         IsForeignElement = element.IsForeignElement,
                         StudyId = Utilities.StudyId
                     };

@@ -19,7 +19,7 @@ namespace TimeStudyApp.Services.StateMachine
         {
 
             var currentRunning = viewModel.Get_Running_LapTime();
-            currentRunning.TotalElapsedTime = "Paused";
+            currentRunning.Status = Model.RunningStatus.Paused;
             viewModel.LapTimeRepo.SaveItem(currentRunning);
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
@@ -27,7 +27,7 @@ namespace TimeStudyApp.Services.StateMachine
             {
                 Cycle = viewModel.CycleCount,
                 Element = currentSelected.Name,
-                TotalElapsedTime = "Running",
+                Status = Model.RunningStatus.Running,
                 IsForeignElement = currentSelected.IsForeignElement,
                 StudyId = Utilities.StudyId
             };

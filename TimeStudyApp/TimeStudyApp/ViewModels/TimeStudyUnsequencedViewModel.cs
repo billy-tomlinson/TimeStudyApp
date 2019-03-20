@@ -30,7 +30,6 @@ namespace TimeStudy.ViewModels
         private bool IsRunning;
         private bool cancelActivitiesView;
         private bool HasBeenStopped;
-        private bool lapTimerEventClicked;
         public double TimeWhenLapButtonClicked { get; set; }
         public double TimeWhenForiegnButtonClicked { get; set; }
         public double TimeWhenStopButtonClicked { get; set; }
@@ -159,7 +158,6 @@ namespace TimeStudy.ViewModels
             cancelActivitiesView = true;
             Opacity = 1;
             ActivitiesVisible = false;
-            lapTimerEventClicked = false;
         }
 
         public void ResumePausedEvent()
@@ -168,7 +166,6 @@ namespace TimeStudy.ViewModels
             Opacity = 1;
             LapTimerEvent();
             ActivitiesVisible = false;
-            lapTimerEventClicked = false;
         }
 
         public void StartTimerEvent()
@@ -222,7 +219,6 @@ namespace TimeStudy.ViewModels
             IsRunning = false;
             cancelActivitiesView = false;
             HasBeenStopped = false;
-            lapTimerEventClicked = false;
             TimeWhenLapButtonClicked = 0;
             TimeWhenForiegnButtonClicked = 0;
             TimeWhenStopButtonClicked = 0;
@@ -243,10 +239,11 @@ namespace TimeStudy.ViewModels
         void RatingSelectedEvent(object sender)
         {
             RatingButton = sender as Custom.CustomButton;
-            var current = Get_Running_Unrated_LapTime(); //Get_Running_LapTime();
+            var current = Get_Running_Unrated_LapTime(); 
             if(current != null) 
             {
                 current.Rating = RatingButton.Rating;
+                current.Status = RunningStatus.Completed;
 
                 Utilities.LastRatedLapTimeId = current.Id;
 
@@ -266,8 +263,6 @@ namespace TimeStudy.ViewModels
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.ElementSelectedEvent();
-
-            lapTimerEventClicked = false;
 
             Opacity = 1;
 
@@ -310,10 +305,10 @@ namespace TimeStudy.ViewModels
 
         public void LapTimerEvent()
         {
-            lapTimerEventClicked = true;
             LapButtonText = "   Lap   ";
 
             var pausedLap = Get_Paused_LapTime();
+
             if (pausedLap == null)
             {
                 if (ActivitiesVisible) return;
@@ -352,7 +347,7 @@ namespace TimeStudy.ViewModels
             {
                 Cycle = CycleCount,
                 Element = name,
-                TotalElapsedTime = "Running",
+                Status = RunningStatus.Running,
                 IsForeignElement = isForeign,
                 StudyId = Utilities.StudyId
             };
@@ -372,7 +367,7 @@ namespace TimeStudy.ViewModels
 
             current = Get_Paused_LapTime();
 
-            current.TotalElapsedTime = "Running";
+            current.Status = RunningStatus.Running;
 
             LapTimeRepo.SaveItem(current);
 
@@ -393,9 +388,9 @@ namespace TimeStudy.ViewModels
             SetUpCurrentLapTime();
 
             var current = Get_Current_Foreign_LapTime();
-            //var current = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
-            current.Rating = rating;
 
+            current.Rating = rating;
+            current.Status = RunningStatus.Completed;
             LapTimeRepo.SaveItem(current);
 
             AllForiegnLapTimes.Add(current);
@@ -435,7 +430,7 @@ namespace TimeStudy.ViewModels
                 if (element.IsForeignElement)
                 {
                     pausedLapTime = Get_Running_LapTime();
-                    pausedLapTime.IndividualLapTimeFormatted = "Paused";
+                    pausedLapTime.Status = RunningStatus.Paused;
                     pausedLapTime.TotalElapsedTimeDouble = RealTimeTicks;
                     pausedLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
 
@@ -447,7 +442,7 @@ namespace TimeStudy.ViewModels
                     {
                         Cycle = CycleCount,
                         Element = element.Name,
-                        TotalElapsedTime = "Running",
+                        Status = RunningStatus.Running,
                         IsForeignElement = element.IsForeignElement,
                         StudyId = Utilities.StudyId
                     };
@@ -462,7 +457,7 @@ namespace TimeStudy.ViewModels
                 {
                     Cycle = CycleCount,
                     Element = element.Name,
-                    TotalElapsedTime = "Running",
+                    Status = RunningStatus.Running,
                     IsForeignElement = element.IsForeignElement,
                     StudyId = Utilities.StudyId
                 };
@@ -494,6 +489,7 @@ namespace TimeStudy.ViewModels
             currentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
             currentLapTime.ElementColour = Color.Gray;
             currentLapTime.ForeignElements = SelectedForeignElements;
+            currentLapTime.Status = RunningStatus.Completed;
             LapTimeRepo.SaveItem(currentLapTime);
         }
 
@@ -509,7 +505,7 @@ namespace TimeStudy.ViewModels
                 {
                     Cycle = CycleCount,
                     Element = element.Name,
-                    TotalElapsedTime = "Running",
+                    Status = RunningStatus.Running,
                     ElementColour = Color.Silver,
                     StudyId = Utilities.StudyId
                 };
@@ -556,15 +552,7 @@ namespace TimeStudy.ViewModels
 
         private void ForceRoundingToLapTime(bool isLapTime = false)
         {
-            //LapTime = RealTimeTicks - TimeWhenLapButtonClicked;
             var lastRecordedLapTime = Get_Last_Recorded_LapTime();
-            //double foriegnLapTimesTotal = 0;
-            //foreach (var item in AllForiegnLapTimes)
-            //{
-            //    foriegnLapTimesTotal = foriegnLapTimesTotal + item.IndividualLapTime;
-            //}
-
-            //LapTime = LapTime - foriegnLapTimesTotal; 
 
             if (lastRecordedLapTime != null)
                 LapTime = RealTimeTicks - lastRecordedLapTime.TotalElapsedTimeDouble;
