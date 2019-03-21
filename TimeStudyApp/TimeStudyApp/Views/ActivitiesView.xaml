@@ -47,7 +47,7 @@
             </StackLayout>
             <StackLayout Orientation="Horizontal" Margin="10">
                 <Button Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseActivitiesView}" FontSize="12" />
-                <Button Text="RESUME PAUSED" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding ResumePased}" FontSize="12" />
+               <!-- <Button Text="RESUME PAUSED" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding ResumePased}" FontSize="12" />-->
             </StackLayout>
         </StackLayout>
     </ContentView.Content>

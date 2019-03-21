@@ -64,13 +64,14 @@ namespace TimeStudyApp.Services.StateMachine
                     viewModel.CurrentElementWithoutLapTimeName = current.Element;
                     viewModel.CurrentSequence = null;
                     viewModel.CurrentCycle = viewModel.CycleCount;
+
+                    viewModel.IsForeignEnabled = true;
                 }
             }
         }
 
         public override void ElementSelectedEvent()
         {
-
             var current = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
             if (current.IsForeignElement)
             {

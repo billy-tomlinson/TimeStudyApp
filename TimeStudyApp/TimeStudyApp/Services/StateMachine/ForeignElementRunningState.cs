@@ -19,7 +19,11 @@ namespace TimeStudyApp.Services.StateMachine
         {
 
             var currentRunning = viewModel.Get_Running_LapTime();
+
             currentRunning.Status = Model.RunningStatus.Paused;
+            currentRunning.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
+            currentRunning.TotalElapsedTime = "Paused";
+
             viewModel.LapTimeRepo.SaveItem(currentRunning);
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
@@ -71,6 +75,7 @@ namespace TimeStudyApp.Services.StateMachine
             else
             {
                 viewModel.ReInstatePausedLapTimeToCurrentRunning();
+                viewModel.IsForeignEnabled = true;
                 viewModel.ActivitiesVisible = false;
                 viewModel.RatingsVisible = false;
                 viewModel.Opacity = 1.0;
@@ -78,6 +83,7 @@ namespace TimeStudyApp.Services.StateMachine
 
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
+            viewModel.CollectionOfElements = viewModel.Get_All_NonForeign_Enabled_Activities_WithChildren();
         }
 
         public override void ShowForeignElements()
