@@ -108,9 +108,15 @@ namespace TimeStudyApp.Services.StateMachine
         public override void ShowNonForeignElements()
         {
             viewModel.LapTimerEvent();
-
+            viewModel.IsCancelEnabled = false;
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
+
+        public override void CloseActivitiesViewEvent()
+        {
+            viewModel.IsForeignEnabled = true;
+        }
+
     }
 }

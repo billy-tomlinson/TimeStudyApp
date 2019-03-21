@@ -22,12 +22,14 @@ namespace TimeStudy.ViewModels
         public Command ItemClickedCommand { get; set; }
         public Command RunningItemClickedCommand { get; set; }
         public Command ShowForeignElements { get; set; }
+        public Command ShowForeignElementsTopButton { get; set; }
         public Command ShowNonForeignElements { get; set; }
         public Command CloseForeignElements { get; set; }
         public Command ResumePased { get; set; }
         public Command ElementSelected { get; set; }
         public Command CloseActivitiesView { get; set; }
         public Command CloseRatingsView { get; set; }
+        public Command ShowRatingView { get; set; }
 
         private bool SaveButtonClicked;
         private bool IsRunning;
@@ -69,6 +71,7 @@ namespace TimeStudy.ViewModels
             Override = new Command(OverrideEvent);
             RatingSelected = new Command(RatingSelectedEvent);
             ShowForeignElements = new Command(ShowForeignElementsEvent);
+            ShowForeignElementsTopButton = new Command(ShowForeignElementsTopButtonEvent);
             ShowNonForeignElements = new Command(ShowNonForeignElementsEvent);
             CloseForeignElements = new Command(CloseForeignElementsEvent);
             ResumePased = new Command(ResumePausedEvent);
@@ -76,6 +79,7 @@ namespace TimeStudy.ViewModels
             ItemClickedCommand = new Command(ShowForeignElementsEvent);
             CloseActivitiesView = new Command(CloseActivitiesViewEvent);
             CloseRatingsView = new Command(CloseRatingsViewEvent);
+            ShowRatingView = new Command(ShowRatingViewEvent);
 
             ApplicationStateFactory = new StateFactory(this);
 
@@ -164,6 +168,9 @@ namespace TimeStudy.ViewModels
             Opacity = 1;
             ActivitiesVisible = false;
             IsPageEnabled = true;
+
+            ApplicationState = ApplicationStateFactory.GetCurrentState();
+            ApplicationState.CloseActivitiesViewEvent();
         }
 
         public void CloseRatingsViewEvent()
@@ -183,6 +190,13 @@ namespace TimeStudy.ViewModels
             Opacity = 1;
             LapTimerEvent();
             ActivitiesVisible = false;
+        }
+
+        public void ShowRatingViewEvent()
+        {
+            RatingsVisible = true;
+            ActivitiesVisible = false;
+            Opacity = 0.2;
         }
 
         public void StartTimerEvent()
@@ -324,6 +338,8 @@ namespace TimeStudy.ViewModels
         void ShowForeignElementsEvent()
         {
             IsPageEnabled = false;
+            IsForeignEnabled = false;
+            IsNonForeignEnabled = true;
             CollectionOfElements = Get_All_Foreign_Enabled_Activities_WithChildren();
             GroupElementsForActivitiesView();
 
@@ -331,9 +347,18 @@ namespace TimeStudy.ViewModels
             ApplicationState.ShowForeignElements();
         }
 
+        void ShowForeignElementsTopButtonEvent()
+        {
+            IsCancelEnabled = true;
+            ShowForeignElementsEvent();
+            IsNonForeignEnabled = true;
+        }
+
         void ShowNonForeignElementsEvent()
         {
             IsPageEnabled = false;
+            IsForeignEnabled = true;
+            IsNonForeignEnabled = false;
             TimeWhenLapButtonClicked = RealTimeTicks;
             CollectionOfElements = Get_All_NonForeign_Enabled_Activities_WithChildren();
             GroupElementsForActivitiesView();
@@ -672,6 +697,17 @@ namespace TimeStudy.ViewModels
             set
             {
                 isForeignEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static bool isNonForeignEnabled;
+        public bool IsNonForeignEnabled
+        {
+            get => isNonForeignEnabled;
+            set
+            {
+                isNonForeignEnabled = value;
                 OnPropertyChanged();
             }
         }

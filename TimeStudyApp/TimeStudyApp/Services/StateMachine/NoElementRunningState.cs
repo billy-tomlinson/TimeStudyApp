@@ -40,6 +40,7 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowForeignElements()
         {
+            viewModel.IsForeignEnabled = false;
             viewModel.Opacity = 0.2;
             viewModel.ActivitiesVisible = true;
             return;
@@ -47,9 +48,15 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowNonForeignElements()
         {
+            viewModel.IsForeignEnabled = false;
             viewModel.Opacity = 0.2;
             viewModel.ActivitiesVisible = true;
             return;
+        }
+
+        public override void CloseActivitiesViewEvent()
+        {
+            viewModel.IsForeignEnabled = false;
         }
     }
 }
