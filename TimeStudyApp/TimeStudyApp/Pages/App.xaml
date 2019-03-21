@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="TimeStudy.App">
+<Application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="TimeStudy.App">
     <Application.Resources>
         <ResourceDictionary>
             <OnPlatform x:Key="StandardFont" x:TypeArguments="Font">
@@ -13,7 +11,7 @@
                 <Setter Property="BackgroundColor" Value="#4174f4" />
                 <Setter Property="Padding" Value="5" />
             </Style>
-             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
+            <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
                 <Setter Property="BarBackgroundColor" Value="#4174f4" />
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="BarTextColor" Value="White" />
@@ -46,7 +44,7 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
             <Style TargetType="NavigationPage">
-               <Setter Property="BarBackgroundColor" Value="#4174f4"/>
+                <Setter Property="BarBackgroundColor" Value="#4174f4" />
             </Style>
             <Style TargetType="BoxView">
                 <Setter Property="BackgroundColor" Value="#E8AD00" />
@@ -75,7 +73,7 @@
                 <Setter Property="Padding" Value="10,10,10,10" />
                 <Setter Property="Margin" Value="10,10,10,10" />
             </Style>
-             <Style x:Key="stopWatchButton" TargetType="Button">
+            <Style x:Key="stopWatchButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="FontSize" Value="18" />
@@ -90,7 +88,7 @@
                 <Setter Property="WidthRequest" Value="130" />
                 <Setter Property="FontSize" Value="15" />
             </Style>
-             <Style x:Key="mainPageLabel" TargetType="Label">
+            <Style x:Key="mainPageLabel" TargetType="Label">
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
@@ -113,6 +111,11 @@
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Margin" Value="0" />
                 <Setter Property="Text" Value="+" />
+            </Style>
+            <Style x:Key="ratingView" TargetType="StackLayout">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="Padding" Value="0" />
+                <Setter Property="Margin" Value="0" />
             </Style>
             <Label.FontFamily>
             </Label.FontFamily>

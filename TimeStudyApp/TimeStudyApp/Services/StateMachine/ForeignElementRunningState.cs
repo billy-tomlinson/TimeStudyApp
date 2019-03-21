@@ -22,7 +22,6 @@ namespace TimeStudyApp.Services.StateMachine
             var currentRunning = viewModel.Get_Running_LapTime();
             if (currentRunning == null)
                 currentRunning = viewModel.Get_Running_LapTime_By_Id();
-            //var currentRunning = viewModel.Get_Running_LapTime();
 
             currentRunning.Status = Model.RunningStatus.Paused;
             currentRunning.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
