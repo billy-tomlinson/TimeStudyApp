@@ -484,14 +484,17 @@ namespace TimeStudy.ViewModels
             if(currentLapTime == null)
                 currentLapTime = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
 
-            currentLapTime.IndividualLapTime = LapTime;
-            currentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
-            currentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
-            currentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
-            currentLapTime.ElementColour = Color.Gray;
-            currentLapTime.ForeignElements = SelectedForeignElements;
-            currentLapTime.Status = RunningStatus.Completed;
-            LapTimeRepo.SaveItem(currentLapTime);
+            if (currentLapTime != null)
+            {
+                currentLapTime.IndividualLapTime = LapTime;
+                currentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
+                currentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
+                currentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+                currentLapTime.ElementColour = Color.Gray;
+                currentLapTime.ForeignElements = SelectedForeignElements;
+                currentLapTime.Status = RunningStatus.Completed;
+                LapTimeRepo.SaveItem(currentLapTime);
+            }
         }
 
         public void AddCurrentWithoutLapTimeToList()

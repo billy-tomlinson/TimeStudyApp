@@ -38,7 +38,7 @@
                 </Grid>
                 <StackLayout Orientation="Horizontal" Margin="10">
                     <Button Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseRatingsView}" FontSize="12"/>
-                    <Button Text="FOREIGN" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding ResumePased}" FontSize="12" IsEnabled="{Binding IsForeignEnabled}" />
+                    <Button Text="FOREIGN" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding ShowForeignElements}" FontSize="12" IsEnabled="{Binding IsForeignEnabled}" />
                 </StackLayout>
             </StackLayout>
         </StackLayout>
