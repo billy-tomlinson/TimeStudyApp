@@ -26,6 +26,7 @@ namespace TimeStudy.ViewModels
         public Command ResumePased { get; set; }
         public Command ElementSelected { get; set; }
         public Command CloseActivitiesView { get; set; }
+        public Command CloseRatingsView { get; set; }
 
         private bool IsRunning;
         private bool cancelActivitiesView;
@@ -74,6 +75,7 @@ namespace TimeStudy.ViewModels
             ElementSelected = new Command(ElementsSelectedEvent);
             ItemClickedCommand = new Command(ShowForeignElementsEvent);
             CloseActivitiesView = new Command(CloseActivitiesViewEvent);
+            CloseRatingsView = new Command(CloseRatingsViewEvent);
 
             ApplicationStateFactory = new StateFactory(this);
 
@@ -160,6 +162,17 @@ namespace TimeStudy.ViewModels
             cancelActivitiesView = true;
             Opacity = 1;
             ActivitiesVisible = false;
+            IsPageEnabled = true;
+        }
+
+        public void CloseRatingsViewEvent()
+        {
+            var currentLapTime = Get_Running_LapTime_By_Id();
+            currentLapTime.Status = RunningStatus.Running;
+            Utilities.CurrentRunningElementId =  LapTimeRepo.SaveItem(currentLapTime);
+
+            Opacity = 1;
+            RatingsVisible = false;
             IsPageEnabled = true;
         }
 
@@ -357,12 +370,9 @@ namespace TimeStudy.ViewModels
         {
             AddForeignLapTimetoListAsCompleted(rating);
 
-            var currentForeign = Utilities.SetUpCurrentLapTime(CycleCount,
-                name, isForeign, RunningStatus.Running);
-
             TimeWhenForiegnButtonClicked = RealTimeTicks;
 
-            CurrentElementWithoutLapTimeName = currentForeign.Element;
+            CurrentElementWithoutLapTimeName = name;
             CurrentSequence = null;
             CurrentCycle = CycleCount;
 
@@ -377,7 +387,7 @@ namespace TimeStudy.ViewModels
 
             current.Status = RunningStatus.Running;
 
-            LapTimeRepo.SaveItem(current);
+            Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(current);
 
             CurrentCycle = CycleCount;
 
@@ -457,7 +467,7 @@ namespace TimeStudy.ViewModels
             var currentForeignLap = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
                 element.IsForeignElement, RunningStatus.Running);
 
-            LapTimeRepo.SaveItem(currentForeignLap);
+            Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentForeignLap);
 
             CurrentElementWithoutLapTimeName = element.Name;
             CurrentSequence = null;
@@ -501,7 +511,7 @@ namespace TimeStudy.ViewModels
                     StudyId = Utilities.StudyId
                 };
 
-                LapTimeRepo.SaveItem(currentWithoutLapTime);
+                Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
             }
 
             CurrentElementWithoutLapTimeName = element.Name;

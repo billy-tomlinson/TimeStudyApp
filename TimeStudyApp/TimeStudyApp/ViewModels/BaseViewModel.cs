@@ -438,10 +438,18 @@ namespace TimeStudy.ViewModels
                 .FirstOrDefault(x => x.IsForeignElement && x.StudyId == Utilities.StudyId);
 
         }
+
         public LapTime Get_Running_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
                 .FirstOrDefault(x => x.Status == RunningStatus.Running
+                && x.StudyId == Utilities.StudyId);
+        }
+
+        public LapTime Get_Running_LapTime_By_Id()
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .FirstOrDefault(x => x.Id == Utilities.CurrentRunningElementId
                 && x.StudyId == Utilities.StudyId);
         }
 

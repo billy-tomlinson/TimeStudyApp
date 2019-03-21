@@ -32,7 +32,7 @@ namespace TimeStudyApp.Services.StateMachine
             var currentForeignLap = Utilities.SetUpCurrentLapTime(viewModel.CycleCount, 
                 currentSelected.Name, currentSelected.IsForeignElement, RunningStatus.Running);
 
-            var id = viewModel.LapTimeRepo.SaveItem(currentForeignLap);
+            Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(currentForeignLap);
 
             viewModel.CurrentElementWithoutLapTimeName = currentForeignLap.Element;
             viewModel.CurrentSequence = null;

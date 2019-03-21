@@ -34,15 +34,6 @@ namespace TimeStudyApp.Services.StateMachine
 
                 viewModel.TimeWhenForiegnButtonClicked = viewModel.RealTimeTicks;
 
-                //var currentForeignLap = new LapTime
-                //{
-                //    Cycle = viewModel.CycleCount,
-                //    Element = element.Name,
-                //    Status = Model.RunningStatus.Running,
-                //    IsForeignElement = element.IsForeignElement,
-                //    StudyId = Utilities.StudyId
-                //};
-
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
                     element.Name, element.IsForeignElement, RunningStatus.Running);
 
@@ -54,19 +45,11 @@ namespace TimeStudyApp.Services.StateMachine
                 var current = viewModel.Get_Running_LapTime();
                 if(current == null)
                 {
-                    //current = new LapTime
-                    //{
-                    //    Cycle = viewModel.CycleCount,
-                    //    Element = element.Name,
-                    //    Status = Model.RunningStatus.Running,
-                    //    IsForeignElement = element.IsForeignElement,
-                    //    StudyId = Utilities.StudyId
-                    //};
 
                     current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
                         element.Name, element.IsForeignElement, RunningStatus.Running);
 
-                    viewModel.LapTimeRepo.SaveItem(current);
+                    Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(current);
 
                     viewModel.CurrentElementWithoutLapTimeName = current.Element;
                     viewModel.CurrentSequence = null;

@@ -68,7 +68,7 @@ namespace TimeStudy.Services
                 if (item.Id != 0)
                 {
                     connection.Update(item);
-                    return 0;
+                    return item.Id;
                 }
                 connection.Insert(item);
                 return connection.ExecuteScalar<int>("SELECT last_insert_rowid()");
