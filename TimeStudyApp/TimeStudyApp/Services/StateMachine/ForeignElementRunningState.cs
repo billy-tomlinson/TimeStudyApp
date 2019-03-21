@@ -2,6 +2,7 @@
 using TimeStudy.Model;
 using TimeStudy.Services;
 using TimeStudy.ViewModels;
+using TimeStudyApp.Model;
 
 namespace TimeStudyApp.Services.StateMachine
 {
@@ -27,14 +28,9 @@ namespace TimeStudyApp.Services.StateMachine
             viewModel.LapTimeRepo.SaveItem(currentRunning);
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
-            var currentForeignLap = new LapTime
-            {
-                Cycle = viewModel.CycleCount,
-                Element = currentSelected.Name,
-                Status = Model.RunningStatus.Running,
-                IsForeignElement = currentSelected.IsForeignElement,
-                StudyId = Utilities.StudyId
-            };
+
+            var currentForeignLap = Utilities.SetUpCurrentLapTime(viewModel.CycleCount, 
+                currentSelected.Name, currentSelected.IsForeignElement, RunningStatus.Running);
 
             var id = viewModel.LapTimeRepo.SaveItem(currentForeignLap);
 

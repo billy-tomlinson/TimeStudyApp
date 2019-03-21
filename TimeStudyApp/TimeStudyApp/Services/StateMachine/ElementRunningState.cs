@@ -3,6 +3,7 @@ using System.Linq;
 using TimeStudy.Model;
 using TimeStudy.Services;
 using TimeStudy.ViewModels;
+using TimeStudyApp.Model;
 
 namespace TimeStudyApp.Services.StateMachine
 {
@@ -33,14 +34,17 @@ namespace TimeStudyApp.Services.StateMachine
 
                 viewModel.TimeWhenForiegnButtonClicked = viewModel.RealTimeTicks;
 
-                var currentForeignLap = new LapTime
-                {
-                    Cycle = viewModel.CycleCount,
-                    Element = element.Name,
-                    Status = Model.RunningStatus.Running,
-                    IsForeignElement = element.IsForeignElement,
-                    StudyId = Utilities.StudyId
-                };
+                //var currentForeignLap = new LapTime
+                //{
+                //    Cycle = viewModel.CycleCount,
+                //    Element = element.Name,
+                //    Status = Model.RunningStatus.Running,
+                //    IsForeignElement = element.IsForeignElement,
+                //    StudyId = Utilities.StudyId
+                //};
+
+                current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
+                    element.Name, element.IsForeignElement, RunningStatus.Running);
 
                 viewModel.CurrentApplicationState.CurrentState = Model.Status.ForeignElementRunning;
                 stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
@@ -50,14 +54,17 @@ namespace TimeStudyApp.Services.StateMachine
                 var current = viewModel.Get_Running_LapTime();
                 if(current == null)
                 {
-                    current = new LapTime
-                    {
-                        Cycle = viewModel.CycleCount,
-                        Element = element.Name,
-                        Status = Model.RunningStatus.Running,
-                        IsForeignElement = element.IsForeignElement,
-                        StudyId = Utilities.StudyId
-                    };
+                    //current = new LapTime
+                    //{
+                    //    Cycle = viewModel.CycleCount,
+                    //    Element = element.Name,
+                    //    Status = Model.RunningStatus.Running,
+                    //    IsForeignElement = element.IsForeignElement,
+                    //    StudyId = Utilities.StudyId
+                    //};
+
+                    current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
+                        element.Name, element.IsForeignElement, RunningStatus.Running);
 
                     viewModel.LapTimeRepo.SaveItem(current);
 

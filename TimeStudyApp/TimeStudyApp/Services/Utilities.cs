@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Plugin.Messaging;
 //using Syncfusion.XlsIO;
 using TimeStudy.Model;
+using TimeStudyApp.Model;
 using Xamarin.Forms;
 
 namespace TimeStudy.Services
@@ -222,6 +223,18 @@ namespace TimeStudy.Services
 
             return numberOfObservations;
 
+        }
+
+        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, bool IsForeign, RunningStatus status)
+        {
+            return new LapTime
+            {
+                Cycle = cycleCount,
+                Element = name,
+                Status = RunningStatus.Running,
+                IsForeignElement = IsForeign,
+                StudyId = Utilities.StudyId
+            };
         }
     }
 }

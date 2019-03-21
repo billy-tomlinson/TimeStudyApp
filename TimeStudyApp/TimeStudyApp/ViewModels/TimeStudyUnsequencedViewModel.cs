@@ -343,14 +343,8 @@ namespace TimeStudy.ViewModels
         {
             AddForeignLapTimetoListAsCompleted(rating);
 
-            var currentForeign = new LapTime
-            {
-                Cycle = CycleCount,
-                Element = name,
-                Status = RunningStatus.Running,
-                IsForeignElement = isForeign,
-                StudyId = Utilities.StudyId
-            };
+            var currentForeign = Utilities.SetUpCurrentLapTime(CycleCount,
+                name, isForeign, RunningStatus.Running);
 
             TimeWhenForiegnButtonClicked = RealTimeTicks;
 
@@ -437,36 +431,18 @@ namespace TimeStudy.ViewModels
                     LapTimeRepo.SaveItem(pausedLapTime);
 
                     TimeWhenForiegnButtonClicked = RealTimeTicks;
-
-                    var currentForeignLap = new LapTime
-                    {
-                        Cycle = CycleCount,
-                        Element = element.Name,
-                        Status = RunningStatus.Running,
-                        IsForeignElement = element.IsForeignElement,
-                        StudyId = Utilities.StudyId
-                    };
-
-                    LapTimeRepo.SaveItem(currentForeignLap);
-
                 }
             }
             else
             {
-                var currentForeignLap = new LapTime
-                {
-                    Cycle = CycleCount,
-                    Element = element.Name,
-                    Status = RunningStatus.Running,
-                    IsForeignElement = element.IsForeignElement,
-                    StudyId = Utilities.StudyId
-                };
-
-                LapTimeRepo.SaveItem(currentForeignLap);
-
                 Opacity = 0.2;
                 RatingsVisible = true;
             }
+
+            var currentForeignLap = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
+                element.IsForeignElement, RunningStatus.Running);
+
+            LapTimeRepo.SaveItem(currentForeignLap);
 
             CurrentElementWithoutLapTimeName = element.Name;
             CurrentSequence = null;
