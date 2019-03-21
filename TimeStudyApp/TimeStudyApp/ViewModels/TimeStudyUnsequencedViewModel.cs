@@ -111,11 +111,13 @@ namespace TimeStudy.ViewModels
             CurrentTicks = 0;
             StopWatchTime = "0.000";
             IsRunning = false;
+            IsCancelEnabled = !IsRunning;
             IsStartEnabled = true;
             IsLapEnabled = true;
             IsStopEnabled = false;
             IsClearEnabled = false;
             IsForeignEnabled = false;
+            IsPageEnabled = true;
             ActivitiesCount = Activities.Count;
             CycleCount = 1;
 
@@ -158,6 +160,7 @@ namespace TimeStudy.ViewModels
             cancelActivitiesView = true;
             Opacity = 1;
             ActivitiesVisible = false;
+            IsPageEnabled = true;
         }
 
         public void ResumePausedEvent()
@@ -171,6 +174,7 @@ namespace TimeStudy.ViewModels
         public void StartTimerEvent()
         {
             IsRunning = true;
+            IsCancelEnabled = !IsRunning;
             IsStartEnabled = false;
             IsLapEnabled = true;
             IsStopEnabled = true;
@@ -188,6 +192,7 @@ namespace TimeStudy.ViewModels
         public void StopTimerEvent()
         {
             IsRunning = false;
+            IsCancelEnabled = !IsRunning;
             IsStartEnabled = true;
             IsLapEnabled = false;
             IsStopEnabled = false;
@@ -207,6 +212,7 @@ namespace TimeStudy.ViewModels
             Opacity = 0.2;
             CloseColumnSpan = 1;
             IsInvalid = true;
+            IsPageEnabled = true;
         }
 
         void OverrideEvent(object sender)
@@ -217,6 +223,7 @@ namespace TimeStudy.ViewModels
             IsOverrideVisible = false;
             Opacity = 1.0;
             IsRunning = false;
+            IsCancelEnabled = !IsRunning;
             cancelActivitiesView = false;
             HasBeenStopped = false;
             TimeWhenLapButtonClicked = 0;
@@ -229,6 +236,7 @@ namespace TimeStudy.ViewModels
             CurrentCycle = 0;
             CurrentSequence = null;
             CurrentElementWithoutLapTimeName = null;
+            IsPageEnabled = true;
 
             CurrentApplicationState.CurrentState = Status.NoElementRunning;
             StateService.SaveApplicationState(CurrentApplicationState);
@@ -252,6 +260,8 @@ namespace TimeStudy.ViewModels
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.RatingSelectedEvent();
+
+            IsPageEnabled = true;
         }
 
         void ElementsSelectedEvent(object sender)
@@ -270,15 +280,18 @@ namespace TimeStudy.ViewModels
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.AddElementWithoutLapTimeToList();
 
+            IsPageEnabled = true;
             ActivitiesVisible = false;
             RatingsVisible = false;
             Opacity = 1.0;
 
             IsRunning = true;
+            IsCancelEnabled = !IsRunning;
         }
 
         void ShowForeignElementsEvent()
         {
+            IsPageEnabled = false;
             CollectionOfElements = Get_All_Foreign_Enabled_Activities_WithChildren();
             GroupElementsForActivitiesView();
 
@@ -286,9 +299,9 @@ namespace TimeStudy.ViewModels
             ApplicationState.ShowForeignElements();
         }
 
-
         void ShowNonForeignElementsEvent()
         {
+            IsPageEnabled = false;
             TimeWhenLapButtonClicked = RealTimeTicks;
             CollectionOfElements = Get_All_NonForeign_Enabled_Activities_WithChildren();
             GroupElementsForActivitiesView();
@@ -299,6 +312,7 @@ namespace TimeStudy.ViewModels
 
         void CloseForeignElementsEvent(object sender)
         {
+            IsPageEnabled = true;
             ForeignElementsVisible = false;
             Opacity = 1.0;
         }
@@ -437,6 +451,7 @@ namespace TimeStudy.ViewModels
             {
                 Opacity = 0.2;
                 RatingsVisible = true;
+                IsPageEnabled = false;
             }
 
             var currentForeignLap = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
@@ -634,6 +649,17 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        static bool isCancelEnabled;
+        public bool IsCancelEnabled
+        {
+            get => isCancelEnabled;
+            set
+            {
+                isCancelEnabled = value;
+                OnPropertyChanged();
+            }
+        }
+
         static bool isStopEnabled;
         public bool IsStopEnabled
         {
@@ -667,6 +693,16 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        static bool isPageEnabled;
+        public bool IsPageEnabled
+        {
+            get => isPageEnabled;
+            set
+            {
+                isPageEnabled = value;
+                OnPropertyChanged();
+            }
+        }
         static bool ratingsVisible;
         public bool RatingsVisible
         {

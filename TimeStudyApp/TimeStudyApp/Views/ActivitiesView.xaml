@@ -46,8 +46,8 @@
                 </StackLayout>
             </StackLayout>
             <StackLayout Orientation="Horizontal" Margin="10">
-                <Button Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseActivitiesView}" FontSize="12" />
-               <!-- <Button Text="RESUME PAUSED" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding ResumePased}" FontSize="12" />-->
+                <Button Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding CloseActivitiesView}" FontSize="12" IsEnabled="{Binding IsCancelEnabled}"/>
+                <Button Text="FOREIGN" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" Command="{Binding ResumePased}" FontSize="12" IsEnabled="{Binding IsForeignEnabled}" />
             </StackLayout>
         </StackLayout>
     </ContentView.Content>

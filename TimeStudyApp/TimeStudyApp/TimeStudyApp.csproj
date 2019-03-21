@@ -34,9 +34,6 @@
     <None Include="Pages\AddForeignElementsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Pages\AlarmPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Pages\AllActivitiesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
@@ -50,9 +47,6 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\ExistingStudiesTabbedPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\LocalNotificationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\MainPage.xaml">
@@ -86,9 +80,6 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\TimeStudyPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\VibratePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\WelcomePage.xaml">

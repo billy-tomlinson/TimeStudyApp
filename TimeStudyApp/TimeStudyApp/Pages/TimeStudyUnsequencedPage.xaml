@@ -10,7 +10,7 @@
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
-            <StackLayout BackgroundColor="Transparent" Padding="2" Margin="2" Opacity="{Binding Opacity}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout IsEnabled="{Binding IsPageEnabled}" BackgroundColor="Transparent" Padding="2" Margin="2" Opacity="{Binding Opacity}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
                     <Grid Padding="5" Margin="5">
                         <Grid.RowDefinitions>

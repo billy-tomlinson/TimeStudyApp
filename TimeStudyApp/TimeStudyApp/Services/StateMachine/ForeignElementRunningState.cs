@@ -64,6 +64,7 @@ namespace TimeStudyApp.Services.StateMachine
 
             if (viewModel.LapButtonText != "   Lap   ")
             {
+                viewModel.IsPageEnabled = false;
                 viewModel.ActivitiesVisible = true;
                 viewModel.RatingsVisible = false;
                 viewModel.Opacity = 0.2;
@@ -71,6 +72,7 @@ namespace TimeStudyApp.Services.StateMachine
             else
             {
                 viewModel.ReInstatePausedLapTimeToCurrentRunning();
+                viewModel.IsPageEnabled = true;
                 viewModel.IsForeignEnabled = true;
                 viewModel.ActivitiesVisible = false;
                 viewModel.RatingsVisible = false;
@@ -84,6 +86,8 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowForeignElements()
         {
+            viewModel.IsPageEnabled = false;
+
             viewModel.CollectionOfElements = viewModel.Get_All_Foreign_Enabled_Activities_WithChildren();
             viewModel.GroupElementsForActivitiesView();
 
@@ -98,7 +102,6 @@ namespace TimeStudyApp.Services.StateMachine
             }
             else
             {
-
                 viewModel.Opacity = 0.2;
                 viewModel.ActivitiesVisible = true;
             }
@@ -106,6 +109,8 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowNonForeignElements()
         {
+            viewModel.IsPageEnabled = false;
+
             var runningLapTime = viewModel.Get_Running_LapTime();
             if (runningLapTime.Rating == null)
             {
