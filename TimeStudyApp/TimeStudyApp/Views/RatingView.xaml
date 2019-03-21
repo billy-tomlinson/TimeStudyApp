@@ -2,7 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" xmlns:local="clr-namespace:TimeStudy.Custom" xmlns:views="clr-namespace:TimeStudy.Pages" x:Class="TimeStudy.Views.RatingView">
     <ContentView.Content BackgroundColor="#C0808080" Padding="10, 0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All">
         <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10">
-            <StackLayout Orientation="Vertical" HeightRequest="290" WidthRequest="300" BackgroundColor="White">
+            <StackLayout Orientation="Vertical" HeightRequest="300" WidthRequest="300" BackgroundColor="White">
                 <Grid x:Name="controlGrid" RowSpacing="1" ColumnSpacing="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
