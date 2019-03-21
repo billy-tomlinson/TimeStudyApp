@@ -33,6 +33,9 @@ namespace TimeStudyApp.Services.StateMachine
 
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
+
+            viewModel.Opacity = 1.0;
+            viewModel.IsPageEnabled = true;
         }
 
         public override void ShowForeignElements()

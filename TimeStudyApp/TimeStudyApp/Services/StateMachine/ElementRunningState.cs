@@ -84,18 +84,12 @@ namespace TimeStudyApp.Services.StateMachine
 
             viewModel.LapTimes = viewModel.Get_All_LapTimes_Not_Running();
 
-            if (viewModel.ActivitiesCounter == viewModel.ActivitiesCount)
-            {
-                viewModel.CurrentElementName = viewModel.Activities.FirstOrDefault(x => x.Sequence == 1).Name;
-            }
-            else
-                viewModel.CurrentElementName = viewModel.Activities.FirstOrDefault(x => x.Sequence == viewModel.ActivitiesCounter + 1).Name;
-                
             viewModel.ForeignElementCount = 0;
 
-            viewModel.Opacity = 1;
+            viewModel.Opacity = 0.2;
             viewModel.RatingsVisible = false;
             viewModel.ActivitiesVisible = true;
+            viewModel.IsPageEnabled = false;
 
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using TimeStudy.Model;
+using TimeStudy.Pages;
 using TimeStudy.Services;
 using TimeStudyApp.Model;
 using TimeStudyApp.Services.StateMachine;
@@ -28,6 +29,7 @@ namespace TimeStudy.ViewModels
         public Command CloseActivitiesView { get; set; }
         public Command CloseRatingsView { get; set; }
 
+        private bool SaveButtonClicked;
         private bool IsRunning;
         private bool cancelActivitiesView;
         private bool HasBeenStopped;
@@ -50,8 +52,6 @@ namespace TimeStudy.ViewModels
 
         public List<LapTime> AllForiegnLapTimes = new List<LapTime>();
 
-        public int ActivitiesCount;
-        public int ActivitiesCounter;
         public int CycleCount;
 
         public TimeStudyUnsequencedViewModel()
@@ -120,10 +120,11 @@ namespace TimeStudy.ViewModels
             IsClearEnabled = false;
             IsForeignEnabled = false;
             IsPageEnabled = true;
-            ActivitiesCount = Activities.Count;
             CycleCount = 1;
 
             LapButtonText = "   Start   ";
+
+            LapTimeRepo.DeleteAllItems();
         }
 
         public void GroupElementsForActivitiesView()
@@ -204,16 +205,26 @@ namespace TimeStudy.ViewModels
 
         public void StopTimerEvent()
         {
-            IsRunning = false;
-            IsCancelEnabled = !IsRunning;
-            IsStartEnabled = true;
-            IsLapEnabled = false;
-            IsStopEnabled = false;
-            IsClearEnabled = true;
-            IsStartEnabled = true;
-            HasBeenStopped = true;
+            //IsRunning = false;
+            //IsCancelEnabled = !IsRunning;
+            //IsStartEnabled = true;
+            //IsLapEnabled = false;
+            //IsStopEnabled = false;
+            //IsClearEnabled = true;
+            //IsStartEnabled = true;
+            //HasBeenStopped = true;
 
-            TimeWhenStopButtonClicked = RealTimeTicks;
+            //TimeWhenStopButtonClicked = RealTimeTicks;
+
+            ValidationText = "Are you sure you want to stop and save the study?";
+            ShowOkCancel = true;
+            IsOverrideVisible = false;
+            ShowClose = false;
+            Opacity = 0.2;
+            CloseColumnSpan = 1;
+            IsInvalid = true;
+            IsPageEnabled = false;
+            SaveButtonClicked = true;
         }
 
         public void ClearLapsEvent()
@@ -225,12 +236,14 @@ namespace TimeStudy.ViewModels
             Opacity = 0.2;
             CloseColumnSpan = 1;
             IsInvalid = true;
-            IsPageEnabled = true;
+            IsPageEnabled = false;
+            SaveButtonClicked = false;
         }
 
         void OverrideEvent(object sender)
         {
             ConstructorSetUp();
+            IsPageEnabled = true;
             ShowOkCancel = false;
             IsInvalid = false;
             IsOverrideVisible = false;
@@ -245,14 +258,20 @@ namespace TimeStudy.ViewModels
             LapTime = 0;
             CurrentTicks = 0;
             LastSuccesstulLapTime = 0;
-            ActivitiesCounter = 0;
             CurrentCycle = 0;
             CurrentSequence = null;
             CurrentElementWithoutLapTimeName = null;
             IsPageEnabled = true;
+            Utilities.CurrentSelectedElementId = 0;
+            Utilities.CurrentRunningElementId = 0;
+            Utilities.LastRatedLapTimeId = 0;
+            LapTimeRepo.DeleteAllItems();
 
             CurrentApplicationState.CurrentState = Status.NoElementRunning;
             StateService.SaveApplicationState(CurrentApplicationState);
+
+            if(SaveButtonClicked)
+                Utilities.Navigate(new ReportsPage());
         }
 
         public Custom.CustomButton RatingButton;
@@ -273,8 +292,6 @@ namespace TimeStudy.ViewModels
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.RatingSelectedEvent();
-
-            IsPageEnabled = true;
         }
 
         void ElementsSelectedEvent(object sender)
@@ -300,6 +317,8 @@ namespace TimeStudy.ViewModels
 
             IsRunning = true;
             IsCancelEnabled = !IsRunning;
+
+            LapButtonText = "   Lap   ";
         }
 
         void ShowForeignElementsEvent()
@@ -499,23 +518,18 @@ namespace TimeStudy.ViewModels
 
         public void AddCurrentWithoutLapTimeToList()
         {
-            if (ActivitiesCounter == 0) ActivitiesCounter = 1;
+            var element = CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
 
-            var element = Activities.FirstOrDefault(x => x.Sequence == ActivitiesCounter);
-
-            if (ActivitiesCounter <= ActivitiesCount)
+            var currentWithoutLapTime = new LapTime
             {
-                var currentWithoutLapTime = new LapTime
-                {
-                    Cycle = CycleCount,
-                    Element = element.Name,
-                    Status = RunningStatus.Running,
-                    ElementColour = Color.Silver,
-                    StudyId = Utilities.StudyId
-                };
+                Cycle = CycleCount,
+                Element = element.Name,
+                Status = RunningStatus.Running,
+                ElementColour = Color.Silver,
+                StudyId = Utilities.StudyId
+            };
 
-                Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
-            }
+            Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
 
             CurrentElementWithoutLapTimeName = element.Name;
             CurrentSequence = element.Sequence;
@@ -706,16 +720,6 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static bool isPageEnabled;
-        public bool IsPageEnabled
-        {
-            get => isPageEnabled;
-            set
-            {
-                isPageEnabled = value;
-                OnPropertyChanged();
-            }
-        }
         static bool ratingsVisible;
         public bool RatingsVisible
         {

@@ -124,6 +124,14 @@ namespace TimeStudy.Services
             }
         }
 
+        public void DeleteAllItems()
+        {
+            using (SQLiteConnection connection = new SQLiteConnection(connectionString))
+            {
+                connection.DeleteAll<T>();
+            }
+        }
+
         private void SetLastUpdatedTime(T item)
         {
             Type typeParameterType = typeof(T);
@@ -166,5 +174,6 @@ namespace TimeStudy.Services
                 connection.InsertOrReplaceAllWithChildren(items);
             }
         }
+
     }
 }

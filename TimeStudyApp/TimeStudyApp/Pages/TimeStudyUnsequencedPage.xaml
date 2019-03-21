@@ -149,7 +149,7 @@
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LapButtonText}" Command="{Binding ShowNonForeignElements}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
-                        <Button Grid.Row="0" Grid.Column="2" Text=" Stop " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
+                        <Button Grid.Row="0" Grid.Column="2" Text=" Save " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                         <Button Grid.Row="0" Grid.Column="3" Text=" Reset " Command="{Binding ClearLaps}" IsEnabled="{Binding IsClearEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                     </Grid>
                 </StackLayout>

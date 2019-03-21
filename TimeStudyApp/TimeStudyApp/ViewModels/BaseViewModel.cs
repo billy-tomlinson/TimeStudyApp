@@ -324,6 +324,16 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        static bool isPageEnabled;
+        public bool IsPageEnabled
+        {
+            get => isPageEnabled;
+            set
+            {
+                isPageEnabled = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool StudyInProcess
         {
@@ -467,6 +477,7 @@ namespace TimeStudy.ViewModels
                 .FirstOrDefault(x => x.Status != RunningStatus.Running && x.Status != RunningStatus.Paused && x.Rating != null
                 && x.StudyId == Utilities.StudyId);
         }
+
         public LapTime Get_Paused_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
@@ -522,6 +533,7 @@ namespace TimeStudy.ViewModels
         {
             Opacity = 1;
             IsInvalid = false;
+            IsPageEnabled = true;
         }
     }
 }
