@@ -8,6 +8,7 @@ using Syncfusion.Drawing;
 using Syncfusion.XlsIO;
 using TimeStudy.Model;
 using TimeStudy.Services;
+using TimeStudyApp.Model;
 
 namespace TimeStudyApp.UnitTests
 {
@@ -714,40 +715,34 @@ namespace TimeStudyApp.UnitTests
         {
             //foreach (var op in operators)
             //{
-                var data = new List<LapTime>();
+                var data = new List<SpreadSheetLapTime>();
                 //var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
                 var obs = totalLapTimes.Where(x => x.StudyId == Utilities.StudyId).ToList();
                 var totalLaptimes = obs.Count();
-                //foreach (var observation in obs)
-                //{
-                //    var formattedDate = "Date";//$"{observation.Date:d/M/yyyy HH:mm:ss}";
-                //    data.Add(new LapTime()
-                //    {
-                //        //ActivityName = observation.ActivityName,
-                //        //Study = sample.Name,
-                //        //OperatorName = op.Name,
-                //        //ObservationNumber = observation.ObservationNumber,
-                //        //Rating = observation.Rating,
-                //        //Date = formattedDate
-                //        ActivityName = observation.Element,
-                //        Study = sample.Name,
-                //        OperatorName = op.Name,
-                //        ObservationNumber = observation.Id,
-                //        Rating = observation.Id,
-                //        Date = formattedDate
-                //    });
-                //}
+                foreach (var lap in obs)
+                {
+                    var formattedDate = "Date";//$"{observation.Date:d/M/yyyy HH:mm:ss}";
+                    data.Add(new SpreadSheetLapTime()
+                    {
+                        StudyId = Utilities.StudyId,
+                        TotalElapsedTime = lap.TotalElapsedTime,
+                        IndividualLapTimeFormatted = lap.IndividualLapTimeFormatted,
+                        IsForeignElement = lap.IsForeignElement,
+                        Element = lap.Element,
+                        Rating = lap.Rating
+                    });
+                }
 
                 var destSheet = workbook.Worksheets.Create("Complete Study Details");
 
                 destSheet.Range["A1"].Text = "Study";
-                destSheet.Range["B1"].Text = "Date";
-                destSheet.Range["C1"].Text = "Operator";
-                destSheet.Range["D1"].Text = "Obs Round";
-                destSheet.Range["E1"].Text = "Activity";
+                destSheet.Range["B1"].Text = "Element";
+                destSheet.Range["C1"].Text = "Elapsed Time";
+                destSheet.Range["D1"].Text = "Lap Time";
+                destSheet.Range["E1"].Text = "Foreign Element";
                 destSheet.Range["F1"].Text = "Rating";
 
-                destSheet.ImportData(obs, 3, 1, false);
+            destSheet.ImportData(data, 3, 1, false);
 
                 destSheet.Range["A1:F1"].CellStyle = headerStyle;
                 destSheet.Range[1, 1, 1000, 6].AutofitColumns();
