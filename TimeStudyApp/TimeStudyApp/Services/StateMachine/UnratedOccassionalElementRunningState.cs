@@ -57,6 +57,8 @@ namespace TimeStudyApp.Services.StateMachine
 
                 viewModel.LapTimeRepo.SaveItem(current);
             }
+
+            SetCurrentApplicationState();
         }
 
         public override void RatingSelectedEvent()
@@ -87,6 +89,22 @@ namespace TimeStudyApp.Services.StateMachine
 
             viewModel.ActivitiesVisible = true;
             viewModel.Opacity = 0.2;
+        }
+
+        private void SetCurrentApplicationState()
+        {
+            var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
+
+            if (currentSelected.IsForeignElement && !currentSelected.Rated)
+                viewModel.CurrentApplicationState.CurrentState = Model.Status.UnratedOccassionalElementRunning;
+
+            else if (currentSelected.IsForeignElement && currentSelected.Rated)
+                viewModel.CurrentApplicationState.CurrentState = Model.Status.OccassionalElementRunning;
+
+            else
+                viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
+
+            stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
     }
 }
