@@ -59,15 +59,12 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
-                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" ItemClickedCommand="{Binding ItemClickedCommand}" HeightRequest="430">
+                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" HeightRequest="430" IsEnabled="false">
                         <x:Arguments>
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
                         <ListView.Header>
                             <StackLayout Padding="5,2,5,2" BackgroundColor="Silver">
-                                <StackLayout.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding RunningItemClickedCommand}" />
-                                </StackLayout.GestureRecognizers>
                                 <Grid Padding="5" Margin="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*">
