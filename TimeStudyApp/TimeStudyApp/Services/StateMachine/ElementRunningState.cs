@@ -70,21 +70,26 @@ namespace TimeStudyApp.Services.StateMachine
                 var lastLap = viewModel.Get_Last_NonForeign_LapTime().Rating;
                 if(lastLap == null) 
                 {
-                    viewModel.CurrentApplicationState.CurrentState = Status.InterruptElementRunning;
-                    stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
+                    if(current.Rated)
+                        viewModel.CurrentApplicationState.CurrentState = Status.InterruptElementRunning;
+                    else
+                        viewModel.CurrentApplicationState.CurrentState = Status.UnratedInterruptElementRunning;
                 }
                 else 
                 {
-                    viewModel.CurrentApplicationState.CurrentState = Status.OccassionalElementRunning;
-                    stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
+                    if (current.Rated)
+                        viewModel.CurrentApplicationState.CurrentState = Status.OccassionalElementRunning;
+                    else
+                        viewModel.CurrentApplicationState.CurrentState = Status.UnratedOccassionalElementRunning;
                 }
             }
             else
             {
                 viewModel.IsForeignEnabled = true;
                 viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
-                stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
             }
+
+            stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 
         public override void RatingSelectedEvent()

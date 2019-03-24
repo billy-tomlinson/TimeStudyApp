@@ -6,13 +6,13 @@ using TimeStudyApp.Model;
 
 namespace TimeStudyApp.Services.StateMachine
 {
-    public class OccassionalElementRunningState : BaseState
+    public class UnratedOccassionalElementRunningState : BaseState
     {
 
         TimeStudyUnsequencedViewModel viewModel;
         ApplicationState stateservice = new ApplicationState();
 
-        public OccassionalElementRunningState(TimeStudyUnsequencedViewModel viewModel)
+        public UnratedOccassionalElementRunningState(TimeStudyUnsequencedViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
@@ -38,7 +38,6 @@ namespace TimeStudyApp.Services.StateMachine
             }
 
             viewModel.LapTimes = viewModel.Get_All_LapTimes_Not_Running();
-
         }
 
         public override void CloseActivitiesViewEvent()
@@ -48,7 +47,16 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ElementSelectedEvent()
         {
-            throw new NotImplementedException();
+            var current = viewModel.Get_Running_Unrated_LapTime();
+            if (current != null)
+            {
+                current.Rating = 0;
+                current.Status = RunningStatus.Completed;
+
+                Utilities.LastRatedLapTimeId = current.Id;
+
+                viewModel.LapTimeRepo.SaveItem(current);
+            }
         }
 
         public override void RatingSelectedEvent()
@@ -66,11 +74,19 @@ namespace TimeStudyApp.Services.StateMachine
             viewModel.LapTimerEvent();
             viewModel.IsCancelEnabled = false;
             viewModel.IsForeignEnabled = false;
-            viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
+            viewModel.RatingsVisible = false;
+            viewModel.CurrentApplicationState.CurrentState = Model.Status.UnratedOccassionalElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
 
             viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
             viewModel.GroupElementsForActivitiesView();
+
+            var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
+            viewModel.ProcessForeignElementWithRating(currentSelected.Rated, currentSelected.Name,
+                currentSelected.IsForeignElement, 0);
+
+            viewModel.ActivitiesVisible = true;
+            viewModel.Opacity = 0.2;
         }
     }
 }

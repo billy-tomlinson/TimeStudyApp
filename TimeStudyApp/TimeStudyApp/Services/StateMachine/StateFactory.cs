@@ -31,6 +31,12 @@ namespace TimeStudyApp.Services.StateMachine
                 case Model.Status.OccassionalElementRunning:
                     currentState = new OccassionalElementRunningState(viewModel);
                     break;
+                case Model.Status.UnratedInterruptElementRunning:
+                    currentState = new UnratedInterruptElementRunningState(viewModel);
+                    break;
+                case Model.Status.UnratedOccassionalElementRunning:
+                    currentState = new UnratedOccassionalElementRunningState(viewModel);
+                    break;
                 default:
                     break;
             }
