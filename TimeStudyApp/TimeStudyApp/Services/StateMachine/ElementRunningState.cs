@@ -37,7 +37,7 @@ namespace TimeStudyApp.Services.StateMachine
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
                     element.Name, element.IsForeignElement, RunningStatus.Running);
 
-                viewModel.CurrentApplicationState.CurrentState = Model.Status.ForeignElementRunning;
+                viewModel.CurrentApplicationState.CurrentState = Model.Status.InterruptElementRunning;
                 stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
             }
             else 
@@ -66,8 +66,18 @@ namespace TimeStudyApp.Services.StateMachine
             if (current.IsForeignElement)
             {
                 viewModel.IsForeignEnabled = false;
-                viewModel.CurrentApplicationState.CurrentState = Model.Status.ForeignElementRunning;
-                stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
+
+                var lastLap = viewModel.Get_Last_LapTime().Rating;
+                if(lastLap == null) 
+                {
+                    viewModel.CurrentApplicationState.CurrentState = Status.InterruptElementRunning;
+                    stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
+                }
+                else 
+                {
+                    viewModel.CurrentApplicationState.CurrentState = Status.OccassionalElementRunning;
+                    stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
+                }
             }
             else
             {

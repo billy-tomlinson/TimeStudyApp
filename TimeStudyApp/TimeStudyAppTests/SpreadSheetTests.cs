@@ -158,7 +158,7 @@ namespace TimeStudyApp.UnitTests
                 detailsStyle.EndUpdate();
 
                 BuildStudyDetails();
-                CreateSheetPerOperator();
+                CreateAllLapTimesSheet();
 
                 //destSheetAll = workbook.Worksheets.Create("Summary");
 
@@ -243,7 +243,7 @@ namespace TimeStudyApp.UnitTests
             destSheetAll.Range[3, 1].Text = "Activity";
             destSheetAll.ImportData(allActivities, startRowIndex, 1, false);
 
-            CreateSheetPerOperator();
+            CreateAllLapTimesSheet();
 
             var columnCount = 1;
 
@@ -711,17 +711,13 @@ namespace TimeStudyApp.UnitTests
             destSheetAll.Range[3, columnCount + 4].CellStyle = totalsStyle;
         }
 
-        private void CreateSheetPerOperator()
+        private void CreateAllLapTimesSheet()
         {
-            //foreach (var op in operators)
-            //{
                 var data = new List<SpreadSheetLapTime>();
-                //var obs = totalObs.Where(x => x.OperatorId == op.Id).ToList();
-                var obs = totalLapTimes.Where(x => x.StudyId == Utilities.StudyId).ToList();
+                var obs = totalLapTimes.Where(x => x.StudyId == Utilities.StudyId).OrderBy(x => x.TotalElapsedTimeDouble).ToList();
                 var totalLaptimes = obs.Count();
                 foreach (var lap in obs)
                 {
-                    var formattedDate = "Date";//$"{observation.Date:d/M/yyyy HH:mm:ss}";
                     data.Add(new SpreadSheetLapTime()
                     {
                         StudyId = Utilities.StudyId,
@@ -729,22 +725,24 @@ namespace TimeStudyApp.UnitTests
                         IndividualLapTimeFormatted = lap.IndividualLapTimeFormatted,
                         IsForeignElement = lap.IsForeignElement,
                         Element = lap.Element,
-                        Rating = lap.Rating
+                        Rating = lap.Rating,
+                        ElementId = lap.ActivityId
                     });
                 }
 
                 var destSheet = workbook.Worksheets.Create("Complete Study Details");
 
                 destSheet.Range["A1"].Text = "Study";
-                destSheet.Range["B1"].Text = "Element";
-                destSheet.Range["C1"].Text = "Elapsed Time";
-                destSheet.Range["D1"].Text = "Lap Time";
-                destSheet.Range["E1"].Text = "Foreign Element";
-                destSheet.Range["F1"].Text = "Rating";
+                destSheet.Range["B1"].Text = "Element ID";
+                destSheet.Range["C1"].Text = "Element";
+                destSheet.Range["D1"].Text = "Elapsed Time";
+                destSheet.Range["E1"].Text = "Lap Time";
+                destSheet.Range["F1"].Text = "Foreign Element";
+                destSheet.Range["G1"].Text = "Rating";
 
-            destSheet.ImportData(data, 3, 1, false);
+                destSheet.ImportData(data, 3, 1, false);
 
-                destSheet.Range["A1:F1"].CellStyle = headerStyle;
+                destSheet.Range["A1:G1"].CellStyle = headerStyle;
                 destSheet.Range[1, 1, 1000, 6].AutofitColumns();
 
                 //var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
@@ -802,7 +800,6 @@ namespace TimeStudyApp.UnitTests
                 //}
 
                 //allTotals.Add(summary);
-            //}
         }
 
         private void SampleForTesting()

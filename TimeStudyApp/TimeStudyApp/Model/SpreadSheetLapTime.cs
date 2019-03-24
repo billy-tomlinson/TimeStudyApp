@@ -6,6 +6,8 @@ namespace TimeStudyApp.Model
 
         public int StudyId { get; set; }
 
+        public int ElementId { get; set; }
+
         public string Element { get; set; }
 
         public string TotalElapsedTime { get; set; }

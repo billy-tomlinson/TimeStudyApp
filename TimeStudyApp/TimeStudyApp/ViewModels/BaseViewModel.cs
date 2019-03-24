@@ -440,6 +440,12 @@ namespace TimeStudy.ViewModels
                 && x.StudyId == Utilities.StudyId);
         }
 
+        public LapTime Get_Last_LapTime()
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault(x => x.StudyId == Utilities.StudyId);
+        }
 
         public LapTime Get_Current_Foreign_LapTime()
         {

@@ -1,17 +1,16 @@
 ﻿using System.Linq;
-using TimeStudy.Model;
 using TimeStudy.Services;
 using TimeStudy.ViewModels;
 using TimeStudyApp.Model;
 
 namespace TimeStudyApp.Services.StateMachine
 {
-    public class ForeignElementRunningState : BaseState
+    public class InterruptElementRunningState : BaseState
     {
         TimeStudyUnsequencedViewModel viewModel;
         ApplicationState stateservice = new ApplicationState();
 
-        public ForeignElementRunningState(TimeStudyUnsequencedViewModel viewModel)
+        public InterruptElementRunningState(TimeStudyUnsequencedViewModel viewModel)
         {
             this.viewModel = viewModel;
         }
@@ -45,14 +44,14 @@ namespace TimeStudyApp.Services.StateMachine
             viewModel.RatingsVisible = true;
             viewModel.IsForeignEnabled = false;
 
-            viewModel.CurrentApplicationState.CurrentState = Model.Status.ForeignElementRunning;
+            viewModel.CurrentApplicationState.CurrentState = Model.Status.InterruptElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 
         public override void ElementSelectedEvent()
         {
             viewModel.IsForeignEnabled = false;
-            viewModel.CurrentApplicationState.CurrentState = Model.Status.ForeignElementRunning;
+            viewModel.CurrentApplicationState.CurrentState = Model.Status.InterruptElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 

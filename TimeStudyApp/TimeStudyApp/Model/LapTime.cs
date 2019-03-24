@@ -14,6 +14,9 @@ namespace TimeStudy.Model
         [ForeignKey(typeof(ActivitySampleStudy))]
         public int StudyId { get; set; }
 
+        [ForeignKey(typeof(Activity))]
+        public int ActivityId { get; set; }
+
         public bool IsForeignElement { get; set; }
 
         public string TotalElapsedTime { get; set; }

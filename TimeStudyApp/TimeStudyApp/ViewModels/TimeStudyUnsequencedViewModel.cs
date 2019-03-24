@@ -551,7 +551,8 @@ namespace TimeStudy.ViewModels
                 Element = element.Name,
                 Status = RunningStatus.Running,
                 ElementColour = Color.Silver,
-                StudyId = Utilities.StudyId
+                StudyId = Utilities.StudyId,
+                ActivityId = Utilities.CurrentSelectedElementId
             };
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
