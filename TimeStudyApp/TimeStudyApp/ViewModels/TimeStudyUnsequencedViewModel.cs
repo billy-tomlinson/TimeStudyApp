@@ -367,6 +367,8 @@ namespace TimeStudy.ViewModels
             ApplicationState.ShowNonForeignElements(); ;
         }
 
+
+
         void CloseForeignElementsEvent(object sender)
         {
             IsPageEnabled = true;
@@ -509,7 +511,7 @@ namespace TimeStudy.ViewModels
             }
 
             var currentForeignLap = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
-                element.IsForeignElement, RunningStatus.Running);
+                element.IsForeignElement, RunningStatus.Running, element.Rated);
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentForeignLap);
 
@@ -552,7 +554,8 @@ namespace TimeStudy.ViewModels
                 Status = RunningStatus.Running,
                 ElementColour = Color.Silver,
                 StudyId = Utilities.StudyId,
-                ActivityId = Utilities.CurrentSelectedElementId
+                ActivityId = Utilities.CurrentSelectedElementId,
+                IsRated = element.Rated
             };
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);

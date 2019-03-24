@@ -31,7 +31,7 @@ namespace TimeStudyApp.Services.StateMachine
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
 
             var currentForeignLap = Utilities.SetUpCurrentLapTime(viewModel.CycleCount, 
-                currentSelected.Name, currentSelected.IsForeignElement, RunningStatus.Running);
+                currentSelected.Name, currentSelected.IsForeignElement, RunningStatus.Running, currentSelected.Rated);
 
             Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(currentForeignLap);
 

@@ -226,7 +226,7 @@ namespace TimeStudy.Services
 
         }
 
-        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, bool IsForeign, RunningStatus status)
+        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, bool IsForeign, RunningStatus status, bool isRated)
         {
             return new LapTime
             {
@@ -235,7 +235,8 @@ namespace TimeStudy.Services
                 Status = RunningStatus.Running,
                 IsForeignElement = IsForeign,
                 StudyId = Utilities.StudyId,
-                ActivityId = CurrentSelectedElementId
+                ActivityId = CurrentSelectedElementId,
+                IsRated = isRated
             };
         }
     }
