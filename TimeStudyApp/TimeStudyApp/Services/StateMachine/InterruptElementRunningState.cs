@@ -59,7 +59,6 @@ namespace TimeStudyApp.Services.StateMachine
         {
 
             viewModel.IsForeignEnabled = false;
-
             viewModel.CollectionOfElements = viewModel.Get_All_Foreign_Enabled_Activities_WithChildren();
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
@@ -90,6 +89,7 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowForeignElements()
         {
+            viewModel.IsCancelEnabled = true;
             viewModel.IsPageEnabled = false;
 
             viewModel.CollectionOfElements = viewModel.Get_All_Foreign_Enabled_Activities_WithChildren();
@@ -117,12 +117,12 @@ namespace TimeStudyApp.Services.StateMachine
         {
             viewModel.IsPageEnabled = false;
             viewModel.IsCancelEnabled = false;
+            viewModel.IsForeignEnabled = false;
 
             var runningLapTime = viewModel.Get_Running_LapTime();
             if (runningLapTime.Rating == null)
             {
                 viewModel.RatingsVisible = true;
-                viewModel.IsForeignEnabled = false;
                 viewModel.Opacity = 0.2;
             }
         }

@@ -406,6 +406,13 @@ namespace TimeStudy.ViewModels
                                         .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
+
+        public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                                        .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
+        }
+
         public ObservableCollection<Activity> Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
@@ -440,11 +447,11 @@ namespace TimeStudy.ViewModels
                 && x.StudyId == Utilities.StudyId);
         }
 
-        public LapTime Get_Last_LapTime()
+        public LapTime Get_Last_NonForeign_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
                 .OrderByDescending(x => x.Id)
-                .FirstOrDefault(x => x.StudyId == Utilities.StudyId);
+                .FirstOrDefault(x => x.StudyId == Utilities.StudyId && !x.IsForeignElement);
         }
 
         public LapTime Get_Current_Foreign_LapTime()

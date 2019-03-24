@@ -57,6 +57,8 @@ namespace TimeStudyApp.Services.StateMachine
 
                     viewModel.IsForeignEnabled = false;
                 }
+
+                viewModel.LapTimes = viewModel.Get_All_LapTimes_Not_Running();
             //}
         }
 
@@ -84,8 +86,12 @@ namespace TimeStudyApp.Services.StateMachine
         {
             viewModel.LapTimerEvent();
             viewModel.IsCancelEnabled = false;
+            viewModel.IsForeignEnabled = false;
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
+
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
+            viewModel.GroupElementsForActivitiesView();
         }
     }
 }

@@ -67,7 +67,7 @@ namespace TimeStudyApp.Services.StateMachine
             {
                 viewModel.IsForeignEnabled = false;
 
-                var lastLap = viewModel.Get_Last_LapTime().Rating;
+                var lastLap = viewModel.Get_Last_NonForeign_LapTime().Rating;
                 if(lastLap == null) 
                 {
                     viewModel.CurrentApplicationState.CurrentState = Status.InterruptElementRunning;
@@ -117,9 +117,13 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowNonForeignElements()
         {
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
+            viewModel.GroupElementsForActivitiesView();
+
             viewModel.LapTimerEvent();
-            viewModel.IsCancelEnabled = false;
-            viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
+            viewModel.IsCancelEnabled = true;
+            //viewModel.IsCancelEnabled = false;
+            viewModel.CurrentApplicationState.CurrentState = Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 
