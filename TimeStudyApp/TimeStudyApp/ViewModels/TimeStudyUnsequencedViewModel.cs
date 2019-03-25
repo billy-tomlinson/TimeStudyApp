@@ -20,7 +20,6 @@ namespace TimeStudy.ViewModels
         public Command ClearLaps { get; set; }
         public Command RatingSelected { get; set; }
         public Command ItemClickedCommand { get; set; }
-        public Command RunningItemClickedCommand { get; set; }
         public Command ShowForeignElements { get; set; }
         public Command ShowForeignElementsTopButton { get; set; }
         public Command ShowStandardElements { get; set; }
@@ -360,8 +359,6 @@ namespace TimeStudy.ViewModels
             ApplicationState.ShowStandardElements(); ;
         }
 
-
-
         void CloseForeignElementsEvent(object sender)
         {
             IsPageEnabled = true;
@@ -476,44 +473,44 @@ namespace TimeStudy.ViewModels
             });
         }
 
-        private void AddElementWithoutLapTimeToList(Activity element)
-        {
-            LapButtonText = "  Lap ";
+        //private void AddElementWithoutLapTimeToList(Activity element)
+        //{
+        //    LapButtonText = "  Lap ";
 
-            LapTime pausedLapTime = Get_Paused_LapTime();
+        //    LapTime pausedLapTime = Get_Paused_LapTime();
 
-            if (pausedLapTime == null)
-            {
-                if (Utilities.IsForeignElement)
-                {
-                    pausedLapTime = Get_Running_LapTime();
-                    pausedLapTime.Status = RunningStatus.Paused;
-                    pausedLapTime.TotalElapsedTimeDouble = RealTimeTicks;
-                    pausedLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+        //    if (pausedLapTime == null)
+        //    {
+        //        if (Utilities.IsForeignElement)
+        //        {
+        //            pausedLapTime = Get_Running_LapTime();
+        //            pausedLapTime.Status = RunningStatus.Paused;
+        //            pausedLapTime.TotalElapsedTimeDouble = RealTimeTicks;
+        //            pausedLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
 
-                    LapTimeRepo.SaveItem(pausedLapTime);
+        //            LapTimeRepo.SaveItem(pausedLapTime);
 
-                    TimeWhenForiegnButtonClicked = RealTimeTicks;
-                }
-            }
-            else
-            {
-                Opacity = 0.2;
-                RatingsVisible = true;
-                IsPageEnabled = false;
-            }
+        //            TimeWhenForiegnButtonClicked = RealTimeTicks;
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Opacity = 0.2;
+        //        RatingsVisible = true;
+        //        IsPageEnabled = false;
+        //    }
 
-            var currentForeignLap = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
-                RunningStatus.Running, element.Rated);
+        //    var currentForeignLap = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
+        //        RunningStatus.Running, element.Rated);
 
-            Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentForeignLap);
+        //    Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentForeignLap);
 
-            CurrentElementWithoutLapTimeName = element.Name;
-            CurrentSequence = null;
-            CurrentCycle = CycleCount;
+        //    CurrentElementWithoutLapTimeName = element.Name;
+        //    CurrentSequence = null;
+        //    CurrentCycle = CycleCount;
 
-            LapTimes = Get_All_LapTimes_Not_Running();
-        }
+        //    LapTimes = Get_All_LapTimes_Not_Running();
+        //}
 
         public void SetUpCurrentLapTime()
         {
@@ -602,16 +599,16 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static ObservableCollection<Activity> foreignElements;
-        public ObservableCollection<Activity> ForeignElements
-        {
-            get => foreignElements;
-            set
-            {
-                foreignElements = value;
-                OnPropertyChanged();
-            }
-        }
+        //static ObservableCollection<Activity> foreignElements;
+        //public ObservableCollection<Activity> ForeignElements
+        //{
+        //    get => foreignElements;
+        //    set
+        //    {
+        //        foreignElements = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         static string stopWatchTime = "0.000";
         public string StopWatchTime
@@ -778,16 +775,16 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static string currentElementName;
-        public string CurrentElementName
-        {
-            get => currentElementName;
-            set
-            {
-                currentElementName = value;
-                OnPropertyChanged();
-            }
-        }
+        //static string currentElementName;
+        //public string CurrentElementName
+        //{
+        //    get => currentElementName;
+        //    set
+        //    {
+        //        currentElementName = value;
+        //        OnPropertyChanged();
+        //    }
+        //}
 
         static string lapButtonText;
         public string LapButtonText
