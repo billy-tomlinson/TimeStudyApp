@@ -131,4 +131,12 @@
   <ItemGroup>
     <Folder Include="Services\StateMachine\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Pages\AddElementsUnsequencedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+    <None Update="Pages\TimeStudyUnsequencedPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
 </Project>
