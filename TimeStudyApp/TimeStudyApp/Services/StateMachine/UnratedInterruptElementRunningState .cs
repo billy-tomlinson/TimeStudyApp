@@ -31,7 +31,7 @@ namespace TimeStudyApp.Services.StateMachine
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
 
             var currentForeignLap = Utilities.SetUpCurrentLapTime(viewModel.CycleCount, 
-                currentSelected.Name, currentSelected.IsForeignElement, RunningStatus.Running, currentSelected.Rated);
+                currentSelected.Name, RunningStatus.Running, currentSelected.Rated);
 
             Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(currentForeignLap);
 
@@ -59,11 +59,11 @@ namespace TimeStudyApp.Services.StateMachine
         {
 
             viewModel.IsForeignEnabled = false;
-            viewModel.CollectionOfElements = viewModel.Get_All_Foreign_Enabled_Activities_WithChildren();
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
             viewModel.ProcessForeignElementWithRating(currentSelected.Rated, currentSelected.Name,
-                currentSelected.IsForeignElement, viewModel.RatingButton.Rating);
+               viewModel.RatingButton.Rating);
 
             if (viewModel.LapButtonText != "   Lap   ")
             {
@@ -84,7 +84,7 @@ namespace TimeStudyApp.Services.StateMachine
 
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
-            viewModel.CollectionOfElements = viewModel.Get_All_NonForeign_Enabled_Activities_WithChildren();
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
         }
 
         public override void ShowForeignElements()
@@ -92,7 +92,7 @@ namespace TimeStudyApp.Services.StateMachine
             viewModel.IsCancelEnabled = true;
             viewModel.IsPageEnabled = false;
 
-            viewModel.CollectionOfElements = viewModel.Get_All_Foreign_Enabled_Activities_WithChildren();
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
             viewModel.GroupElementsForActivitiesView();
 
             var runningLapTime = viewModel.Get_Running_LapTime();
@@ -113,7 +113,7 @@ namespace TimeStudyApp.Services.StateMachine
             }
         }
 
-        public override void ShowNonForeignElements()
+        public override void ShowStandardElements()
         {
             viewModel.IsPageEnabled = false;
             viewModel.IsCancelEnabled = false;
@@ -121,11 +121,10 @@ namespace TimeStudyApp.Services.StateMachine
             viewModel.RatingsVisible = false;
 
             viewModel.IsForeignEnabled = false;
-            viewModel.CollectionOfElements = viewModel.Get_All_Foreign_Enabled_Activities_WithChildren();
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
-            viewModel.ProcessForeignElementWithRating(currentSelected.Rated, currentSelected.Name,
-                currentSelected.IsForeignElement, 0);
+            viewModel.ProcessForeignElementWithRating(currentSelected.Rated, currentSelected.Name, 0);
 
             if (viewModel.LapButtonText != "   Lap   ")
             {
@@ -146,7 +145,7 @@ namespace TimeStudyApp.Services.StateMachine
 
             viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
-            viewModel.CollectionOfElements = viewModel.Get_All_NonForeign_Enabled_Activities_WithChildren();
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
 
         }
 

@@ -23,7 +23,7 @@ namespace TimeStudy.ViewModels
         public Command RunningItemClickedCommand { get; set; }
         public Command ShowForeignElements { get; set; }
         public Command ShowForeignElementsTopButton { get; set; }
-        public Command ShowNonForeignElements { get; set; }
+        public Command ShowStandardElements { get; set; }
         public Command CloseForeignElements { get; set; }
         public Command ResumePased { get; set; }
         public Command ElementSelected { get; set; }
@@ -72,7 +72,7 @@ namespace TimeStudy.ViewModels
             RatingSelected = new Command(RatingSelectedEvent);
             ShowForeignElements = new Command(ShowForeignElementsEvent);
             ShowForeignElementsTopButton = new Command(ShowForeignElementsTopButtonEvent);
-            ShowNonForeignElements = new Command(ShowNonForeignElementsEvent);
+            ShowStandardElements = new Command(ShowStandardElementsEvent);
             CloseForeignElements = new Command(CloseForeignElementsEvent);
             ResumePased = new Command(ResumePausedEvent);
             ElementSelected = new Command(ElementsSelectedEvent);
@@ -219,17 +219,6 @@ namespace TimeStudy.ViewModels
 
         public void StopTimerEvent()
         {
-            //IsRunning = false;
-            //IsCancelEnabled = !IsRunning;
-            //IsStartEnabled = true;
-            //IsLapEnabled = false;
-            //IsStopEnabled = false;
-            //IsClearEnabled = true;
-            //IsStartEnabled = true;
-            //HasBeenStopped = true;
-
-            //TimeWhenStopButtonClicked = RealTimeTicks;
-
             ValidationText = "Are you sure you want to stop and save the study?";
             ShowOkCancel = true;
             IsOverrideVisible = false;
@@ -337,10 +326,12 @@ namespace TimeStudy.ViewModels
 
         void ShowForeignElementsEvent()
         {
+            Utilities.IsForeignElement = true;
             IsPageEnabled = false;
             IsForeignEnabled = false;
             IsNonForeignEnabled = true;
-            CollectionOfElements = Get_All_Foreign_Enabled_Activities_WithChildren();
+            //CollectionOfElements = Get_All_Foreign_Enabled_Activities_WithChildren();
+            CollectionOfElements = Get_All_Enabled_Activities_WithChildren();
             GroupElementsForActivitiesView();
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
@@ -349,22 +340,24 @@ namespace TimeStudy.ViewModels
 
         void ShowForeignElementsTopButtonEvent()
         {
+            Utilities.IsForeignElement = true;
             IsCancelEnabled = true;
             ShowForeignElementsEvent();
             IsNonForeignEnabled = true;
         }
 
-        void ShowNonForeignElementsEvent()
+        void ShowStandardElementsEvent()
         {
+            Utilities.IsForeignElement = false;
             IsPageEnabled = false;
             IsForeignEnabled = true;
             IsNonForeignEnabled = false;
             TimeWhenLapButtonClicked = RealTimeTicks;
-            CollectionOfElements = Get_All_NonForeign_Enabled_Activities_WithChildren();
+            CollectionOfElements = Get_All_Enabled_Activities_WithChildren();
             GroupElementsForActivitiesView();
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
-            ApplicationState.ShowNonForeignElements(); ;
+            ApplicationState.ShowStandardElements(); ;
         }
 
 
@@ -412,7 +405,7 @@ namespace TimeStudy.ViewModels
 
         }
 
-        public void ProcessForeignElementWithRating(bool rated, string name, bool isForeign, int? rating = null)
+        public void ProcessForeignElementWithRating(bool rated, string name,  int? rating = null)
         {
             AddForeignLapTimetoListAsCompleted(rating);
 
@@ -491,7 +484,7 @@ namespace TimeStudy.ViewModels
 
             if (pausedLapTime == null)
             {
-                if (element.IsForeignElement)
+                if (Utilities.IsForeignElement)
                 {
                     pausedLapTime = Get_Running_LapTime();
                     pausedLapTime.Status = RunningStatus.Paused;
@@ -511,7 +504,7 @@ namespace TimeStudy.ViewModels
             }
 
             var currentForeignLap = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
-                element.IsForeignElement, RunningStatus.Running, element.Rated);
+                RunningStatus.Running, element.Rated);
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentForeignLap);
 
@@ -547,16 +540,8 @@ namespace TimeStudy.ViewModels
         {
             var element = CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
 
-            var currentWithoutLapTime = new LapTime
-            {
-                Cycle = CycleCount,
-                Element = element.Name,
-                Status = RunningStatus.Running,
-                ElementColour = Color.Silver,
-                StudyId = Utilities.StudyId,
-                ActivityId = Utilities.CurrentSelectedElementId,
-                IsRated = element.Rated
-            };
+            var currentWithoutLapTime = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
+                RunningStatus.Running, element.Rated, Color.Silver);
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
 

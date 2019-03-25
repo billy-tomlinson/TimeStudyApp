@@ -20,7 +20,7 @@ namespace TimeStudyApp.Services.StateMachine
         public override void AddElementWithoutLapTimeToList()
         {
             var element = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
-            if (element.IsForeignElement)
+            if (Utilities.IsForeignElement)
             {
                 viewModel.SelectedForeignElements.Add(element);
                 viewModel.ForeignElementCount = viewModel.SelectedForeignElements.Count;
@@ -35,7 +35,7 @@ namespace TimeStudyApp.Services.StateMachine
                 viewModel.TimeWhenForiegnButtonClicked = viewModel.RealTimeTicks;
 
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                    element.Name, element.IsForeignElement, RunningStatus.Running, element.Rated);
+                    element.Name, RunningStatus.Running, element.Rated);
 
                 viewModel.CurrentApplicationState.CurrentState = Model.Status.InterruptElementRunning;
                 stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
@@ -47,7 +47,7 @@ namespace TimeStudyApp.Services.StateMachine
                 {
 
                     current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                        element.Name, element.IsForeignElement, RunningStatus.Running, element.Rated);
+                        element.Name,  RunningStatus.Running, element.Rated);
 
                     Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(current);
 
@@ -63,7 +63,7 @@ namespace TimeStudyApp.Services.StateMachine
         public override void ElementSelectedEvent()
         {
             var current = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
-            if (current.IsForeignElement)
+            if (Utilities.IsForeignElement)
             {
                 viewModel.IsForeignEnabled = false;
 
@@ -120,7 +120,7 @@ namespace TimeStudyApp.Services.StateMachine
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
 
-        public override void ShowNonForeignElements()
+        public override void ShowStandardElements()
         {
             viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
             viewModel.GroupElementsForActivitiesView();

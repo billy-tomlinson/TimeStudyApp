@@ -419,18 +419,18 @@ namespace TimeStudy.ViewModels
                 .Where(x => x.IsEnabled && x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
-        public ObservableCollection<Activity> Get_All_NonForeign_Enabled_Activities_WithChildren()
-        {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled && !x.IsForeignElement && x.StudyId == Utilities.StudyId));
-        }
+        //public ObservableCollection<Activity> Get_All_NonForeign_Enabled_Activities_WithChildren()
+        //{
+        //    return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+        //        .Where(x => x.IsEnabled && !x.IsForeignElement && x.StudyId == Utilities.StudyId));
+        //}
 
 
-        public ObservableCollection<Activity> Get_All_Foreign_Enabled_Activities_WithChildren()
-        {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled && x.IsForeignElement && x.StudyId == Utilities.StudyId));
-        }
+        //public ObservableCollection<Activity> Get_All_Foreign_Enabled_Activities_WithChildren()
+        //{
+        //    return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+        //        .Where(x => x.IsEnabled && x.IsForeignElement && x.StudyId == Utilities.StudyId));
+        //}
 
 
         public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()

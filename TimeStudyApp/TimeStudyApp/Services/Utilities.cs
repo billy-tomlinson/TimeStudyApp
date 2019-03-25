@@ -19,6 +19,7 @@ namespace TimeStudy.Services
         public static int CurrentRunningElementId { get; set; }
         public static int LastRatedLapTimeId { get; set; }
         public static bool IsCompleted { get; set; }
+        public static bool IsForeignElement { get; set; }
         public static bool RatedStudy { get; set; }
         public static bool AllObservationsTaken { get; set; }
         public static string Connection { get; set; }
@@ -226,18 +227,23 @@ namespace TimeStudy.Services
 
         }
 
-        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, bool IsForeign, RunningStatus status, bool isRated)
+        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, RunningStatus status, bool isRated, Color? colour = null)
         {
-            return new LapTime
+            LapTime lapTime;
+            lapTime =  new LapTime
             {
                 Cycle = cycleCount,
                 Element = name,
                 Status = RunningStatus.Running,
-                IsForeignElement = IsForeign,
+                IsForeignElement = IsForeignElement,
                 StudyId = Utilities.StudyId,
                 ActivityId = CurrentSelectedElementId,
                 IsRated = isRated
             };
+
+            if (colour != null) lapTime.ElementColour = (Color)colour;
+
+            return lapTime;
         }
     }
 }

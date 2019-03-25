@@ -26,7 +26,7 @@ namespace TimeStudyApp.Services.StateMachine
             {
 
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                    element.Name, element.IsForeignElement, RunningStatus.Running, element.Rated);
+                    element.Name, RunningStatus.Running, element.Rated);
 
                 Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(current);
 
@@ -71,21 +71,20 @@ namespace TimeStudyApp.Services.StateMachine
             throw new NotImplementedException();
         }
 
-        public override void ShowNonForeignElements()
+        public override void ShowStandardElements()
         {
             viewModel.LapTimerEvent();
             viewModel.IsCancelEnabled = false;
             viewModel.IsForeignEnabled = false;
             viewModel.RatingsVisible = false;
-            viewModel.CurrentApplicationState.CurrentState = Model.Status.UnratedOccassionalElementRunning;
+            viewModel.CurrentApplicationState.CurrentState = Status.UnratedOccassionalElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
 
             viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
             viewModel.GroupElementsForActivitiesView();
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
-            viewModel.ProcessForeignElementWithRating(currentSelected.Rated, currentSelected.Name,
-                currentSelected.IsForeignElement, 0);
+            viewModel.ProcessForeignElementWithRating(currentSelected.Rated, currentSelected.Name, 0);
 
             viewModel.ActivitiesVisible = true;
             viewModel.Opacity = 0.2;
@@ -95,14 +94,14 @@ namespace TimeStudyApp.Services.StateMachine
         {
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
 
-            if (currentSelected.IsForeignElement && !currentSelected.Rated)
-                viewModel.CurrentApplicationState.CurrentState = Model.Status.UnratedOccassionalElementRunning;
+            if (Utilities.IsForeignElement && !currentSelected.Rated)
+                viewModel.CurrentApplicationState.CurrentState = Status.UnratedOccassionalElementRunning;
 
-            else if (currentSelected.IsForeignElement && currentSelected.Rated)
-                viewModel.CurrentApplicationState.CurrentState = Model.Status.OccassionalElementRunning;
+            else if (Utilities.IsForeignElement && currentSelected.Rated)
+                viewModel.CurrentApplicationState.CurrentState = Status.OccassionalElementRunning;
 
             else
-                viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
+                viewModel.CurrentApplicationState.CurrentState = Status.ElementRunning;
 
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }

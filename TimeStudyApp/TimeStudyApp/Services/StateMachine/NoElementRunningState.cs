@@ -46,7 +46,7 @@ namespace TimeStudyApp.Services.StateMachine
             return;
         }
 
-        public override void ShowNonForeignElements()
+        public override void ShowStandardElements()
         {
             viewModel.IsForeignEnabled = false;
             viewModel.Opacity = 0.2;

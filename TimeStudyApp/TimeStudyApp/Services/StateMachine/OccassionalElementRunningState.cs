@@ -26,7 +26,7 @@ namespace TimeStudyApp.Services.StateMachine
             {
 
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                    element.Name, element.IsForeignElement, RunningStatus.Running, element.Rated);
+                    element.Name, RunningStatus.Running, element.Rated);
 
                 Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(current);
 
@@ -61,12 +61,12 @@ namespace TimeStudyApp.Services.StateMachine
             throw new NotImplementedException();
         }
 
-        public override void ShowNonForeignElements()
+        public override void ShowStandardElements()
         {
             viewModel.LapTimerEvent();
             viewModel.IsCancelEnabled = false;
             viewModel.IsForeignEnabled = false;
-            viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
+            viewModel.CurrentApplicationState.CurrentState = Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
 
             viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();

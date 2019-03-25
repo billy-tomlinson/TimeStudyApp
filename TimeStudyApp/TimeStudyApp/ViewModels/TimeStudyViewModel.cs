@@ -503,7 +503,7 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
-                    IsForeignElement = foreign.IsForeignElement,
+                    //IsForeignElement = foreign.IsForeignElement,
                     IsRated = foreign.Rated,
                     StudyId = Utilities.StudyId
                 };
@@ -519,7 +519,7 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
-                    IsForeignElement = foreign.IsForeignElement,
+                    //IsForeignElement = foreign.IsForeignElement,
                     IsRated = foreign.Rated,
                     StudyId = Utilities.StudyId
                 };
