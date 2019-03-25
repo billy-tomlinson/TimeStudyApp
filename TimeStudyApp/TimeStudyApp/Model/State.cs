@@ -13,6 +13,9 @@ namespace TimeStudyApp.Model
     {
         NoElementRunning = 0,
         ElementRunning = 1,
-        ForeignElementRunning = 2
+        InterruptElementRunning = 2,
+        OccassionalElementRunning = 3,
+        UnratedInterruptElementRunning = 4,
+        UnratedOccassionalElementRunning = 5
     }
 }

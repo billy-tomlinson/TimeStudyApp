@@ -22,11 +22,20 @@ namespace TimeStudyApp.Services.StateMachine
                 case Model.Status.ElementRunning:
                     currentState = new ElementRunningState(viewModel);
                     break;
-                case Model.Status.ForeignElementRunning:
-                    currentState = new ForeignElementRunningState(viewModel);
+                case Model.Status.InterruptElementRunning:
+                    currentState = new InterruptElementRunningState(viewModel);
                     break;
                 case Model.Status.NoElementRunning:
                     currentState = new NoElementRunningState(viewModel);
+                    break;
+                case Model.Status.OccassionalElementRunning:
+                    currentState = new OccassionalElementRunningState(viewModel);
+                    break;
+                case Model.Status.UnratedInterruptElementRunning:
+                    currentState = new UnratedInterruptElementRunningState(viewModel);
+                    break;
+                case Model.Status.UnratedOccassionalElementRunning:
+                    currentState = new UnratedOccassionalElementRunningState(viewModel);
                     break;
                 default:
                     break;

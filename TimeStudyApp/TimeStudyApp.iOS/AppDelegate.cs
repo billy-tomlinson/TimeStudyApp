@@ -43,9 +43,9 @@ namespace TimeStudyApp.iOS
                 },
                 UIControlState.Selected);
                 
-            string dbName = "RatedTimeStudy.db3";
-            //string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
-            string folderPath = "/Users/billytomlinson";
+            string dbName = "RatedTimeStudyDatabase.db3";
+            string folderPath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "..", "Library");
+            //string folderPath = "/Users/billytomlinson";
             string dbPath = Path.Combine(folderPath, dbName);
             LoadApplication(new App(dbPath));
 

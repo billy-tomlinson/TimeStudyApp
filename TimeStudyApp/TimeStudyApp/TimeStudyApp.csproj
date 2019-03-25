@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.13.2" />
     <PackageReference Include="Xam.Plugins.Vibrate" Version="4.0.0.5" />
     <PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="16.3.0.29" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="TimeStudy\Pages\.DS_Store" />
@@ -32,9 +33,6 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\AddForeignElementsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\AlarmPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\AllActivitiesPage.xaml">
@@ -50,9 +48,6 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\ExistingStudiesTabbedPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\LocalNotificationPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\MainPage.xaml">
@@ -86,9 +81,6 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\TimeStudyPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\VibratePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\WelcomePage.xaml">

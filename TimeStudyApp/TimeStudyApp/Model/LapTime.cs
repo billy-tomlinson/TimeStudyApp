@@ -2,6 +2,7 @@
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 using TimeStudy.Services;
+using TimeStudyApp.Model;
 using Xamarin.Forms;
 
 namespace TimeStudy.Model
@@ -9,12 +10,12 @@ namespace TimeStudy.Model
     [Table("LapTime")]
     public class LapTime : BaseEntity
     {
-        //public string LapIdentity => $"{Cycle}{Sequence}";
-
-        //public string ParentIdentity { get; set; }
 
         [ForeignKey(typeof(ActivitySampleStudy))]
         public int StudyId { get; set; }
+
+        [ForeignKey(typeof(Activity))]
+        public int ActivityId { get; set; }
 
         public bool IsForeignElement { get; set; }
 
@@ -35,6 +36,8 @@ namespace TimeStudy.Model
         public int? Rating { get; set; }
 
         public bool IsRated { get; set; }
+
+        public RunningStatus Status { get; set; }
 
         [Ignore]
         public Color ElementColour { get; set; }

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Plugin.Messaging;
 //using Syncfusion.XlsIO;
 using TimeStudy.Model;
+using TimeStudyApp.Model;
 using Xamarin.Forms;
 
 namespace TimeStudy.Services
@@ -15,6 +16,8 @@ namespace TimeStudy.Services
     {
         public static int StudyId { get; set; }
         public static int CurrentSelectedElementId { get; set; }
+        public static int CurrentRunningElementId { get; set; }
+        public static int LastRatedLapTimeId { get; set; }
         public static bool IsCompleted { get; set; }
         public static bool RatedStudy { get; set; }
         public static bool AllObservationsTaken { get; set; }
@@ -221,6 +224,20 @@ namespace TimeStudy.Services
 
             return numberOfObservations;
 
+        }
+
+        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, bool IsForeign, RunningStatus status, bool isRated)
+        {
+            return new LapTime
+            {
+                Cycle = cycleCount,
+                Element = name,
+                Status = RunningStatus.Running,
+                IsForeignElement = IsForeign,
+                StudyId = Utilities.StudyId,
+                ActivityId = CurrentSelectedElementId,
+                IsRated = isRated
+            };
         }
     }
 }

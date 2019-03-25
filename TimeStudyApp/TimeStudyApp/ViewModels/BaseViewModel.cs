@@ -324,6 +324,16 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        static bool isPageEnabled;
+        public bool IsPageEnabled
+        {
+            get => isPageEnabled;
+            set
+            {
+                isPageEnabled = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool StudyInProcess
         {
@@ -396,6 +406,13 @@ namespace TimeStudy.ViewModels
                                         .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
+
+        public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
+        {
+            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+                                        .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
+        }
+
         public ObservableCollection<Activity> Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
@@ -419,29 +436,65 @@ namespace TimeStudy.ViewModels
         public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()
         {
             return new ObservableCollection<LapTime>(LapTimeRepo.GetAllWithChildren()
-                .Where(x => x.TotalElapsedTime != "Running" && x.StudyId == Utilities.StudyId)
+                .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused && x.StudyId == Utilities.StudyId)
                 .OrderByDescending(x => x.TotalElapsedTime));
         }
 
+        public LapTime Get_Current_LapTime(int lapId)
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .FirstOrDefault(x => x.Id == lapId
+                && x.StudyId == Utilities.StudyId);
+        }
+
+        public LapTime Get_Last_NonForeign_LapTime()
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault(x => x.StudyId == Utilities.StudyId && !x.IsForeignElement);
+        }
+
+        public LapTime Get_Current_Foreign_LapTime()
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault(x => x.IsForeignElement && x.StudyId == Utilities.StudyId);
+
+        }
 
         public LapTime Get_Running_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
-                .FirstOrDefault(x => x.TotalElapsedTime == "Running" 
+                .FirstOrDefault(x => x.Status == RunningStatus.Running
+                && x.StudyId == Utilities.StudyId);
+        }
+
+        public LapTime Get_Running_LapTime_By_Id()
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .FirstOrDefault(x => x.Id == Utilities.CurrentRunningElementId
                 && x.StudyId == Utilities.StudyId);
         }
 
         public LapTime Get_Running_Unrated_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
-                .FirstOrDefault(x => x.TotalElapsedTime != "Running" && x.Rating == null
+                .FirstOrDefault(x => x.Status != RunningStatus.Running && x.Status != RunningStatus.Paused && x.Rating == null
+                && x.StudyId == Utilities.StudyId);
+        }
+
+        public LapTime Get_Last_Recorded_LapTime()
+        {
+            return LapTimeRepo.GetAllWithChildren()
+                .OrderByDescending(x => x.Id)
+                .FirstOrDefault(x => x.Status != RunningStatus.Running && x.Status != RunningStatus.Paused && x.Rating != null
                 && x.StudyId == Utilities.StudyId);
         }
 
         public LapTime Get_Paused_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
-                .FirstOrDefault(x => x.TotalElapsedTime == "Paused"
+                .FirstOrDefault(x => x.Status == RunningStatus.Paused
                 && x.StudyId == Utilities.StudyId);
         }
 
@@ -493,6 +546,7 @@ namespace TimeStudy.ViewModels
         {
             Opacity = 1;
             IsInvalid = false;
+            IsPageEnabled = true;
         }
     }
 }

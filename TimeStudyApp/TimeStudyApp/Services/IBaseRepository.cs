@@ -31,5 +31,7 @@ namespace TimeStudy.Services
         void CreateTable();
 
         void DropTable();
+
+        void DeleteAllItems();
     }
 }

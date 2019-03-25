@@ -9,5 +9,6 @@ namespace TimeStudyApp.Services.StateMachine
         public abstract void ElementSelectedEvent();
         public abstract void RatingSelectedEvent();
         public abstract void AddElementWithoutLapTimeToList();
+        public abstract void CloseActivitiesViewEvent();
     }
 }
