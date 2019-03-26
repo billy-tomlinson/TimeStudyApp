@@ -85,8 +85,12 @@ namespace TimeStudyApp.Services.StateMachine
             }
             else
             {
+                if (current.Rated)
+                    viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
+                else
+                    viewModel.CurrentApplicationState.CurrentState = Status.UnratedOccassionalElementRunning;
+
                 viewModel.IsForeignEnabled = true;
-                viewModel.CurrentApplicationState.CurrentState = Model.Status.ElementRunning;
             }
 
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
