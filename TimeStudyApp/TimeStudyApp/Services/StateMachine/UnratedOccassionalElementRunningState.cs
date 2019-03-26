@@ -100,7 +100,10 @@ namespace TimeStudyApp.Services.StateMachine
             else if (Utilities.IsForeignElement && currentSelected.Rated)
                 viewModel.CurrentApplicationState.CurrentState = Status.OccassionalElementRunning;
 
-            else
+            else if  (!currentSelected.Rated)
+                viewModel.CurrentApplicationState.CurrentState = Status.UnratedOccassionalElementRunning;
+           
+             else
                 viewModel.CurrentApplicationState.CurrentState = Status.ElementRunning;
 
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);

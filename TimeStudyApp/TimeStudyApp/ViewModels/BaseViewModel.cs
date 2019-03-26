@@ -458,7 +458,7 @@ namespace TimeStudy.ViewModels
         {
             return LapTimeRepo.GetAllWithChildren()
                 .OrderByDescending(x => x.Id)
-                .FirstOrDefault(x => x.IsForeignElement && x.StudyId == Utilities.StudyId);
+                .FirstOrDefault(x => x.StudyId == Utilities.StudyId);
 
         }
 
