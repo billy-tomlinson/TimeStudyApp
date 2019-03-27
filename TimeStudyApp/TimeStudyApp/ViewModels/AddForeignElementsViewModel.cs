@@ -140,7 +140,7 @@ namespace TimeStudy.ViewModels
                         IsEnabled = true,
                         ObservedColour = Utilities.NonValueAddedColour,
                         ItemColour = Utilities.NonValueAddedColour,
-                        IsValueAdded = false
+                        IsValueAdded = false,
                         Rated = true
                     };
 

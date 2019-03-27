@@ -8,6 +8,7 @@ using Syncfusion.Drawing;
 using Syncfusion.XlsIO;
 using TimeStudy.Model;
 using TimeStudy.Services;
+using TimeStudy.ViewModels;
 using TimeStudyApp.Model;
 
 namespace TimeStudyApp.UnitTests
@@ -15,8 +16,8 @@ namespace TimeStudyApp.UnitTests
     [TestClass]
     public class SpreadSheetTests
     {
-        private const string connString = "/Users/billytomlinson/RatedTimeStudy.db3";
-        //private const string connString = "WorkStudy1.db3";
+        //private const string connString = "/Users/billytomlinson/RatedTimeStudy.db3";
+        private const string connString = "TimeStudy.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
@@ -66,14 +67,16 @@ namespace TimeStudyApp.UnitTests
 
         public SpreadSheetTests()
         {
-            Utilities.StudyId = 4;
+
+            BaseViewModel model = new BaseViewModel(connString);
+            Utilities.StudyId = 1;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
             observationRepo = new BaseRepository<Observation>(connString);
             lapTimeRepo = new BaseRepository<LapTime>(connString);
             //alarmRepo = new BaseRepository<AlarmDetails>(connString);
-
+            BaseViewModel modelA = new BaseViewModel(connString);
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
             //alarm = alarmRepo.GetItem(Utilities.StudyId);
