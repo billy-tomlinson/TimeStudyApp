@@ -15,6 +15,7 @@ namespace TimeStudy.Services
     public class Utilities
     {
         public static int StudyId { get; set; }
+        public static int StudyVersion { get; set; }
         public static int CurrentSelectedElementId { get; set; }
         public static int CurrentRunningElementId { get; set; }
         public static int LastRatedLapTimeId { get; set; }
@@ -238,7 +239,8 @@ namespace TimeStudy.Services
                 IsForeignElement = IsForeignElement,
                 StudyId = StudyId,
                 ActivityId = CurrentSelectedElementId,
-                IsRated = isRated
+                IsRated = isRated,
+                Version = StudyVersion
             };
 
             if (colour != null) lapTime.ElementColour = (Color)colour;

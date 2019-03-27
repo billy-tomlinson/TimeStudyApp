@@ -400,7 +400,7 @@ namespace TimeStudy.ViewModels
         public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()
         {
             return new ObservableCollection<LapTime>(LapTimeRepo.GetAllWithChildren()
-                .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused && x.StudyId == Utilities.StudyId)
+                .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused && x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion)
                 .OrderByDescending(x => x.TotalElapsedTime));
         }
 
@@ -408,21 +408,21 @@ namespace TimeStudy.ViewModels
         {
             return LapTimeRepo.GetAllWithChildren()
                 .FirstOrDefault(x => x.Id == lapId
-                && x.StudyId == Utilities.StudyId);
+                && x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion);
         }
 
         public LapTime Get_Last_NonForeign_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
                 .OrderByDescending(x => x.Id)
-                .FirstOrDefault(x => x.StudyId == Utilities.StudyId && !x.IsForeignElement);
+                .FirstOrDefault(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion && !x.IsForeignElement);
         }
 
         public LapTime Get_Current_Foreign_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
                 .OrderByDescending(x => x.Id)
-                .FirstOrDefault(x => x.StudyId == Utilities.StudyId);
+                .FirstOrDefault(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion);
 
         }
 
@@ -430,21 +430,21 @@ namespace TimeStudy.ViewModels
         {
             return LapTimeRepo.GetAllWithChildren()
                 .FirstOrDefault(x => x.Status == RunningStatus.Running
-                && x.StudyId == Utilities.StudyId);
+                && x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion);
         }
 
         public LapTime Get_Running_LapTime_By_Id()
         {
             return LapTimeRepo.GetAllWithChildren()
                 .FirstOrDefault(x => x.Id == Utilities.CurrentRunningElementId
-                && x.StudyId == Utilities.StudyId);
+                && x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion);
         }
 
         public LapTime Get_Running_Unrated_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
                 .FirstOrDefault(x => x.Status != RunningStatus.Running && x.Status != RunningStatus.Paused && x.Rating == null
-                && x.StudyId == Utilities.StudyId);
+                && x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion);
         }
 
         public LapTime Get_Last_Recorded_LapTime()
@@ -452,14 +452,19 @@ namespace TimeStudy.ViewModels
             return LapTimeRepo.GetAllWithChildren()
                 .OrderByDescending(x => x.Id)
                 .FirstOrDefault(x => x.Status != RunningStatus.Running && x.Status != RunningStatus.Paused && x.Rating != null
-                && x.StudyId == Utilities.StudyId);
+                && x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion);
         }
 
         public LapTime Get_Paused_LapTime()
         {
             return LapTimeRepo.GetAllWithChildren()
                 .FirstOrDefault(x => x.Status == RunningStatus.Paused
-                && x.StudyId == Utilities.StudyId);
+                && x.StudyId == Utilities.StudyId  && x.Version == Utilities.StudyVersion);
+        }
+
+        public int Get_Last_Study_Version()
+        {
+            return LapTimeRepo.GetItems().Max(x => x.Version);
         }
 
         public ObservableCollection<ActivityName> Get_All_ActivityNames()

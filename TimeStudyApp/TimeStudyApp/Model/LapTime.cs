@@ -14,6 +14,8 @@ namespace TimeStudy.Model
         [ForeignKey(typeof(ActivitySampleStudy))]
         public int StudyId { get; set; }
 
+        public int Version { get; set; }
+
         [ForeignKey(typeof(Activity))]
         public int ActivityId { get; set; }
 

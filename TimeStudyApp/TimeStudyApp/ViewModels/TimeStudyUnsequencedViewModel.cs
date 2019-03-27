@@ -127,6 +127,8 @@ namespace TimeStudy.ViewModels
             LapButtonText = "   Start   ";
 
             LapTimeRepo.DeleteAllItems();
+
+            Utilities.StudyVersion = Get_Last_Study_Version();
         }
 
         public void GroupElementsForActivitiesView()
