@@ -126,7 +126,7 @@ namespace TimeStudy.ViewModels
 
             LapButtonText = "   Start   ";
 
-            LapTimeRepo.DeleteAllItems();
+            //LapTimeRepo.DeleteAllItems();
 
             Utilities.StudyVersion = Get_Last_Study_Version();
         }
@@ -268,7 +268,7 @@ namespace TimeStudy.ViewModels
             Utilities.CurrentSelectedElementId = 0;
             Utilities.CurrentRunningElementId = 0;
             Utilities.LastRatedLapTimeId = 0;
-            LapTimeRepo.DeleteAllItems();
+            //LapTimeRepo.DeleteAllItems();
 
             CurrentApplicationState.CurrentState = Status.NoElementRunning;
             StateService.SaveApplicationState(CurrentApplicationState);
