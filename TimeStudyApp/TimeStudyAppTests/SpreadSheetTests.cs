@@ -110,7 +110,7 @@ namespace TimeStudyApp.UnitTests
 
                 headerStyle = workbook.Styles.Add("HeaderStyle");
                 headerStyle.BeginUpdate();
-                headerStyle.Color = Color.FromArgb(255, 174, 33);
+                headerStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 174, 33);
                 headerStyle.Font.Bold = true;
                 headerStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
                 headerStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
@@ -122,7 +122,7 @@ namespace TimeStudyApp.UnitTests
 
                 titleStyle = workbook.Styles.Add("TitleStyle");
                 titleStyle.BeginUpdate();
-                titleStyle.Color = Color.FromArgb(93, 173, 226);
+                titleStyle.Color = Syncfusion.Drawing.Color.FromArgb(93, 173, 226);
                 titleStyle.Font.Bold = true;
                 titleStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
                 titleStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
@@ -133,7 +133,7 @@ namespace TimeStudyApp.UnitTests
 
                 totalsStyle = workbook.Styles.Add("TotalsStyle");
                 totalsStyle.BeginUpdate();
-                totalsStyle.Color = Color.FromArgb(255, 255, 153);
+                totalsStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
                 totalsStyle.Font.Bold = true;
                 totalsStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
                 totalsStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
@@ -150,7 +150,7 @@ namespace TimeStudyApp.UnitTests
 
                 detailsStyle = workbook.Styles.Add("DetailsStyle");
                 detailsStyle.BeginUpdate();
-                detailsStyle.Color = Color.FromArgb(255, 255, 153);
+                detailsStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
                 detailsStyle.Font.Bold = true;
                 detailsStyle.Font.Size = 20;
                 detailsStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
