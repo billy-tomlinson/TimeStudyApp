@@ -379,33 +379,11 @@ namespace TimeStudy.ViewModels
                                          .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
-
-        public ObservableCollection<Activity> Get_Previous_Enabled_Activities()
-        {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                                         .Where(x => x.IsEnabled && x.StudyId != Utilities.StudyId)
-                                         .OrderBy(y => y.Id));
-        }
-
         public List<Observation> Get_Observations_By_StudyId()
         {
             return ObservationRepo.GetItems()
                                .Where(x => x.StudyId == Utilities.StudyId).ToList();
         }
-
-        public ObservableCollection<Activity> Get_Enabled_Activities()
-        {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId)
-                .OrderBy(x => x.Sequence));
-        }
-
-        public ObservableCollection<Activity> Get_Rated_Enabled_Activities_WithChildren()
-        {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                                        .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
-        }
-
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
         {
@@ -418,20 +396,6 @@ namespace TimeStudy.ViewModels
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
                 .Where(x => x.IsEnabled && x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
         }
-
-        //public ObservableCollection<Activity> Get_All_NonForeign_Enabled_Activities_WithChildren()
-        //{
-        //    return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-        //        .Where(x => x.IsEnabled && !x.IsForeignElement && x.StudyId == Utilities.StudyId));
-        //}
-
-
-        //public ObservableCollection<Activity> Get_All_Foreign_Enabled_Activities_WithChildren()
-        //{
-        //    return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-        //        .Where(x => x.IsEnabled && x.IsForeignElement && x.StudyId == Utilities.StudyId));
-        //}
-
 
         public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()
         {

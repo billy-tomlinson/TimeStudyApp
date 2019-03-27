@@ -22,7 +22,7 @@ namespace TimeStudyApp.Services.StateMachine
             if (currentRunning == null)
                 currentRunning = viewModel.Get_Running_LapTime_By_Id();
 
-            currentRunning.Status = Model.RunningStatus.Paused;
+            currentRunning.Status = RunningStatus.Paused;
             currentRunning.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
             currentRunning.TotalElapsedTime = "Paused";
 
@@ -153,6 +153,5 @@ namespace TimeStudyApp.Services.StateMachine
         {
             viewModel.IsForeignEnabled = true;
         }
-
     }
 }

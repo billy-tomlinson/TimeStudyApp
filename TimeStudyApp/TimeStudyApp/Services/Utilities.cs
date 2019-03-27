@@ -236,7 +236,7 @@ namespace TimeStudy.Services
                 Element = name,
                 Status = RunningStatus.Running,
                 IsForeignElement = IsForeignElement,
-                StudyId = Utilities.StudyId,
+                StudyId = StudyId,
                 ActivityId = CurrentSelectedElementId,
                 IsRated = isRated
             };

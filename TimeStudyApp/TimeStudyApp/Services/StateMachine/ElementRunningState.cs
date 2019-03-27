@@ -131,7 +131,6 @@ namespace TimeStudyApp.Services.StateMachine
 
             viewModel.LapTimerEvent();
             viewModel.IsCancelEnabled = true;
-            //viewModel.IsCancelEnabled = false;
             viewModel.CurrentApplicationState.CurrentState = Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
         }
