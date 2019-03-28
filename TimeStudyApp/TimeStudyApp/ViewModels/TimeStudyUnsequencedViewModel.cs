@@ -352,8 +352,6 @@ namespace TimeStudy.ViewModels
             IsForeignEnabled = true;
             IsNonForeignEnabled = false;
             TimeWhenLapButtonClicked = RealTimeTicks;
-            CollectionOfElements = Get_All_Enabled_Activities_WithChildren();
-            GroupElementsForActivitiesView();
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.ShowStandardElements(); ;
