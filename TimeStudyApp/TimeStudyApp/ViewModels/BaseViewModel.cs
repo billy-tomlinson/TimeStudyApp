@@ -400,7 +400,9 @@ namespace TimeStudy.ViewModels
         public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()
         {
             return new ObservableCollection<LapTime>(LapTimeRepo.GetAllWithChildren()
-                .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused && x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion)
+                .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused 
+                && x.StudyId == Utilities.StudyId 
+                && x.Version == Utilities.StudyVersion)
                 .OrderByDescending(x => x.TotalElapsedTime));
         }
 

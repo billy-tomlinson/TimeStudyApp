@@ -48,6 +48,9 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowStandardElements()
         {
+            viewModel.CollectionOfElements = viewModel.Get_Rated_Enabled_Activities();
+            viewModel.GroupElementsForActivitiesView();
+
             viewModel.IsForeignEnabled = false;
             viewModel.Opacity = 0.2;
             viewModel.ActivitiesVisible = true;
