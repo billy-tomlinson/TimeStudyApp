@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -399,10 +399,10 @@ namespace TimeStudy.ViewModels
 
         public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()
         {
-            return new ObservableCollection<LapTime>(LapTimeRepo.GetAllWithChildren()
-                .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused 
-                && x.StudyId == Utilities.StudyId 
-                && x.Version == Utilities.StudyVersion)
+            var list = LapTimeRepo.GetItems().Where(x =>x.StudyId == Utilities.StudyId
+                && x.Version == Utilities.StudyVersion);
+            return new ObservableCollection<LapTime>(list
+                .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused )
                 .OrderByDescending(x => x.TotalElapsedTime));
         }
 
@@ -466,6 +466,10 @@ namespace TimeStudy.ViewModels
 
         public int Get_Last_Study_Version()
         {
+            var lastVersion = LapTimeRepo.GetItems().ToList();
+            if (lastVersion.Count == 0)
+                return 0;
+
             return LapTimeRepo.GetItems().Max(x => x.Version);
         }
 

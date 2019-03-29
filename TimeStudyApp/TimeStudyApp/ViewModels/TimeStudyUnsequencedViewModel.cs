@@ -128,7 +128,7 @@ namespace TimeStudy.ViewModels
 
             //LapTimeRepo.DeleteAllItems();
 
-            Utilities.StudyVersion = Get_Last_Study_Version();
+            Utilities.StudyVersion = Get_Last_Study_Version() + 1;
         }
 
         public void GroupElementsForActivitiesView()
