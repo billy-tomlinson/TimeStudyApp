@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Drawing;
+using System.Linq;
 using TimeStudy.Services;
 using TimeStudy.ViewModels;
 using TimeStudyApp.Model;
@@ -154,5 +155,6 @@ namespace TimeStudyApp.Services.StateMachine
         {
             viewModel.IsForeignEnabled = true;
         }
+
     }
 }

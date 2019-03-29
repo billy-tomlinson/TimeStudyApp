@@ -61,5 +61,6 @@ namespace TimeStudyApp.Services.StateMachine
         {
             viewModel.IsForeignEnabled = false;
         }
+
     }
 }

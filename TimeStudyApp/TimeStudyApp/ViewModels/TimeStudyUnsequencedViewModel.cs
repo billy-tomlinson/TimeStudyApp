@@ -473,23 +473,31 @@ namespace TimeStudy.ViewModels
 
         public void SetUpCurrentLapTime()
         {
-            string lapTimeTimeFormatted = LapTime.ToString("0.000");
-
             var currentLapTime = Get_Running_LapTime();
-            if(currentLapTime == null)
-                currentLapTime = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
+            //if (currentLapTime == null)
+                //currentLapTime = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
 
             if (currentLapTime != null)
             {
-                currentLapTime.IndividualLapTime = LapTime;
-                currentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
-                currentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
-                currentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
-                currentLapTime.ElementColour = Color.Gray;
-                currentLapTime.ForeignElements = SelectedForeignElements;
-                currentLapTime.Status = RunningStatus.Completed;
-                LapTimeRepo.SaveItem(currentLapTime);
+                SetUpCurrentLapProperties(currentLapTime);
             }
+
+            //ApplicationState = ApplicationStateFactory.GetCurrentState();
+            //ApplicationState.SetUpCurrentLapTime();
+        }
+
+        public void SetUpCurrentLapProperties(LapTime currentLapTime)
+        {
+            string lapTimeTimeFormatted = LapTime.ToString("0.000");
+
+            currentLapTime.IndividualLapTime = LapTime;
+            currentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
+            currentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
+            currentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+            currentLapTime.ElementColour = Color.Gray;
+            currentLapTime.ForeignElements = SelectedForeignElements;
+            currentLapTime.Status = RunningStatus.Completed;
+            LapTimeRepo.SaveItem(currentLapTime);
         }
 
         public void AddCurrentWithoutLapTimeToList()
