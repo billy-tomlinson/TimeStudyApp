@@ -317,6 +317,7 @@ namespace TimeStudy.ViewModels
             Activity = ActivityRepo.GetItem(value);
             Activity.ItemColour = Utilities.NonValueAddedColour;
             Activity.ObservedColour = Utilities.NonValueAddedColour;
+            Activity.Rated = true;
             ActivityRepo.SaveItem(Activity);
 
             ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
