@@ -15,6 +15,8 @@ namespace TimeStudy.ViewModels
         bool completed;
         public ExistingStudiesViewModel(bool completed)
         {
+            this.completed = completed;
+
             ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetAllWithChildren());
 
             if (completed)
@@ -64,6 +66,7 @@ namespace TimeStudy.ViewModels
                     var study = item as ActivitySampleStudy;
                     study.ObservedColour = Xamarin.Forms.Color.Silver.GetShortHexString();
                     Utilities.StudyId = study.Id;
+                    Utilities.StudyVersion = study.Version;
                     Utilities.RatedStudy = study.IsRated;
                     Utilities.IsCompleted = completed;
 
