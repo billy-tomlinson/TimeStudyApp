@@ -84,7 +84,7 @@ namespace TimeStudy.ViewModels
 
         void GoExistingStudies(object obj)
         {
-            Utilities.Navigate(new PausedStudiesPage());
+            Utilities.Navigate(new ExistingStudiesTabbedPage());
             App.MenuIsPresented = false;
         }
 
