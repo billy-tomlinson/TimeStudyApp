@@ -129,7 +129,12 @@ namespace TimeStudy.ViewModels
 
             if(generateNewVersionRecord)
             {
-                var studyHistoryVersion = new StudyHistoryVersion() { StudyId = Utilities.StudyId };
+                var studyHistoryVersion = new StudyHistoryVersion() 
+                { 
+                    StudyId = Utilities.StudyId ,
+                    Date = DateTime.Now,
+                    Time = DateTime.Now.TimeOfDay
+                };
                 var version = StudyHistoryVersionRepo.SaveItem(studyHistoryVersion);
                 var currentStudy = SampleRepo.GetWithChildren(Utilities.StudyId);
                 Utilities.StudyVersion = version;

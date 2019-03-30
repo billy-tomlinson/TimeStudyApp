@@ -12,6 +12,8 @@ namespace TimeStudy.ViewModels
         bool completed;
         public ExistingSampleStudiesViewModel(bool completed)
         {
+
+            this.completed = completed;
             ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetAllWithChildren());
 
             if (completed)

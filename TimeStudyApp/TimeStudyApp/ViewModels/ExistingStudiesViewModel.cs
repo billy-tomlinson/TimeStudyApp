@@ -23,7 +23,11 @@ namespace TimeStudy.ViewModels
                 var historicStudies = new List<ActivitySampleStudy>();
                 foreach (var item in historic)
                 {
-                    historicStudies.Add(new ActivitySampleStudy { Id = item.StudyId, Version = item.Id });
+                    var study = SampleRepo.GetItem(item.StudyId);
+                    study.Version = item.Id;
+                    study.Date = item.Date;
+                    study.Time = item.Time;
+                    historicStudies.Add(study);
                 }
 
                 ActivitySamples = new ObservableCollection<ActivitySampleStudy>(historicStudies);

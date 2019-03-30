@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="TimeStudy.Views.ExistingStudiesView1" 
@@ -46,6 +46,8 @@
                                             </RowDefinition>
                                             <RowDefinition Height="*">
                                             </RowDefinition>
+                                            <RowDefinition Height="*">
+                                            </RowDefinition>
                                         </Grid.RowDefinitions>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*">
@@ -60,8 +62,9 @@
                                         <Label Grid.Row="2" Grid.Column="0" Text="DATE: " HorizontalTextAlignment="Start" FontSize="12" />
                                         <Label Grid.Row="2" Grid.Column="1" Text="{Binding DateTimeFormatted}" HorizontalTextAlignment="Start" FontSize="12" />
                                         <Label Grid.Row="3" Grid.Column="0" Text="STUDIED BY: " HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" HorizontalTextAlignment="Start" 
-                                               FontSize="12" />
+                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="4" Grid.Column="0" Text="VERSION: " HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Version}" HorizontalTextAlignment="Start" FontSize="12" />
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>
