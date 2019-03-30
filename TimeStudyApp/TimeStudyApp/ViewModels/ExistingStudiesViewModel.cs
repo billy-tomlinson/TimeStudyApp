@@ -6,6 +6,7 @@ using TimeStudy.Services;
 using Xamarin.Forms;
 using TimeStudy.Custom;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace TimeStudy.ViewModels
 {
@@ -14,12 +15,19 @@ namespace TimeStudy.ViewModels
         bool completed;
         public ExistingStudiesViewModel(bool completed)
         {
-            Opacity = 1;
-            IsBusy = false;
+            ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetAllWithChildren());
 
-            this.completed = completed;
-            ActivitySamples = new ObservableCollection<ActivitySampleStudy>(SampleRepo.GetItems()
-                                  .Where(_ => _.Completed == completed));
+            if (completed)
+            {
+                var historic = StudyHistoryVersionRepo.GetItems();
+                var historicStudies = new List<ActivitySampleStudy>();
+                foreach (var item in historic)
+                {
+                    historicStudies.Add(new ActivitySampleStudy { Id = item.StudyId, Version = item.Id });
+                }
+
+                ActivitySamples = new ObservableCollection<ActivitySampleStudy>(historicStudies);
+            }
         }
 
         static ObservableCollection<ActivitySampleStudy> activitySamples;

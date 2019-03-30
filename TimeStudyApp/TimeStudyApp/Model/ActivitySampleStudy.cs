@@ -50,5 +50,8 @@ namespace TimeStudy.Model
             get { return $"{Time.ToString(@"hh\:mm")}"; }
         }
 
+        [Ignore]
+        public int Version { get; set; }
+
     }
 }
