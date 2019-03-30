@@ -66,6 +66,14 @@
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
+             <Style x:Key="ratingButton" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="#eee" />
+                <Setter Property="TextColor" Value="#605F5F" />
+                <Setter Property="HeightRequest" Value="60" />
+                <Setter Property="MinimumHeightRequest" Value="60" />
+                <Setter Property="BorderRadius" Value="0" />
+                <Setter Property="FontSize" Value="40" />
+            </Style>
             <Style x:Key="popUpButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#4174f4" />
                 <Setter Property="TextColor" Value="White" />

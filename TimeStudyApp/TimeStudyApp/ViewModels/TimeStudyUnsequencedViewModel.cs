@@ -474,16 +474,11 @@ namespace TimeStudy.ViewModels
         public void SetUpCurrentLapTime()
         {
             var currentLapTime = Get_Running_LapTime();
-            //if (currentLapTime == null)
-                //currentLapTime = Get_Current_LapTime(Utilities.LastRatedLapTimeId);
 
             if (currentLapTime != null)
             {
                 SetUpCurrentLapProperties(currentLapTime);
             }
-
-            //ApplicationState = ApplicationStateFactory.GetCurrentState();
-            //ApplicationState.SetUpCurrentLapTime();
         }
 
         public void SetUpCurrentLapProperties(LapTime currentLapTime)
