@@ -35,6 +35,8 @@ namespace TimeStudy.ViewModels
 
         public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
 
+        public IBaseRepository<StudyHistoryVersion> StudyHistoryVersionRepo => new BaseRepository<StudyHistoryVersion>(conn);
+
         public IBaseRepository<LapTime> LapTimeRepo => new BaseRepository<LapTime>(conn);
 
         public IBaseRepository<State> StateRepo => new BaseRepository<State>(conn);
@@ -515,6 +517,7 @@ namespace TimeStudy.ViewModels
             MergedActivityRepo.CreateTable();
             SampleRepo.CreateTable();
             ObservationRoundStatusRepo.CreateTable();
+            StudyHistoryVersionRepo.CreateTable();
         }
 
         public void CloseValidationView()

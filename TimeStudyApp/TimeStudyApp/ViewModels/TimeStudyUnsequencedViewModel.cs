@@ -59,7 +59,7 @@ namespace TimeStudy.ViewModels
             ConstructorSetUp();
         }
 
-        private void ConstructorSetUp()
+        private void ConstructorSetUp(bool generateNewVersionRecord = true)
         {
 
             StartTimer = new Command(StartTimerEvent);
@@ -97,6 +97,7 @@ namespace TimeStudy.ViewModels
                     CurrentState = Status.NoElementRunning
                 };
             }
+
             StateService.SaveApplicationState(CurrentApplicationState);
 
             LapTimes = new ObservableCollection<LapTime>();
@@ -126,9 +127,13 @@ namespace TimeStudy.ViewModels
 
             LapButtonText = "   Start   ";
 
-            //LapTimeRepo.DeleteAllItems();
-
-            Utilities.StudyVersion = Get_Last_Study_Version() + 1;
+            if(generateNewVersionRecord)
+            {
+                var studyHistoryVersion = new StudyHistoryVersion() { StudyId = Utilities.StudyId };
+                var version = StudyHistoryVersionRepo.SaveItem(studyHistoryVersion);
+                var currentStudy = SampleRepo.GetWithChildren(Utilities.StudyId);
+                Utilities.StudyVersion = version;
+            }
         }
 
         public void GroupElementsForActivitiesView()
@@ -245,7 +250,7 @@ namespace TimeStudy.ViewModels
 
         void OverrideEvent(object sender)
         {
-            ConstructorSetUp();
+            ConstructorSetUp(false);
             IsPageEnabled = true;
             ShowOkCancel = false;
             IsInvalid = false;

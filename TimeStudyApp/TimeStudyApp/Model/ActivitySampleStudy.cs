@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 using TimeStudy.Custom;
-using TimeStudy.Services;
+using TimeStudyApp.Model;
 
 namespace TimeStudy.Model
 {
@@ -23,6 +25,9 @@ namespace TimeStudy.Model
         public bool IsRated { get; set; }
 
         public bool Completed { get; set; }
+
+        [OneToMany]
+        public List<StudyHistoryVersion> HistoricalVersions { get; set; }
 
         [Ignore]
         public string ObservedColour { get; set; } = Xamarin.Forms.Color.Gray.GetShortHexString();
