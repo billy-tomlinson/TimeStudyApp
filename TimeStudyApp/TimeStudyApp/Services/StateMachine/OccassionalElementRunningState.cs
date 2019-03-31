@@ -26,7 +26,7 @@ namespace TimeStudyApp.Services.StateMachine
             {
 
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                    element.Name, RunningStatus.Running,  element.Rated, viewModel.RealTimeTicks);
+                    element.Name, RunningStatus.Running,  element.Rated, viewModel.LapTime);
 
                 Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(current);
 

@@ -36,7 +36,7 @@ namespace TimeStudyApp.Services.StateMachine
                 viewModel.TimeWhenForiegnButtonClicked = viewModel.RealTimeTicks;
 
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                    element.Name, RunningStatus.Running, element.Rated, viewModel.RealTimeTicks);
+                    element.Name, RunningStatus.Running, element.Rated, viewModel.LapTime);
 
                 viewModel.CurrentApplicationState.CurrentState = Model.Status.InterruptElementRunning;
                 stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
@@ -48,7 +48,7 @@ namespace TimeStudyApp.Services.StateMachine
                 {
 
                     current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                        element.Name,  RunningStatus.Running, element.Rated, viewModel.RealTimeTicks);
+                        element.Name,  RunningStatus.Running, element.Rated, viewModel.LapTime);
 
                     Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(current);
 

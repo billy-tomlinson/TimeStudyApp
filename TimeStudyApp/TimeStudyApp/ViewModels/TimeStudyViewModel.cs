@@ -503,9 +503,10 @@ namespace TimeStudy.ViewModels
                     Cycle = CycleCount,
                     Element = foreign.Name,
                     TotalElapsedTime = "Running",
-                    //IsForeignElement = foreign.IsForeignElement,
                     IsRated = foreign.Rated,
-                    StudyId = Utilities.StudyId
+                    StudyId = Utilities.StudyId,
+                    TimeWhenLapStarted = PausedLapTime.TotalElapsedTimeDouble
+
                 };
 
                 CurrentWithoutLapTime = currentForeignLap;

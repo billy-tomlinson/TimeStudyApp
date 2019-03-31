@@ -506,10 +506,17 @@ namespace TimeStudy.ViewModels
 
         public void AddCurrentWithoutLapTimeToList()
         {
+            double totalElapsedTime;
             var element = CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
 
+            var currentLapTime = Get_Running_LapTime();
+            if (currentLapTime != null)
+                totalElapsedTime = currentLapTime.TotalElapsedTimeDouble;
+            else
+                totalElapsedTime = RealTimeTicks;
+
             var currentWithoutLapTime = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
-                RunningStatus.Running, element.Rated, RealTimeTicks, Color.Silver);
+                RunningStatus.Running, element.Rated, LapTime, Color.Silver);
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
 
@@ -552,10 +559,11 @@ namespace TimeStudy.ViewModels
 
         private void ForceRoundingToLapTime(bool isLapTime = false)
         {
-            var lastRecordedLapTime = Get_Last_Recorded_LapTime();
-
+            //var lastRecordedLapTime = Get_Last_Recorded_LapTime();
+            var lastRecordedLapTime = Get_Running_LapTime();
             if (lastRecordedLapTime != null)
-                LapTime = RealTimeTicks - lastRecordedLapTime.TotalElapsedTimeDouble;
+                // LapTime = RealTimeTicks - lastRecordedLapTime.TotalElapsedTimeDouble;
+                LapTime = RealTimeTicks - lastRecordedLapTime.TimeWhenLapStarted;
             else
                 LapTime = RealTimeTicks;
 
