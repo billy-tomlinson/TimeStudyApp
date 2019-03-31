@@ -25,6 +25,10 @@ namespace TimeStudy.Model
 
         public double TotalElapsedTimeDouble { get; set; }
 
+        public double TimeWhenLapStarted { get; set; }
+
+        public bool HasBeenPaused { get; set; }
+
         public string Element { get; set; }
 
         public string IndividualLapTimeFormatted { get; set; }

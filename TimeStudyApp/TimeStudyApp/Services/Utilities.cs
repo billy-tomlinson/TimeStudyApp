@@ -228,7 +228,8 @@ namespace TimeStudy.Services
 
         }
 
-        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, RunningStatus status, bool isRated, Color? colour = null)
+        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, RunningStatus status, 
+            bool isRated, double timeWhenLapStarted,  Color? colour = null)
         {
             LapTime lapTime;
             lapTime =  new LapTime
@@ -240,7 +241,8 @@ namespace TimeStudy.Services
                 StudyId = StudyId,
                 ActivityId = CurrentSelectedElementId,
                 IsRated = isRated,
-                Version = StudyVersion
+                Version = StudyVersion,
+                TimeWhenLapStarted = timeWhenLapStarted
             };
 
             if (colour != null) lapTime.ElementColour = (Color)colour;

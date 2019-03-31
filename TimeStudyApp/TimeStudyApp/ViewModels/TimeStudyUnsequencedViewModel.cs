@@ -278,7 +278,6 @@ namespace TimeStudy.ViewModels
             Utilities.CurrentSelectedElementId = 0;
             Utilities.CurrentRunningElementId = 0;
             Utilities.LastRatedLapTimeId = 0;
-            //LapTimeRepo.DeleteAllItems();
 
             CurrentApplicationState.CurrentState = Status.NoElementRunning;
             StateService.SaveApplicationState(CurrentApplicationState);
@@ -510,7 +509,7 @@ namespace TimeStudy.ViewModels
             var element = CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
 
             var currentWithoutLapTime = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
-                RunningStatus.Running, element.Rated, Color.Silver);
+                RunningStatus.Running, element.Rated, RealTimeTicks, Color.Silver);
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
 

@@ -26,13 +26,14 @@ namespace TimeStudyApp.Services.StateMachine
             currentRunning.Status = RunningStatus.Paused;
             currentRunning.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
             currentRunning.TotalElapsedTime = "Paused";
+            currentRunning.HasBeenPaused = true;
 
             viewModel.LapTimeRepo.SaveItem(currentRunning);
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);
 
             var currentForeignLap = Utilities.SetUpCurrentLapTime(viewModel.CycleCount, 
-                currentSelected.Name, RunningStatus.Running, currentSelected.Rated);
+                currentSelected.Name, RunningStatus.Running, currentSelected.Rated, viewModel.RealTimeTicks);
 
             Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(currentForeignLap);
 

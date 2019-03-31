@@ -30,13 +30,13 @@ namespace TimeStudyApp.Services.StateMachine
                 current.Status = Model.RunningStatus.Paused;
                 current.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
                 current.TotalElapsedTime = viewModel.RealTimeTicks.ToString("0.000");
-
+                current.HasBeenPaused = true;
                 viewModel.LapTimeRepo.SaveItem(current);
 
                 viewModel.TimeWhenForiegnButtonClicked = viewModel.RealTimeTicks;
 
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                    element.Name, RunningStatus.Running, element.Rated);
+                    element.Name, RunningStatus.Running, element.Rated, viewModel.RealTimeTicks);
 
                 viewModel.CurrentApplicationState.CurrentState = Model.Status.InterruptElementRunning;
                 stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
@@ -48,7 +48,7 @@ namespace TimeStudyApp.Services.StateMachine
                 {
 
                     current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
-                        element.Name,  RunningStatus.Running, element.Rated);
+                        element.Name,  RunningStatus.Running, element.Rated, viewModel.RealTimeTicks);
 
                     Utilities.CurrentRunningElementId = viewModel.LapTimeRepo.SaveItem(current);
 
