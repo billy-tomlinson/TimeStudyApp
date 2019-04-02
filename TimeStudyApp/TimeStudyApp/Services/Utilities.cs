@@ -14,6 +14,7 @@ namespace TimeStudy.Services
 {
     public class Utilities
     {
+        public static double TimeWhenLapOrForiegnButtonClicked { get; set; }
         public static int StudyId { get; set; }
         public static int StudyVersion { get; set; }
         public static int CurrentSelectedElementId { get; set; }
@@ -242,7 +243,7 @@ namespace TimeStudy.Services
                 ActivityId = CurrentSelectedElementId,
                 IsRated = isRated,
                 Version = StudyVersion,
-                TimeWhenLapStarted = timeWhenLapStarted
+                TimeWhenLapStarted = TimeWhenLapOrForiegnButtonClicked
             };
 
             if (colour != null) lapTime.ElementColour = (Color)colour;

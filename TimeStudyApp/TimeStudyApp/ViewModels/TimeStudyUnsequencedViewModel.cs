@@ -33,8 +33,7 @@ namespace TimeStudy.ViewModels
         private bool IsRunning;
         private bool cancelActivitiesView;
         private bool HasBeenStopped;
-        public double TimeWhenLapButtonClicked { get; set; }
-        public double TimeWhenForiegnButtonClicked { get; set; }
+
         public double TimeWhenStopButtonClicked { get; set; }
         public double LapTime { get; set; }
         public double CurrentTicks { get; set; }
@@ -265,8 +264,7 @@ namespace TimeStudy.ViewModels
             IsCancelEnabled = !IsRunning;
             cancelActivitiesView = false;
             HasBeenStopped = false;
-            TimeWhenLapButtonClicked = 0;
-            TimeWhenForiegnButtonClicked = 0;
+            TimeWhenLapOrForiegnButtonClicked = 0;
             TimeWhenStopButtonClicked = 0;
             LapTime = 0;
             CurrentTicks = 0;
@@ -348,6 +346,7 @@ namespace TimeStudy.ViewModels
 
         void ShowForeignElementsTopButtonEvent()
         {
+            Utilities.TimeWhenLapOrForiegnButtonClicked = RealTimeTicks;
             Utilities.IsForeignElement = true;
             IsCancelEnabled = true;
             ShowForeignElementsEvent();
@@ -356,11 +355,11 @@ namespace TimeStudy.ViewModels
 
         void ShowStandardElementsEvent()
         {
+            Utilities.TimeWhenLapOrForiegnButtonClicked = RealTimeTicks;
             Utilities.IsForeignElement = false;
             IsPageEnabled = false;
             IsForeignEnabled = true;
             IsNonForeignEnabled = false;
-            TimeWhenLapButtonClicked = RealTimeTicks;
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.ShowStandardElements(); ;
@@ -412,8 +411,6 @@ namespace TimeStudy.ViewModels
         public void ProcessForeignElementWithRating(bool rated, string name,  int? rating = null)
         {
             AddForeignLapTimetoListAsCompleted(rating);
-
-            TimeWhenForiegnButtonClicked = RealTimeTicks;
 
             CurrentElementWithoutLapTimeName = name;
             CurrentSequence = null;
@@ -496,8 +493,8 @@ namespace TimeStudy.ViewModels
 
             currentLapTime.IndividualLapTime = LapTime;
             currentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
-            currentLapTime.TotalElapsedTimeDouble = RealTimeTicks;
-            currentLapTime.TotalElapsedTime = RealTimeTicks.ToString("0.000");
+            currentLapTime.TotalElapsedTimeDouble = Utilities.TimeWhenLapOrForiegnButtonClicked;
+            currentLapTime.TotalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked.ToString("0.000");
             currentLapTime.ElementColour = Color.Gray;
             currentLapTime.ForeignElements = SelectedForeignElements;
             currentLapTime.Status = RunningStatus.Completed;
@@ -513,7 +510,7 @@ namespace TimeStudy.ViewModels
             if (currentLapTime != null)
                 totalElapsedTime = currentLapTime.TotalElapsedTimeDouble;
             else
-                totalElapsedTime = RealTimeTicks;
+                totalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked;
 
             var currentWithoutLapTime = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
                 RunningStatus.Running, element.Rated, LapTime, Color.Silver);
@@ -563,9 +560,9 @@ namespace TimeStudy.ViewModels
             var lastRecordedLapTime = Get_Running_LapTime();
             if (lastRecordedLapTime != null)
                 // LapTime = RealTimeTicks - lastRecordedLapTime.TotalElapsedTimeDouble;
-                LapTime = RealTimeTicks - lastRecordedLapTime.TimeWhenLapStarted;
+                LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked - lastRecordedLapTime.TimeWhenLapStarted;
             else
-                LapTime = RealTimeTicks;
+                LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked;
 
             double randomToForceRounding;
 

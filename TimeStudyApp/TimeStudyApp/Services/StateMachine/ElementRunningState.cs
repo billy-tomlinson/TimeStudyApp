@@ -28,12 +28,10 @@ namespace TimeStudyApp.Services.StateMachine
 
                 var current = viewModel.Get_Running_LapTime();
                 current.Status = Model.RunningStatus.Paused;
-                current.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
-                current.TotalElapsedTime = viewModel.RealTimeTicks.ToString("0.000");
+                current.TotalElapsedTimeDouble = Utilities.TimeWhenLapOrForiegnButtonClicked;
+                current.TotalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked.ToString("0.000");
                 current.HasBeenPaused = true;
                 viewModel.LapTimeRepo.SaveItem(current);
-
-                viewModel.TimeWhenForiegnButtonClicked = viewModel.RealTimeTicks;
 
                 current = Utilities.SetUpCurrentLapTime(viewModel.CycleCount,
                     element.Name, RunningStatus.Running, element.Rated, viewModel.LapTime);
@@ -100,7 +98,6 @@ namespace TimeStudyApp.Services.StateMachine
         public override void RatingSelectedEvent()
         {
             viewModel.AllForiegnLapTimes = new List<LapTime>();
-            viewModel.TimeWhenForiegnButtonClicked = 0;
 
             viewModel.LapTimes = viewModel.Get_All_LapTimes_Not_Running();
 

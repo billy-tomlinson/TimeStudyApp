@@ -23,7 +23,7 @@ namespace TimeStudyApp.Services.StateMachine
                 currentRunning = viewModel.Get_Running_LapTime_By_Id();
 
             currentRunning.Status = RunningStatus.Paused;
-            currentRunning.TotalElapsedTimeDouble = viewModel.RealTimeTicks;
+            currentRunning.TotalElapsedTimeDouble = Utilities.TimeWhenLapOrForiegnButtonClicked;
             currentRunning.TotalElapsedTime = "Paused";
             currentRunning.HasBeenPaused = true;
 
