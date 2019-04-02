@@ -264,7 +264,6 @@ namespace TimeStudy.ViewModels
             IsCancelEnabled = !IsRunning;
             cancelActivitiesView = false;
             HasBeenStopped = false;
-            TimeWhenLapOrForiegnButtonClicked = 0;
             TimeWhenStopButtonClicked = 0;
             LapTime = 0;
             CurrentTicks = 0;
@@ -276,6 +275,7 @@ namespace TimeStudy.ViewModels
             Utilities.CurrentSelectedElementId = 0;
             Utilities.CurrentRunningElementId = 0;
             Utilities.LastRatedLapTimeId = 0;
+            Utilities.TimeWhenLapOrForiegnButtonClicked = 0;
 
             CurrentApplicationState.CurrentState = Status.NoElementRunning;
             StateService.SaveApplicationState(CurrentApplicationState);
@@ -388,7 +388,8 @@ namespace TimeStudy.ViewModels
 
                 SetUpCurrentLapTime();
 
-                CheckIfRatedStudy();
+                Opacity = 0.2;
+                RatingsVisible = true;
 
             }
             else
@@ -513,7 +514,7 @@ namespace TimeStudy.ViewModels
                 totalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked;
 
             var currentWithoutLapTime = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
-                RunningStatus.Running, element.Rated, LapTime, Color.Silver);
+                RunningStatus.Running, element.Rated, Color.Silver);
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
 
@@ -539,27 +540,10 @@ namespace TimeStudy.ViewModels
             CurrentTimeFormattedDecimal = RealTimeTicks.ToString("0.000");
         }
 
-        private void CheckIfRatedStudy()
-        {
-            if (!Utilities.RatedStudy)
-            {
-                AddCurrentWithoutLapTimeToList();
-
-                ForeignElementCount = 0;
-            }
-            else
-            {
-                Opacity = 0.2;
-                RatingsVisible = true;
-            }
-        }
-
         private void ForceRoundingToLapTime(bool isLapTime = false)
         {
-            //var lastRecordedLapTime = Get_Last_Recorded_LapTime();
             var lastRecordedLapTime = Get_Running_LapTime();
             if (lastRecordedLapTime != null)
-                // LapTime = RealTimeTicks - lastRecordedLapTime.TotalElapsedTimeDouble;
                 LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked - lastRecordedLapTime.TimeWhenLapStarted;
             else
                 LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked;

@@ -230,7 +230,7 @@ namespace TimeStudy.Services
         }
 
         public static LapTime SetUpCurrentLapTime(int cycleCount, string name, RunningStatus status, 
-            bool isRated, double timeWhenLapStarted,  Color? colour = null)
+            bool isRated, Color? colour = null)
         {
             LapTime lapTime;
             lapTime =  new LapTime
