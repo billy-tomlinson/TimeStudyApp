@@ -405,7 +405,7 @@ namespace TimeStudy.ViewModels
                 && x.Version == Utilities.StudyVersion);
             return new ObservableCollection<LapTime>(list
                 .Where(x => x.Status == RunningStatus.Completed || x.Status == RunningStatus.Paused )
-                .OrderByDescending(x => x.TotalElapsedTime));
+                .OrderByDescending(x => x.TotalElapsedTimeDouble));
         }
 
         public LapTime Get_Current_LapTime(int lapId)
