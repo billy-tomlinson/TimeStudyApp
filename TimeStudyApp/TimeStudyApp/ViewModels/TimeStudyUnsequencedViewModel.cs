@@ -544,7 +544,20 @@ namespace TimeStudy.ViewModels
         {
             var lastRecordedLapTime = Get_Running_LapTime();
             if (lastRecordedLapTime != null)
-                LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked - lastRecordedLapTime.TimeWhenLapStarted;
+                if(!lastRecordedLapTime.HasBeenPaused)
+                    LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked - lastRecordedLapTime.TimeWhenLapStarted;
+                else
+                {
+
+                    double combinedForeignTimes = 0;
+                    var foriegnLaps = LapTimeRepo.GetItems().Where(x => x.Id > lastRecordedLapTime.Id);
+                    foreach (var item in foriegnLaps)
+                    {
+                        combinedForeignTimes = combinedForeignTimes + item.IndividualLapTime;
+                    }
+
+                    LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked - lastRecordedLapTime.TimeWhenLapStarted - combinedForeignTimes;
+                }
             else
                 LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked;
 
