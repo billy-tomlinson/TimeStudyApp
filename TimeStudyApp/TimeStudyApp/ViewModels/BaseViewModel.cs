@@ -391,7 +391,8 @@ namespace TimeStudy.ViewModels
         public List<LapTime> Get_LapTimes_By_StudyId()
         {
             return LapTimeRepo.GetItems()
-                               .Where(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion).ToList();
+                               //.Where(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion).ToList();
+                                .Where(x => x.StudyId == Utilities.StudyId).ToList();
         }
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
