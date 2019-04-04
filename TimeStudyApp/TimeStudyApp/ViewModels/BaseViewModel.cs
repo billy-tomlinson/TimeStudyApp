@@ -339,7 +339,7 @@ namespace TimeStudy.ViewModels
 
         public bool StudyInProcess
         {
-            get => Get_Observations_By_StudyId().Count > 0;
+            get => Get_LapTimes_By_StudyId().Count > 0;
         }
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = null)
@@ -385,6 +385,13 @@ namespace TimeStudy.ViewModels
         {
             return ObservationRepo.GetItems()
                                .Where(x => x.StudyId == Utilities.StudyId).ToList();
+        }
+
+
+        public List<LapTime> Get_LapTimes_By_StudyId()
+        {
+            return LapTimeRepo.GetItems()
+                               .Where(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion).ToList();
         }
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
