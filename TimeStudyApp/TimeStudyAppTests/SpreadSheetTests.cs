@@ -17,7 +17,7 @@ namespace TimeStudyApp.UnitTests
     public class SpreadSheetTests
     {
         //private const string connString = "/Users/billytomlinson/RatedTimeStudy.db3";
-        private const string connString = "TimeStudy.db3";
+        private const string connString = "TimeStudyDBNew.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;

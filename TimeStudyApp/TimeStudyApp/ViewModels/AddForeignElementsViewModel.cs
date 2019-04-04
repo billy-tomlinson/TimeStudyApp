@@ -356,25 +356,28 @@ namespace TimeStudy.ViewModels
         {
             var value = (int)sender;
 
+            Activity = ActivityRepo.GetItem(value);
+
             if (!StudyInProcess)
                 await DeleteActivity(value);
             else
             {
-                var obs = ObservationRepo.GetItems().Where(x => x.ActivityId == value
-                          && x.StudyId == Utilities.StudyId);
-
-                var merged = MergedActivityRepo.GetItems().Where(x => x.ActivityId == value);
-
-                if (obs.Any() || merged.Any())
+                if (Activity.DeleteIcon == Utilities.UndoImage)
                 {
-                    ValidationText = "Cannot delete an element once used in Study.";
-                    Opacity = 0.2;
-                    IsInvalid = true;
-                    ShowClose = true;
+                    Activity.Opacity = 1;
+                    Activity.IsEnabled = true;
+                    Activity.DeleteIcon = Utilities.DeleteImage;
                 }
                 else
-                    await DeleteActivity(value);
+                {
+                    Activity.Opacity = 0.2;
+                    Activity.IsEnabled = false;
+                    Activity.DeleteIcon = Utilities.UndoImage;
+                }
+
+                ActivityRepo.SaveItem(Activity);
             }
+
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
 
@@ -386,15 +389,10 @@ namespace TimeStudy.ViewModels
             Task deleteTask = Task.Run(() =>
             {
                 Activity = ActivityRepo.GetWithChildren(value);
+
                 ActivityRepo.DeleteItem(Activity);
 
-                var activities = ActivityRepo
-                                    .GetAllWithChildren()
-                                    .Where(x => x.ActivityName.Name == Activity.ActivityName.Name
-                                     && x.StudyId != Utilities.StudyId);
-
-                if (!activities.Any())
-                    ActivityNameRepo.DeleteItem(Activity.ActivityName);
+                ActivityNameRepo.DeleteItem(Activity.ActivityName);
 
                 ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
             });
