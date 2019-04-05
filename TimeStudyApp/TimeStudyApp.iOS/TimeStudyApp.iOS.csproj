@@ -188,6 +188,9 @@
     <PackageReference Include="Toasts.Forms.Plugin">
       <Version>3.3.2</Version>
     </PackageReference>
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO">
+      <Version>16.3.0.29</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
