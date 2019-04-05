@@ -155,7 +155,7 @@ namespace TimeStudy.ViewModels
                     ShowClose = true;
                 }
 
-                ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
                 ActivitiesCount = ItemsCollection.Count;
                 Name = string.Empty;
             }
@@ -247,80 +247,80 @@ namespace TimeStudy.ViewModels
             CategoriesVisible = false;
         }
 
-        void SaveCategoryEvent(object sender)
-        {
-            if (IsNonValueAdded)
-            {
-                Activity.ItemColour = Utilities.NonValueAddedColour;
-                Activity.ObservedColour = Utilities.NonValueAddedColour;
-            }
-            else
-            {
-                Activity.ItemColour = Utilities.ValueAddedColour;
-                Activity.ObservedColour = Utilities.ValueAddedColour;
-            }
+        //void SaveCategoryEvent(object sender)
+        //{
+        //    if (IsNonValueAdded)
+        //    {
+        //        Activity.ItemColour = Utilities.NonValueAddedColour;
+        //        Activity.ObservedColour = Utilities.NonValueAddedColour;
+        //    }
+        //    else
+        //    {
+        //        Activity.ItemColour = Utilities.ValueAddedColour;
+        //        Activity.ObservedColour = Utilities.ValueAddedColour;
+        //    }
 
-            Activity.IsValueAdded = !IsNonValueAdded;
-            ActivityRepo.SaveItem(Activity);
-            Opacity = 1.0;
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities()
-                .OrderByDescending(x => x.Id));
+        //    Activity.IsValueAdded = !IsNonValueAdded;
+        //    ActivityRepo.SaveItem(Activity);
+        //    Opacity = 1.0;
+        //    ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities()
+        //        .OrderByDescending(x => x.Id));
 
-            CategoriesVisible = false;
-            Utilities.ActivityPageHasUpdatedActivityChanges = true;
-        }
+        //    CategoriesVisible = false;
+        //    Utilities.ActivityPageHasUpdatedActivityChanges = true;
+        //}
 
-        void MoveElementUpOnePlace(object sender)
-        {
-            if (Activity.Sequence == 1 || Activity.Sequence <= 0) return;
+        //void MoveElementUpOnePlace(object sender)
+        //{
+        //    if (Activity.Sequence == 1 || Activity.Sequence <= 0) return;
 
-            int sequenceNumber;
+        //    int sequenceNumber;
 
-            var activity1 = Activity;
-            sequenceNumber = activity1.Sequence;
-            activity1.Sequence = sequenceNumber - 1;
+        //    var activity1 = Activity;
+        //    sequenceNumber = activity1.Sequence;
+        //    activity1.Sequence = sequenceNumber - 1;
 
-            var activity2 = ActivityRepo.GetItems()
-                .FirstOrDefault(x => x.Sequence == sequenceNumber - 1 && x.StudyId == Utilities.StudyId);
-            activity2.Sequence = sequenceNumber;
-            ActivityRepo.SaveItem(activity1);
-            ActivityRepo.SaveItem(activity2);
+        //    var activity2 = ActivityRepo.GetItems()
+        //        .FirstOrDefault(x => x.Sequence == sequenceNumber - 1 && x.StudyId == Utilities.StudyId);
+        //    activity2.Sequence = sequenceNumber;
+        //    ActivityRepo.SaveItem(activity1);
+        //    ActivityRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
-        }
+        //    ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
+        //}
 
-        void MoveElementDownOnePlace(object sender)
-        {
-            if (Activity.Sequence >= ActivitiesCount || Activity.Sequence <= 0) return;
+        //void MoveElementDownOnePlace(object sender)
+        //{
+        //    if (Activity.Sequence >= ActivitiesCount || Activity.Sequence <= 0) return;
 
-            int sequenceNumber;
+        //    int sequenceNumber;
 
-            var activity1 = Activity;
-            sequenceNumber = activity1.Sequence;
+        //    var activity1 = Activity;
+        //    sequenceNumber = activity1.Sequence;
 
-            activity1.Sequence = sequenceNumber + 1;
+        //    activity1.Sequence = sequenceNumber + 1;
 
-            var activity2 = ActivityRepo.GetItems()
-                .FirstOrDefault(x => x.Sequence == sequenceNumber + 1 && x.StudyId == Utilities.StudyId);
-            activity2.Sequence = sequenceNumber;
-            ActivityRepo.SaveItem(activity1);
-            ActivityRepo.SaveItem(activity2);
+        //    var activity2 = ActivityRepo.GetItems()
+        //        .FirstOrDefault(x => x.Sequence == sequenceNumber + 1 && x.StudyId == Utilities.StudyId);
+        //    activity2.Sequence = sequenceNumber;
+        //    ActivityRepo.SaveItem(activity1);
+        //    ActivityRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderBy(x => x.Sequence));
-        }
+        //    ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
+        //}
 
-        void ActivitySelectedEvent(object sender)
-        {
-            //SetElementsColour();
+        //void ActivitySelectedEvent(object sender)
+        //{
+        //    //SetElementsColour();
 
-            //var value = (int)sender;
-            //Activity = ActivityRepo.GetItem(value);
-            //Activity.ItemColour = Utilities.NonValueAddedColour;
-            //Activity.ObservedColour = Utilities.NonValueAddedColour;
-            //ActivityRepo.SaveItem(Activity);
+        //    //var value = (int)sender;
+        //    //Activity = ActivityRepo.GetItem(value);
+        //    //Activity.ItemColour = Utilities.NonValueAddedColour;
+        //    //Activity.ObservedColour = Utilities.NonValueAddedColour;
+        //    //ActivityRepo.SaveItem(Activity);
 
-            //ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities().OrderBy(x => x.Sequence));
-        }
+        //    //ItemsCollection = new ObservableCollection<Activity>(Get_UnRated_Enabled_Activities().OrderBy(x => x.Sequence));
+        //}
 
         private void SetElementsColour()
         {
@@ -378,6 +378,8 @@ namespace TimeStudy.ViewModels
                 ActivityRepo.SaveItem(Activity);
             }
 
+            SetElementsColour();
+
             ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
@@ -395,6 +397,8 @@ namespace TimeStudy.ViewModels
 
                 ActivityNameRepo.DeleteItem(Activity.ActivityName);
 
+                SetElementsColour();
+
                 ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
             });
 
@@ -410,11 +414,11 @@ namespace TimeStudy.ViewModels
             SaveActivity = new Command(SaveActivityDetails);
             SaveComment = new Command(SaveCommentDetails);
             CancelComment = new Command(CancelCommentDetails);
-            ItemSelected = new Command(ActivitySelectedEvent);
-            MoveUpSelected = new Command(MoveElementUpOnePlace);
-            MoveDownSelected = new Command(MoveElementDownOnePlace);
+            //ItemSelected = new Command(ActivitySelectedEvent);
+            //MoveUpSelected = new Command(MoveElementUpOnePlace);
+            //MoveDownSelected = new Command(MoveElementDownOnePlace);
             CloseCategories = new Command(CloseCategoriesEvent);
-            SaveCategory = new Command(SaveCategoryEvent);
+            //SaveCategory = new Command(SaveCategoryEvent);
             SettingsSelected = new Command(AddSelectedEvent);
             DeleteSelected = new Command(DeleteSelectedEvent);
 
@@ -423,7 +427,7 @@ namespace TimeStudy.ViewModels
             SetElementsColour();
             SetAllActivitiesBackToEnabled();
             ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities()
-                .OrderBy(x => x.Id));
+                .OrderByDescending(x => x.Id));
             ActivitiesCount = ItemsCollection.Count;
             var count = ItemsCollection.Count;
             Activity = new Activity
