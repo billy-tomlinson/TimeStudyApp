@@ -155,6 +155,7 @@ namespace TimeStudy.ViewModels
                     ShowClose = true;
                 }
 
+                SetElementsColour();
                 ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
                 ActivitiesCount = ItemsCollection.Count;
                 Name = string.Empty;
@@ -324,12 +325,21 @@ namespace TimeStudy.ViewModels
 
         private void SetElementsColour()
         {
-            var activities = Get_All_Enabled_Activities();
+            var activities = Get_All_NonValueAdded_Enabled_Unrated_Activities();
 
             foreach (var item in activities)
             {
-                item.ItemColour = Utilities.ValueAddedColour;
-                item.ObservedColour = Utilities.ValueAddedColour;
+                item.ItemColour = Utilities.InactiveColour;
+                item.ObservedColour = Utilities.InactiveColour;
+                ActivityRepo.SaveItem(item);
+            }
+
+            activities = Get_All_NonValueAdded_Enabled_Rated_Activities();
+
+            foreach (var item in activities)
+            {
+                item.ItemColour = Utilities.NonValueAddedColour;
+                item.ObservedColour = Utilities.NonValueAddedColour;
                 ActivityRepo.SaveItem(item);
             }
         }
@@ -382,6 +392,8 @@ namespace TimeStudy.ViewModels
 
                 ActivityRepo.SaveItem(Activity);
             }
+
+            SetElementsColour();
             ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Id));
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }

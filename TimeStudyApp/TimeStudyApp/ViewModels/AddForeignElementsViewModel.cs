@@ -155,6 +155,7 @@ namespace TimeStudy.ViewModels
                     ShowClose = true;
                 }
 
+                SetElementsColour();
                 ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
                 ActivitiesCount = ItemsCollection.Count;
                 Name = string.Empty;

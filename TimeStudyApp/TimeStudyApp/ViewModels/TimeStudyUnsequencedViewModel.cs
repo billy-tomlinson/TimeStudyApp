@@ -360,7 +360,6 @@ namespace TimeStudy.ViewModels
             IsPageEnabled = false;
             IsForeignEnabled = true;
             IsNonForeignEnabled = false;
-
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.ShowStandardElements(); ;
         }
