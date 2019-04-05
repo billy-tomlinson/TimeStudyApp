@@ -39,6 +39,30 @@
                 </StackLayout>
                 <views:RepeaterControlView />
             </StackLayout>
+                        <ContentView x:Name="commentView" 
+                         BackgroundColor="Transparent" 
+                         IsVisible="{Binding CommentsVisible}" 
+                         AbsoluteLayout.LayoutBounds="0.1, 0.1, 1, 0.7" 
+                         AbsoluteLayout.LayoutFlags="All">
+                <StackLayout VerticalOptions="Center" 
+                             HorizontalOptions="Center" 
+                             BackgroundColor="#FCFAFA">
+                    <StackLayout Orientation="Vertical" 
+                                 Padding="5" Margin="5" 
+                                 WidthRequest="260" 
+                                 HeightRequest="200" 
+                                 BackgroundColor="#FCFAFA">
+                        <Label Text="Comments" TextColor="Black" />
+                        <Editor Text="{Binding Comment}" HeightRequest="90" />
+                        <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                            <Button Text="Save" 
+                                    Command="{Binding SaveComment}" Style="{StaticResource popUpButton}" />
+                            <Button Text="Cancel" 
+                                    Command="{Binding CancelComment}" Style="{StaticResource popUpButton}" />
+                        </StackLayout>
+                    </StackLayout>
+                </StackLayout>
+            </ContentView>
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
