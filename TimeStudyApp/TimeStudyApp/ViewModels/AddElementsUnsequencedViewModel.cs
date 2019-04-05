@@ -343,6 +343,20 @@ namespace TimeStudy.ViewModels
             CommentsVisible = true;
         }
 
+        void SetAllActivitiesBackToEnabled()
+        {
+            if (StudyInProcess) return;
+
+            var activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
+            foreach (var item in activities)
+            {
+                item.Opacity = 1;
+                item.IsEnabled = true;
+                item.DeleteIcon = Utilities.DeleteImage;
+                ActivityRepo.SaveItem(item);
+            }
+        }
+
         async void DeleteSelectedEvent(object sender)
         {
             var value = (int)sender;
@@ -413,6 +427,7 @@ namespace TimeStudy.ViewModels
             Name = string.Empty;
             CheckActivitiesInUse();
             SetElementsColour();
+            SetAllActivitiesBackToEnabled();
             ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
             ActivitiesCount = ItemsCollection.Count;
             var count = ItemsCollection.Count;

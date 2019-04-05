@@ -421,6 +421,7 @@ namespace TimeStudy.ViewModels
             Name = string.Empty;
             CheckActivitiesInUse();
             SetElementsColour();
+            SetAllActivitiesBackToEnabled();
             ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities()
                 .OrderBy(x => x.Id));
             ActivitiesCount = ItemsCollection.Count;
@@ -429,6 +430,23 @@ namespace TimeStudy.ViewModels
             {
                 SettingsIcon = Utilities.CommentsImage
             };
+        }
+
+        void SetAllActivitiesBackToEnabled()
+        {
+            if (StudyInProcess) return;
+
+            var activities = Get_All_NonValueAdded_Enabled_Activities();
+            foreach (var item in activities)
+            {
+                if(item.Rated)
+                {
+                    item.Opacity = 1;
+                    item.IsEnabled = true;
+                    item.DeleteIcon = Utilities.DeleteImage;
+                    ActivityRepo.SaveItem(item);
+                }
+            }
         }
 
         private void CheckActivitiesInUse()
