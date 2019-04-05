@@ -138,6 +138,7 @@ namespace TimeStudy.ViewModels
                     {
                         ActivityName = activityName,
                         IsEnabled = true,
+                        Rated = true,
                         ObservedColour = Utilities.ValueAddedColour,
                         IsValueAdded = true,
                         Sequence = activities + 1
@@ -367,7 +368,7 @@ namespace TimeStudy.ViewModels
 
                 ActivityRepo.SaveItem(Activity);
             }
-
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Id));
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
 

@@ -378,6 +378,7 @@ namespace TimeStudy.ViewModels
                 ActivityRepo.SaveItem(Activity);
             }
 
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_NonValueAdded_Enabled_Activities().OrderByDescending(x => x.Id));
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
 

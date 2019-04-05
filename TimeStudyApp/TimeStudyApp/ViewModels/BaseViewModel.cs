@@ -358,7 +358,7 @@ namespace TimeStudy.ViewModels
         public ObservableCollection<Activity> Get_All_NonValueAdded_Enabled_Activities()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                                         .Where(x => x.IsEnabled && !x.IsValueAdded && x.StudyId == Utilities.StudyId));
+                                         .Where(x => !x.IsValueAdded && x.StudyId == Utilities.StudyId));
         }
 
 
@@ -391,8 +391,8 @@ namespace TimeStudy.ViewModels
         public List<LapTime> Get_LapTimes_By_StudyId()
         {
             return LapTimeRepo.GetItems()
-                               //.Where(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion).ToList();
-                                .Where(x => x.StudyId == Utilities.StudyId).ToList();
+                                .Where(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion).ToList();
+                                //.Where(x => x.StudyId == Utilities.StudyId).ToList();
         }
 
         public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
@@ -404,7 +404,7 @@ namespace TimeStudy.ViewModels
         public ObservableCollection<Activity> Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
         {
             return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
-                .Where(x => x.IsEnabled && x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
+                .Where(x => x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
         public ObservableCollection<LapTime> Get_All_LapTimes_Not_Running()

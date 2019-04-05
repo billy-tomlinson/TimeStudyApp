@@ -37,7 +37,7 @@ namespace TimeStudy.Pages
 
                     Utilities.UpdateTableFlags();
 
-                    var viewModel = new AddElementsViewModel
+                    var viewModel = new AddElementsUnsequencedViewModel
                     {
                         CommentsVisible = false
                     };
