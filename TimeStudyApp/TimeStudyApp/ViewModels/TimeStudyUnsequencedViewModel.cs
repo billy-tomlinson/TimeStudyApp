@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using TimeStudy.Model;
 using TimeStudy.Pages;
 using TimeStudy.Services;
@@ -123,7 +124,7 @@ namespace TimeStudy.ViewModels
             IsForeignEnabled = false;
             IsPageEnabled = true;
             CycleCount = 1;
-
+            Utilities.TimeWhenLapOrForiegnButtonClicked = 0;
             LapButtonText = "   Start   ";
 
             if(generateNewVersionRecord)
@@ -138,8 +139,33 @@ namespace TimeStudy.ViewModels
                 var currentStudy = SampleRepo.GetWithChildren(Utilities.StudyId);
                 Utilities.StudyVersion = version;
             }
+
+            ResetAllGlobalVariables();
         }
 
+        public void RunTimer()
+        {
+
+            TimeSpan TotalTime;
+            TimeSpan TimeElement = new TimeSpan();
+
+            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () =>
+            {
+                if (!IsRunning) return false;
+
+                TotalTime = TotalTime + TimeElement.Add(new TimeSpan(0, 0, 0, 1));
+
+                var timeElaspedSinceStart = DateTime.Now.TimeOfDay - StartTime;
+
+                var realTicks = timeElaspedSinceStart.Ticks / 1000000;
+
+                RealTimeTicks = TimeWhenStopButtonClicked + (double)realTicks / 600;
+
+                StopWatchTime = RealTimeTicks.ToString("0.000");
+
+                return IsRunning;
+            });
+        }
         public void GroupElementsForActivitiesView()
         {
             IEnumerable<Activity> obsCollection = CollectionOfElements;
@@ -255,6 +281,16 @@ namespace TimeStudy.ViewModels
         void OverrideEvent(object sender)
         {
             ConstructorSetUp(false);
+
+            CurrentApplicationState.CurrentState = Status.NoElementRunning;
+            StateService.SaveApplicationState(CurrentApplicationState);
+
+            if (SaveButtonClicked)
+                Utilities.Navigate(new ReportsPage());
+        }
+
+        private void ResetAllGlobalVariables()
+        {
             IsPageEnabled = true;
             ShowOkCancel = false;
             IsInvalid = false;
@@ -263,7 +299,7 @@ namespace TimeStudy.ViewModels
             IsRunning = false;
             IsCancelEnabled = !IsRunning;
             cancelActivitiesView = false;
-            HasBeenStopped = false;
+            HasBeenStopped = true;
             TimeWhenStopButtonClicked = 0;
             LapTime = 0;
             CurrentTicks = 0;
@@ -272,16 +308,13 @@ namespace TimeStudy.ViewModels
             CurrentSequence = null;
             CurrentElementWithoutLapTimeName = null;
             IsPageEnabled = true;
+            RealTimeTicks = 0;
+            StartTime = new TimeSpan();
             Utilities.CurrentSelectedElementId = 0;
             Utilities.CurrentRunningElementId = 0;
             Utilities.LastRatedLapTimeId = 0;
             Utilities.TimeWhenLapOrForiegnButtonClicked = 0;
 
-            CurrentApplicationState.CurrentState = Status.NoElementRunning;
-            StateService.SaveApplicationState(CurrentApplicationState);
-
-            if(SaveButtonClicked)
-                Utilities.Navigate(new ReportsPage());
         }
 
         public Custom.CustomButton RatingButton;
@@ -452,29 +485,6 @@ namespace TimeStudy.ViewModels
             LapTimeRepo.SaveItem(current);
 
             AllForiegnLapTimes.Add(current);
-        }
-
-        public void RunTimer()
-        {
-
-            TimeSpan TotalTime;
-            TimeSpan TimeElement = new TimeSpan();
-            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () =>
-            {
-                if (!IsRunning) return false;
-
-                TotalTime = TotalTime + TimeElement.Add(new TimeSpan(0, 0, 0, 1));
-
-                var timeElaspedSinceStart = DateTime.Now.TimeOfDay - StartTime;
-
-                var realTicks = timeElaspedSinceStart.Ticks / 1000000;
-
-                RealTimeTicks = TimeWhenStopButtonClicked + (double)realTicks / 600;
-
-                StopWatchTime = RealTimeTicks.ToString("0.000");
-
-                return IsRunning;
-            });
         }
 
         public void SetUpCurrentLapTime()
