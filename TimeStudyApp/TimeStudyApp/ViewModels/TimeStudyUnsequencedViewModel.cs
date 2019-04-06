@@ -7,6 +7,7 @@ using TimeStudy.Model;
 using TimeStudy.Pages;
 using TimeStudy.Services;
 using TimeStudyApp.Model;
+using TimeStudyApp.Services;
 using TimeStudyApp.Services.StateMachine;
 using Xamarin.Forms;
 
@@ -40,6 +41,7 @@ namespace TimeStudy.ViewModels
         public double CurrentTicks { get; set; }
         public double LastSuccesstulLapTime { get; set; }
         public TimeSpan StartTime { get; set; }
+        public TimerService Timer;
 
 
         public BaseState ApplicationState { get; set; }
@@ -127,11 +129,11 @@ namespace TimeStudy.ViewModels
             Utilities.TimeWhenLapOrForiegnButtonClicked = 0;
             LapButtonText = "   Start   ";
 
-            if(generateNewVersionRecord)
+            if (generateNewVersionRecord)
             {
-                var studyHistoryVersion = new StudyHistoryVersion() 
-                { 
-                    StudyId = Utilities.StudyId ,
+                var studyHistoryVersion = new StudyHistoryVersion()
+                {
+                    StudyId = Utilities.StudyId,
                     Date = DateTime.Now,
                     Time = DateTime.Now.TimeOfDay
                 };
@@ -141,15 +143,22 @@ namespace TimeStudy.ViewModels
             }
 
             ResetAllGlobalVariables();
+
+            TimerService.Stop();
+
         }
 
         public void RunTimer()
         {
+            TimerService.StartTimer(new TimeSpan(0, 0, 0, 0, 100), CallBackForTimer());
+        }
 
+        private Func<bool> CallBackForTimer()
+        {
             TimeSpan TotalTime;
             TimeSpan TimeElement = new TimeSpan();
 
-            Device.StartTimer(new TimeSpan(0, 0, 0, 0, 100), () =>
+            return () =>
             {
                 if (!IsRunning) return false;
 
@@ -164,8 +173,9 @@ namespace TimeStudy.ViewModels
                 StopWatchTime = RealTimeTicks.ToString("0.000");
 
                 return IsRunning;
-            });
+            };
         }
+
         public void GroupElementsForActivitiesView()
         {
             IEnumerable<Activity> obsCollection = CollectionOfElements;
@@ -206,13 +216,14 @@ namespace TimeStudy.ViewModels
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.CloseActivitiesViewEvent();
+
         }
 
         public void CloseRatingsViewEvent()
         {
             var currentLapTime = Get_Running_LapTime_By_Id();
             currentLapTime.Status = RunningStatus.Running;
-            Utilities.CurrentRunningElementId =  LapTimeRepo.SaveItem(currentLapTime);
+            Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentLapTime);
 
             Opacity = 1;
             RatingsVisible = false;
@@ -322,8 +333,8 @@ namespace TimeStudy.ViewModels
         void RatingSelectedEvent(object sender)
         {
             RatingButton = sender as Custom.CustomButton;
-            var current = Get_Running_Unrated_LapTime(); 
-            if(current != null) 
+            var current = Get_Running_Unrated_LapTime();
+            if (current != null)
             {
                 current.Rating = RatingButton.Rating;
                 current.Status = RunningStatus.Completed;
@@ -441,7 +452,7 @@ namespace TimeStudy.ViewModels
 
         }
 
-        public void ProcessForeignElementWithRating(bool rated, string name,  int? rating = null)
+        public void ProcessForeignElementWithRating(bool rated, string name, int? rating = null)
         {
             AddForeignLapTimetoListAsCompleted(rating);
 
@@ -553,7 +564,7 @@ namespace TimeStudy.ViewModels
         {
             var lastRecordedLapTime = Get_Running_LapTime();
             if (lastRecordedLapTime != null)
-                if(!lastRecordedLapTime.HasBeenPaused)
+                if (!lastRecordedLapTime.HasBeenPaused)
                     LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked - lastRecordedLapTime.TimeWhenLapStarted;
                 else
                 {
