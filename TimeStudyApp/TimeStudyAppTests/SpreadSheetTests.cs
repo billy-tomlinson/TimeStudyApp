@@ -70,7 +70,7 @@ namespace TimeStudyApp.UnitTests
 
             BaseViewModel model = new BaseViewModel(connString);
             Utilities.StudyId = 28;
-            Utilities.StudyVersion = 99;
+            Utilities.StudyVersion = 104;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
@@ -240,154 +240,108 @@ namespace TimeStudyApp.UnitTests
 
             var destSheetStudyDetails = workbook.Worksheets.Create("Study Analysis");
 
-            startRowIndex = 5;
+            startRowIndex = 2;
 
+            //get all standard rated non forerign laps
             var allLapTimes = lapTimeRepo.GetItems()
-                .Where(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion).ToList();
+                .Where(x => x.StudyId == Utilities.StudyId 
+                && x.Version == Utilities.StudyVersion 
+                && x.IsRated
+                && !x.IsForeignElement).ToList();
 
 
             var summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element})
                                    .Select(g => new LapTimeSummary
-                                   {
-
+                                   {    
+                                       ActivityId = g.Key.ActivityId,
                                        Element = g.Key.Element,
                                        NumberOfObservations = g.Count(),
                                        LapTimeTotal = g.Sum(a => a.IndividualLapTime)
 
                                    }).ToList();
 
-            destSheetStudyDetails.Range[3, 1].Text = "Details";
-            destSheetStudyDetails.Range[5, 1].Text = "Element Number";
-            destSheetStudyDetails.Range[5, 2].Text = "Description";
-            destSheetStudyDetails.Range[5, 3].Text = "Total BMS";
-            destSheetStudyDetails.Range[5, 4].Text = "Observed Occassions";
-            destSheetStudyDetails.Range[5, 5].Text = "BMS Per Obs Occ";
+
+            destSheetStudyDetails.Range[2, 1].Text = "Element Number";
+            destSheetStudyDetails.Range[2, 2].Text = "Description";
+            destSheetStudyDetails.Range[2, 3].Text = "Total BMS";
+            destSheetStudyDetails.Range[2, 4].Text = "Observed Occassions";
+            destSheetStudyDetails.Range[2, 5].Text = "BMS Per Obs Occ";
+
+
+            destSheetStudyDetails.Range[4, 1].Text = "Standard Elements";
 
             var totalCount = 0;
 
             foreach (var item in summary)
             {
-                destSheetStudyDetails.Range[7 + totalCount, 1].Number = item.ActivityId;
-                destSheetStudyDetails.Range[7 + totalCount, 2].Text = item.Element;
-                destSheetStudyDetails.Range[7 + totalCount, 3].Number = item.LapTimeTotal;
-                destSheetStudyDetails.Range[7 + totalCount, 4].Number = item.NumberOfObservations;
-                destSheetStudyDetails.Range[7 + totalCount, 5].Number = item.LapTimeTotal/ item.NumberOfObservations;
+                destSheetStudyDetails.Range[6 + totalCount, 1].Number = item.ActivityId;
+                destSheetStudyDetails.Range[6 + totalCount, 2].Text = item.Element;
+                destSheetStudyDetails.Range[6 + totalCount, 3].Number = item.LapTimeTotal;
+                destSheetStudyDetails.Range[6 + totalCount, 4].Number = item.NumberOfObservations;
+                destSheetStudyDetails.Range[6 + totalCount, 5].Number = item.LapTimeTotal/ item.NumberOfObservations;
 
-                totalCount = totalCount + 1;
+                totalCount = totalCount + 2;
             }
-            //var columnCount = 1;
-
-                //foreach (var item in allLapTimes)
-                //{
-                //    destSheetAll.Range[3, columnCount + 2].Text = "Obs Req";
-                //    destSheetAll.Range[3, columnCount + 3].Text = "Total Obs";
-                //    destSheetAll.Range[3, columnCount + 4].Text = "% of Total";
-                //    destSheetAll.Range[3, columnCount + 5].Text = "Minutes Total";
-                //    destSheetAll.Range[3, columnCount + 6].Text = "BMS Total";
-
-                //    foreach (var cell in range.Where(x => x.Value != string.Empty))
-                //    {
-
-                //        var v = cell.Value;
-                //        var c = cell.Row;
-
-                //        foreach (var vv in item)
-                //        {
-                //            destSheetAll.Range[1, columnCount + 2].Text = vv.OperatorName;
-                //            destSheetAll.Range[1, columnCount + 2].CellStyle = headerStyle;
-
-                //            if (vv.ActivityName == v)
-                //            {
-                //                var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
-                //                var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
-
-                //                var totalMinutes = IntervalTime * vv.NumberOfObservations;
-                //                var averageRating = vv.TotalRating / vv.NumberOfObservations;
-                //                var bmi = (double)totalMinutes * averageRating / 100;
-
-                //                destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
-                //                destSheetAll.Range[c, columnCount + 2].Formula = formula;
-                //                destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
-                //                destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
-                //                destSheetAll.Range[c, columnCount + 5].Number = totalMinutes;
-                //                destSheetAll.Range[c, columnCount + 6].Number = bmi;
-                //            }
-                //        }
-                //    }
-
-                //    var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                //    var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
-                //    var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
-
-                //    var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
-                //    var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
-
-                //    destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
-                //    destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
-
-                //    valueAddedActivitiesTotalRowIndex = allActivities.Count + 6;
-
-                //    columnCount = columnCount + 6;
-                //}
-
-                //destSheetAll.Range[3, columnCount + 2].Text = "OBS REQ";
-                //destSheetAll.Range[3, columnCount + 3].Text = "OBS TOTAL";
-                //destSheetAll.Range[3, columnCount + 4].Text = "% TOTAL";
 
 
-                //foreach (var item in allTotals)
-                //{
-                //    foreach (var cell in range.Where(x => x.Value != string.Empty))
-                //    {
-                //        var v = cell.Value;
-                //        var c = cell.Row;
+            destSheetStudyDetails.Range[8 + totalCount, 1].Text = "Ineffective Elements";
 
-                //        foreach (var vv in item)
-                //        {
-                //            if (vv.ActivityName == v)
-                //            {
-                //                var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
-                //                var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
+            allLapTimes = lapTimeRepo.GetItems()
+                .Where(x => x.StudyId == Utilities.StudyId
+                && x.Version == Utilities.StudyVersion
+                && !x.IsRated
+                && !x.IsForeignElement).ToList();
 
-                //                //var totalActivity = totalObs.Count(x => x.ActivityName == v);
-                //                var totalActivity = totalLapTimes.Count(x => x.Element == v);
-                //                var totalObsCount = totalLapTimes.Count();
-                //                var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
+            summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
+                                   .Select(g => new LapTimeSummary
+                                   {
+                                       ActivityId = g.Key.ActivityId,
+                                       Element = g.Key.Element,
+                                       NumberOfObservations = g.Count(),
+                                       LapTimeTotal = g.Sum(a => a.IndividualLapTime)
 
-                //                destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
-                //                destSheetAll.Range[c, columnCount + 2].Formula = formula;
-                //                destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
-                //                destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
+                                   }).ToList();
 
-                //                //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
-                //                destSheetAll.EnableSheetCalculations();
-                //                pieAllCategoriesIndividual.Range[c, 2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
-                //                //************************************
-                //            }
-                //        }
-                //    }
+            foreach (var item in summary)
+            {
+                destSheetStudyDetails.Range[10 + totalCount, 1].Number = item.ActivityId;
+                destSheetStudyDetails.Range[10 + totalCount, 2].Text = item.Element;
+                destSheetStudyDetails.Range[10 + totalCount, 3].Number = item.LapTimeTotal;
+                destSheetStudyDetails.Range[10 + totalCount, 4].Number = item.NumberOfObservations;
+                destSheetStudyDetails.Range[10 + totalCount, 5].Number = item.LapTimeTotal / item.NumberOfObservations;
 
-                //    var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                //    var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
-                //    var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
+                totalCount = totalCount + 2;
+            }
 
-                //    var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
-                //    var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
+            destSheetStudyDetails.Range[10 + totalCount, 1].Text = "Occassional Elements";
 
-                //    destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
-                //    destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
+            allLapTimes = lapTimeRepo.GetItems()
+                .Where(x => x.StudyId == Utilities.StudyId
+                && x.Version == Utilities.StudyVersion
+                && x.IsRated
+                && x.IsForeignElement).ToList();
 
-                //    //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
-                //    destSheetAll.EnableSheetCalculations();
-                //    var source = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].CalculatedValue;
-                //    pieAllCategoriesTotal.Range["A1"].Text = "VALUE ADDED";
-                //    pieAllCategoriesTotal.Range["B1"].Value = source;
-                //    //************************************
+            summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
+                                   .Select(g => new LapTimeSummary
+                                   {
+                                       ActivityId = g.Key.ActivityId,
+                                       Element = g.Key.Element,
+                                       NumberOfObservations = g.Count(),
+                                       LapTimeTotal = g.Sum(a => a.IndividualLapTime)
 
-                //}
+                                   }).ToList();
 
-                //destSheetAll.Range[allActivities.Count + 6, 1].Text = "SUB TOTAL VALUE ADDED";
-                //destSheetAll.Range[allActivities.Count + 6, 1, allActivities.Count + 6, columnCount + 4].CellStyle = headerStyle;
+            foreach (var item in summary)
+            {
+                destSheetStudyDetails.Range[12 + totalCount, 1].Number = item.ActivityId;
+                destSheetStudyDetails.Range[12 + totalCount, 2].Text = item.Element;
+                destSheetStudyDetails.Range[12 + totalCount, 3].Number = item.LapTimeTotal;
+                destSheetStudyDetails.Range[12 + totalCount, 4].Number = item.NumberOfObservations;
+                destSheetStudyDetails.Range[12 + totalCount, 5].Number = item.LapTimeTotal / item.NumberOfObservations;
+
+                totalCount = totalCount + 2;
+            }
+
         }
 
         private void BuildNonValueAddedRatedActivities()
@@ -740,7 +694,9 @@ namespace TimeStudyApp.UnitTests
         private void CreateAllLapTimesSheet()
         {
                 var data = new List<SpreadSheetLapTime>();
-                var obs = totalLapTimes.Where(x => x.StudyId == Utilities.StudyId).OrderBy(x => x.TotalElapsedTimeDouble).ToList();
+                var obs = totalLapTimes.Where(x => x.StudyId == Utilities.StudyId 
+                            && x.Version == Utilities.StudyVersion)
+                            .OrderBy(x => x.TotalElapsedTimeDouble).ToList();
                 var totalLaptimes = obs.Count();
                 foreach (var lap in obs)
                 {
@@ -828,164 +784,5 @@ namespace TimeStudyApp.UnitTests
                 //allTotals.Add(summary);
         }
 
-        private void SampleForTesting()
-        {
-            //var destSheet = workbook.Worksheets.Create("PieChart");
-
-            destSheetAll.EnableSheetCalculations();
-            pieAllCategoriesTotal.EnableSheetCalculations();
-
-            //Assigns an object to the range of cells (90 rows) both for source and destination.
-            IRange source = destSheetAll.Range["A5:A9"];
-            IRange des = pieAllCategoriesTotal.Range["A5:A9"];
-            source.CopyTo(des);
-
-            source = destSheetAll.Range["Y5:Y9"];
-            des = pieAllCategoriesTotal.Range["B5:B9"];
-
-            //Copies from Source to Destination worksheet.
-            source.CopyTo(des);
-
-            IChartShape chart = pieAllCategoriesTotal.Charts.Add();
-
-            chart.DataRange = pieAllCategoriesTotal.Range["A1:B3"];
-
-            chart.ChartTitle = "Exploded Pie Chart";
-            chart.HasLegend = true;
-            chart.Legend.Position = ExcelLegendPosition.Right;
-
-            IChartSerie serie = chart.Series[0];
-            serie.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
-
-
-            chart.TopRow = 4;
-            chart.LeftColumn = 4;
-            chart.BottomRow = 23;
-            chart.RightColumn = 10;
-
-            chart.ChartType = ExcelChartType.Pie_Exploded;
-            chart.Elevation = 70;
-            chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
-
-
-            chart.IsSeriesInRows = false;
-
-        }
-
-        private void Build_ValueAdded_NonValueAdded_Ineffective_PieChart()
-        {
-
-            IChartShape chart = pieAllCategoriesTotal.Charts.Add();
-
-            pieAllCategoriesTotal.InsertRow(1, 4);
-            chart.DataRange = pieAllCategoriesTotal.Range["A5:B7"];
-            pieAllCategoriesTotal.Range["A5:B7"].AutofitColumns();
-
-            chart.ChartTitle = "Value Added, NonValueAdded, Ineffective";
-            chart.HasLegend = true;
-            chart.Legend.Position = ExcelLegendPosition.Right;
-
-            IChartSerie serie = chart.Series[0];
-            serie.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
-
-            chart.TopRow = 1;
-            chart.LeftColumn = 3;
-            chart.BottomRow = 30;
-            chart.RightColumn = 15;
-
-            chart.ChartType = ExcelChartType.Pie_Exploded;
-            chart.Elevation = 70;
-            chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
-
-            chart.IsSeriesInRows = false;
-
-        }
-
-        private void Build_All_Activities_PieChart()
-        {
-            startRowIndex = 5;
-
-            allTotals = new List<List<ObservationSummary>>();
-
-            var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
-                .Select(y => new { y.ActivityName.Name }).ToList();
-
-            pieAllCategoriesIndividual.ImportData(allActivities, startRowIndex, 1, false);
-
-            //delete empty rows under value added and move non value added up
-            pieAllCategoriesIndividual.Range[startRowIndex + allActivities.Count, 1, startRowIndex + allActivities.Count + 2, 2].Clear(ExcelMoveDirection.MoveUp);
-
-            allActivities = allStudyActivities.Where(x => x.Rated && !x.IsValueAdded)
-                .Select(y => new { y.ActivityName.Name }).ToList();
-
-            var startRow = valueAddedActivitiesTotalRowIndex - 1;
-
-            pieAllCategoriesIndividual.ImportData(allActivities, startRow, 1, false);
-            pieAllNonValueAddedIndividual.ImportData(allActivities, startRow + 3, 1, false);
-
-            var allNonValueAddedIndividualRange = $"A{startRow + 3}:B{startRow + 2 + allActivities.Count}";
-
-            //delete empty rows under non value added and move ineefective up
-            pieAllCategoriesIndividual.Range[startRow + allActivities.Count, 1, startRow + allActivities.Count + 2, 2].Clear(ExcelMoveDirection.MoveUp);
-
-            allActivities = allStudyActivities.Where(x => !x.Rated)
-                .Select(y => new { y.ActivityName.Name }).ToList();
-
-            startRow = nonValueAddedActivitiesTotalRowIndex;
-
-            pieAllCategoriesIndividual.ImportData(allActivities, startRow - 4, 1, false);
-
-            IChartShape chart = pieAllCategoriesIndividual.Charts.Add();
-
-            var range = $"A5:B{startRow - 2}";
-            chart.DataRange = pieAllCategoriesIndividual.Range[range];
-
-            pieAllCategoriesIndividual.Range[range].AutofitColumns();
-
-            chart.ChartTitle = "All Activities";
-            chart.HasLegend = true;
-            chart.DisplayBlanksAs = ExcelChartPlotEmpty.NotPlotted;
-            chart.Legend.Position = ExcelLegendPosition.Right;
-
-            IChartSerie serie = chart.Series[0];
-            serie.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
-
-            chart.TopRow = 1;
-            chart.LeftColumn = 4;
-            chart.BottomRow = 30;
-            chart.RightColumn = 17;
-
-            chart.ChartType = ExcelChartType.Pie_Exploded;
-            chart.Elevation = 70;
-            chart.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
-
-            chart.IsSeriesInRows = false;
-
-            IChartShape chart2 = pieAllNonValueAddedIndividual.Charts.Add();
-
-            chart2.DataRange = pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange];
-
-            pieAllNonValueAddedIndividual.Range[allNonValueAddedIndividualRange].AutofitColumns();
-
-            chart2.ChartTitle = "All Non Value Added";
-            chart2.HasLegend = true;
-            chart2.DisplayBlanksAs = ExcelChartPlotEmpty.NotPlotted;
-            chart2.Legend.Position = ExcelLegendPosition.Right;
-
-            IChartSerie serie1 = chart2.Series[0];
-            serie1.DataPoints.DefaultDataPoint.DataLabels.IsPercentage = true;
-
-            chart2.TopRow = 1;
-            chart2.LeftColumn = 4;
-            chart2.BottomRow = 30;
-            chart2.RightColumn = 17;
-
-            chart2.ChartType = ExcelChartType.Pie_Exploded;
-            chart2.Elevation = 70;
-            chart2.DisplayBlanksAs = ExcelChartPlotEmpty.Interpolated;
-
-            chart2.IsSeriesInRows = false;
-
-        }
     }
 }
