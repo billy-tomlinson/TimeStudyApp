@@ -266,6 +266,11 @@ namespace TimeStudyApp.UnitTests
             destSheetStudyDetails.Range[2, 3].Text = "Total BMS";
             destSheetStudyDetails.Range[2, 4].Text = "Observed Occassions";
             destSheetStudyDetails.Range[2, 5].Text = "BMS Per Obs Occ";
+            destSheetStudyDetails.Range[2, 6].Text = "Frequency Req";
+            destSheetStudyDetails.Range[2, 7].Text = "BMS by Freq";
+            destSheetStudyDetails.Range[2, 8].Text = "CA. 3%";
+            destSheetStudyDetails.Range[2, 9].Text = "RA. 12%";
+            destSheetStudyDetails.Range[2, 10].Text = "Element Standard Mins";
 
 
             destSheetStudyDetails.Range[4, 1].Text = "Standard Elements";
@@ -274,17 +279,66 @@ namespace TimeStudyApp.UnitTests
 
             foreach (var item in summary)
             {
+
+                var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
+                var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
+                var raAllowance = (caAllowance * 0.12) + caAllowance;
+
                 destSheetStudyDetails.Range[6 + totalCount, 1].Number = item.ActivityId;
                 destSheetStudyDetails.Range[6 + totalCount, 2].Text = item.Element;
                 destSheetStudyDetails.Range[6 + totalCount, 3].Number = item.LapTimeTotal;
                 destSheetStudyDetails.Range[6 + totalCount, 4].Number = item.NumberOfObservations;
-                destSheetStudyDetails.Range[6 + totalCount, 5].Number = item.LapTimeTotal/ item.NumberOfObservations;
+                destSheetStudyDetails.Range[6 + totalCount, 5].Number = bmsPerOccassion; ;
+                destSheetStudyDetails.Range[6 + totalCount, 6].Number = 1;
+                destSheetStudyDetails.Range[6 + totalCount, 7].Number = bmsPerOccassion;
+                destSheetStudyDetails.Range[6 + totalCount, 8].Number = caAllowance;
+                destSheetStudyDetails.Range[6 + totalCount, 9].Number = raAllowance;
+                destSheetStudyDetails.Range[6 + totalCount, 10].Number = raAllowance;
 
                 totalCount = totalCount + 2;
             }
 
 
-            destSheetStudyDetails.Range[8 + totalCount, 1].Text = "Ineffective Elements";
+            destSheetStudyDetails.Range[8 + totalCount, 1].Text = "Occassional Elements";
+
+
+            allLapTimes = lapTimeRepo.GetItems()
+               .Where(x => x.StudyId == Utilities.StudyId
+               && x.Version == Utilities.StudyVersion
+               && x.IsRated
+               && x.IsForeignElement).ToList();
+
+            summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
+                                   .Select(g => new LapTimeSummary
+                                   {
+                                       ActivityId = g.Key.ActivityId,
+                                       Element = g.Key.Element,
+                                       NumberOfObservations = g.Count(),
+                                       LapTimeTotal = g.Sum(a => a.IndividualLapTime)
+
+                                   }).ToList();
+
+            foreach (var item in summary)
+            {
+                var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
+                var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
+                var raAllowance = (caAllowance * 0.12) + caAllowance;
+
+                destSheetStudyDetails.Range[10 + totalCount, 1].Number = item.ActivityId;
+                destSheetStudyDetails.Range[10 + totalCount, 2].Text = item.Element;
+                destSheetStudyDetails.Range[10 + totalCount, 3].Number = item.LapTimeTotal;
+                destSheetStudyDetails.Range[10 + totalCount, 4].Number = item.NumberOfObservations;
+                destSheetStudyDetails.Range[10 + totalCount, 5].Number = bmsPerOccassion;
+                destSheetStudyDetails.Range[10 + totalCount, 6].Number = 1;
+                destSheetStudyDetails.Range[10 + totalCount, 7].Number = bmsPerOccassion;
+                destSheetStudyDetails.Range[10 + totalCount, 8].Number = caAllowance;
+                destSheetStudyDetails.Range[10 + totalCount, 9].Number = raAllowance;
+                destSheetStudyDetails.Range[10 + totalCount, 10].Number = raAllowance;
+
+                totalCount = totalCount + 2;
+            }
+
+            destSheetStudyDetails.Range[10 + totalCount, 1].Text = "Ineffective Elements";
 
             allLapTimes = lapTimeRepo.GetItems()
                 .Where(x => x.StudyId == Utilities.StudyId
@@ -304,40 +358,13 @@ namespace TimeStudyApp.UnitTests
 
             foreach (var item in summary)
             {
-                destSheetStudyDetails.Range[10 + totalCount, 1].Number = item.ActivityId;
-                destSheetStudyDetails.Range[10 + totalCount, 2].Text = item.Element;
-                destSheetStudyDetails.Range[10 + totalCount, 3].Number = item.LapTimeTotal;
-                destSheetStudyDetails.Range[10 + totalCount, 4].Number = item.NumberOfObservations;
-                destSheetStudyDetails.Range[10 + totalCount, 5].Number = item.LapTimeTotal / item.NumberOfObservations;
 
-                totalCount = totalCount + 2;
-            }
 
-            destSheetStudyDetails.Range[10 + totalCount, 1].Text = "Occassional Elements";
-
-            allLapTimes = lapTimeRepo.GetItems()
-                .Where(x => x.StudyId == Utilities.StudyId
-                && x.Version == Utilities.StudyVersion
-                && x.IsRated
-                && x.IsForeignElement).ToList();
-
-            summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
-                                   .Select(g => new LapTimeSummary
-                                   {
-                                       ActivityId = g.Key.ActivityId,
-                                       Element = g.Key.Element,
-                                       NumberOfObservations = g.Count(),
-                                       LapTimeTotal = g.Sum(a => a.IndividualLapTime)
-
-                                   }).ToList();
-
-            foreach (var item in summary)
-            {
                 destSheetStudyDetails.Range[12 + totalCount, 1].Number = item.ActivityId;
                 destSheetStudyDetails.Range[12 + totalCount, 2].Text = item.Element;
                 destSheetStudyDetails.Range[12 + totalCount, 3].Number = item.LapTimeTotal;
                 destSheetStudyDetails.Range[12 + totalCount, 4].Number = item.NumberOfObservations;
-                destSheetStudyDetails.Range[12 + totalCount, 5].Number = item.LapTimeTotal / item.NumberOfObservations;
+         
 
                 totalCount = totalCount + 2;
             }
