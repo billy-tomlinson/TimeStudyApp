@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 using TimeStudy.Model;
 using Xamarin.Forms;
 
 namespace TimeStudy.Custom
 {
+    [DesignTimeVisible(true)]
     public class CustomGrid : Grid
     {
        

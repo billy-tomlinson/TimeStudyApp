@@ -1,8 +1,10 @@
 ﻿using System.Collections;
+using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace TimeStudy.Custom
 {
+    [DesignTimeVisible(true)]
     public class RepeaterView : StackLayout
     {
         public static readonly BindableProperty ItemTemplateProperty = BindableProperty.Create(

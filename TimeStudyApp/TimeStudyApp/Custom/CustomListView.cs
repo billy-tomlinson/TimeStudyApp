@@ -1,8 +1,10 @@
-﻿using System.Windows.Input;
+﻿using System.ComponentModel;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace TimeStudy.Custom
 {
+    [DesignTimeVisible(true)]
     public class CustomListView : ListView
     {
 

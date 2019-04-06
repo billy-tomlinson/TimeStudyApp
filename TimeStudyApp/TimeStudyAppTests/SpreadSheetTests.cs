@@ -16,8 +16,8 @@ namespace TimeStudyApp.UnitTests
     [TestClass]
     public class SpreadSheetTests
     {
-        //private const string connString = "/Users/billytomlinson/RatedTimeStudy.db3";
-        private const string connString = "TimeStudyDBNew.db3";
+        private const string connString = "/Users/billytomlinson/TimeStudyNew.db3";
+        //private const string connString = "TimeStudyNew.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
@@ -69,7 +69,8 @@ namespace TimeStudyApp.UnitTests
         {
 
             BaseViewModel model = new BaseViewModel(connString);
-            Utilities.StudyId = 1;
+            Utilities.StudyId = 28;
+            Utilities.StudyVersion = 99;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
@@ -89,11 +90,11 @@ namespace TimeStudyApp.UnitTests
             //var firstOb = totalObs.Min(y => y.Date);
             //var lastOb = totalObs.Max(y => y.Date);
 
-            var firstOb = totalLapTimes.Min(y => y.TotalElapsedTimeDouble);
-            var lastOb = totalLapTimes.Max(y => y.TotalElapsedTimeDouble);
-            //totalTimeMinutes = lastOb.Subtract(firstOb).TotalMinutes;
-            totalTimeMinutes = lastOb - firstOb;
-            timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
+            //var firstOb = totalLapTimes.Min(y => y.TotalElapsedTimeDouble);
+            //var lastOb = totalLapTimes.Max(y => y.TotalElapsedTimeDouble);
+            ////totalTimeMinutes = lastOb.Subtract(firstOb).TotalMinutes;
+            //totalTimeMinutes = lastOb - firstOb;
+            //timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
         }
 
         [TestMethod]
@@ -162,7 +163,7 @@ namespace TimeStudyApp.UnitTests
 
                 BuildStudyDetails();
                 CreateAllLapTimesSheet();
-
+                BuildValueAddedRatedActivities();
                 //destSheetAll = workbook.Worksheets.Create("Summary");
 
                 //pieAllCategoriesTotal = workbook.Worksheets.Create("Totals Chart");
@@ -196,7 +197,7 @@ namespace TimeStudyApp.UnitTests
 
         private void BuildStudyDetails()
         {
-            var destSheetStudyDetails = workbook.Worksheets.Create("Study Details");
+            var destSheetStudyDetails = workbook.Worksheets.Create("Total Study Observations");
 
             destSheetStudyDetails.Range["A2"].CellStyle = detailsStyle;
             destSheetStudyDetails.Range["A3"].CellStyle = detailsStyle;
@@ -236,135 +237,157 @@ namespace TimeStudyApp.UnitTests
 
         private void BuildValueAddedRatedActivities()
         {
+
+            var destSheetStudyDetails = workbook.Worksheets.Create("Study Analysis");
+
             startRowIndex = 5;
 
-            allTotals = new List<List<ObservationSummary>>();
+            var allLapTimes = lapTimeRepo.GetItems()
+                .Where(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion).ToList();
 
-            var allActivities = allStudyActivities.Where(x => x.Rated && x.IsValueAdded)
-                .Select(y => new { y.ActivityName.Name }).ToList();
 
-            destSheetAll.Range[3, 1].Text = "Activity";
-            destSheetAll.ImportData(allActivities, startRowIndex, 1, false);
+            var summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element})
+                                   .Select(g => new LapTimeSummary
+                                   {
 
-            CreateAllLapTimesSheet();
+                                       Element = g.Key.Element,
+                                       NumberOfObservations = g.Count(),
+                                       LapTimeTotal = g.Sum(a => a.IndividualLapTime)
 
-            var columnCount = 1;
+                                   }).ToList();
 
-            var computedRange = $"A{startRowIndex}:A{allActivities.Count + startRowIndex}";
-            valueAddedRatedActivitiesRange = computedRange;
-            var range = destSheetAll[computedRange].ToList();
+            destSheetStudyDetails.Range[3, 1].Text = "Details";
+            destSheetStudyDetails.Range[5, 1].Text = "Element Number";
+            destSheetStudyDetails.Range[5, 2].Text = "Description";
+            destSheetStudyDetails.Range[5, 3].Text = "Total BMS";
+            destSheetStudyDetails.Range[5, 4].Text = "Observed Occassions";
+            destSheetStudyDetails.Range[5, 5].Text = "BMS Per Obs Occ";
 
-            foreach (var item in allTotals)
+            var totalCount = 0;
+
+            foreach (var item in summary)
             {
-                destSheetAll.Range[3, columnCount + 2].Text = "Obs Req";
-                destSheetAll.Range[3, columnCount + 3].Text = "Total Obs";
-                destSheetAll.Range[3, columnCount + 4].Text = "% of Total";
-                destSheetAll.Range[3, columnCount + 5].Text = "Minutes Total";
-                destSheetAll.Range[3, columnCount + 6].Text = "BMS Total";
+                destSheetStudyDetails.Range[7 + totalCount, 1].Number = item.ActivityId;
+                destSheetStudyDetails.Range[7 + totalCount, 2].Text = item.Element;
+                destSheetStudyDetails.Range[7 + totalCount, 3].Number = item.LapTimeTotal;
+                destSheetStudyDetails.Range[7 + totalCount, 4].Number = item.NumberOfObservations;
+                destSheetStudyDetails.Range[7 + totalCount, 5].Number = item.LapTimeTotal/ item.NumberOfObservations;
 
-                foreach (var cell in range.Where(x => x.Value != string.Empty))
-                {
-
-                    var v = cell.Value;
-                    var c = cell.Row;
-
-                    foreach (var vv in item)
-                    {
-                        destSheetAll.Range[1, columnCount + 2].Text = vv.OperatorName;
-                        destSheetAll.Range[1, columnCount + 2].CellStyle = headerStyle;
-
-                        if (vv.ActivityName == v)
-                        {
-                            var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
-                            var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
-
-                            var totalMinutes = IntervalTime * vv.NumberOfObservations;
-                            var averageRating = vv.TotalRating / vv.NumberOfObservations;
-                            var bmi = (double)totalMinutes * averageRating / 100;
-
-                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
-                            destSheetAll.Range[c, columnCount + 2].Formula = formula;
-                            destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
-                            destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
-                            destSheetAll.Range[c, columnCount + 5].Number = totalMinutes;
-                            destSheetAll.Range[c, columnCount + 6].Number = bmi;
-                        }
-                    }
-                }
-
-                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
-
-                var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
-                var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
-
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
-
-                valueAddedActivitiesTotalRowIndex = allActivities.Count + 6;
-
-                columnCount = columnCount + 6;
+                totalCount = totalCount + 1;
             }
+            //var columnCount = 1;
 
-            destSheetAll.Range[3, columnCount + 2].Text = "OBS REQ";
-            destSheetAll.Range[3, columnCount + 3].Text = "OBS TOTAL";
-            destSheetAll.Range[3, columnCount + 4].Text = "% TOTAL";
+                //foreach (var item in allLapTimes)
+                //{
+                //    destSheetAll.Range[3, columnCount + 2].Text = "Obs Req";
+                //    destSheetAll.Range[3, columnCount + 3].Text = "Total Obs";
+                //    destSheetAll.Range[3, columnCount + 4].Text = "% of Total";
+                //    destSheetAll.Range[3, columnCount + 5].Text = "Minutes Total";
+                //    destSheetAll.Range[3, columnCount + 6].Text = "BMS Total";
+
+                //    foreach (var cell in range.Where(x => x.Value != string.Empty))
+                //    {
+
+                //        var v = cell.Value;
+                //        var c = cell.Row;
+
+                //        foreach (var vv in item)
+                //        {
+                //            destSheetAll.Range[1, columnCount + 2].Text = vv.OperatorName;
+                //            destSheetAll.Range[1, columnCount + 2].CellStyle = headerStyle;
+
+                //            if (vv.ActivityName == v)
+                //            {
+                //                var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
+                //                var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
+
+                //                var totalMinutes = IntervalTime * vv.NumberOfObservations;
+                //                var averageRating = vv.TotalRating / vv.NumberOfObservations;
+                //                var bmi = (double)totalMinutes * averageRating / 100;
+
+                //                destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
+                //                destSheetAll.Range[c, columnCount + 2].Formula = formula;
+                //                destSheetAll.Range[c, columnCount + 3].Number = vv.NumberOfObservations;
+                //                destSheetAll.Range[c, columnCount + 4].Number = vv.Percentage;
+                //                destSheetAll.Range[c, columnCount + 5].Number = totalMinutes;
+                //                destSheetAll.Range[c, columnCount + 6].Number = bmi;
+                //            }
+                //        }
+                //    }
+
+                //    var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                //    var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                //    var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
+
+                //    var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
+                //    var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
+
+                //    destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
+                //    destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
+
+                //    valueAddedActivitiesTotalRowIndex = allActivities.Count + 6;
+
+                //    columnCount = columnCount + 6;
+                //}
+
+                //destSheetAll.Range[3, columnCount + 2].Text = "OBS REQ";
+                //destSheetAll.Range[3, columnCount + 3].Text = "OBS TOTAL";
+                //destSheetAll.Range[3, columnCount + 4].Text = "% TOTAL";
 
 
-            foreach (var item in allTotals)
-            {
-                foreach (var cell in range.Where(x => x.Value != string.Empty))
-                {
-                    var v = cell.Value;
-                    var c = cell.Row;
+                //foreach (var item in allTotals)
+                //{
+                //    foreach (var cell in range.Where(x => x.Value != string.Empty))
+                //    {
+                //        var v = cell.Value;
+                //        var c = cell.Row;
 
-                    foreach (var vv in item)
-                    {
-                        if (vv.ActivityName == v)
-                        {
-                            var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
-                            var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
+                //        foreach (var vv in item)
+                //        {
+                //            if (vv.ActivityName == v)
+                //            {
+                //                var columnAddress = destSheetAll.Range[c, columnCount + 4].AddressLocal;
+                //                var formula = $"=SUM(4*{columnAddress})*(100-{columnAddress})/100";
 
-                            //var totalActivity = totalObs.Count(x => x.ActivityName == v);
-                            var totalActivity = totalLapTimes.Count(x => x.Element == v);
-                            var totalObsCount = totalLapTimes.Count();
-                            var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
+                //                //var totalActivity = totalObs.Count(x => x.ActivityName == v);
+                //                var totalActivity = totalLapTimes.Count(x => x.Element == v);
+                //                var totalObsCount = totalLapTimes.Count();
+                //                var totalPercent = Math.Round((double)totalActivity / totalObsCount * 100, 2);
 
-                            destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
-                            destSheetAll.Range[c, columnCount + 2].Formula = formula;
-                            destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
-                            destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
+                //                destSheetAll.Range[c, columnCount + 2].NumberFormat = "###0";
+                //                destSheetAll.Range[c, columnCount + 2].Formula = formula;
+                //                destSheetAll.Range[c, columnCount + 3].Number = Math.Round((double)totalActivity, 2);
+                //                destSheetAll.Range[c, columnCount + 4].Number = Math.Round((double)totalPercent, 2);
 
-                            //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
-                            destSheetAll.EnableSheetCalculations();
-                            pieAllCategoriesIndividual.Range[c, 2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
-                            //************************************
-                        }
-                    }
-                }
+                //                //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
+                //                destSheetAll.EnableSheetCalculations();
+                //                pieAllCategoriesIndividual.Range[c, 2].Value = destSheetAll.Range[c, columnCount + 4].CalculatedValue;
+                //                //************************************
+                //            }
+                //        }
+                //    }
 
-                var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
-                var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
+                //    var columnAddress1 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 2].AddressLocal, @"[\d-]", string.Empty);
+                //    var columnAddress2 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 3].AddressLocal, @"[\d-]", string.Empty);
+                //    var columnAddress3 = Regex.Replace(destSheetAll.Range[allActivities.Count + 6, columnCount + 4].AddressLocal, @"[\d-]", string.Empty);
 
-                var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
-                var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
+                //    var formula2 = $"=SUM({columnAddress2}{startRowIndex}:{columnAddress2}{allActivities.Count + startRowIndex})";
+                //    var formula3 = $"=SUM({columnAddress3}{startRowIndex}:{columnAddress3}{allActivities.Count + startRowIndex})";
 
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
-                destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
+                //    destSheetAll.Range[allActivities.Count + 6, columnCount + 3].Formula = formula2;
+                //    destSheetAll.Range[allActivities.Count + 6, columnCount + 4].Formula = formula3;
 
-                //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
-                destSheetAll.EnableSheetCalculations();
-                var source = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].CalculatedValue;
-                pieAllCategoriesTotal.Range["A1"].Text = "VALUE ADDED";
-                pieAllCategoriesTotal.Range["B1"].Value = source;
-                //************************************
+                //    //**** THIS COPIES % TO THE PIE CHART SHEET *********************************
+                //    destSheetAll.EnableSheetCalculations();
+                //    var source = destSheetAll.Range[allActivities.Count + 6, columnCount + 4].CalculatedValue;
+                //    pieAllCategoriesTotal.Range["A1"].Text = "VALUE ADDED";
+                //    pieAllCategoriesTotal.Range["B1"].Value = source;
+                //    //************************************
 
-            }
+                //}
 
-            destSheetAll.Range[allActivities.Count + 6, 1].Text = "SUB TOTAL VALUE ADDED";
-            destSheetAll.Range[allActivities.Count + 6, 1, allActivities.Count + 6, columnCount + 4].CellStyle = headerStyle;
+                //destSheetAll.Range[allActivities.Count + 6, 1].Text = "SUB TOTAL VALUE ADDED";
+                //destSheetAll.Range[allActivities.Count + 6, 1, allActivities.Count + 6, columnCount + 4].CellStyle = headerStyle;
         }
 
         private void BuildNonValueAddedRatedActivities()

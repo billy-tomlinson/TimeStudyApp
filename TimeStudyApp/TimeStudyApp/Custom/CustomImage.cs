@@ -1,7 +1,9 @@
-﻿using Xamarin.Forms;
+﻿using System.ComponentModel;
+using Xamarin.Forms;
 
 namespace TimeStudy.Custom
 {
+    [DesignTimeVisible(true)]
     public class CustomImage : Image
     {
         public static readonly BindableProperty OperatorIdProperty =  
