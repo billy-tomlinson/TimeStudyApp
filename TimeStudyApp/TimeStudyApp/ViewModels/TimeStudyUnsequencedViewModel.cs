@@ -41,7 +41,6 @@ namespace TimeStudy.ViewModels
         public double CurrentTicks { get; set; }
         public double LastSuccesstulLapTime { get; set; }
         public TimeSpan StartTime { get; set; }
-        public TimerService Timer;
 
 
         public BaseState ApplicationState { get; set; }
@@ -145,7 +144,6 @@ namespace TimeStudy.ViewModels
             ResetAllGlobalVariables();
 
             TimerService.Stop();
-
         }
 
         public void RunTimer()

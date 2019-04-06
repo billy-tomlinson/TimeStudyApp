@@ -5,7 +5,7 @@ using Xamarin.Forms;
 namespace TimeStudyApp.Services
 {
 
-    public class TimerService
+    public static class TimerService
     {
 
         private static CancellationTokenSource cancellation = new CancellationTokenSource();
