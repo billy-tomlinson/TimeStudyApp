@@ -232,7 +232,7 @@ namespace TimeStudyApp.UnitTests
                                        ActivityId = g.Key.ActivityId,
                                        Element = g.Key.Element,
                                        NumberOfObservations = g.Count(),
-                                       LapTimeTotal = g.Sum(a => a.IndividualLapTime)
+                                       LapTimeTotal = g.Sum(a => a.IndividualLapBMS)
 
                                    }).ToList();
 
@@ -289,7 +289,7 @@ namespace TimeStudyApp.UnitTests
                                        ActivityId = g.Key.ActivityId,
                                        Element = g.Key.Element,
                                        NumberOfObservations = g.Count(),
-                                       LapTimeTotal = g.Sum(a => a.IndividualLapTime)
+                                       LapTimeTotal = g.Sum(a => a.IndividualLapBMS)
 
                                    }).ToList();
 
@@ -328,7 +328,7 @@ namespace TimeStudyApp.UnitTests
                                        ActivityId = g.Key.ActivityId,
                                        Element = g.Key.Element,
                                        NumberOfObservations = g.Count(),
-                                       LapTimeTotal = g.Sum(a => a.IndividualLapTime)
+                                       LapTimeTotal = g.Sum(a => a.IndividualLapBMS)
 
                                    }).ToList();
 
@@ -341,6 +341,15 @@ namespace TimeStudyApp.UnitTests
 
                 totalCount = totalCount + 2;
             }
+
+            destSheetStudyDetails.Range["A2:J2"].CellStyle = headerStyle;
+            destSheetStudyDetails.Range[1, 1, 10000, 100].AutofitColumns();
+            destSheetStudyDetails.Range["C1:C10000"].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range["E1:E10000"].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range["G1:G10000"].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range["H1:H10000"].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range["I1:I10000"].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range["J1:J10000"].NumberFormat = "###0.000";
         }
 
         private void BuildNonValueAddedRatedActivities()
@@ -713,7 +722,7 @@ namespace TimeStudyApp.UnitTests
                         Element = lap.Element,
                         Rating = lap.Rating,
                         ElementId = lap.ActivityId,
-                        IndividualLapTimeNormalised = individualLapTimeNormalised
+                        IndividualLapTimeNormalised = lap.IndividualLapBMS
                      });
                 }
 
