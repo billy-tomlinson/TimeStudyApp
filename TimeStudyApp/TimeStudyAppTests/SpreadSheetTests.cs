@@ -304,11 +304,16 @@ namespace TimeStudyApp.UnitTests
                 destSheetStudyDetails.Range[10 + totalCount, 3].Number = item.LapTimeTotal;
                 destSheetStudyDetails.Range[10 + totalCount, 4].Number = item.NumberOfObservations;
                 destSheetStudyDetails.Range[10 + totalCount, 5].Number = bmsPerOccassion;
-                destSheetStudyDetails.Range[10 + totalCount, 6].Number = 1;
-                destSheetStudyDetails.Range[10 + totalCount, 7].Number = bmsPerOccassion;
+                //destSheetStudyDetails.Range[10 + totalCount, 6].Number = 1;
+                //destSheetStudyDetails.Range[10 + totalCount, 7].Number = bmsPerOccassion;
                 destSheetStudyDetails.Range[10 + totalCount, 8].Number = caAllowance;
                 destSheetStudyDetails.Range[10 + totalCount, 9].Number = raAllowance;
                 destSheetStudyDetails.Range[10 + totalCount, 10].Number = raAllowance;
+
+                var columnAddress1 = destSheetStudyDetails.Range[10 + totalCount, 5].AddressLocal;
+                var columnAddress2 = destSheetStudyDetails.Range[10 + totalCount, 6].AddressLocal;
+                var formula1 = $"={columnAddress1}/{columnAddress2}";
+                destSheetStudyDetails.Range[10 + totalCount, 7].Formula = formula1;
 
                 totalCount = totalCount + 2;
             }
