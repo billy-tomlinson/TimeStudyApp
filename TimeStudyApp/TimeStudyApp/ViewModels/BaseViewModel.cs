@@ -108,6 +108,17 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        bool finishStudyFromActivitiesClicked;
+        public bool FinishStudyFromActivitiesClicked
+        {
+            get { return finishStudyFromActivitiesClicked; }
+            set
+            {
+                finishStudyFromActivitiesClicked = value;
+                OnPropertyChanged();
+            }
+        }
+
 
         double opacity = 1;
         public double Opacity

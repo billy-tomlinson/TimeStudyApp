@@ -30,6 +30,8 @@ namespace TimeStudy.ViewModels
         public Command CloseActivitiesView { get; set; }
         public Command CloseRatingsView { get; set; }
         public Command ShowRatingView { get; set; }
+        public Command FinishStudyFromActivities { get; set; }
+        public new Command CloseView { get; set; } 
 
         private bool SaveButtonClicked;
         private bool IsRunning;
@@ -79,6 +81,8 @@ namespace TimeStudy.ViewModels
             CloseActivitiesView = new Command(CloseActivitiesViewEvent);
             CloseRatingsView = new Command(CloseRatingsViewEvent);
             ShowRatingView = new Command(ShowRatingViewEvent);
+            FinishStudyFromActivities = new Command(FinishStudyFromActivitiesEvent);
+            CloseView = new Command(CloseValidationView);
 
             ApplicationStateFactory = new StateFactory(this);
 
@@ -215,6 +219,14 @@ namespace TimeStudy.ViewModels
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.CloseActivitiesViewEvent();
 
+        }
+
+
+        public void FinishStudyFromActivitiesEvent()
+        {
+            FinishStudyFromActivitiesClicked = true;
+            CloseActivitiesViewEvent();
+            StopTimerEvent();
         }
 
         public void CloseRatingsViewEvent()
@@ -591,6 +603,23 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        public new void CloseValidationView()
+        {
+            if (!FinishStudyFromActivitiesClicked)
+            {
+                Opacity = 1;
+                IsInvalid = false;
+                IsPageEnabled = true;
+            }
+            else
+            {
+                FinishStudyFromActivitiesClicked = false;
+                IsForeignEnabled = false;
+                IsInvalid = false;
+                Opacity = 0.2;
+                ActivitiesVisible = true;
+            }
+        }
 
         static string stopWatchTime = "0.000";
         public string StopWatchTime
@@ -687,6 +716,19 @@ namespace TimeStudy.ViewModels
             set
             {
                 isCancelEnabled = value;
+                IsFinishStudyEnabled = !isCancelEnabled;
+                OnPropertyChanged();
+            }
+        }
+
+
+        static bool isFinishStudyEnabled;
+        public bool IsFinishStudyEnabled
+        {
+            get => isFinishStudyEnabled;
+            set
+            {
+                isFinishStudyEnabled = value;
                 OnPropertyChanged();
             }
         }

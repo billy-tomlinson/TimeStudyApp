@@ -42,7 +42,20 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void CloseActivitiesViewEvent()
         {
-            throw new NotImplementedException();
+            if (!viewModel.FinishStudyFromActivitiesClicked)
+            {
+                viewModel.Opacity = 1;
+                viewModel.IsInvalid = false;
+                viewModel.IsPageEnabled = true;
+            }
+            else
+            {
+                viewModel.FinishStudyFromActivitiesClicked = false;
+                viewModel.IsForeignEnabled = false;
+                viewModel.IsInvalid = false;
+                viewModel.Opacity = 0.2;
+                viewModel.ActivitiesVisible = true;
+            }
         }
 
         public override void ElementSelectedEvent()
