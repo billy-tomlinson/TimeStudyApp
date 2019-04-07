@@ -307,7 +307,16 @@ namespace TimeStudy.ViewModels
             StateService.SaveApplicationState(CurrentApplicationState);
 
             if (SaveButtonClicked)
+            {
+                var studyVersion = StudyHistoryVersionRepo.GetItems()
+                            .FirstOrDefault(x => x.StudyId == Utilities.StudyId && x.Id == Utilities.StudyVersion);
+                studyVersion.TimeStudyStarted = Utilities.TimeStudyStarted;
+                studyVersion.TimeStudyFinished = DateTime.Now;
+
+                StudyHistoryVersionRepo.SaveItem(studyVersion);
                 Utilities.Navigate(new ReportsPage());
+            }
+                
         }
 
         private void ResetAllGlobalVariables()

@@ -15,6 +15,10 @@ namespace TimeStudyApp.Model
 
         public TimeSpan Time { get; set; }
 
+        public DateTime TimeStudyStarted { get; set; }
+
+        public DateTime TimeStudyFinished { get; set; }
+
         [Ignore]
         public string DateTimeFormatted
         {

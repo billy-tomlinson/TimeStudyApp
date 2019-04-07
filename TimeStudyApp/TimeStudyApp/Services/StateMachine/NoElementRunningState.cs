@@ -1,4 +1,6 @@
-﻿using TimeStudy.ViewModels;
+﻿using System;
+using TimeStudy.Services;
+using TimeStudy.ViewModels;
 
 namespace TimeStudyApp.Services.StateMachine
 {
@@ -20,6 +22,7 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ElementSelectedEvent()
         {
+            Utilities.TimeStudyStarted = DateTime.Now;
             viewModel.StartTimerEvent();
             viewModel.IsForeignEnabled = true;
 
