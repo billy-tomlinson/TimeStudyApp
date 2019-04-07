@@ -50,6 +50,7 @@ namespace TimeStudyApp.UnitTests
         IStyle totalsStyle;
         IStyle detailsStyle;
         IStyle summaryStyle;
+        IStyle frequencyStyle;
 
         string valueAddedRatedActivitiesRange;
         string nonValueAddedRatedActivitiesRange;
@@ -147,6 +148,17 @@ namespace TimeStudyApp.UnitTests
                 detailsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
                 detailsStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
                 detailsStyle.EndUpdate();
+
+
+                frequencyStyle = workbook.Styles.Add("FrequencyStyle");
+                frequencyStyle.BeginUpdate();
+                frequencyStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
+                frequencyStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                frequencyStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                frequencyStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                frequencyStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                frequencyStyle.HorizontalAlignment = ExcelHAlign.HAlignRight;
+                frequencyStyle.EndUpdate();
 
                 BuildStudyDetails();
                 CreateAllLapTimesSheet();
@@ -304,16 +316,20 @@ namespace TimeStudyApp.UnitTests
                 destSheetStudyDetails.Range[10 + totalCount, 3].Number = item.LapTimeTotal;
                 destSheetStudyDetails.Range[10 + totalCount, 4].Number = item.NumberOfObservations;
                 destSheetStudyDetails.Range[10 + totalCount, 5].Number = bmsPerOccassion;
-                //destSheetStudyDetails.Range[10 + totalCount, 6].Number = 1;
-                //destSheetStudyDetails.Range[10 + totalCount, 7].Number = bmsPerOccassion;
-                destSheetStudyDetails.Range[10 + totalCount, 8].Number = caAllowance;
-                destSheetStudyDetails.Range[10 + totalCount, 9].Number = raAllowance;
-                destSheetStudyDetails.Range[10 + totalCount, 10].Number = raAllowance;
+                destSheetStudyDetails.Range[10 + totalCount, 6].CellStyle = frequencyStyle;
 
                 var columnAddress1 = destSheetStudyDetails.Range[10 + totalCount, 5].AddressLocal;
                 var columnAddress2 = destSheetStudyDetails.Range[10 + totalCount, 6].AddressLocal;
+                var columnAddress3 = destSheetStudyDetails.Range[10 + totalCount, 8].AddressLocal;
+
                 var formula1 = $"={columnAddress1}/{columnAddress2}";
+                var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}/{columnAddress2}";
+                var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
+
                 destSheetStudyDetails.Range[10 + totalCount, 7].Formula = formula1;
+                destSheetStudyDetails.Range[10 + totalCount, 8].Formula = formula2; //caAllowance;
+                destSheetStudyDetails.Range[10 + totalCount, 9].Formula = formula3;  //raAllowance;
+                destSheetStudyDetails.Range[10 + totalCount, 10].Formula = formula3;  //raAllowance;
 
                 totalCount = totalCount + 2;
             }
@@ -346,6 +362,13 @@ namespace TimeStudyApp.UnitTests
 
                 totalCount = totalCount + 2;
             }
+
+            destSheetStudyDetails.Range[12 + totalCount, 9].Text = "Total SMS";
+            var formula4 = $"=SUM(J3:J{totalCount + 5})";
+            destSheetStudyDetails.Range[$"J{totalCount + 12}"].Formula = formula4;
+            destSheetStudyDetails.Range[$"J{totalCount + 12}"].CellStyle = frequencyStyle;
+            destSheetStudyDetails.Range[12 + totalCount, 9].CellStyle = frequencyStyle;
+
 
             destSheetStudyDetails.Range["A2:J2"].CellStyle = headerStyle;
             destSheetStudyDetails.Range[1, 1, 10000, 100].AutofitColumns();
