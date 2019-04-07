@@ -35,6 +35,15 @@ namespace TimeStudy.Model
 
         public double IndividualLapTime { get; set; }
 
+        [Ignore]
+        public double IndividualLapBMS 
+        {
+            get
+            {
+                return Rating != null && Rating != 0 ? IndividualLapTime * (int)Rating / 100 : IndividualLapTime;
+            }
+        }
+
         public int Cycle { get; set; }
 
         public int? Sequence { get; set; }
