@@ -342,6 +342,7 @@ namespace TimeStudy.ViewModels
                 LapTimeRepo.SaveItem(current);
             }
 
+            IsCancelEnabled = false;
             ApplicationState = ApplicationStateFactory.GetCurrentState();
             ApplicationState.RatingSelectedEvent();
         }

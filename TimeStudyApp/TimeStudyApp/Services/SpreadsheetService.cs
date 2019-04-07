@@ -883,8 +883,8 @@ namespace TimeStudy.Services
                 data.Add(new SpreadSheetLapTime()
                 {
                     StudyId = Utilities.StudyId,
-                    TotalElapsedTime = lap.TotalElapsedTime,
-                    IndividualLapTimeFormatted = lap.IndividualLapTimeFormatted,
+                    TotalElapsedTime = lap.TotalElapsedTimeDouble,
+                    IndividualLapTime = lap.IndividualLapTime,
                     IsForeignElement = lap.IsForeignElement,
                     Element = lap.Element,
                     Rating = lap.Rating,

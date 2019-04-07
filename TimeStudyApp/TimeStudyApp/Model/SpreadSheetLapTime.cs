@@ -10,13 +10,15 @@ namespace TimeStudyApp.Model
 
         public string Element { get; set; }
 
-        public string TotalElapsedTime { get; set; }
+        public double TotalElapsedTime { get; set; }
 
-        public string IndividualLapTimeFormatted { get; set; }
+        public double IndividualLapTime { get; set; }
 
         public bool IsForeignElement { get; set; }
 
         public int? Rating { get; set; }
+
+        public double IndividualLapTimeNormalised { get; set; }
 
     }
 }

@@ -24,18 +24,14 @@ namespace TimeStudyApp.UnitTests
         private readonly IBaseRepository<Operator> operatorRepo;
         private readonly IBaseRepository<Observation> observationRepo;
         private readonly IBaseRepository<LapTime> lapTimeRepo;
-        //private readonly IBaseRepository<AlarmDetails> alarmRepo;
 
         List<Operator> operators;
         ActivitySampleStudy sample;
-        //AlarmDetails alarm;
         List<Activity> allStudyActivities;
-        //List<Observation> totalObs;
         List<LapTime> totalLapTimes;
         List<List<ObservationSummary>> allTotals;
 
         double timePerObservation;
-        double totalTimeMinutes;
         int IntervalTime;
 
         IWorkbook workbook;
@@ -70,31 +66,22 @@ namespace TimeStudyApp.UnitTests
 
             BaseViewModel model = new BaseViewModel(connString);
             Utilities.StudyId = 28;
-            Utilities.StudyVersion = 104;
+            Utilities.StudyVersion = 110;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
             observationRepo = new BaseRepository<Observation>(connString);
             lapTimeRepo = new BaseRepository<LapTime>(connString);
-            //alarmRepo = new BaseRepository<AlarmDetails>(connString);
+
             BaseViewModel modelA = new BaseViewModel(connString);
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
-            //alarm = alarmRepo.GetItem(Utilities.StudyId);
+
             IntervalTime = 0; //alarm.Interval / 60;
             allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
-            //totalObs = observationRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             totalLapTimes = lapTimeRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             var totalCount = totalLapTimes.Count();
-            //var firstOb = totalObs.Min(y => y.Date);
-            //var lastOb = totalObs.Max(y => y.Date);
-
-            //var firstOb = totalLapTimes.Min(y => y.TotalElapsedTimeDouble);
-            //var lastOb = totalLapTimes.Max(y => y.TotalElapsedTimeDouble);
-            ////totalTimeMinutes = lastOb.Subtract(firstOb).TotalMinutes;
-            //totalTimeMinutes = lastOb - firstOb;
-            //timePerObservation = Math.Round(totalTimeMinutes / totalCount, 2);
         }
 
         [TestMethod]
@@ -164,18 +151,6 @@ namespace TimeStudyApp.UnitTests
                 BuildStudyDetails();
                 CreateAllLapTimesSheet();
                 BuildValueAddedRatedActivities();
-                //destSheetAll = workbook.Worksheets.Create("Summary");
-
-                //pieAllCategoriesTotal = workbook.Worksheets.Create("Totals Chart");
-                //pieAllCategoriesIndividual = workbook.Worksheets.Create("Activities Chart");
-                //pieAllNonValueAddedIndividual = workbook.Worksheets.Create("Non Value Added Chart");
-
-                //BuildValueAddedRatedActivities();
-                //BuildNonValueAddedRatedActivities();
-                //BuildUnRatedActivities();
-                //Build_ValueAdded_NonValueAdded_Ineffective_PieChart();
-                //Build_All_Activities_PieChart();
-                //SampleForTesting();
 
                 workbook.Worksheets[0].Remove();
 
@@ -245,7 +220,8 @@ namespace TimeStudyApp.UnitTests
             //get all standard rated non forerign laps
             var allLapTimes = lapTimeRepo.GetItems()
                 .Where(x => x.StudyId == Utilities.StudyId 
-                && x.Version == Utilities.StudyVersion 
+                && x.Version == Utilities.StudyVersion
+                && x.Status == RunningStatus.Completed
                 && x.IsRated
                 && !x.IsForeignElement).ToList();
 
@@ -298,13 +274,12 @@ namespace TimeStudyApp.UnitTests
                 totalCount = totalCount + 2;
             }
 
-
             destSheetStudyDetails.Range[8 + totalCount, 1].Text = "Occassional Elements";
-
 
             allLapTimes = lapTimeRepo.GetItems()
                .Where(x => x.StudyId == Utilities.StudyId
                && x.Version == Utilities.StudyVersion
+               && x.Status == RunningStatus.Completed
                && x.IsRated
                && x.IsForeignElement).ToList();
 
@@ -343,6 +318,7 @@ namespace TimeStudyApp.UnitTests
             allLapTimes = lapTimeRepo.GetItems()
                 .Where(x => x.StudyId == Utilities.StudyId
                 && x.Version == Utilities.StudyVersion
+                && x.Status == RunningStatus.Completed
                 && !x.IsRated
                 && !x.IsForeignElement).ToList();
 
@@ -358,17 +334,13 @@ namespace TimeStudyApp.UnitTests
 
             foreach (var item in summary)
             {
-
-
                 destSheetStudyDetails.Range[12 + totalCount, 1].Number = item.ActivityId;
                 destSheetStudyDetails.Range[12 + totalCount, 2].Text = item.Element;
                 destSheetStudyDetails.Range[12 + totalCount, 3].Number = item.LapTimeTotal;
                 destSheetStudyDetails.Range[12 + totalCount, 4].Number = item.NumberOfObservations;
-         
 
                 totalCount = totalCount + 2;
             }
-
         }
 
         private void BuildNonValueAddedRatedActivities()
@@ -393,9 +365,6 @@ namespace TimeStudyApp.UnitTests
                 var summary = obs.GroupBy(a => new { a.Id, a.Element, a.Rating })
                    .Select(g => new ObservationSummary
                    {
-                       //ActivityName = g.Key.ActivityName,
-                       //NumberOfObservations = g.Count(),
-                       //TotalRating = g.Sum(a => a.Rating)
                        ActivityName = g.Key.Element,
                        NumberOfObservations = g.Count(),
                        TotalRating = g.Sum(a => (int)a.Rating)
@@ -721,22 +690,31 @@ namespace TimeStudyApp.UnitTests
         private void CreateAllLapTimesSheet()
         {
                 var data = new List<SpreadSheetLapTime>();
-                var obs = totalLapTimes.Where(x => x.StudyId == Utilities.StudyId 
-                            && x.Version == Utilities.StudyVersion)
+                var obs = totalLapTimes
+                            .Where(x => x.StudyId == Utilities.StudyId 
+                            && x.Version == Utilities.StudyVersion
+                            && x.Status == RunningStatus.Completed)
                             .OrderBy(x => x.TotalElapsedTimeDouble).ToList();
                 var totalLaptimes = obs.Count();
                 foreach (var lap in obs)
                 {
+                    double individualLapTimeNormalised = 0;
+                    if (lap.Rating != null && lap.Rating != 0)
+                        individualLapTimeNormalised = lap.IndividualLapTime * (int)lap.Rating / 100;
+                    else
+                    individualLapTimeNormalised = lap.IndividualLapTime;
+
                     data.Add(new SpreadSheetLapTime()
                     {
                         StudyId = Utilities.StudyId,
-                        TotalElapsedTime = lap.TotalElapsedTime,
-                        IndividualLapTimeFormatted = lap.IndividualLapTimeFormatted,
+                        TotalElapsedTime = lap.TotalElapsedTimeDouble,
+                        IndividualLapTime = lap.IndividualLapTime,
                         IsForeignElement = lap.IsForeignElement,
                         Element = lap.Element,
                         Rating = lap.Rating,
-                        ElementId = lap.ActivityId
-                    });
+                        ElementId = lap.ActivityId,
+                        IndividualLapTimeNormalised = individualLapTimeNormalised
+                     });
                 }
 
                 var destSheet = workbook.Worksheets.Create("Complete Study Details");
@@ -748,67 +726,22 @@ namespace TimeStudyApp.UnitTests
                 destSheet.Range["E1"].Text = "Lap Time";
                 destSheet.Range["F1"].Text = "Foreign Element";
                 destSheet.Range["G1"].Text = "Rating";
+                destSheet.Range["H1"].Text = "Normalised Lap Time";
 
                 destSheet.ImportData(data, 3, 1, false);
 
-                destSheet.Range["A1:G1"].CellStyle = headerStyle;
-                destSheet.Range[1, 1, 1000, 6].AutofitColumns();
+                destSheet.Range["A1:H1"].CellStyle = headerStyle;
+                destSheet.Range[1, 1, 1000, 10].AutofitColumns();
+                destSheet.Range["D1:D10000"].NumberFormat = "###0.000";
+                destSheet.Range["E1:E10000"].NumberFormat = "###0.000";
+                destSheet.Range["H1:H10000"].NumberFormat = "###0.000";
 
-                //var summary = obs.GroupBy(a => new { a.ActivityId, a.ActivityName })
-                    //.Select(g => new ObservationSummary
-                    //{
-                    //    ActivityName = g.Key.ActivityName,
-                    //    NumberOfObservations = g.Count(),
-                    //    TotalRating = g.Sum(a => a.Rating)
-
-                    //}).ToList();
-
-
-                //var summary = obs.GroupBy(a => new { a.Id, a.Element })
-                //.Select(g => new ObservationSummary
-                //{
-                //    ActivityName = g.Key.Element,
-                //    NumberOfObservations = g.Count(),
-                //    TotalRating = g.Sum(a => (int)a.Rating)
-
-                //}).ToList();
-
-                //int counter = 1;
-                //foreach (var item in summary)
-                //{
-                //    if (item.TotalRating > 0)
-                //    {
-                //        var totalMinutes = IntervalTime * item.NumberOfObservations;
-                //        var averageRating = (double)item.TotalRating / item.NumberOfObservations;
-
-                //        destSheet.Range["I1:I1"].Text = "Summary";
-
-                //        destSheet.Range[counter + 1, 8].Text = item.ActivityName;
-                //        destSheet.Range[counter + 2, 8].Text = "Total Rating";
-                //        destSheet.Range[counter + 2, 9].Text = "Total Obs";
-                //        destSheet.Range[counter + 2, 10].Text = "Average Rating";
-                //        destSheet.Range[counter + 3, 8].Number = item.TotalRating;
-                //        destSheet.Range[counter + 3, 9].Number = item.NumberOfObservations;
-                //        destSheet.Range[counter + 3, 10].Number = averageRating;
-
-                //        destSheet.Range[counter + 1, 8, counter + 3, 10].CellStyle = summaryStyle;
-                //        destSheet.Range[counter + 1, 8].CellStyle = titleStyle;
-                //        destSheet.Range["H1:J1"].CellStyle = headerStyle;
-                //        destSheet.Range[counter + 2, 8, counter + 2, 10].CellStyle = totalsStyle;
-                //        destSheet.Range[counter + 3, 10].NumberFormat = "00.0#";
-
-                //        counter = counter + 4;
-                //    }
-
-                //    destSheet.Range[1, 7, counter, 11].AutofitColumns();
-
-                //    var totalPercentage = Math.Round((double)item.NumberOfObservations / totalLaptimes * 100, 2);
-                //    item.Percentage = totalPercentage;
-                //    item.TotalTime = item.NumberOfObservations * timePerObservation;
-                //    //item.OperatorName = op.Name;
-                //}
-
-                //allTotals.Add(summary);
+                var formula4 = $"=SUM(D3:D{totalLaptimes + 3})";
+                var formula5 = $"=SUM(E3:E{totalLaptimes + 3})";
+                var formula6 = $"=SUM(H3:H{totalLaptimes + 3})";
+                
+                destSheet.Range[$"E{totalLaptimes + 4}"].Formula = formula5;
+                destSheet.Range[$"H{totalLaptimes + 4}"].Formula = formula6;
         }
 
     }
