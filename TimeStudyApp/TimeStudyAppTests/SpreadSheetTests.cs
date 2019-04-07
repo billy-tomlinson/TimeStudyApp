@@ -66,7 +66,7 @@ namespace TimeStudyApp.UnitTests
 
             BaseViewModel model = new BaseViewModel(connString);
             Utilities.StudyId = 28;
-            Utilities.StudyVersion = 110;
+            Utilities.StudyVersion = 123;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
