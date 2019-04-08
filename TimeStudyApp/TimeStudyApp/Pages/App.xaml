@@ -89,7 +89,7 @@
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="Font" Value="{StaticResource StopWatchButtonFont}" />
-                <Setter Property="Padding" Value="3,12,3,12" />
+                <Setter Property="Padding" Value="3,10,3,10" />
                 <Setter Property="MinimumHeightRequest" Value="70" />
                 <Setter Property="Margin" Value="3" />
             </Style>
