@@ -18,16 +18,16 @@
                             </RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2.5*">
+                            <ColumnDefinition Width="2.3*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="5*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="2.5*">
+                            <ColumnDefinition Width="2.7*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Text="         " HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
-                        <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Text="{Binding StopWatchTime}" FontSize="45" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
-                        <Button Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" HeightRequest="20" IsEnabled="{Binding IsForeignEnabled}"/>
+                        <Label Grid.Row="0" Grid.Column="1"  Text="{Binding StopWatchTime}" Font="{StaticResource StopWatchFont}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+                        <Button Grid.Row="0" Grid.Column="2" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" IsEnabled="{Binding IsForeignEnabled}"/>
                     </Grid>
                 </StackLayout>
                 <StackLayout Padding="5,2,5,0" BackgroundColor="White">
@@ -59,7 +59,7 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
-                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" HeightRequest="430" IsEnabled="true">
+                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" HeightRequest="410" IsEnabled="true">
                         <x:Arguments>
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
@@ -142,12 +142,9 @@
                             </ColumnDefinition>
                             <ColumnDefinition Width="*">
                             </ColumnDefinition>
-                            <!--<ColumnDefinition Width="*">
-                            </ColumnDefinition>-->
                         </Grid.ColumnDefinitions>
                         <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LapButtonText}" Command="{Binding ShowStandardElements}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
                         <Button Grid.Row="0" Grid.Column="2" Text=" Finish " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />
-                        <!--<Button Grid.Row="0" Grid.Column="3" Text=" Reset " Command="{Binding ClearLaps}" IsEnabled="{Binding IsClearEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" />-->
                     </Grid>
                 </StackLayout>
             </StackLayout>

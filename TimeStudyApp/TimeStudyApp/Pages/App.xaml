@@ -7,6 +7,10 @@
                 <On Platform="Android" Value="Roboto-Light" />
                 <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
             </OnPlatform>
+            <OnPlatform x:TypeArguments="Font" Android="50" iOS="40" x:Key="RatingFontSize" />
+            <OnPlatform x:TypeArguments="Font" Android="30" iOS="45" x:Key="StopWatchFont" />
+            <OnPlatform x:TypeArguments="Font" Android="18" iOS="18" x:Key="StopWatchButtonFont" />
+
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
                 <Setter Property="BackgroundColor" Value="#4174f4" />
                 <Setter Property="Padding" Value="5" />
@@ -66,13 +70,13 @@
                 <Setter Property="BorderRadius" Value="0" />
                 <Setter Property="FontSize" Value="25" />
             </Style>
-             <Style x:Key="ratingButton" TargetType="Button">
+            <Style x:Key="ratingButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#eee" />
                 <Setter Property="TextColor" Value="#605F5F" />
                 <Setter Property="HeightRequest" Value="60" />
                 <Setter Property="MinimumHeightRequest" Value="60" />
                 <Setter Property="BorderRadius" Value="0" />
-                <Setter Property="FontSize" Value="40" />
+                <Setter Property="Font" Value="{StaticResource RatingFontSize}" />
             </Style>
             <Style x:Key="popUpButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="#4174f4" />
@@ -84,8 +88,8 @@
             <Style x:Key="stopWatchButton" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="TextColor" Value="Black" />
-                <Setter Property="FontSize" Value="18" />
-                <Setter Property="Padding" Value="0,15,0,15" />
+                <Setter Property="Font" Value="{StaticResource StopWatchButtonFont}" />
+                <Setter Property="Padding" Value="3,12,3,12" />
                 <Setter Property="MinimumHeightRequest" Value="70" />
                 <Setter Property="Margin" Value="3" />
             </Style>
