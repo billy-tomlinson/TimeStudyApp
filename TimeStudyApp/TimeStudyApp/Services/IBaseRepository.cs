@@ -33,5 +33,7 @@ namespace TimeStudy.Services
         void DropTable();
 
         void DeleteAllItems();
+
+        void ExecuteSQLCommand(string sqlCommand);
     }
 }

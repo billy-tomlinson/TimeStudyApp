@@ -16,8 +16,8 @@ namespace TimeStudyApp.UnitTests
     [TestClass]
     public class SpreadSheetTests
     {
-        private const string connString = "/Users/billytomlinson/TimeStudyNew.db3";
-        //private const string connString = "TimeStudyNew.db3";
+        //private const string connString = "/Users/billytomlinson/TimeStudyNew.db3";
+        private const string connString = "TimeStudyDBNew.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
@@ -25,6 +25,7 @@ namespace TimeStudyApp.UnitTests
         private readonly IBaseRepository<Observation> observationRepo;
         private readonly IBaseRepository<LapTime> lapTimeRepo;
         private readonly IBaseRepository<StudyHistoryVersion> studyVersionRepo;
+        private readonly IBaseRepository<LapTimeHistoric> lapTimeHistoricRepo;
 
         List<Operator> operators;
         ActivitySampleStudy sample;
@@ -76,6 +77,7 @@ namespace TimeStudyApp.UnitTests
             observationRepo = new BaseRepository<Observation>(connString);
             lapTimeRepo = new BaseRepository<LapTime>(connString);
             studyVersionRepo = new BaseRepository<StudyHistoryVersion>(connString);
+            lapTimeHistoricRepo = new BaseRepository<LapTimeHistoric>(connString);
 
             BaseViewModel modelA = new BaseViewModel(connString);
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
@@ -274,16 +276,16 @@ namespace TimeStudyApp.UnitTests
 
             //get all standard rated non forerign laps
             var allLapTimes = lapTimeRepo.GetItems()
-                .Where(x => x.StudyId == Utilities.StudyId 
+                .Where(x => x.StudyId == Utilities.StudyId
                 && x.Version == Utilities.StudyVersion
                 && x.Status == RunningStatus.Completed
                 && x.IsRated
                 && !x.IsForeignElement).ToList();
 
 
-            var summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element})
+            var summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
                                    .Select(g => new LapTimeSummary
-                                   {    
+                                   {
                                        ActivityId = g.Key.ActivityId,
                                        Element = g.Key.Element,
                                        NumberOfObservations = g.Count(),
@@ -425,61 +427,71 @@ namespace TimeStudyApp.UnitTests
 
         private void CreateAllLapTimesSheet()
         {
-                var data = new List<SpreadSheetLapTime>();
-                var obs = totalLapTimes
-                            .Where(x => x.StudyId == Utilities.StudyId 
-                            && x.Version == Utilities.StudyVersion
-                            && x.Status == RunningStatus.Completed)
-                            .OrderBy(x => x.TotalElapsedTimeDouble).ToList();
+            var data = new List<SpreadSheetLapTime>();
+            var obs = totalLapTimes
+                        .Where(x => x.StudyId == Utilities.StudyId
+                        && x.Version == Utilities.StudyVersion
+                        && x.Status == RunningStatus.Completed)
+                        .OrderBy(x => x.TotalElapsedTimeDouble).ToList();
 
-                var totalLaptimes = obs.Count();
-                foreach (var lap in obs)
-                {
-                    double individualLapTimeNormalised = 0;
-                    if (lap.Rating != null && lap.Rating != 0)
-                        individualLapTimeNormalised = lap.IndividualLapTime * (int)lap.Rating / 100;
-                    else
+            var totalLaptimes = obs.Count();
+            foreach (var lap in obs)
+            {
+                double individualLapTimeNormalised = 0;
+                if (lap.Rating != null && lap.Rating != 0)
+                    individualLapTimeNormalised = lap.IndividualLapTime * (int)lap.Rating / 100;
+                else
                     individualLapTimeNormalised = lap.IndividualLapTime;
 
-                    data.Add(new SpreadSheetLapTime()
-                    {
-                        StudyId = Utilities.StudyId,
-                        TotalElapsedTime = lap.TotalElapsedTimeDouble,
-                        IndividualLapTime = lap.IndividualLapTime,
-                        IsForeignElement = lap.IsForeignElement,
-                        Element = lap.Element,
-                        Rating = lap.Rating,
-                        ElementId = lap.ActivityId,
-                        IndividualLapTimeNormalised = lap.IndividualLapBMS
-                     });
-                }
+                data.Add(new SpreadSheetLapTime()
+                {
+                    StudyId = Utilities.StudyId,
+                    TotalElapsedTime = lap.TotalElapsedTimeDouble,
+                    IndividualLapTime = lap.IndividualLapTime,
+                    IsForeignElement = lap.IsForeignElement,
+                    Element = lap.Element,
+                    Rating = lap.Rating,
+                    ElementId = lap.ActivityId,
+                    IndividualLapTimeNormalised = lap.IndividualLapBMS
+                });
+            }
 
-                var destSheet = workbook.Worksheets.Create("Complete Study Details");
-                //destSheet.Range[1, 1, 200, 1000].CellStyle = worksheetStyle;
+            var destSheet = workbook.Worksheets.Create("Complete Study Details");
+            //destSheet.Range[1, 1, 200, 1000].CellStyle = worksheetStyle;
 
-                destSheet.Range["A1"].Text = "Study";
-                destSheet.Range["B1"].Text = "Element ID";
-                destSheet.Range["C1"].Text = "Element";
-                destSheet.Range["D1"].Text = "Elapsed Time";
-                destSheet.Range["E1"].Text = "Lap Time";
-                destSheet.Range["F1"].Text = "Foreign Element";
-                destSheet.Range["G1"].Text = "Rating";
-                destSheet.Range["H1"].Text = "Normalised Lap Time";
+            destSheet.Range["A1"].Text = "Study";
+            destSheet.Range["B1"].Text = "Element ID";
+            destSheet.Range["C1"].Text = "Element";
+            destSheet.Range["D1"].Text = "Elapsed Time";
+            destSheet.Range["E1"].Text = "Lap Time";
+            destSheet.Range["F1"].Text = "Foreign Element";
+            destSheet.Range["G1"].Text = "Rating";
+            destSheet.Range["H1"].Text = "Normalised Lap Time";
 
-                destSheet.ImportData(data, 3, 1, false);
+            destSheet.ImportData(data, 3, 1, false);
 
-                destSheet.Range["A1:H1"].CellStyle = headerStyle;
-                destSheet.Range[1, 1, 1000, 10].AutofitColumns();
-                destSheet.Range["D1:D10000"].NumberFormat = "###0.000";
-                destSheet.Range["E1:E10000"].NumberFormat = "###0.000";
-                destSheet.Range["H1:H10000"].NumberFormat = "###0.000";
+            destSheet.Range["A1:H1"].CellStyle = headerStyle;
+            destSheet.Range[1, 1, 1000, 10].AutofitColumns();
+            destSheet.Range["D1:D10000"].NumberFormat = "###0.000";
+            destSheet.Range["E1:E10000"].NumberFormat = "###0.000";
+            destSheet.Range["H1:H10000"].NumberFormat = "###0.000";
 
-                var formula4 = $"=SUM(D3:D{totalLaptimes + 3})";
-                var formula5 = $"=SUM(E3:E{totalLaptimes + 3})";
-                var formula6 = $"=SUM(H3:H{totalLaptimes + 3})";
-                
-                destSheet.Range[$"E{totalLaptimes + 4}"].Formula = formula5;
-                destSheet.Range[$"H{totalLaptimes + 4}"].Formula = formula6;
+            var formula4 = $"=SUM(D3:D{totalLaptimes + 3})";
+            var formula5 = $"=SUM(E3:E{totalLaptimes + 3})";
+            var formula6 = $"=SUM(H3:H{totalLaptimes + 3})";
+
+            destSheet.Range[$"E{totalLaptimes + 4}"].Formula = formula5;
+            destSheet.Range[$"H{totalLaptimes + 4}"].Formula = formula6;
+        }
+
+        [TestMethod]
+        public void Move_LapTimes_To_Historic()
+        {
+
+            var sqlCommand = "INSERT INTO LapTimeHistoric SELECT * FROM LapTime";
+            lapTimeHistoricRepo.ExecuteSQLCommand(sqlCommand);
+            sqlCommand = "DELETE FROM LapTime";
+            lapTimeRepo.ExecuteSQLCommand(sqlCommand);
         }
 
     }

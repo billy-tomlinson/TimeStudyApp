@@ -39,6 +39,8 @@ namespace TimeStudy.ViewModels
 
         public IBaseRepository<LapTime> LapTimeRepo => new BaseRepository<LapTime>(conn);
 
+        public IBaseRepository<LapTimeHistoric> LapTimeHistoricRepo => new BaseRepository<LapTimeHistoric>(conn);
+
         public IBaseRepository<State> StateRepo => new BaseRepository<State>(conn);
 
         public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
@@ -494,6 +496,16 @@ namespace TimeStudy.ViewModels
             return LapTimeRepo.GetItems().Max(x => x.Version);
         }
 
+
+        public int Copy_LapTimes_Into_LapTimesHistoric()
+        {
+            var lastVersion = LapTimeRepo.GetItems().ToList();
+            if (lastVersion.Count == 0)
+                return 0;
+
+            return LapTimeRepo.GetItems().Max(x => x.Version);
+        }
+
         public ObservableCollection<ActivityName> Get_All_ActivityNames()
         {
             return new ObservableCollection<ActivityName>(ActivityNameRepo.GetItems());
@@ -537,6 +549,7 @@ namespace TimeStudy.ViewModels
             SampleRepo.CreateTable();
             ObservationRoundStatusRepo.CreateTable();
             StudyHistoryVersionRepo.CreateTable();
+            LapTimeHistoricRepo.CreateTable();
         }
 
         public void CloseValidationView()
