@@ -14,31 +14,21 @@ namespace TimeStudy.Services
     {
         private  IBaseRepository<ActivitySampleStudy> sampleRepo;
         private  IBaseRepository<Activity> activityRepo;
-        private  IBaseRepository<Operator> operatorRepo;
         private  IBaseRepository<Observation> observationRepo;
         private  IBaseRepository<LapTimeHistoric> lapTimeRepo;
         private  IBaseRepository<StudyHistoryVersion> studyVersionRepo;
 
-        List<Operator> operators;
         ActivitySampleStudy sample;
         List<Activity> allStudyActivities;
         List<LapTimeHistoric> totalLapTimes;
-        List<List<ObservationSummary>> allTotals;
 
         double timePerObservation;
         double totalTimeMinutes;
-        int IntervalTime;
 
         IWorkbook workbook;
-        IWorksheet destSheetAll;
-        IWorksheet pieAllCategoriesTotal;
-        IWorksheet pieAllCategoriesIndividual;
-        IWorksheet pieAllNonValueAddedIndividual;
+  
 
         int startRowIndex;
-        int valueAddedActivitiesTotalRowIndex;
-        int nonValueAddedActivitiesTotalRowIndex;
-        int unRatedActivitiesTotalRowIndex;
 
         IStyle headerStyle;
         IStyle titleStyle;
@@ -48,30 +38,17 @@ namespace TimeStudy.Services
         IStyle frequencyStyle;
         IStyle worksheetStyle;
 
-        string valueAddedRatedActivitiesRange;
-        string nonValueAddedRatedActivitiesRange;
-        string unRatedActivitiesRange;
-        string valueAddedRatedActivitiesTotal;
-        string nonValueAddedRatedActivitiesTotal;
-        string unRatedActivitiesTotal;
-        int totalsColumn;
-
-        string unratedTotals;
-
         public SpreadSheet CreateExcelWorkBook()
         {
             sampleRepo = new BaseRepository<ActivitySampleStudy>(Utilities.Connection);
             activityRepo = new BaseRepository<Activity>(Utilities.Connection);
-            operatorRepo = new BaseRepository<Operator>(Utilities.Connection);
             observationRepo = new BaseRepository<Observation>(Utilities.Connection);
             lapTimeRepo = new BaseRepository<LapTimeHistoric>(Utilities.Connection);
             studyVersionRepo = new BaseRepository<StudyHistoryVersion> (Utilities.Connection);
 
             BaseViewModel modelA = new BaseViewModel(Utilities.Connection);
-            operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
 
-            IntervalTime = 0; //alarm.Interval / 60;
             allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalLapTimes = lapTimeRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
