@@ -26,6 +26,8 @@ namespace TimeStudy.ViewModels
             IsEnabled = false;
             Opacity = 0.2;
 
+            Utilities.MoveLapsToHistoryTable();
+
             try 
             {
                 Task emailTask = Task.Run(() =>

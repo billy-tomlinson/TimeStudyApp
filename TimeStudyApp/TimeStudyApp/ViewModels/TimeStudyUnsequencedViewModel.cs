@@ -148,6 +148,8 @@ namespace TimeStudy.ViewModels
             ResetAllGlobalVariables();
 
             TimerService.Stop();
+
+            Utilities.MoveLapsToHistoryTable();
         }
 
         public void RunTimer()
@@ -220,7 +222,6 @@ namespace TimeStudy.ViewModels
             ApplicationState.CloseActivitiesViewEvent();
 
         }
-
 
         public void FinishStudyFromActivitiesEvent()
         {

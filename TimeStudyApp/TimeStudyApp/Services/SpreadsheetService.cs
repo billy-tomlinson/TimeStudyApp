@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Syncfusion.XlsIO;
 using TimeStudy.Model;
 using TimeStudy.ViewModels;
@@ -17,13 +16,13 @@ namespace TimeStudy.Services
         private  IBaseRepository<Activity> activityRepo;
         private  IBaseRepository<Operator> operatorRepo;
         private  IBaseRepository<Observation> observationRepo;
-        private  IBaseRepository<LapTime> lapTimeRepo;
+        private  IBaseRepository<LapTimeHistoric> lapTimeRepo;
         private  IBaseRepository<StudyHistoryVersion> studyVersionRepo;
 
         List<Operator> operators;
         ActivitySampleStudy sample;
         List<Activity> allStudyActivities;
-        List<LapTime> totalLapTimes;
+        List<LapTimeHistoric> totalLapTimes;
         List<List<ObservationSummary>> allTotals;
 
         double timePerObservation;
@@ -65,7 +64,7 @@ namespace TimeStudy.Services
             activityRepo = new BaseRepository<Activity>(Utilities.Connection);
             operatorRepo = new BaseRepository<Operator>(Utilities.Connection);
             observationRepo = new BaseRepository<Observation>(Utilities.Connection);
-            lapTimeRepo = new BaseRepository<LapTime>(Utilities.Connection);
+            lapTimeRepo = new BaseRepository<LapTimeHistoric>(Utilities.Connection);
             studyVersionRepo = new BaseRepository<StudyHistoryVersion> (Utilities.Connection);
 
             BaseViewModel modelA = new BaseViewModel(Utilities.Connection);

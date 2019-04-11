@@ -141,6 +141,17 @@ namespace TimeStudy.Services
             return groupedActivities;
         }
 
+        public static void MoveLapsToHistoryTable()
+        {
+            var lapTimeHistoricRepo = new BaseRepository<LapTime>(Connection);
+            var lapTimeRepo = new BaseRepository<LapTimeHistoric>(Connection);
+
+            var sqlCommand = "INSERT INTO LapTimeHistoric SELECT * FROM LapTime";
+            lapTimeHistoricRepo.ExecuteSQLCommand(sqlCommand);
+            sqlCommand = "DELETE FROM LapTime";
+            lapTimeRepo.ExecuteSQLCommand(sqlCommand);
+        }
+
         public static SpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
         {
             //string path;
