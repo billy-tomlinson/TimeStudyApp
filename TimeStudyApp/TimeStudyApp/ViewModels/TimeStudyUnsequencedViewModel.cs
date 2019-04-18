@@ -531,10 +531,12 @@ namespace TimeStudy.ViewModels
 
         public void SetUpCurrentLapProperties(LapTime currentLapTime)
         {
-            string lapTimeTimeFormatted = LapTime.ToString("0.000");
+            double calculatedLapTime;
 
-            currentLapTime.IndividualLapTime = LapTime;
-            currentLapTime.IndividualLapTimeFormatted = lapTimeTimeFormatted;
+            calculatedLapTime = currentLapTime.TimeWhenLapStarted != 0 ? LapTime : Utilities.TimeWhenLapOrForiegnButtonClicked;
+
+            currentLapTime.IndividualLapTime = calculatedLapTime;
+            currentLapTime.IndividualLapTimeFormatted = calculatedLapTime.ToString("0.000");
             currentLapTime.TotalElapsedTimeDouble = Utilities.TimeWhenLapOrForiegnButtonClicked;
             currentLapTime.TotalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked.ToString("0.000");
             currentLapTime.ElementColour = Color.Gray;
