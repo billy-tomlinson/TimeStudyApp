@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading;
 using TimeStudy.Model;
 using TimeStudy.Pages;
 using TimeStudy.Services;
@@ -119,7 +118,7 @@ namespace TimeStudy.ViewModels
 
             LapTime = 0;
             CurrentTicks = 0;
-            StopWatchTime = "0.000";
+            StopWatchTime = "00.000";
             IsRunning = false;
             IsCancelEnabled = !IsRunning;
             IsStartEnabled = true;
@@ -174,7 +173,7 @@ namespace TimeStudy.ViewModels
 
                 RealTimeTicks = TimeWhenStopButtonClicked + (double)realTicks / 600;
 
-                StopWatchTime = RealTimeTicks.ToString("0.000");
+                StopWatchTime = RealTimeTicks.ToString("00.000");
 
                 return IsRunning;
             };
@@ -536,9 +535,9 @@ namespace TimeStudy.ViewModels
             calculatedLapTime = currentLapTime.TimeWhenLapStarted != 0 ? LapTime : Utilities.TimeWhenLapOrForiegnButtonClicked;
 
             currentLapTime.IndividualLapTime = calculatedLapTime;
-            currentLapTime.IndividualLapTimeFormatted = calculatedLapTime.ToString("0.000");
+            currentLapTime.IndividualLapTimeFormatted = calculatedLapTime.ToString("00.000");
             currentLapTime.TotalElapsedTimeDouble = Utilities.TimeWhenLapOrForiegnButtonClicked;
-            currentLapTime.TotalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked.ToString("0.000");
+            currentLapTime.TotalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked.ToString("00.000");
             currentLapTime.ElementColour = Color.Gray;
             currentLapTime.ForeignElements = SelectedForeignElements;
             currentLapTime.Status = RunningStatus.Completed;
@@ -580,7 +579,7 @@ namespace TimeStudy.ViewModels
             var timeElaspedSinceStartDecimal = timeElaspedSinceStart.Ticks / 1000000;
             RealTimeTicks = TimeWhenStopButtonClicked + (double)timeElaspedSinceStartDecimal / 600;
             CurrentTimeFormatted = timeElaspedSinceStart.ToString();
-            CurrentTimeFormattedDecimal = RealTimeTicks.ToString("0.000");
+            CurrentTimeFormattedDecimal = RealTimeTicks.ToString("00.000");
         }
 
         private void ForceRoundingToLapTime(bool isLapTime = false)
@@ -633,7 +632,7 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static string stopWatchTime = "0.000";
+        static string stopWatchTime = "00.000";
         public string StopWatchTime
         {
             get => stopWatchTime;

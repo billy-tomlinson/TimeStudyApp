@@ -26,7 +26,7 @@
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Text="         " HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
-                        <Label Grid.Row="0" Grid.Column="1"  Text="{Binding StopWatchTime}" Font="{StaticResource StopWatchFont}" HorizontalTextAlignment="Center" HorizontalOptions="FillAndExpand" />
+                        <Label Grid.Row="0" Grid.Column="1"  Text="{Binding StopWatchTime}" Font="{StaticResource StopWatchFont}" HorizontalTextAlignment="Start" HorizontalOptions="FillAndExpand" />
                         <Button Grid.Row="0" Grid.Column="2" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" IsEnabled="{Binding IsForeignEnabled}"/>
                     </Grid>
                 </StackLayout>
