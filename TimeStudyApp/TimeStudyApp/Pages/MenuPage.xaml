@@ -13,6 +13,8 @@
                 <Label Text="Time Study Application" TextColor="White" FontSize="14" FontAttributes="Bold" Margin="0,5,0,5" HorizontalOptions="CenterAndExpand" />
             </StackLayout>
             <StackLayout BackgroundColor="White" Padding="10 , 30 , 10, 10">
+                <Button Text="About" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding About}" />
+                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
                 <Button Text="Home" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding StudyMenu}" />
                 <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
                 <Button Text="Current Time Study" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />

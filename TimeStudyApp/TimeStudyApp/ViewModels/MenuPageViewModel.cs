@@ -1,6 +1,7 @@
 ﻿using System.Windows.Input;
 using TimeStudy.Pages;
 using TimeStudy.Services;
+using TimeStudyApp.Pages;
 using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
@@ -17,6 +18,7 @@ namespace TimeStudy.ViewModels
         public ICommand CurrentStudy { get; set; }
         public ICommand StudySetUp { get; set; }
         public ICommand CloseApplication { get; set; }
+        public ICommand About { get; set; }
 
         public MenuPageViewModel()
         {
@@ -30,6 +32,7 @@ namespace TimeStudy.ViewModels
             CurrentStudy = new Command(GoCurrentStudy);
             StudySetUp = new Command(GoStudySetUp);
             CloseApplication = new Command(CloseApplicationEvent);
+            About = new Command(AboutEvent);
         }
 
         void CloseApplicationEvent(object obj)
@@ -92,6 +95,12 @@ namespace TimeStudy.ViewModels
         void GoReports(object obj)
         {
             Utilities.Navigate(new ReportsPage());
+            App.MenuIsPresented = false;
+        }
+
+        void AboutEvent(object obj)
+        {
+            Utilities.Navigate(new AboutPage());
             App.MenuIsPresented = false;
         }
     }

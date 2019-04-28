@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:viewModels="clr-namespace:TimeStudy.ViewModels" 
+             x:Class="TimeStudyApp.Pages.AboutPage">
+    <ContentPage.BindingContext>
+        <viewModels:AboutPageViewModel />
+    </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*">
+                </ColumnDefinition>
+                <ColumnDefinition Width="1*">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
+    <StackLayout Padding="10" Spacing="10" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
+        <Label Text="Welcome to Tye Management Services!" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="20" />
+        <Image x:Name="timeStudy" HeightRequest="400" WidthRequest="400">
+        </Image>
+        <Label Text="Work Study for the Professionals" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="20" />
+        <Label HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="Click Here : https://tyemanagement.com" TextColor="White" TextDecorations="Underline" FontAttributes="Bold">
+                        <Span.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ClickCommand}" CommandParameter="https://tyemanagement.com" />
+                        </Span.GestureRecognizers>
+                    </Span>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+    </StackLayout>
+</ContentPage>
+
