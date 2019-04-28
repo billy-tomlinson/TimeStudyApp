@@ -1,24 +1,27 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
-             xmlns:views="clr-namespace:TimeStudy.Views" 
-             x:Class="TimeStudy.Pages.ReportsPage">
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" xmlns:views="clr-namespace:TimeStudy.Views" x:Class="TimeStudy.Pages.ReportsPage">
     <ContentPage.BindingContext>
         <TimeStudy:ReportsPageViewModel />
     </ContentPage.BindingContext>
+    <NavigationPage.TitleView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*">
+                </RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="8*">
+                </ColumnDefinition>
+                <ColumnDefinition Width="1*">
+                </ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
+        </Grid>
+    </NavigationPage.TitleView>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="StartAndExpand" 
-                        BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-             <StackLayout BackgroundColor="Transparent" 
-                         IsVisible="{Binding IsPageVisible}" 
-                         Opacity="{Binding Opacity}"
-                         Padding="2" 
-                         Margin="2" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         AbsoluteLayout.LayoutFlags="All">
+            <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" Opacity="{Binding Opacity}" Padding="2" Margin="2" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Analysis Reports" FontSize="30" TextColor="Black" HorizontalOptions="Center" />
                 </StackLayout>

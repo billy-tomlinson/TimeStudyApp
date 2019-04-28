@@ -53,6 +53,7 @@ namespace TimeStudy.ViewModels
 
         void GoCurrentStudy(object obj)
         {
+            if (Utilities.StudyId == 0) return;
             Utilities.Navigate(new MainPageTabbedPage());
             App.MenuIsPresented = false;
         }
