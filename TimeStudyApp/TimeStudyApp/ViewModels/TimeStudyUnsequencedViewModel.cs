@@ -131,7 +131,7 @@ namespace TimeStudy.ViewModels
             Utilities.TimeWhenLapOrForiegnButtonClicked = 0;
             LapButtonText = "   Start   ";
 
-            if (generateNewVersionRecord)
+            if (generateNewVersionRecord && IsPageVisible)
             {
                 var studyHistoryVersion = new StudyHistoryVersion()
                 {

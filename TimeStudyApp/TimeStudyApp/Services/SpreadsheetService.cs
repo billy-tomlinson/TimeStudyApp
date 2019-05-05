@@ -244,10 +244,10 @@ namespace TimeStudy.Services
             destSheet.ImportData(data, 3, 1, false);
 
             destSheet.Range["A1:H1"].CellStyle = headerStyle;
-            destSheet.Range[1, 1, 1000, 10].AutofitColumns();
-            destSheet.Range["D1:D10000"].NumberFormat = "###0.000";
-            destSheet.Range["E1:E10000"].NumberFormat = "###0.000";
-            destSheet.Range["H1:H10000"].NumberFormat = "###0.000";
+            destSheet.Range[1, 1, totalLaptimes + 10, 10].AutofitColumns();
+            destSheet.Range[1, 4, totalLaptimes + 10, 6].NumberFormat = "###0.000";
+            //destSheet.Range[1, 5, totalLaptimes + 10, 4].NumberFormat = "###0.000";
+            //destSheet.Range[1, 4, totalLaptimes + 10, 4].NumberFormat = "###0.000";
 
             var formula4 = $"=SUM(D3:D{totalLaptimes + 3})";
             var formula5 = $"=SUM(E3:E{totalLaptimes + 3})";
@@ -432,6 +432,8 @@ namespace TimeStudy.Services
                 totalCount = totalCount + 2;
             }
 
+            var summaryCount = summary.Count();
+
             destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 9].Text = "Total SMS";
             var formula4 = $"=SUM(J16:J{startRowIndex + totalCount + 5})";
             destSheetStudyDetails.Range[$"J{totalCount + startRowIndex + 12}"].Formula = formula4;
@@ -440,13 +442,14 @@ namespace TimeStudy.Services
 
 
             destSheetStudyDetails.Range["A12:J12"].CellStyle = headerStyle;
-            destSheetStudyDetails.Range[1, 1, 10000, 100].AutofitColumns();
-            destSheetStudyDetails.Range["C1:C10000"].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range["E1:E10000"].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range["G1:G10000"].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range["H1:H10000"].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range["I1:I10000"].NumberFormat = "###0.000";
-            destSheetStudyDetails.Range["J1:J10000"].NumberFormat = "###0.000";
+            destSheetStudyDetails.Range[1, 1, summaryCount + 10, 11].AutofitColumns();
+            destSheetStudyDetails.Range[1, 3, summaryCount + 10, 9].NumberFormat = "###0.000";
+            //destSheetStudyDetails.Range["C1:C10000"].NumberFormat = "###0.000";
+            //destSheetStudyDetails.Range["E1:E10000"].NumberFormat = "###0.000";
+            //destSheetStudyDetails.Range["G1:G10000"].NumberFormat = "###0.000";
+            //destSheetStudyDetails.Range["H1:H10000"].NumberFormat = "###0.000";
+            //destSheetStudyDetails.Range["I1:I10000"].NumberFormat = "###0.000";
+            //destSheetStudyDetails.Range["J1:J10000"].NumberFormat = "###0.000";
         }
     }
 }

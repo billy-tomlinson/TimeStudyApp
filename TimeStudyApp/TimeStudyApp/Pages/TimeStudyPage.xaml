@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" xmlns:local="clr-namespace:TimeStudy.Custom" xmlns:views="clr-namespace:TimeStudy.Views" x:Class="TimeStudy.Pages.TimeStudyPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
+             xmlns:local="clr-namespace:TimeStudy.Custom" 
+             xmlns:views="clr-namespace:TimeStudy.Views" 
+             x:Class="TimeStudy.Pages.TimeStudyPage">
     <ContentPage.BindingContext>
         <TimeStudy:TimeStudyViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
-            <StackLayout BackgroundColor="Transparent" Padding="2" Margin="2" Opacity="{Binding Opacity}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent">
+            <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
+            <StackLayout BackgroundColor="Transparent"
+                         IsVisible="{Binding IsPageVisible}" 
+                         IsEnabled="{Binding IsPageEnabled}" 
+                         Padding="2" 
+                         Margin="2" 
+                         Opacity="{Binding Opacity}" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
                 <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
                     <Grid Padding="5" Margin="5">
                         <Grid.RowDefinitions>

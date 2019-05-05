@@ -19,6 +19,7 @@ namespace TimeStudy.ViewModels
         public ICommand StudySetUp { get; set; }
         public ICommand CloseApplication { get; set; }
         public ICommand About { get; set; }
+        public ICommand CurrentStudyDetails { get; set; }
 
         public MenuPageViewModel()
         {
@@ -33,6 +34,7 @@ namespace TimeStudy.ViewModels
             StudySetUp = new Command(GoStudySetUp);
             CloseApplication = new Command(CloseApplicationEvent);
             About = new Command(AboutEvent);
+            CurrentStudyDetails = new Command(CurrentStudyDetailsEvent);
         }
 
         void CloseApplicationEvent(object obj)
@@ -48,6 +50,12 @@ namespace TimeStudy.ViewModels
             App.MenuIsPresented = false;
         }
 
+        void CurrentStudyDetailsEvent(object obj)
+        {
+            Utilities.Navigate(new CurrentStudyDetailsPage());
+            App.MenuIsPresented = false;
+        }
+
         void GoStopWatch(object obj)
         {
             Utilities.Navigate(new TimeStudyUnsequencedPage());
@@ -56,7 +64,7 @@ namespace TimeStudy.ViewModels
 
         void GoCurrentStudy(object obj)
         {
-            if (Utilities.StudyId == 0) return;
+            //if (Utilities.StudyId == 0) return;
             Utilities.Navigate(new MainPageTabbedPage());
             App.MenuIsPresented = false;
         }
