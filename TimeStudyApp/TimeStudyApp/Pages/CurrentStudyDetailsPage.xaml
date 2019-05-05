@@ -32,13 +32,11 @@
                 <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
                 <StackLayout BackgroundColor="Transparent" 
                               IsVisible="{Binding IsPageVisible}" 
-                              IsEnabled="{Binding IsPageEnabled}"  
+                              IsEnabled="false"  
                              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                              AbsoluteLayout.LayoutFlags="All">
                     <StackLayout BindingContext="{Binding SampleStudy}" 
-                                 Padding="20,0,20,0" 
-                                 Opacity="{Binding Path = BindingContext.StudyPageOpacity, Source={x:Reference CurrentStudyDetailsView}}" 
-                                 IsEnabled="{Binding Path = BindingContext.IsActive, Source={x:Reference CurrentStudyDetailsView}}">
+                                 Padding="20,0,20,0" >
                         <Grid Padding="5,5,5,5" Margin="5,5,5,5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />

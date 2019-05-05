@@ -1,4 +1,5 @@
 ﻿using System;
+using TimeStudy.Model;
 using TimeStudy.Services;
 
 namespace TimeStudy.ViewModels
@@ -8,6 +9,8 @@ namespace TimeStudy.ViewModels
         public CurrentStudyDetailsViewModel()
         {
             IsPageVisible = IsStudyValid();
+
+            SampleStudy = SampleRepo.GetItem(Utilities.StudyId);
         }
 
         private bool IsStudyValid()
@@ -23,6 +26,17 @@ namespace TimeStudy.ViewModels
             }
 
             return true;
+        }
+
+        ActivitySampleStudy sampleStudy;
+        public ActivitySampleStudy SampleStudy
+        {
+            get { return sampleStudy; }
+            set
+            {
+                sampleStudy = value;
+                OnPropertyChanged();
+            }
         }
     }
 }

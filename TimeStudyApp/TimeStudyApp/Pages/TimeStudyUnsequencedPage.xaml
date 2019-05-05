@@ -14,12 +14,14 @@
                         BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout IsVisible="{Binding IsPageVisible}" 
-                         IsEnabled="{Binding IsPageEnabled}" 
                          BackgroundColor="Transparent" 
-                         Padding="2" Margin="2" Opacity="{Binding Opacity}" 
+                         Padding="2" Margin="2" 
+                         Opacity="{Binding Opacity}" 
                          AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
                          AbsoluteLayout.LayoutFlags="All">
-                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
+                <StackLayout 
+                    HorizontalOptions="CenterAndExpand"  
+                    Orientation="Vertical">
                     <Grid Padding="5" Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto">

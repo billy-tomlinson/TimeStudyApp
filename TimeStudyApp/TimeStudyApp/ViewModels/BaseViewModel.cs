@@ -219,7 +219,7 @@ namespace TimeStudy.ViewModels
             set
             {
                 isOverrideVisible = value;
-                IsPageUnavailableVisible = !value;
+                //IsPageUnavailableVisible = !value;
                 OnPropertyChanged();
             }
         }

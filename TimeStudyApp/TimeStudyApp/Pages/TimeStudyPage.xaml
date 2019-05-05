@@ -11,6 +11,7 @@
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center" 
                         VerticalOptions="StartAndExpand" 
+                        IsVisible="{Binding IsPageVisible}" 
                         BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
             <StackLayout BackgroundColor="Transparent"

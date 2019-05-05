@@ -19,9 +19,17 @@
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" 
+                        VerticalOptions="StartAndExpand" 
+                        BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-            <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" Opacity="{Binding Opacity}" Padding="2" Margin="2" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout BackgroundColor="Transparent" 
+                         IsVisible="{Binding IsPageVisible}" 
+                         Opacity="{Binding Opacity}" 
+                         Padding="2" 
+                         Margin="2" 
+                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Analysis Reports" FontSize="30" TextColor="Black" HorizontalOptions="Center" />
                 </StackLayout>
