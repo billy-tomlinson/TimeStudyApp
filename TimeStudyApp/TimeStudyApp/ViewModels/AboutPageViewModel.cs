@@ -9,5 +9,21 @@ namespace TimeStudy.ViewModels
         {
             Device.OpenUri(new System.Uri(url));
         });
+
+        public ICommand DemoCommand => new Command<string>((url) =>
+        {
+            string demoUrl = string.Empty;
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    demoUrl = "https://youtu.be/DJzYKROHQFY";
+                    break;
+                case Device.Android:
+                    demoUrl = "https://youtu.be/Nyu9tgsonEM";
+                    break;
+            }
+
+            Device.OpenUri(new System.Uri(demoUrl));
+        });
     }
 }

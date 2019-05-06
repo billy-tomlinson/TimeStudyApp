@@ -21,22 +21,32 @@
             <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
         </Grid>
     </NavigationPage.TitleView>
-    <StackLayout Padding="10" Spacing="10" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
-        <Label Text="Welcome to Tye Management Services!" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="20" />
-        <Image x:Name="timeStudy" HeightRequest="400" WidthRequest="400">
-        </Image>
-        <Label Text="Work Study for the Professionals" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="20" />
-        <Label HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
-            <Label.FormattedText>
-                <FormattedString>
-                    <Span Text="Click Here : https://tyemanagement.com" TextColor="White" TextDecorations="Underline" FontAttributes="Bold">
-                        <Span.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ClickCommand}" CommandParameter="https://tyemanagement.com" />
-                        </Span.GestureRecognizers>
-                    </Span>
-                </FormattedString>
-            </Label.FormattedText>
-        </Label>
-    </StackLayout>
+        <StackLayout Padding="15, 40, 15 ,10" Spacing="15" CompressedLayout.IsHeadless="true" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
+            <Label Text="Welcome to Tye Management Services Ltd" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="17" />
+            <Image x:Name="timeStudy" HeightRequest="250" WidthRequest="250">
+            </Image>
+            <Label Text="Work study and continuous improvement since 1996. Training, projects and contracts" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="17" />
+            <Label HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Click Here : https://tyemanagement.com" TextColor="White" TextDecorations="Underline" FontAttributes="Bold">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ClickCommand}" CommandParameter="https://tyemanagement.com" />
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Label HorizontalOptions="Center" VerticalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Click here for demo video" TextColor="Black" TextDecorations="Underline" FontAttributes="Bold">
+                            <Span.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding DemoCommand}" CommandParameter=""/>
+                            </Span.GestureRecognizers>
+                        </Span>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
 </ContentPage>
-

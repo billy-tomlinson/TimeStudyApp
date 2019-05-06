@@ -123,7 +123,8 @@ namespace TimeStudy.ViewModels
 
             if (!IsInvalid)
             {
-                var duplicatesCheck = ActivityNameRepo.GetItems()
+                var duplicatesCheck = ActivityRepo.GetAllWithChildren()
+                    .Where(x => x.StudyId == Utilities.StudyId)
                     .FirstOrDefault(_ => _.Name?.ToUpper() == Name.ToUpper().Trim());
 
                 if (duplicatesCheck == null)
@@ -149,7 +150,7 @@ namespace TimeStudy.ViewModels
                 }
                 else
                 {
-                    ValidationText = $"{Name.ToUpper().Trim()} is a duplicate. Please add a unique element or select from list.";
+                    ValidationText = $"{Name.ToUpper().Trim()} is a duplicate. Please add a unique element.";
                     Opacity = 0.2;
                     IsInvalid = true;
                     ShowClose = true;
