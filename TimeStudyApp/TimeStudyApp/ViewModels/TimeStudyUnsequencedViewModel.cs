@@ -370,7 +370,6 @@ namespace TimeStudy.ViewModels
 
         void ElementsSelectedEvent(object sender)
         {
-
             var value = (int)sender;
 
             Utilities.CurrentSelectedElementId = value;
