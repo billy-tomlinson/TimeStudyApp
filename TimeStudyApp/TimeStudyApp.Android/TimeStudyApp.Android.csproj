@@ -134,6 +134,7 @@
     <AndroidResource Include="Resources\drawable\thumbsUp.png" />
     <AndroidResource Include="Resources\drawable\tools.png" />
     <AndroidResource Include="Resources\drawable\undo.png" />
+    <AndroidResource Include="Resources\drawable\timestudy.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
