@@ -2,9 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Syncfusion.Drawing;
 using Syncfusion.XlsIO;
 using TimeStudy.Model;
 using TimeStudy.Services;
@@ -16,21 +14,22 @@ namespace TimeStudyApp.UnitTests
     [TestClass]
     public class SpreadSheetTests
     {
-        private const string connString = "/Users/billytomlinson/TimeStudyNew.db3";
+        private const string connString = "/Users/billytomlinson/TimeStudyProduction.db3";
         //private const string connString = "TimeStudyDBNew.db3";
 
         private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
         private readonly IBaseRepository<Activity> activityRepo;
         private readonly IBaseRepository<Operator> operatorRepo;
         private readonly IBaseRepository<Observation> observationRepo;
-        private readonly IBaseRepository<LapTime> lapTimeRepo;
+        private readonly IBaseRepository<LapTimeHistoric> lapTimeRepo;
         private readonly IBaseRepository<StudyHistoryVersion> studyVersionRepo;
-        private readonly IBaseRepository<LapTimeHistoric> lapTimeHistoricRepo;
+        //private readonly IBaseRepository<LapTimeHistoric> lapTimeHistoricRepo;
 
         List<Operator> operators;
         ActivitySampleStudy sample;
         List<Activity> allStudyActivities;
-        List<LapTime> totalLapTimes;
+        //List<LapTime> totalLapTimes;
+        List<LapTimeHistoric> totalLapTimes;
         List<List<ObservationSummary>> allTotals;
 
         double timePerObservation;
@@ -69,15 +68,15 @@ namespace TimeStudyApp.UnitTests
         {
 
             BaseViewModel model = new BaseViewModel(connString);
-            Utilities.StudyId = 30;
-            Utilities.StudyVersion = 125;
+            Utilities.StudyId = 2;
+            Utilities.StudyVersion = 35;
             sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
             activityRepo = new BaseRepository<Activity>(connString);
             operatorRepo = new BaseRepository<Operator>(connString);
             observationRepo = new BaseRepository<Observation>(connString);
-            lapTimeRepo = new BaseRepository<LapTime>(connString);
+            //lapTimeRepo = new BaseRepository<LapTime>(connString);
             studyVersionRepo = new BaseRepository<StudyHistoryVersion>(connString);
-            lapTimeHistoricRepo = new BaseRepository<LapTimeHistoric>(connString);
+            lapTimeRepo = new BaseRepository<LapTimeHistoric>(connString);
 
             BaseViewModel modelA = new BaseViewModel(connString);
             operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
@@ -86,6 +85,7 @@ namespace TimeStudyApp.UnitTests
             IntervalTime = 0; //alarm.Interval / 60;
             allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
+            //totalLapTimes = lapTimeRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             totalLapTimes = lapTimeRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             var totalCount = totalLapTimes.Count();
         }
@@ -281,7 +281,7 @@ namespace TimeStudyApp.UnitTests
                 && x.Version == Utilities.StudyVersion
                 && x.Status == RunningStatus.Completed
                 && x.IsRated
-                && !x.IsForeignElement).ToList();
+                && x.IsValueAdded).ToList();
 
 
             var summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
@@ -309,6 +309,7 @@ namespace TimeStudyApp.UnitTests
 
 
             destSheetStudyDetails.Range[startRowIndex + 4, 1].Text = "Standard Elements";
+            destSheetStudyDetails.Range[startRowIndex + 4, 1].CellStyle = frequencyStyle;
 
             var totalCount = 0;
 
@@ -343,7 +344,8 @@ namespace TimeStudyApp.UnitTests
                 totalCount = totalCount + 2;
             }
 
-            destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 1].Text = "Occassional Elements";
+            destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 1].Text = "Occassional Elements";
+            destSheetStudyDetails.Range[startRowIndex + 6 + totalCount, 1].CellStyle = frequencyStyle;
 
             summaryCount = summaryCount + 5 + summary.Count();
 
@@ -352,7 +354,58 @@ namespace TimeStudyApp.UnitTests
                && x.Version == Utilities.StudyVersion
                && x.Status == RunningStatus.Completed
                && x.IsRated
-               && x.IsForeignElement).ToList();
+               && !x.IsValueAdded).ToList();
+
+            summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
+                                   .Select(g => new LapTimeSummary
+                                   {
+                                       ActivityId = g.Key.ActivityId,
+                                       Element = g.Key.Element,
+                                       NumberOfObservations = g.Count(),
+                                       LapTimeTotal = g.Sum(a => a.IndividualLapBMS)
+
+                                   }).ToList();
+
+            foreach (var item in summary)
+            {
+                var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
+                var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
+                var raAllowance = (caAllowance * 0.12) + caAllowance;
+
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 1].Number = item.ActivityId;
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 2].Text = item.Element;
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 3].Number = item.LapTimeTotal;
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 4].Number = item.NumberOfObservations;
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 5].Number = bmsPerOccassion;
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 6].CellStyle = frequencyStyle;
+
+                var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 5].AddressLocal;
+                var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 6].AddressLocal;
+                var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 8].AddressLocal;
+
+                var formula1 = $"={columnAddress1}*{columnAddress2}";
+                var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
+                var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
+
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 7].Formula = formula1;
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 8].Formula = formula2; //caAllowance;
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 9].Formula = formula3;  //raAllowance;
+                destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 10].Formula = formula3;  //raAllowance;
+
+                totalCount = totalCount + 2;
+            }
+
+            summaryCount = summaryCount + 5 + summary.Count();
+
+            destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 1].Text = "Ineffective Elements";
+            destSheetStudyDetails.Range[startRowIndex + 8 + totalCount, 1].CellStyle = frequencyStyle;
+
+            allLapTimes = lapTimeRepo.GetItems()
+                .Where(x => x.StudyId == Utilities.StudyId
+                && x.Version == Utilities.StudyVersion
+                && x.Status == RunningStatus.Completed
+                && !x.IsRated
+                && !x.IsValueAdded).ToList();
 
             summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
                                    .Select(g => new LapTimeSummary
@@ -375,62 +428,12 @@ namespace TimeStudyApp.UnitTests
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 3].Number = item.LapTimeTotal;
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 4].Number = item.NumberOfObservations;
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 5].Number = bmsPerOccassion;
+
                 destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 6].CellStyle = frequencyStyle;
 
                 var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 5].AddressLocal;
                 var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 6].AddressLocal;
                 var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 8].AddressLocal;
-
-                var formula1 = $"={columnAddress1}*{columnAddress2}";
-                var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
-                var formula3 = $"=({columnAddress3} * 0.12) + {columnAddress3}";
-
-                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 7].Formula = formula1;
-                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 8].Formula = formula2; //caAllowance;
-                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 9].Formula = formula3;  //raAllowance;
-                destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 10].Formula = formula3;  //raAllowance;
-
-                totalCount = totalCount + 2;
-            }
-
-            summaryCount = summaryCount + 5 + summary.Count();
-
-            destSheetStudyDetails.Range[startRowIndex + 10 + totalCount, 1].Text = "Ineffective Elements";
-
-            allLapTimes = lapTimeRepo.GetItems()
-                .Where(x => x.StudyId == Utilities.StudyId
-                && x.Version == Utilities.StudyVersion
-                && x.Status == RunningStatus.Completed
-                && !x.IsRated
-                && !x.IsForeignElement).ToList();
-
-            summary = allLapTimes.GroupBy(a => new { a.ActivityId, a.Element })
-                                   .Select(g => new LapTimeSummary
-                                   {
-                                       ActivityId = g.Key.ActivityId,
-                                       Element = g.Key.Element,
-                                       NumberOfObservations = g.Count(),
-                                       LapTimeTotal = g.Sum(a => a.IndividualLapBMS)
-
-                                   }).ToList();
-
-            foreach (var item in summary)
-            {
-                var bmsPerOccassion = item.LapTimeTotal / item.NumberOfObservations;
-                var caAllowance = (bmsPerOccassion * 0.03) + bmsPerOccassion;
-                var raAllowance = (caAllowance * 0.12) + caAllowance;
-
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 1].Number = item.ActivityId;
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 2].Text = item.Element;
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 3].Number = item.LapTimeTotal;
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 4].Number = item.NumberOfObservations;
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 5].Number = bmsPerOccassion;
-
-                destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 6].CellStyle = frequencyStyle;
-
-                var columnAddress1 = destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 5].AddressLocal;
-                var columnAddress2 = destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 6].AddressLocal;
-                var columnAddress3 = destSheetStudyDetails.Range[startRowIndex + 12 + totalCount, 8].AddressLocal;
 
                 var formula1 = $"={columnAddress1}*{columnAddress2}";
                 var formula2 = $"=({columnAddress1}* 0.03) + {columnAddress1}*{columnAddress2}";
@@ -486,7 +489,7 @@ namespace TimeStudyApp.UnitTests
                     StudyId = Utilities.StudyId,
                     TotalElapsedTime = lap.TotalElapsedTimeDouble,
                     IndividualLapTime = lap.IndividualLapTime,
-                    IsForeignElement = lap.IsForeignElement,
+                    IsForeignElement = !lap.IsValueAdded,
                     Element = lap.Element,
                     Rating = lap.Rating,
                     ElementId = lap.ActivityId,
@@ -522,15 +525,15 @@ namespace TimeStudyApp.UnitTests
             destSheet.Range[$"H{totalLaptimes + 4}"].Formula = formula6;
         }
 
-        [TestMethod]
-        public void Move_LapTimes_To_Historic()
-        {
+        //[TestMethod]
+        //public void Move_LapTimes_To_Historic()
+        //{
 
-            var sqlCommand = "INSERT INTO LapTimeHistoric SELECT * FROM LapTime";
-            lapTimeHistoricRepo.ExecuteSQLCommand(sqlCommand);
-            sqlCommand = "DELETE FROM LapTime";
-            lapTimeRepo.ExecuteSQLCommand(sqlCommand);
-        }
+        //    var sqlCommand = "INSERT INTO LapTimeHistoric SELECT * FROM LapTime";
+        //    lapTimeHistoricRepo.ExecuteSQLCommand(sqlCommand);
+        //    sqlCommand = "DELETE FROM LapTime";
+        //    lapTimeRepo.ExecuteSQLCommand(sqlCommand);
+        //}
 
     }
 }

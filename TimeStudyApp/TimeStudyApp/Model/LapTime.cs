@@ -54,6 +54,8 @@ namespace TimeStudy.Model
 
         public RunningStatus Status { get; set; }
 
+        public bool IsValueAdded { get; set; }
+
         [Ignore]
         public Color ElementColour { get; set; }
 

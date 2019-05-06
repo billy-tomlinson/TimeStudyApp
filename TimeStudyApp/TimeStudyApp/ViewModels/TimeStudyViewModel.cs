@@ -235,7 +235,7 @@ namespace TimeStudy.ViewModels
             }
             else
             {
-                ProcessForeignElementWithRating(CurrentForeignElement.Rated, CurrentForeignElement.Name, button.Rating);
+                ProcessForeignElementWithRating(CurrentForeignElement, button.Rating);
 
                 if(LapButtonText != "   Lap   ")
                 {
@@ -367,17 +367,18 @@ namespace TimeStudy.ViewModels
 
         }
 
-        private void ProcessForeignElementWithRating(bool rated, string name, int? rating = null)
+        private void ProcessForeignElementWithRating(Activity activity, int? rating = null)
         {
             AddForeignLapTimetoListAsCompleted(rating);
 
             var currentForeign = new LapTime
             {
                 Cycle = CycleCount,
-                Element = name,
+                Element = activity.Name,
                 TotalElapsedTime = "Running",
                 IsForeignElement = true,
-                IsRated = rated,
+                IsRated = activity.Rated,
+                IsValueAdded = activity.IsValueAdded,
                 StudyId = Utilities.StudyId
             };
 
@@ -505,7 +506,8 @@ namespace TimeStudy.ViewModels
                     TotalElapsedTime = "Running",
                     IsRated = foreign.Rated,
                     StudyId = Utilities.StudyId,
-                    TimeWhenLapStarted = PausedLapTime.TotalElapsedTimeDouble
+                    TimeWhenLapStarted = PausedLapTime.TotalElapsedTimeDouble,
+                    IsValueAdded = foreign.IsValueAdded
 
                 };
 
@@ -522,7 +524,8 @@ namespace TimeStudy.ViewModels
                     TotalElapsedTime = "Running",
                     //IsForeignElement = foreign.IsForeignElement,
                     IsRated = foreign.Rated,
-                    StudyId = Utilities.StudyId
+                    StudyId = Utilities.StudyId,
+                    IsValueAdded = foreign.IsValueAdded
                 };
 
                 CurrentWithoutLapTime = currentForeignLap;
@@ -573,7 +576,8 @@ namespace TimeStudy.ViewModels
                     TotalElapsedTime = "Running",
                     //Sequence = element.Sequence,
                     ElementColour = Color.Silver,
-                    IsRated = element.Rated
+                    IsRated = element.Rated,
+                    IsValueAdded = element.IsValueAdded
                 };
             }
 

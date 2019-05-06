@@ -241,21 +241,22 @@ namespace TimeStudy.Services
 
         }
 
-        public static LapTime SetUpCurrentLapTime(int cycleCount, string name, RunningStatus status, 
-            bool isRated, Color? colour = null)
+        public static LapTime SetUpCurrentLapTime(Activity activity, int cycleCount, RunningStatus status, 
+            Color? colour = null)
         {
             LapTime lapTime;
             lapTime =  new LapTime
             {
                 Cycle = cycleCount,
-                Element = name,
+                Element = activity.Name,
                 Status = RunningStatus.Running,
                 IsForeignElement = IsForeignElement,
                 StudyId = StudyId,
                 ActivityId = CurrentSelectedElementId,
-                IsRated = isRated,
+                IsRated = activity.Rated,
                 Version = StudyVersion,
-                TimeWhenLapStarted = TimeWhenLapOrForiegnButtonClicked
+                TimeWhenLapStarted = TimeWhenLapOrForiegnButtonClicked,
+                IsValueAdded = activity.IsValueAdded
             };
 
             if (colour != null) lapTime.ElementColour = (Color)colour;

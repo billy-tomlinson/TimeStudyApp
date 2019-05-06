@@ -555,8 +555,8 @@ namespace TimeStudy.ViewModels
             else
                 totalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked;
 
-            var currentWithoutLapTime = Utilities.SetUpCurrentLapTime(CycleCount, element.Name,
-                RunningStatus.Running, element.Rated, Color.Silver);
+            var currentWithoutLapTime = Utilities.SetUpCurrentLapTime(element, CycleCount,
+                RunningStatus.Running,Color.Silver);
 
             Utilities.CurrentRunningElementId = LapTimeRepo.SaveItem(currentWithoutLapTime);
 
