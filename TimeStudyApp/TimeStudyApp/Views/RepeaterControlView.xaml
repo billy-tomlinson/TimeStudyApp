@@ -25,7 +25,7 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <StackLayout BackgroundColor="{Binding ConvertedColour}" Orientation="Horizontal" Grid.Row="0" 
-                                                     Grid.Column="0" Grid.ColumnSpan="3" HeightRequest="40" >
+                                                     Grid.Column="0" Grid.ColumnSpan="3" MinimumHeightRequest="35">
                                             <local:CustomLabel Text="{Binding Name}" FontSize="20" Grid.Row="0" 
                                                                Grid.Column="0"
                                                                Opacity="{Binding Opacity}"
