@@ -313,15 +313,15 @@ namespace TimeStudy.ViewModels
 
         void ActivitySelectedEvent(object sender)
         {
-            SetElementsColour();
+            //SetElementsColour();
 
-            var value = (int)sender;
-            Activity = ActivityRepo.GetItem(value);
-            Activity.ItemColour = Utilities.NonValueAddedColour;
-            Activity.ObservedColour = Utilities.NonValueAddedColour;
-            ActivityRepo.SaveItem(Activity);
+            //var value = (int)sender;
+            //Activity = ActivityRepo.GetItem(value);
+            //Activity.ItemColour = Utilities.NonValueAddedColour;
+            //Activity.ObservedColour = Utilities.NonValueAddedColour;
+            //ActivityRepo.SaveItem(Activity);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
+            //ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
         }
 
         private void SetElementsColour()
