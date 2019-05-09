@@ -113,24 +113,60 @@
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-39.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-41.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-42.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-43.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-44.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-45.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-46.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-46-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-47.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-41-1.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-48.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-49.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-50.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-51.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-52.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-53.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-54.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-55.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-39.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-41.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-42.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-43.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-44.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-45.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-46.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-46-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-47.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-41-1.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-48.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-49.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-50.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-51.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-52.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-53.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-54.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Webp.net-resizeimage-55.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
