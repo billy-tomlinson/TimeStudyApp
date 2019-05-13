@@ -1,16 +1,17 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimeStudy.Pages.WelcomePage">
-    <StackLayout Padding="10" Spacing="10" CompressedLayout.IsHeadless="true" 
-                 VerticalOptions="Center"  BackgroundColor="Transparent">
-        <Label Text="Welcome to Tye Management Services!" VerticalOptions="Center"
-               HorizontalOptions="Center" XAlign="Center" FontSize="20"/>
-        <Image x:Name="timeStudy" HeightRequest="400" WidthRequest="400"></Image>
-        <Label Text="Work Study for the Professionals"
-               VerticalOptions="Center" HorizontalOptions="Center"
-               XAlign="Center" FontSize="20" />
-        <ActivityIndicator x:Name="activityInd" IsVisible="true"
-                           IsRunning="true" />
-    </StackLayout>
+    <AbsoluteLayout HorizontalOptions="Center" 
+                    VerticalOptions="StartAndExpand" 
+                    BackgroundColor="Transparent">
+        <StackLayout Padding="15, 80, 15 ,10" Spacing="20" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
+            <Label Text="Welcome to Tye Management Services Ltd" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="17" />
+            <Image x:Name="timeStudy" HeightRequest="300" WidthRequest="300">
+            </Image>
+            <Label Text="Work study and continuous improvement since 1996. Training, projects and contracts" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="17" />
+            <Label Text="https://tyemanagement.com" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="20" />
+            <ActivityIndicator x:Name="activityInd" IsVisible="true" IsRunning="true" />
+        </StackLayout>
+    </AbsoluteLayout>
 </ContentPage>
