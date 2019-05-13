@@ -16,6 +16,8 @@ namespace TimeStudy
 
         public App(string databasePath)
         {
+            //Register Syncfusion license
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MTAwMjk5QDMxMzYyZTMzMmUzMEdpQVpZS0g1RHZMN2RGVUEreFpGOXp3UW12dmt4RW00U09OSFdnOVd6SG89;MTAwMzAwQDMxMzYyZTMzMmUzMElsS3RQMk4ycm1mUlJFa3JYY1A3cUpzMnRsYmdkSTdoTVBGcHlWa1BQU1U9");
 
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
