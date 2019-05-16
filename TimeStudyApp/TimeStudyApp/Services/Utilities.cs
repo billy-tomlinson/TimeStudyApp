@@ -8,6 +8,7 @@ using Plugin.Messaging;
 //using Syncfusion.XlsIO;
 using TimeStudy.Model;
 using TimeStudyApp.Model;
+using TimeStudyApp.Services;
 using Xamarin.Forms;
 
 namespace TimeStudy.Services
@@ -27,6 +28,8 @@ namespace TimeStudy.Services
         public static string Connection { get; set; }
         public static DateTime LastNotification { get; set; } = DateTime.Now;
         public static DateTime TimeStudyStarted { get; set; }
+        public static string Version { get => DependencyService.Get<IAppVersion>().GetVersion(); }
+        public static string Build { get => DependencyService.Get<IAppVersion>().GetBuild(); }
 
         public static bool OperatorTableUpdated { get; set; }
         public static bool ActivityTableUpdated { get; set; }

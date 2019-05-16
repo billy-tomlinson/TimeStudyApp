@@ -21,6 +21,8 @@ namespace TimeStudy.ViewModels
         public ICommand About { get; set; }
         public ICommand CurrentStudyDetails { get; set; }
 
+        public string VersionAndBuild => "version " + Utilities.Version + " build " + Utilities.Build;
+
         public MenuPageViewModel()
         {
             StudyMenu = new Command(GoStudyMenu);

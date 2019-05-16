@@ -9,8 +9,9 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout BackgroundColor="#a0c4ff" HeightRequest="100" Padding="0" Margin="0, 30,0,0">
-                <Label Text="Tye Management Services Ltd" TextColor="White" FontAttributes="Bold" FontSize="14" Margin="0,20,0,5" HorizontalOptions="CenterAndExpand" />
-                <Label Text="Time Study Application" TextColor="White" FontSize="14" FontAttributes="Bold" Margin="0,5,0,5" HorizontalOptions="CenterAndExpand" />
+                <Label Text="Tye Management Services Ltd" TextColor="White" FontAttributes="Bold" FontSize="14" Margin="0,20,0,2" HorizontalOptions="CenterAndExpand" />
+                <Label Text="Time Study Application" TextColor="White" FontSize="14" FontAttributes="Bold" Margin="0,2,0,2" HorizontalOptions="CenterAndExpand" />
+                <Label Text="{Binding VersionAndBuild}" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="10" TextColor="White" />
             </StackLayout>
             <StackLayout BackgroundColor="White" Padding="10 , 30 , 10, 10">
                 <Button Text="About" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding About}" />

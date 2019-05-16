@@ -109,6 +109,7 @@
     <Compile Include="PreviewControllerDS.cs" />
     <Compile Include="SaveIOS.cs" />
     <Compile Include="TabbedPageRenderer.cs" />
+    <Compile Include="DependencyServices\AppVersion.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
