@@ -30,7 +30,7 @@
                                                                Grid.Column="0"
                                                                Opacity="{Binding Opacity}"
                                                                BackgroundColor="{Binding ItemColour}"
-                                                               FontAttributes="Bold" VerticalTextAlignment="Center" 
+                                                               VerticalTextAlignment="Center" 
                                                                HorizontalTextAlignment="Start" WidthRequest="300">
                                                 <local:CustomLabel.GestureRecognizers>
                                                     <TapGestureRecognizer Command="{Binding Path = BindingContext.ItemSelected, Source={x:Reference RepeaterPage}}" CommandParameter="{Binding Id}" />
