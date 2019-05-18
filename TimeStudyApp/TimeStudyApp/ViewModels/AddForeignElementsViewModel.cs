@@ -424,6 +424,8 @@ namespace TimeStudy.ViewModels
             SettingsSelected = new Command(AddSelectedEvent);
             DeleteSelected = new Command(DeleteSelectedEvent);
 
+            IsPageVisible = IsStudyValid();
+
             Name = string.Empty;
             CheckActivitiesInUse();
             SetElementsColour();
@@ -436,6 +438,15 @@ namespace TimeStudy.ViewModels
             {
                 SettingsIcon = Utilities.CommentsImage
             };
+        }
+
+        private bool IsStudyValid()
+        {
+
+            if (Utilities.StudyId == 0 || Utilities.IsCompleted)
+                return false;
+
+            return true;
         }
 
         void SetAllActivitiesBackToEnabled()

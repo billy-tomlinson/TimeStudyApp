@@ -146,9 +146,11 @@ namespace TimeStudy.Services
 
         public static void MoveLapsToHistoryTable()
         {
-            var lapTimeHistoricRepo = new BaseRepository<LapTime>(Connection);
-            var lapTimeRepo = new BaseRepository<LapTimeHistoric>(Connection);
+            var lapTimeRepo = new BaseRepository<LapTime>(Connection);
+            var lapTimeHistoricRepo = new BaseRepository<LapTimeHistoric>(Connection);
 
+            var laps = lapTimeRepo.GetAllWithChildren().ToList();
+            var historicLaps = lapTimeHistoricRepo.GetAllWithChildren().ToList();
             var sqlCommand = "INSERT INTO LapTimeHistoric SELECT * FROM LapTime";
             lapTimeHistoricRepo.ExecuteSQLCommand(sqlCommand);
             sqlCommand = "DELETE FROM LapTime";
