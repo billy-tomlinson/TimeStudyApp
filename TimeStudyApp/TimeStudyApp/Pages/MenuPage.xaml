@@ -13,24 +13,26 @@
                 <Label Text="Time Study Application" TextColor="White" FontSize="14" FontAttributes="Bold" Margin="0,2,0,2" HorizontalOptions="CenterAndExpand" />
                 <Label Text="{Binding VersionAndBuild}" VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="10" TextColor="White" />
             </StackLayout>
-            <StackLayout BackgroundColor="White" Padding="10 , 30 , 10, 10">
-                <Button Text="About" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding About}" />
-                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                <Button Text="Home" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding StudyMenu}" />
-                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                <Button Text="Current Time Study" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />
-                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                <Button Text="Existing Studies" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding ExistingStudies}" />
-                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                <Button Text="Reports" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding Reports}" />
-                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                <Button Text="Study Set Up" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding StudySetUp}" />
-                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                <Button Text="Current Study Details" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudyDetails}" />
-                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                <Button Text="Close Application" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CloseApplication}" />
-                <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-            </StackLayout>
+            <ScrollView>
+                <StackLayout BackgroundColor="White" Padding="10 , 30 , 10, 10">
+                    <Button Text="About" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding About}" />
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                    <Button Text="Home" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding StudyMenu}" />
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                    <Button Text="Current Time Study" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                    <Button Text="Existing Studies" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding ExistingStudies}" />
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                    <Button Text="Reports" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding Reports}" />
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                    <Button Text="Study Set Up" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding StudySetUp}" />
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                    <Button Text="Current Study Details" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudyDetails}" />
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                    <Button Text="Close Application" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CloseApplication}" />
+                    <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

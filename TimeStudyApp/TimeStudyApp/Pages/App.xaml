@@ -8,7 +8,7 @@
                 <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
             </OnPlatform>
             <OnPlatform x:TypeArguments="Font" Android="50" iOS="40" x:Key="RatingFontSize" />
-            <OnPlatform x:TypeArguments="Font" Android="30" iOS="45" x:Key="StopWatchFont" />
+            <OnPlatform x:TypeArguments="Font" Android="30" iOS="35" x:Key="StopWatchFont" />
             <OnPlatform x:TypeArguments="Font" Android="18" iOS="18" x:Key="StopWatchButtonFont" />
 
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">

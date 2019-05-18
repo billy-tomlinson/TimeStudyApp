@@ -157,7 +157,8 @@ namespace TimeStudy.ViewModels
                 }
 
                 SetElementsColour();
-                ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+                    .OrderByDescending(x => x.Id));
                 ActivitiesCount = ItemsCollection.Count;
                 Name = string.Empty;
             }
@@ -308,7 +309,8 @@ namespace TimeStudy.ViewModels
             ActivityRepo.SaveItem(activity1);
             ActivityRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+                .OrderByDescending(x => x.Id));
         }
 
         void ActivitySelectedEvent(object sender)
@@ -395,7 +397,8 @@ namespace TimeStudy.ViewModels
             }
 
             SetElementsColour();
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Id));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+                .OrderByDescending(x => x.Id));
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
 
@@ -413,7 +416,8 @@ namespace TimeStudy.ViewModels
                 ActivityNameRepo.DeleteItem(Activity.ActivityName);
 
                 SetElementsColour();
-                ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
+                ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+                    .OrderByDescending(x => x.Id));
                 ActivitiesCount = ItemsCollection.Count;
             });
 
@@ -441,7 +445,8 @@ namespace TimeStudy.ViewModels
             CheckActivitiesInUse();
             SetElementsColour();
             SetAllActivitiesBackToEnabled();
-            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
+            ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+                .OrderByDescending(x => x.Id));
             ActivitiesCount = ItemsCollection.Count;
             var count = ItemsCollection.Count;
             Activity = new Activity
