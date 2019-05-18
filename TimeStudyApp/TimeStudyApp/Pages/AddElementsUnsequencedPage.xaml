@@ -27,11 +27,11 @@
                              BackgroundColor="#FCFAFA" 
                              VerticalOptions="Center" >
                     <Entry Style="{StaticResource inputEntry}" 
-                           MaxLength="20"
+                           MaxLength="50"
                            Placeholder="Element Name" 
                            Text="{Binding Name}" 
-                           WidthRequest="240"
-                           HeightRequest="50"/>
+                           MinimumWidthRequest="240"
+                           MinimumHeightRequest="50"/>
                     <Button Style="{StaticResource plusButton}" 
                             Command="{Binding SaveActivity}" 
                             BackgroundColor="Transparent" 
