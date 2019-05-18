@@ -5,7 +5,7 @@
     <ContentView.Content>
          <ContentView BackgroundColor="Transparent" Padding="10, 0">
                 <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" 
-                             Margin="10" WidthRequest="250" HeightRequest="150" BackgroundColor="#d0e6e4">
+                             Margin="10" WidthRequest="250" MinimumHeightRequest="150" BackgroundColor="#d0e6e4">
                     <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
                         <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
                     </StackLayout>
