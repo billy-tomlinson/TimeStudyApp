@@ -224,6 +224,9 @@ namespace TimeStudy.ViewModels
 
             if ((Name != null && Name?.Trim().Length > 0))
             {
+                if (Name == "1" || Name.ToUpper() == "I")
+                    Name = Name + ".";
+
                 Opacity = 1;
                 IsInvalid = false;
             }
