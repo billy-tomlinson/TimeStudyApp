@@ -8,7 +8,7 @@
         <StackLayout>
             <Frame HasShadow="true" BackgroundColor="Transparent" 
                    BorderColor="White" OutlineColor="White" 
-                   Padding="0" Margin="0">
+                   Padding="0" Margin="0" IsVisible="{Binding HasElements}">
             <StackLayout MinimumHeightRequest="280" Margin="7,5,10,5">
                 <ScrollView MinimumHeightRequest="280">
                     <local:RepeaterView ItemsSource="{Binding ItemsCollection}">

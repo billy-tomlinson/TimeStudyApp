@@ -159,6 +159,9 @@ namespace TimeStudy.ViewModels
                 SetElementsColour();
                 ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
                     .OrderByDescending(x => x.Id));
+
+                HasElements = ItemsCollection.Count > 0;
+
                 ActivitiesCount = ItemsCollection.Count;
                 Name = string.Empty;
             }
@@ -399,6 +402,9 @@ namespace TimeStudy.ViewModels
             SetElementsColour();
             ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
                 .OrderByDescending(x => x.Id));
+
+            HasElements = ItemsCollection.Count > 0;
+
             Utilities.ActivityPageHasUpdatedActivityChanges = true;
         }
 
@@ -422,6 +428,8 @@ namespace TimeStudy.ViewModels
             });
 
             await deleteTask;
+
+            HasElements = ItemsCollection.Count > 0;
 
             IsEnabled = true;
             IsBusy = false;
@@ -450,6 +458,9 @@ namespace TimeStudy.ViewModels
             ItemsCollection = new ObservableCollection<Activity>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
                 .OrderByDescending(x => x.Id));
             ActivitiesCount = ItemsCollection.Count;
+
+            HasElements = ItemsCollection.Count > 0;
+
             var count = ItemsCollection.Count;
             Activity = new Activity
             {

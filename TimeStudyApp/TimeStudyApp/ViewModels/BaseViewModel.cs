@@ -66,6 +66,17 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        static bool hasElements;
+        public bool HasElements
+        {
+            get => hasElements;
+            set
+            {
+                hasElements = value;
+                OnPropertyChanged();
+            }
+        }
+
         static string currentTime;
         public string CurrentTime
         {
