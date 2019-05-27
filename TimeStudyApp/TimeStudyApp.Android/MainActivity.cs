@@ -35,10 +35,10 @@ namespace TimeStudyApp.Droid
 
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            string dbName = "TimeStudyProduction.db3";
+            string dbName = "TimeStudyProductionDB.db3";
             string folderPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             string dbPath = Path.Combine(folderPath, dbName);
-            string alarmDbPath = Path.Combine(folderPath, string.Empty);
+            //string alarmDbPath = Path.Combine(folderPath, string.Empty);
 
 
             LoadApplication(new TimeStudy.App(dbPath));
