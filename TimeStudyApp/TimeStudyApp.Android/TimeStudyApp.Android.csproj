@@ -136,6 +136,7 @@
     <AndroidResource Include="Resources\drawable\tools.png" />
     <AndroidResource Include="Resources\drawable\undo.png" />
     <AndroidResource Include="Resources\drawable\timestudy.png" />
+    <AndroidResource Include="Resources\xml\file_paths.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />
@@ -143,6 +144,7 @@
     <Folder Include="Resources\drawable-xhdpi\" />
     <Folder Include="Resources\drawable-xxhdpi\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Resources\xml\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TimeStudyApp\TimeStudyApp.csproj">
