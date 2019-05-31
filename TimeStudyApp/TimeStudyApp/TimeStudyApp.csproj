@@ -54,9 +54,6 @@
     <None Include="Pages\RootPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Pages\StudyMenuPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Pages\TestDatabasePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>

@@ -40,7 +40,7 @@ namespace TimeStudy.ViewModels
 
         void GoStudyMenu(object obj)
         {
-            Utilities.Navigate(new StudyMenuPage());
+            Utilities.Navigate(new TimeStudyMenuPage());
             App.MenuIsPresented = false;
         }
 

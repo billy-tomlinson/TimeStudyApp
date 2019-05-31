@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace TimeStudy.Pages
 {
-    public partial class StudyMenuPage : ContentPage
+    public partial class TimeStudyMenuPage : ContentPage
     {
-        public StudyMenuPage()
+        public TimeStudyMenuPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, true);
