@@ -53,6 +53,8 @@ namespace TimeStudy.Services
 
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
+        public static bool LapButtonClicked { get; set; }
+
         public static void UpdateTableFlags()
         {
 

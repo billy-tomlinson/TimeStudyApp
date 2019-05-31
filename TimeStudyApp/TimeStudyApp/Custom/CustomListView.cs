@@ -1,5 +1,10 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Linq;
 using System.Windows.Input;
+using TimeStudy.Model;
+using TimeStudy.Services;
 using Xamarin.Forms;
 
 namespace TimeStudy.Custom
@@ -14,6 +19,7 @@ namespace TimeStudy.Custom
         public CustomListView(ListViewCachingStrategy strategy) : base(strategy)
         {
             this.ItemTapped += OnItemTapped;
+            this.ItemDisappearing += OnDisappearing;
         }
 
         private void OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -22,6 +28,20 @@ namespace TimeStudy.Custom
             {
                 ItemClickedCommand?.Execute(e.Item);
                 SelectedItem = null;
+            }
+        }
+
+        private void OnDisappearing(object sender, EventArgs e)
+        {
+            CustomListView view = (CustomListView)sender;
+
+            if (Utilities.LapButtonClicked == true)
+            {
+                var obs = (ObservableCollection<LapTime>)view.ItemsSource;
+                var observations = obs.OrderByDescending(x => x.Id).FirstOrDefault();
+                this.ScrollTo(observations, ScrollToPosition.End, true);
+
+                Utilities.LapButtonClicked = false;
             }
         }
 

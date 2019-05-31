@@ -253,6 +253,7 @@ namespace TimeStudy.ViewModels
             RatingsVisible = true;
             ActivitiesVisible = false;
             Opacity = 0.2;
+            Utilities.LapButtonClicked = true;
         }
 
         public void StartTimerEvent()
@@ -468,6 +469,7 @@ namespace TimeStudy.ViewModels
             }
 
             cancelActivitiesView = false;
+            Utilities.LapButtonClicked = true;
 
         }
 
