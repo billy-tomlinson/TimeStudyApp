@@ -42,9 +42,6 @@
     <None Include="Pages\MainPageTabbedPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Pages\MenuPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Pages\PausedStudiesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>

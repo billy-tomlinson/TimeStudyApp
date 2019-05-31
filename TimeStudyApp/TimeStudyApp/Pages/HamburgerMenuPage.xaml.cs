@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using TimeStudy.Services;
+﻿using TimeStudy.Services;
 using Xamarin.Forms;
 
 namespace TimeStudy.Pages
 {
-    public partial class MenuPage : ContentPage
+    public partial class HamburgerMenuPage : ContentPage
     {
-        public MenuPage()
+        public HamburgerMenuPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

@@ -45,7 +45,7 @@ namespace TimeStudy
 
         private void CallMain()
         {
-            var menuPage = new MenuPage(){ Title = "Main Page" , Icon="hamburger.png"  };
+            var menuPage = new HamburgerMenuPage(){ Title = "Main Page" , Icon="hamburger.png"  };
             NavigationPage = new NavigationPage(new WelcomePage());
             RootPage = new RootPage();
             RootPage.Master = menuPage;
