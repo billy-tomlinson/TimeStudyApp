@@ -132,4 +132,9 @@
       <Generator>MSBuild:Compile</Generator>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\TimeStudyDetailsPage.xaml.cs">
+      <DependentUpon>TimeStudyDetailsPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
 </Project>
