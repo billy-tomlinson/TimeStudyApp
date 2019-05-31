@@ -78,7 +78,7 @@ namespace TimeStudy.ViewModels
 
         void AboutEvent(object obj)
         {
-            Utilities.Navigate(new AboutPage());
+            Utilities.Navigate(new TimeStudyAboutPage());
             App.MenuIsPresented = false;
         }
     }

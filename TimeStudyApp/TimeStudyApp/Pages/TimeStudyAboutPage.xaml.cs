@@ -3,9 +3,9 @@ using Xamarin.Forms;
 
 namespace TimeStudyApp.Pages
 {
-    public partial class AboutPage : ContentPage
+    public partial class TimeStudyAboutPage : ContentPage
     {
-        public AboutPage()
+        public TimeStudyAboutPage()
         {
             InitializeComponent();
             timeStudy.Source = ImageSource.FromFile("stopwatch.png");
