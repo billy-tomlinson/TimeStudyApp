@@ -222,9 +222,6 @@
     <BundleResource Include="Resources\hourglassempty.png" />
     <BundleResource Include="Resources\hourglassfull.png" />
     <BundleResource Include="Resources\new.png" />
-    <BundleResource Include="Resources\operators.png" />
-    <BundleResource Include="Resources\operatorsIcon.png" />
-    <BundleResource Include="Resources\operatorsgroup.png" />
     <BundleResource Include="Resources\sandtimer.png" />
     <BundleResource Include="Resources\settings.png" />
     <BundleResource Include="Resources\stopwatch.png" />
