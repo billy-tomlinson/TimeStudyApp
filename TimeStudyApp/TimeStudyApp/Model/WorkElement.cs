@@ -1,6 +1,6 @@
-﻿using SQLite;
+﻿using System;
+using SQLite;
 using SQLiteNetExtensions.Attributes;
-using System;
 using TimeStudy.Services;
 using Xamarin.Forms;
 
@@ -13,16 +13,16 @@ namespace TimeStudy.Model
         {
             Colour = Utilities.UnClicked;
             StudyId = Utilities.StudyId;
-            ElementName = new ElementName();
+            ActivityName = new WorkElementName();
         }
 
-        [ForeignKey(typeof(ElementName))] 
+        [ForeignKey(typeof(WorkElementName))] 
         public int ActivityNameId { get; set; }
 
         [OneToOne]
-        public ElementName ElementName { get; set; }
+        public WorkElementName ActivityName { get; set; }
 
-        [ForeignKey(typeof(TimeStudyDetails))]
+        [ForeignKey(typeof(RatedTimeStudy))]
         public int StudyId { get; set; }
 
         public string Comment { get; set; }
@@ -42,14 +42,13 @@ namespace TimeStudy.Model
         public double Opacity { get; set; } = 1;
 
         [Ignore]
-        public string Name => ElementName.Name;
+        public string Name => ActivityName.Name;
 
         [Ignore]
         public Color Colour { get; set; } 
 
         [Ignore]
         public bool Selected { get; set; }
-
 
         public string ObservedColour { get; set; } = Utilities.ValidColour;
 

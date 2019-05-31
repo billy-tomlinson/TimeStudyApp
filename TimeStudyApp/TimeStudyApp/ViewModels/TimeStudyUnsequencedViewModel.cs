@@ -50,7 +50,7 @@ namespace TimeStudy.ViewModels
         public State CurrentApplicationState { get; set; }
         public ApplicationState StateService { get; set; }
 
-        public List<Activity> SelectedForeignElements;
+        public List<WorkElement> SelectedForeignElements;
 
         public List<LapTime> AllForiegnLapTimes = new List<LapTime>();
 
@@ -106,7 +106,7 @@ namespace TimeStudy.ViewModels
 
             LapTimes = new ObservableCollection<LapTime>();
 
-            SelectedForeignElements = new List<Activity>();
+            SelectedForeignElements = new List<WorkElement>();
 
             Activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
 
@@ -140,7 +140,7 @@ namespace TimeStudy.ViewModels
                     Time = DateTime.Now.TimeOfDay
                 };
                 var version = StudyHistoryVersionRepo.SaveItem(studyHistoryVersion);
-                var currentStudy = SampleRepo.GetWithChildren(Utilities.StudyId);
+                var currentStudy = TimeStudyRepo.GetWithChildren(Utilities.StudyId);
                 Utilities.StudyVersion = version;
             }
 
@@ -181,9 +181,9 @@ namespace TimeStudy.ViewModels
 
         public void GroupElementsForActivitiesView()
         {
-            IEnumerable<Activity> obsCollection = CollectionOfElements;
+            IEnumerable<WorkElement> obsCollection = CollectionOfElements;
 
-            var list1 = new List<Activity>(obsCollection);
+            var list1 = new List<WorkElement>(obsCollection);
 
             foreach (var activity in list1)
             {
@@ -866,8 +866,8 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static ObservableCollection<Activity> collectionOfElements;
-        public ObservableCollection<Activity> CollectionOfElements
+        static ObservableCollection<WorkElement> collectionOfElements;
+        public ObservableCollection<WorkElement> CollectionOfElements
         {
             get => collectionOfElements;
             set

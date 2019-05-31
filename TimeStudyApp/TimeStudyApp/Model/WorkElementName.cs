@@ -2,8 +2,8 @@
 
 namespace TimeStudy.Model
 {
-    [Table("ActivityName")]
-    public class ActivityName : BaseEntity
+    [Table("WorkElementName")]
+    public class WorkElementName : BaseEntity
     {
         public string Name { get; set; }
 

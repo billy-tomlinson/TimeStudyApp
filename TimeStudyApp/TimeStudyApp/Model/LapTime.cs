@@ -11,12 +11,12 @@ namespace TimeStudy.Model
     public class LapTime : BaseEntity
     {
 
-        [ForeignKey(typeof(ActivitySampleStudy))]
+        [ForeignKey(typeof(RatedTimeStudy))]
         public int StudyId { get; set; }
 
         public int Version { get; set; }
 
-        [ForeignKey(typeof(Activity))]
+        [ForeignKey(typeof(WorkElement))]
         public int ActivityId { get; set; }
 
         public bool IsForeignElement { get; set; }
@@ -60,6 +60,6 @@ namespace TimeStudy.Model
         public Color ElementColour { get; set; }
 
         [Ignore]
-        public List<Activity> ForeignElements { get; set; }
+        public List<WorkElement> ForeignElements { get; set; }
     }
 }

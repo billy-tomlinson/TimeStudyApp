@@ -14,14 +14,14 @@ namespace TimeStudy.Custom
          public static readonly BindableProperty ActivitiesProperty =  
            BindableProperty.Create(  
                nameof(Activities),  
-               typeof(ObservableCollection<Activity>),
+               typeof(ObservableCollection<WorkElement>),
                typeof(CustomGrid),
                //propertyChanged:ImageSourcePropertyChanged,
                defaultValueCreator:null);  
   
-        public ObservableCollection<Activity> Activities  
+        public ObservableCollection<WorkElement> Activities  
         {  
-            get { return (ObservableCollection<Activity>)GetValue(ActivitiesProperty); }  
+            get { return (ObservableCollection<WorkElement>)GetValue(ActivitiesProperty); }  
             set { SetValue(ActivitiesProperty, value); }  
         } 
 
@@ -53,12 +53,12 @@ namespace TimeStudy.Custom
         private static void ImageSourcePropertyChanged(BindableObject bindable, object oldValue, object newValue)
         {
            
-            var xx = newValue as ObservableCollection<Activity>;
+            var xx = newValue as ObservableCollection<WorkElement>;
             var control = (CustomGrid)bindable;
             //control.CreateActivitiesGrid(xx);
         }
 
-        public void CreateActivitiesGrid(ObservableCollection<Activity> items)
+        public void CreateActivitiesGrid(ObservableCollection<WorkElement> items)
         {
             if (items == null)
                 return;

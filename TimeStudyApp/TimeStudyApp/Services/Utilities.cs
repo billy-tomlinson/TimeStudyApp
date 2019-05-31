@@ -95,7 +95,7 @@ namespace TimeStudy.Services
             }
         }
 
-        public static ObservableCollection<MultipleActivities> BuildGroupOfActivities(ObservableCollection<Activity> activites)
+        public static ObservableCollection<MultipleActivities> BuildGroupOfActivities(ObservableCollection<WorkElement> activites)
         {
             int counter = 0;
             bool added = false;
@@ -237,7 +237,7 @@ namespace TimeStudy.Services
 
         }
 
-        public static LapTime SetUpCurrentLapTime(Activity activity, int cycleCount, RunningStatus status, 
+        public static LapTime SetUpCurrentLapTime(WorkElement activity, int cycleCount, RunningStatus status, 
             Color? colour = null)
         {
             LapTime lapTime;

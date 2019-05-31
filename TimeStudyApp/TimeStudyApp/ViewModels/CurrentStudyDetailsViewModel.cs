@@ -10,7 +10,7 @@ namespace TimeStudy.ViewModels
         {
             IsPageVisible = IsStudyValid();
 
-            SampleStudy = SampleRepo.GetItem(Utilities.StudyId);
+            SampleStudy = TimeStudyRepo.GetItem(Utilities.StudyId);
         }
 
         private bool IsStudyValid()
@@ -28,8 +28,8 @@ namespace TimeStudy.ViewModels
             return true;
         }
 
-        ActivitySampleStudy sampleStudy;
-        public ActivitySampleStudy SampleStudy
+        RatedTimeStudy sampleStudy;
+        public RatedTimeStudy SampleStudy
         {
             get { return sampleStudy; }
             set

@@ -6,10 +6,10 @@ namespace TimeStudy.Model
     [Table("MergedActivities")] 
     public class MergedActivities : BaseEntity
     {
-        [ForeignKey(typeof(Activity))]
+        [ForeignKey(typeof(WorkElement))]
         public int ActivityId { get; set; }
 
-        [ForeignKey(typeof(Activity))]
+        [ForeignKey(typeof(WorkElement))]
         public int MergedActivityId { get; set; }
     }
 }

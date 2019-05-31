@@ -7,8 +7,8 @@ using TimeStudyApp.Model;
 
 namespace TimeStudy.Model
 {
-    [Table("ActivitySampleStudy")]
-    public class ActivitySampleStudy : BaseEntity
+    [Table("RatedTimeStudy")]
+    public class RatedTimeStudy : BaseEntity
     {
         public string Name { get; set; }
 

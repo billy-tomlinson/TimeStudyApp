@@ -26,7 +26,7 @@ namespace TimeStudy.ViewModels
                 {
                     StudyPageOpacity = 0.5;
                     SampleStudy.IsRated = true;
-                    Utilities.StudyId = SampleRepo.SaveItem(SampleStudy);
+                    Utilities.StudyId = TimeStudyRepo.SaveItem(SampleStudy);
                     StudyNumber = Utilities.StudyId;
                     CreateUnratedActivities();
 
@@ -66,8 +66,8 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        ActivitySampleStudy sampleStudy;
-        public ActivitySampleStudy SampleStudy
+        RatedTimeStudy sampleStudy;
+        public RatedTimeStudy SampleStudy
         {
             get { return sampleStudy; }
             set
@@ -83,7 +83,7 @@ namespace TimeStudy.ViewModels
             IsActive = true;
             Utilities.StudyId = 0;
 
-            SampleStudy = new ActivitySampleStudy()
+            SampleStudy = new RatedTimeStudy()
             {
                 IsRated = true,
                 Date = DateTime.Now,
@@ -93,7 +93,7 @@ namespace TimeStudy.ViewModels
             IsPageVisible = true;
 
             int lastStudyId = 0;
-            var studies = SampleRepo.GetItems()?.ToList();
+            var studies = TimeStudyRepo.GetItems()?.ToList();
 
             if (studies.Count > 0)
                 lastStudyId = studies.OrderByDescending(x => x.Id)
@@ -127,9 +127,9 @@ namespace TimeStudy.ViewModels
             var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "INEFFECTIVE");
 
             if(activityName == null)
-                activityName = new ActivityName { Name = "INEFFECTIVE" };
+                activityName = new WorkElementName { Name = "INEFFECTIVE" };
                 
-            var unrated1 = new Activity()
+            var unrated1 = new WorkElement()
             {
                 ActivityName = activityName,
                 IsEnabled = true,
@@ -146,9 +146,9 @@ namespace TimeStudy.ViewModels
             activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "LOST TIME");
 
             if (activityName == null)
-                activityName = new ActivityName { Name = "LOST TIME" };
+                activityName = new WorkElementName { Name = "LOST TIME" };
                 
-            var unrated2 = new Activity()
+            var unrated2 = new WorkElement()
             {
                 ActivityName = activityName,
                 IsEnabled = true,

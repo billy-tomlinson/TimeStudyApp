@@ -18,8 +18,6 @@ namespace TimeStudy.ViewModels
 
         private readonly string conn;
 
-        public Operator Operator;
-
         public BaseViewModel(string conn = null)
         {
             this.conn = conn;
@@ -33,7 +31,6 @@ namespace TimeStudy.ViewModels
 
         public Command SubmitDetails { get; set; }
 
-        public IBaseRepository<Operator> OperatorRepo => new BaseRepository<Operator>(conn);
 
         public IBaseRepository<StudyHistoryVersion> StudyHistoryVersionRepo => new BaseRepository<StudyHistoryVersion>(conn);
 
@@ -43,20 +40,14 @@ namespace TimeStudy.ViewModels
 
         public IBaseRepository<State> StateRepo => new BaseRepository<State>(conn);
 
-        public IBaseRepository<Observation> ObservationRepo => new BaseRepository<Observation>(conn);
+        public IBaseRepository<WorkElement> ActivityRepo => new BaseRepository<WorkElement>(conn);
 
-        public IBaseRepository<Activity> ActivityRepo => new BaseRepository<Activity>(conn);
+        public IBaseRepository<WorkElementName> ActivityNameRepo => new BaseRepository<WorkElementName>(conn);
 
-        public IBaseRepository<ActivityName> ActivityNameRepo => new BaseRepository<ActivityName>(conn);
+        public IBaseRepository<RatedTimeStudy> TimeStudyRepo => new BaseRepository<RatedTimeStudy>(conn);
 
-        public IBaseRepository<MergedActivities> MergedActivityRepo => new BaseRepository<MergedActivities>(conn);
-
-        public IBaseRepository<ActivitySampleStudy> SampleRepo => new BaseRepository<ActivitySampleStudy>(conn);
-
-        public IBaseRepository<ObservationRoundStatus> ObservationRoundStatusRepo => new BaseRepository<ObservationRoundStatus>(conn);
-
-        static ObservableCollection<Activity> activities;
-        public ObservableCollection<Activity> Activities
+        static ObservableCollection<WorkElement> activities;
+        public ObservableCollection<WorkElement> Activities
         {
             get => activities;
             set
@@ -373,61 +364,54 @@ namespace TimeStudy.ViewModels
 
         public virtual void SubmitDetailsAndNavigate() { }
 
-        public ObservableCollection<Activity> Get_Rated_Enabled_Activities()
+        public ObservableCollection<WorkElement> Get_Rated_Enabled_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+            return new ObservableCollection<WorkElement>(ActivityRepo.GetAllWithChildren()
                                          .Where(x => x.IsEnabled && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
-        public ObservableCollection<Activity> Get_All_NonValueAdded_Enabled_Activities()
+        public ObservableCollection<WorkElement> Get_All_NonValueAdded_Enabled_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+            return new ObservableCollection<WorkElement>(ActivityRepo.GetAllWithChildren()
                                          .Where(x => !x.IsValueAdded && x.StudyId == Utilities.StudyId));
         }
 
 
-        public ObservableCollection<Activity> Get_All_NonValueAdded_Enabled_Unrated_Activities()
+        public ObservableCollection<WorkElement> Get_All_NonValueAdded_Enabled_Unrated_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+            return new ObservableCollection<WorkElement>(ActivityRepo.GetAllWithChildren()
                                          .Where(x => x.IsEnabled && !x.IsValueAdded && !x.Rated && x.StudyId == Utilities.StudyId));
         }
 
 
-        public ObservableCollection<Activity> Get_All_NonValueAdded_Enabled_Rated_Activities()
+        public ObservableCollection<WorkElement> Get_All_NonValueAdded_Enabled_Rated_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+            return new ObservableCollection<WorkElement>(ActivityRepo.GetAllWithChildren()
                                          .Where(x => x.IsEnabled && !x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
-        public ObservableCollection<Activity> Get_All_Enabled_Activities()
+        public ObservableCollection<WorkElement> Get_All_Enabled_Activities()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+            return new ObservableCollection<WorkElement>(ActivityRepo.GetAllWithChildren()
                                          .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
-
-        public List<Observation> Get_Observations_By_StudyId()
-        {
-            return ObservationRepo.GetItems()
-                               .Where(x => x.StudyId == Utilities.StudyId).ToList();
-        }
-
 
         public List<LapTime> Get_LapTimes_By_StudyId()
         {
             return LapTimeRepo.GetItems()
                                 .Where(x => x.StudyId == Utilities.StudyId && x.Version == Utilities.StudyVersion).ToList();
-                                //.Where(x => x.StudyId == Utilities.StudyId).ToList();
+                               
         }
 
-        public ObservableCollection<Activity> Get_All_Enabled_Activities_WithChildren()
+        public ObservableCollection<WorkElement> Get_All_Enabled_Activities_WithChildren()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+            return new ObservableCollection<WorkElement>(ActivityRepo.GetAllWithChildren()
                                         .Where(x => x.IsEnabled && x.StudyId == Utilities.StudyId));
         }
 
-        public ObservableCollection<Activity> Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+        public ObservableCollection<WorkElement> Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
         {
-            return new ObservableCollection<Activity>(ActivityRepo.GetAllWithChildren()
+            return new ObservableCollection<WorkElement>(ActivityRepo.GetAllWithChildren()
                 .Where(x => x.IsValueAdded && x.Rated && x.StudyId == Utilities.StudyId));
         }
 
@@ -517,15 +501,15 @@ namespace TimeStudy.ViewModels
             return LapTimeRepo.GetItems().Max(x => x.Version);
         }
 
-        public ObservableCollection<ActivityName> Get_All_ActivityNames()
+        public ObservableCollection<WorkElementName> Get_All_ActivityNames()
         {
-            return new ObservableCollection<ActivityName>(ActivityNameRepo.GetItems());
+            return new ObservableCollection<WorkElementName>(ActivityNameRepo.GetItems());
 
         }
 
-        public ObservableCollection<Activity> ConvertListToObservable(List<Activity> list1)
+        public ObservableCollection<WorkElement> ConvertListToObservable(List<WorkElement> list1)
         {
-            return new ObservableCollection<Activity>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled));
+            return new ObservableCollection<WorkElement>(list1.OrderBy(x => x.Id).Where(x => x.IsEnabled));
         }
 
 
@@ -540,7 +524,7 @@ namespace TimeStudy.ViewModels
             return StateRepo.SaveItem(state);
         }
 
-        public int SaveActivityDetails(Activity activity)
+        public int SaveActivityDetails(WorkElement activity)
         {
             ActivityNameRepo.SaveItem(activity.ActivityName);
             var returnId = ActivityRepo.SaveItem(activity);
@@ -552,13 +536,9 @@ namespace TimeStudy.ViewModels
         {
             StateRepo.CreateTable();
             LapTimeRepo.CreateTable();
-            OperatorRepo.CreateTable();
-            ObservationRepo.CreateTable();
             ActivityRepo.CreateTable();
             ActivityNameRepo.CreateTable();
-            MergedActivityRepo.CreateTable();
-            SampleRepo.CreateTable();
-            ObservationRoundStatusRepo.CreateTable();
+            TimeStudyRepo.CreateTable();
             StudyHistoryVersionRepo.CreateTable();
             LapTimeHistoricRepo.CreateTable();
         }

@@ -4,13 +4,13 @@
     {
         public MultipleActivities()
         {
-            ActivityOne = new Activity();
-            ActivityTwo = new Activity();
-            ActivityThree = new Activity();
+            ActivityOne = new WorkElement();
+            ActivityTwo = new WorkElement();
+            ActivityThree = new WorkElement();
         }
 
-        public Activity ActivityOne { get; set; }
-        public Activity ActivityTwo { get; set; }
-        public Activity ActivityThree { get; set; }
+        public WorkElement ActivityOne { get; set; }
+        public WorkElement ActivityTwo { get; set; }
+        public WorkElement ActivityThree { get; set; }
     }
 }

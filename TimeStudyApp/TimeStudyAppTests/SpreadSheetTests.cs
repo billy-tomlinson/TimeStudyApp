@@ -17,20 +17,16 @@ namespace TimeStudyApp.UnitTests
         private const string connString = "/Users/billytomlinson/TimeStudyProduction.db3";
         //private const string connString = "TimeStudyDBNew.db3";
 
-        private readonly IBaseRepository<ActivitySampleStudy> sampleRepo;
-        private readonly IBaseRepository<Activity> activityRepo;
-        private readonly IBaseRepository<Operator> operatorRepo;
-        private readonly IBaseRepository<Observation> observationRepo;
+        private readonly IBaseRepository<RatedTimeStudy> sampleRepo;
+        private readonly IBaseRepository<WorkElement> activityRepo;
         private readonly IBaseRepository<LapTimeHistoric> lapTimeRepo;
         private readonly IBaseRepository<StudyHistoryVersion> studyVersionRepo;
         //private readonly IBaseRepository<LapTimeHistoric> lapTimeHistoricRepo;
 
-        List<Operator> operators;
-        ActivitySampleStudy sample;
-        List<Activity> allStudyActivities;
+        RatedTimeStudy sample;
+        List<WorkElement> allStudyActivities;
         //List<LapTime> totalLapTimes;
         List<LapTimeHistoric> totalLapTimes;
-        List<List<ObservationSummary>> allTotals;
 
         double timePerObservation;
         int IntervalTime;
@@ -70,16 +66,13 @@ namespace TimeStudyApp.UnitTests
             BaseViewModel model = new BaseViewModel(connString);
             Utilities.StudyId = 2;
             Utilities.StudyVersion = 35;
-            sampleRepo = new BaseRepository<ActivitySampleStudy>(connString);
-            activityRepo = new BaseRepository<Activity>(connString);
-            operatorRepo = new BaseRepository<Operator>(connString);
-            observationRepo = new BaseRepository<Observation>(connString);
+            sampleRepo = new BaseRepository<RatedTimeStudy>(connString);
+            activityRepo = new BaseRepository<WorkElement>(connString);
             //lapTimeRepo = new BaseRepository<LapTime>(connString);
             studyVersionRepo = new BaseRepository<StudyHistoryVersion>(connString);
             lapTimeRepo = new BaseRepository<LapTimeHistoric>(connString);
 
             BaseViewModel modelA = new BaseViewModel(connString);
-            operators = operatorRepo.GetAllWithChildren().Where(cw => cw.StudyId == Utilities.StudyId).ToList();
             sample = sampleRepo.GetItem(Utilities.StudyId);
 
             IntervalTime = 0; //alarm.Interval / 60;

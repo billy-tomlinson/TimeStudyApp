@@ -8,7 +8,7 @@ namespace TimeStudyApp.Model
     [Table("StudyHistoryVersion")]
     public class StudyHistoryVersion : BaseEntity
     {
-        [ForeignKey(typeof(ActivitySampleStudy))]
+        [ForeignKey(typeof(RatedTimeStudy))]
         public int StudyId { get; set; }
 
         public DateTime Date { get; set; }

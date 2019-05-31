@@ -35,9 +35,9 @@ namespace TimeStudy.ViewModels
         public double LastSuccesstulLapTime { get; set; }
         public TimeSpan StartTime { get; set; }
 
-        ObservableCollection<Activity> AllForeignElements;
+        ObservableCollection<WorkElement> AllForeignElements;
 
-        List<Activity> SelectedForeignElements;
+        List<WorkElement> SelectedForeignElements;
 
         List<LapTime> AllForiegnLapTimes = new List<LapTime>();
 
@@ -47,7 +47,7 @@ namespace TimeStudy.ViewModels
 
         LapTime CurrentLapTime;
         LapTime CurrentWithoutLapTime;
-        Activity CurrentForeignElement;
+        WorkElement CurrentForeignElement;
 
         public TimeStudyViewModel()
         {
@@ -71,15 +71,15 @@ namespace TimeStudy.ViewModels
 
             LapTimes = new ObservableCollection<LapTime>();
             LapTimesList = new List<LapTime>();
-            SelectedForeignElements = new List<Activity>();
+            SelectedForeignElements = new List<WorkElement>();
 
             Activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
 
             AllForeignElements = Get_All_NonValueAdded_Enabled_Activities();
 
-            IEnumerable<Activity> obsCollection = AllForeignElements;
+            IEnumerable<WorkElement> obsCollection = AllForeignElements;
 
-            var list1 = new List<Activity>(obsCollection);
+            var list1 = new List<WorkElement>(obsCollection);
 
             foreach (var activity in list1)
             {
@@ -323,7 +323,7 @@ namespace TimeStudy.ViewModels
 
                 ForceRoundingToLapTime(true);
 
-                Activity element;
+                WorkElement element;
 
                 if (ActivitiesCounter == 0)
                     ActivitiesCounter = 1;
@@ -342,7 +342,7 @@ namespace TimeStudy.ViewModels
 
                 SetUpCurrentLapTime();
 
-                SelectedForeignElements = new List<Activity>();
+                SelectedForeignElements = new List<WorkElement>();
 
                 TimeWhenLapButtonClicked = RealTimeTicks;
 
@@ -367,7 +367,7 @@ namespace TimeStudy.ViewModels
 
         }
 
-        private void ProcessForeignElementWithRating(Activity activity, int? rating = null)
+        private void ProcessForeignElementWithRating(WorkElement activity, int? rating = null)
         {
             AddForeignLapTimetoListAsCompleted(rating);
 
@@ -484,7 +484,7 @@ namespace TimeStudy.ViewModels
             });
         }
 
-        private void AddForeignElementWithoutLapTimeToList(Activity foreign)
+        private void AddForeignElementWithoutLapTimeToList(WorkElement foreign)
         {
             LapButtonText = "  Resume ";
 
@@ -683,8 +683,8 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static ObservableCollection<Activity> foreignElements;
-        public ObservableCollection<Activity> ForeignElements
+        static ObservableCollection<WorkElement> foreignElements;
+        public ObservableCollection<WorkElement> ForeignElements
         {
             get => foreignElements;
             set
@@ -825,8 +825,8 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        static Activity currentElement;
-        public Activity CurrentElement
+        static WorkElement currentElement;
+        public WorkElement CurrentElement
         {
             get => currentElement;
             set
