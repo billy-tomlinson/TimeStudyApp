@@ -20,7 +20,7 @@ namespace TimeStudyApp.UnitTests
         private readonly IBaseRepository<RatedTimeStudy> sampleRepo;
         private readonly IBaseRepository<WorkElement> activityRepo;
         private readonly IBaseRepository<LapTimeHistoric> lapTimeRepo;
-        private readonly IBaseRepository<StudyHistoryVersion> studyVersionRepo;
+        private readonly IBaseRepository<TimeStudyHistoryVersion> studyVersionRepo;
         //private readonly IBaseRepository<LapTimeHistoric> lapTimeHistoricRepo;
 
         RatedTimeStudy sample;
@@ -69,7 +69,7 @@ namespace TimeStudyApp.UnitTests
             sampleRepo = new BaseRepository<RatedTimeStudy>(connString);
             activityRepo = new BaseRepository<WorkElement>(connString);
             //lapTimeRepo = new BaseRepository<LapTime>(connString);
-            studyVersionRepo = new BaseRepository<StudyHistoryVersion>(connString);
+            studyVersionRepo = new BaseRepository<TimeStudyHistoryVersion>(connString);
             lapTimeRepo = new BaseRepository<LapTimeHistoric>(connString);
 
             BaseViewModel modelA = new BaseViewModel(connString);

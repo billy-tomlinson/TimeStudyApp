@@ -32,7 +32,7 @@ namespace TimeStudy.ViewModels
         public Command SubmitDetails { get; set; }
 
 
-        public IBaseRepository<StudyHistoryVersion> StudyHistoryVersionRepo => new BaseRepository<StudyHistoryVersion>(conn);
+        public IBaseRepository<TimeStudyHistoryVersion> StudyHistoryVersionRepo => new BaseRepository<TimeStudyHistoryVersion>(conn);
 
         public IBaseRepository<LapTime> LapTimeRepo => new BaseRepository<LapTime>(conn);
 

@@ -5,8 +5,8 @@ using TimeStudy.Model;
 
 namespace TimeStudyApp.Model
 {
-    [Table("StudyHistoryVersion")]
-    public class StudyHistoryVersion : BaseEntity
+    [Table("TimeStudyHistoryVersion")]
+    public class TimeStudyHistoryVersion : BaseEntity
     {
         [ForeignKey(typeof(RatedTimeStudy))]
         public int StudyId { get; set; }

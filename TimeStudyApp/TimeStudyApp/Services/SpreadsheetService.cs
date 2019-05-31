@@ -15,7 +15,7 @@ namespace TimeStudy.Services
         private  IBaseRepository<RatedTimeStudy> sampleRepo;
         private  IBaseRepository<WorkElement> activityRepo;
         private  IBaseRepository<LapTimeHistoric> lapTimeRepo;
-        private  IBaseRepository<StudyHistoryVersion> studyVersionRepo;
+        private  IBaseRepository<TimeStudyHistoryVersion> studyVersionRepo;
 
         RatedTimeStudy sample;
         List<WorkElement> allStudyActivities;
@@ -37,12 +37,12 @@ namespace TimeStudy.Services
         IStyle frequencyStyle;
         IStyle worksheetStyle;
 
-        public SpreadSheet CreateExcelWorkBook()
+        public TimeStudySpreadSheet CreateExcelWorkBook()
         {
             sampleRepo = new BaseRepository<RatedTimeStudy>(Utilities.Connection);
             activityRepo = new BaseRepository<WorkElement>(Utilities.Connection);
             lapTimeRepo = new BaseRepository<LapTimeHistoric>(Utilities.Connection);
-            studyVersionRepo = new BaseRepository<StudyHistoryVersion> (Utilities.Connection);
+            studyVersionRepo = new BaseRepository<TimeStudyHistoryVersion> (Utilities.Connection);
 
             BaseViewModel modelA = new BaseViewModel(Utilities.Connection);
             sample = sampleRepo.GetItem(Utilities.StudyId);
@@ -153,7 +153,7 @@ namespace TimeStudy.Services
                     .Result;
             }
 
-            return new SpreadSheet() { FileName = fileName, FilePath = path };
+            return new TimeStudySpreadSheet() { FileName = fileName, FilePath = path };
         }
 
         private void BuildStudyDetails()

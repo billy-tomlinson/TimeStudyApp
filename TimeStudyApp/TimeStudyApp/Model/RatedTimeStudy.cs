@@ -27,7 +27,7 @@ namespace TimeStudy.Model
         public bool Completed { get; set; }
 
         [OneToMany]
-        public List<StudyHistoryVersion> HistoricalVersions { get; set; }
+        public List<TimeStudyHistoryVersion> HistoricalVersions { get; set; }
 
         [Ignore]
         public string ObservedColour { get; set; } = Xamarin.Forms.Color.Gray.GetShortHexString();

@@ -148,7 +148,7 @@ namespace TimeStudy.Services
             lapTimeRepo.ExecuteSQLCommand(sqlCommand);
         }
 
-        public static SpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
+        public static TimeStudySpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
         {
             //string path;
             //Guid guid = Guid.NewGuid();
@@ -199,10 +199,10 @@ namespace TimeStudy.Services
             //}
 
             //return new SpreadSheet() { FileName = fileName, FilePath = path };
-            return new SpreadSheet();
+            return new TimeStudySpreadSheet();
         }
 
-        public static void SendEmail(SpreadSheet spreadSheet)
+        public static void SendEmail(TimeStudySpreadSheet spreadSheet)
         {
             var email = new EmailMessageBuilder()
                 .Subject("Activity Sample Results")

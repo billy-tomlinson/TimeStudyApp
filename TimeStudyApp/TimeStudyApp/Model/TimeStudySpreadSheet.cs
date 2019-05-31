@@ -1,6 +1,6 @@
 ﻿namespace TimeStudy.Model
 {
-    public class SpreadSheet
+    public class TimeStudySpreadSheet
     {
         public string FileName { get; set; }
 
