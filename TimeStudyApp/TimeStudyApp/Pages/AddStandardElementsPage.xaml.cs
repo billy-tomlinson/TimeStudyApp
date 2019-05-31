@@ -6,9 +6,9 @@ using Xamarin.Forms.PlatformConfiguration;
 
 namespace TimeStudy.Pages
 {
-    public partial class AddElementsUnsequencedPage : ContentPage
+    public partial class AddStandardElementsPage : ContentPage
     {
-        public AddElementsUnsequencedPage()
+        public AddStandardElementsPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

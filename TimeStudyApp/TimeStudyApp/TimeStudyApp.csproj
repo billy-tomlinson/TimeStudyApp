@@ -113,5 +113,14 @@
     <Compile Update="Views\ElementRatingView.xaml.cs">
       <DependentUpon>ElementRatingView.xaml</DependentUpon>
     </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\AddElementsUnsequencedPage.xaml.cs">
+      <DependentUpon>AddStandardElementsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\AddStandardElementsPage.xaml.cs">
+      <DependentUpon>AddStandardElementsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\TimeStudyUnsequencedPage.xaml.cs">
+      <DependentUpon>TimeStudyMainPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 </Project>

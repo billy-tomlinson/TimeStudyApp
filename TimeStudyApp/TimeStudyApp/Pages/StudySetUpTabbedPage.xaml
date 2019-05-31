@@ -16,6 +16,6 @@
         </Grid>
     </NavigationPage.TitleView>
     <pages:StudyDetailsPage Title="Study Details" Icon="studysetup.png" />
-    <pages:AddElementsUnsequencedPage Title="Elements" Icon="tools.png" />
+    <pages:AddStandardElementsPage Title="Elements" Icon="tools.png" />
     <pages:AddForeignElementsPage Title="Foreign" Icon="tools.png" />
 </TabbedPage>

@@ -4,7 +4,7 @@
              xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
              xmlns:local="clr-namespace:TimeStudy.Custom" 
              xmlns:views="clr-namespace:TimeStudy.Views" 
-             x:Class="TimeStudy.Pages.TimeStudyUnsequencedPage">
+             x:Class="TimeStudy.Pages.TimeStudyMainPage">
     <ContentPage.BindingContext>
         <TimeStudy:TimeStudyUnsequencedViewModel />
     </ContentPage.BindingContext>

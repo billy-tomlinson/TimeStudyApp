@@ -15,7 +15,7 @@
             <Label Grid.Row="0" Grid.Column="0" Text="Tye Management Services Ltd" FontAttributes="Bold" HorizontalTextAlignment="Center" />
         </Grid>
     </NavigationPage.TitleView>
-    <pages:TimeStudyUnsequencedPage Title="Time Study" Icon="sandtimer.png" />
-    <pages:AddElementsUnsequencedPage Title="Elements" Icon="tools.png" />
+    <pages:TimeStudyMainPage Title="Time Study" Icon="sandtimer.png" />
+    <pages:AddStandardElementsPage Title="Elements" Icon="tools.png" />
     <pages:AddForeignElementsPage Title="Foreign" Icon="tools.png" />
 </TabbedPage>
