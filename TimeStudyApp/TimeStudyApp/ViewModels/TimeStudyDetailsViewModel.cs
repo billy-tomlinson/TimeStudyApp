@@ -7,11 +7,11 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class StudyDetailsViewModel : BaseViewModel
+    public class TimeStudyDetailsViewModel : BaseViewModel
     {
-        public StudyDetailsViewModel(string conn) : base(conn) { ConstructorSetUp(); }
+        public TimeStudyDetailsViewModel(string conn) : base(conn) { ConstructorSetUp(); }
 
-        public StudyDetailsViewModel()
+        public TimeStudyDetailsViewModel()
         {
             ConstructorSetUp(); 
         }

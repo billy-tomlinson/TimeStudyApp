@@ -29,13 +29,7 @@
     <EmbeddedResource Remove="Pages\TestDatabasePage.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Pages\AddElementsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Pages\AddForeignElementsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\AllActivitiesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\App.xaml">
@@ -44,13 +38,7 @@
     <None Include="Pages\CompletedStudiesPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Pages\EditActivitiesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Pages\ExistingStudiesTabbedPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\MainPageTabbedPage.xaml">
@@ -80,16 +68,10 @@
     <None Include="Pages\TestDatabasePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Pages\TimeStudyPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Pages\WelcomePage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Views\ActivitiesView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Views\CategoriesView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Views\ExistingStudiesView1.xaml">
@@ -101,13 +83,7 @@
     <None Include="Views\PageNotAllowedView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Views\RatingView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Views\RepeaterControlView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Views\RunningTotalsView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Views\StudyDetailsView.xaml">
@@ -120,7 +96,6 @@
   <ItemGroup>
     <Compile Remove="Pages\MainPage.xaml.cs" />
     <Compile Remove="Model\MergedActivities.cs" />
-    <Compile Remove="Views\ElementRatingView.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\StateMachine\" />
@@ -136,6 +111,9 @@
   <ItemGroup>
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\TimeStudyDetailsPage.xaml.cs">
       <DependentUpon>TimeStudyDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ElementRatingView.xaml.cs">
+      <DependentUpon>ElementRatingView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>

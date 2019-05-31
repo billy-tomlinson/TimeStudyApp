@@ -7,7 +7,7 @@
              x:Name="StudyDetailsView" 
              x:Class="TimeStudy.Pages.StudyDetailsPage">
     <ContentPage.BindingContext>
-        <local:StudyDetailsViewModel />
+        <local:TimeStudyDetailsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>

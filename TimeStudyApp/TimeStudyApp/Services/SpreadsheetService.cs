@@ -12,8 +12,8 @@ namespace TimeStudy.Services
 {
     public class SpreadsheetService
     {
-        private  IBaseRepository<RatedTimeStudy> sampleRepo;
-        private  IBaseRepository<WorkElement> activityRepo;
+        private  IBaseRepository<RatedTimeStudy> timeStudyRepo;
+        private  IBaseRepository<WorkElement> elementRepo;
         private  IBaseRepository<LapTimeHistoric> lapTimeRepo;
         private  IBaseRepository<TimeStudyHistoryVersion> studyVersionRepo;
 
@@ -39,15 +39,15 @@ namespace TimeStudy.Services
 
         public TimeStudySpreadSheet CreateExcelWorkBook()
         {
-            sampleRepo = new BaseRepository<RatedTimeStudy>(Utilities.Connection);
-            activityRepo = new BaseRepository<WorkElement>(Utilities.Connection);
+            timeStudyRepo = new BaseRepository<RatedTimeStudy>(Utilities.Connection);
+            elementRepo = new BaseRepository<WorkElement>(Utilities.Connection);
             lapTimeRepo = new BaseRepository<LapTimeHistoric>(Utilities.Connection);
             studyVersionRepo = new BaseRepository<TimeStudyHistoryVersion> (Utilities.Connection);
 
             BaseViewModel modelA = new BaseViewModel(Utilities.Connection);
-            sample = sampleRepo.GetItem(Utilities.StudyId);
+            sample = timeStudyRepo.GetItem(Utilities.StudyId);
 
-            allStudyActivities = activityRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
+            allStudyActivities = elementRepo.GetAllWithChildren().Where(x => x.StudyId == Utilities.StudyId).ToList();
 
             totalLapTimes = lapTimeRepo.GetItems().Where(x => x.StudyId == Utilities.StudyId).ToList();
             var totalCount = totalLapTimes.Count();
