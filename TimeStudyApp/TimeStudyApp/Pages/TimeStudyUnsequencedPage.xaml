@@ -51,13 +51,13 @@
                             </ColumnDefinition>
                             <ColumnDefinition Width="0.6*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="4*">
+                            <ColumnDefinition Width="3.5*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="1.8*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="1.8*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="1*">
+                            <ColumnDefinition Width="1.5*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                        <!-- <Label Grid.Row="0" Grid.Column="0" Text="Cycle" FontSize="9" TextColor="Black" HorizontalTextAlignment="Start" />
@@ -85,13 +85,13 @@
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="0.6*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="4*">
+                                        <ColumnDefinition Width="3.5*">
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="1.8*">
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="1.8*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="1*">
+                                        <ColumnDefinition Width="1.5*">
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <!--<Label Grid.Row="0" Grid.Column="0" Text="{Binding CurrentCycle}" FontSize="11" HorizontalTextAlignment="Start" TextColor="Black" />
@@ -117,13 +117,13 @@
                                                 </ColumnDefinition>
                                                 <ColumnDefinition Width="0.6*">
                                                 </ColumnDefinition>
-                                                <ColumnDefinition Width="4*">
+                                                <ColumnDefinition Width="3.5*">
                                                 </ColumnDefinition>
                                                 <ColumnDefinition Width="1.8*">
                                                 </ColumnDefinition>
                                                 <ColumnDefinition Width="1.8*">
                                                 </ColumnDefinition>
-                                                <ColumnDefinition Width="1*">
+                                                <ColumnDefinition Width="1.5*">
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
 <!--                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Cycle}" FontSize="11" HorizontalTextAlignment="Start" />
@@ -131,7 +131,7 @@
                                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Element}" HorizontalTextAlignment="Start" FontSize="13" />
                                             <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="12" />
                                             <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTimeFormatted}" HorizontalTextAlignment="Start" FontSize="12" />
-                                            <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="11" />
+                                            <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Center" FontSize="12" />
                                         </Grid>
                                     </StackLayout>
                                 </ViewCell>
