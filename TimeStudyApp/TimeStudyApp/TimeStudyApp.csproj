@@ -18,8 +18,6 @@
     <PackageReference Include="XLabs.Forms" Version="2.0.5782" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="1.13.2" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="1.13.2" />
-    <PackageReference Include="Xam.Plugins.Vibrate" Version="4.0.0.5" />
-    <PackageReference Include="Toasts.Forms.Plugin" Version="3.3.2" />
     <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="16.3.0.29" />
   </ItemGroup>
   <ItemGroup>

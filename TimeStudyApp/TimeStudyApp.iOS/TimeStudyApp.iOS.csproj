@@ -202,12 +202,6 @@
     <PackageReference Include="Microsoft.AppCenter.Analytics">
       <Version>1.13.2</Version>
     </PackageReference>
-    <PackageReference Include="Xam.Plugins.Vibrate">
-      <Version>4.0.0.5</Version>
-    </PackageReference>
-    <PackageReference Include="Toasts.Forms.Plugin">
-      <Version>3.3.2</Version>
-    </PackageReference>
     <PackageReference Include="Syncfusion.Xamarin.XlsIO">
       <Version>16.3.0.29</Version>
     </PackageReference>
