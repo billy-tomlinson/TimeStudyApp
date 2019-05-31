@@ -3,7 +3,7 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class AboutPageViewModel : BaseViewModel
+    public class TimeStudyAboutPageViewModel : BaseViewModel
     {
         public ICommand ClickCommand => new Command<string>((url) =>
         {

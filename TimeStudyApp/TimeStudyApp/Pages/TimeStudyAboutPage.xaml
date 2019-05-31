@@ -4,7 +4,7 @@ xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
 xmlns:viewModels="clr-namespace:TimeStudy.ViewModels" 
              x:Class="TimeStudyApp.Pages.TimeStudyAboutPage">
     <ContentPage.BindingContext>
-        <viewModels:AboutPageViewModel />
+        <viewModels:TimeStudyAboutPageViewModel />
     </ContentPage.BindingContext>
     <NavigationPage.TitleView>
         <Grid>
