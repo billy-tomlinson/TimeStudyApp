@@ -315,7 +315,7 @@ namespace TimeStudy.ViewModels
                 studyVersion.TimeStudyFinished = DateTime.Now;
 
                 StudyHistoryVersionRepo.SaveItem(studyVersion);
-                Utilities.Navigate(new ReportsPage());
+                Utilities.Navigate(new TimeStudyReportsPage());
             }
                 
         }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" xmlns:views="clr-namespace:TimeStudy.Views" x:Class="TimeStudy.Pages.ReportsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+             xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
+             xmlns:views="clr-namespace:TimeStudy.Views" 
+             x:Class="TimeStudy.Pages.TimeStudyReportsPage">
     <ContentPage.BindingContext>
         <TimeStudy:ReportsPageViewModel />
     </ContentPage.BindingContext>

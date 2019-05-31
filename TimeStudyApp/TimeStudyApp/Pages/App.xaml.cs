@@ -30,7 +30,7 @@ namespace TimeStudy
         }
 
         public static NavigationPage NavigationPage { get; private set; }
-        public static RootPage RootPage;
+        public static TimeStudyRootPage RootPage;
         public static bool MenuIsPresented
         {
             get
@@ -47,7 +47,7 @@ namespace TimeStudy
         {
             var menuPage = new HamburgerMenuPage(){ Title = "Main Page" , Icon="hamburger.png"  };
             NavigationPage = new NavigationPage(new WelcomePage());
-            RootPage = new RootPage();
+            RootPage = new TimeStudyRootPage();
             RootPage.Master = menuPage;
             RootPage.Detail = NavigationPage;
             MainPage = RootPage;

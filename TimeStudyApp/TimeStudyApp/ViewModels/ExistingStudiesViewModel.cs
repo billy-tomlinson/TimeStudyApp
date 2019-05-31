@@ -76,9 +76,9 @@ namespace TimeStudy.ViewModels
                     Device.BeginInvokeOnMainThread(async  () =>
                     {
                         if (!completed)
-                           await Utilities.Navigate(new MainPageTabbedPage());
+                           await Utilities.Navigate(new TimeStudyMainPageTabbedPage());
                         else
-                            await Utilities.Navigate(new ReportsPage());
+                            await Utilities.Navigate(new TimeStudyReportsPage());
                     });
                 });
 

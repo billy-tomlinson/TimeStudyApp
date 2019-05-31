@@ -39,16 +39,7 @@
     <None Include="Pages\ExistingStudiesTabbedPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Pages\MainPageTabbedPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Pages\PausedStudiesPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\ReportsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\RootPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\TestDatabasePage.xaml">

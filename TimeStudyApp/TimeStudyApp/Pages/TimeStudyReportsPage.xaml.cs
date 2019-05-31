@@ -3,14 +3,13 @@ using Xamarin.Forms;
 
 namespace TimeStudy.Pages
 {
-    public partial class MainPageTabbedPage : TabbedPage
+    public partial class TimeStudyReportsPage : ContentPage
     {
-        public MainPageTabbedPage()
+        public TimeStudyReportsPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, true);
             NavigationPage.SetBackButtonTitle(this, "");
-
         }
 
         protected override bool OnBackButtonPressed()
@@ -23,12 +22,5 @@ namespace TimeStudy.Pages
             base.OnAppearing();
             Utilities.ClearNavigation();
         }
-
-        protected override void OnCurrentPageChanged()
-        {
-            base.OnCurrentPageChanged();
-        }
-
-        //public Color TabColour { get => Color.LightYellow; }
     }
 }

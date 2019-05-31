@@ -53,7 +53,7 @@ namespace TimeStudy.ViewModels
         void GoCurrentStudy(object obj)
         {
             //if (Utilities.StudyId == 0) return;
-            Utilities.Navigate(new MainPageTabbedPage());
+            Utilities.Navigate(new TimeStudyMainPageTabbedPage());
             App.MenuIsPresented = false;
         }
 
@@ -72,7 +72,7 @@ namespace TimeStudy.ViewModels
 
         void GoReports(object obj)
         {
-            Utilities.Navigate(new ReportsPage());
+            Utilities.Navigate(new TimeStudyReportsPage());
             App.MenuIsPresented = false;
         }
 

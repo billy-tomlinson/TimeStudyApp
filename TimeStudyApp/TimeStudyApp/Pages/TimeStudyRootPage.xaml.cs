@@ -4,9 +4,9 @@ using Xamarin.Forms;
 
 namespace TimeStudy.Pages
 {
-    public partial class RootPage : MasterDetailPage
+    public partial class TimeStudyRootPage : MasterDetailPage
     {
-        public RootPage()
+        public TimeStudyRootPage()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);
