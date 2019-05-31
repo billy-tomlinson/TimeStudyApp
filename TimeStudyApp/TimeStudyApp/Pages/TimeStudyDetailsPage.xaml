@@ -5,7 +5,7 @@
              xmlns:custom="clr-namespace:XLabs.Forms.Controls;assembly=XLabs.Forms"
              xmlns:views="clr-namespace:TimeStudy.Views" 
              x:Name="StudyDetailsView" 
-             x:Class="TimeStudy.Pages.StudyDetailsPage">
+             x:Class="TimeStudy.Pages.TimeStudyDetailsPage">
     <ContentPage.BindingContext>
         <local:TimeStudyDetailsViewModel />
     </ContentPage.BindingContext>

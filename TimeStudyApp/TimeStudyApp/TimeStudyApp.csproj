@@ -54,13 +54,7 @@
     <None Include="Pages\RootPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
-    <None Include="Pages\StudyDetailsPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
     <None Include="Pages\StudyMenuPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-    <None Include="Pages\StudySetUpTabbedPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </None>
     <None Include="Pages\TestDatabasePage.xaml">
@@ -119,8 +113,11 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\AddStandardElementsPage.xaml.cs">
       <DependentUpon>AddStandardElementsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\TimeStudyUnsequencedPage.xaml.cs">
-      <DependentUpon>TimeStudyMainPage.xaml</DependentUpon>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\StudyDetailsPage.xaml.cs">
+      <DependentUpon>TimeStudyDetailsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\StudySetUpTabbedPage.xaml.cs">
+      <DependentUpon>TimeStudySetUpTabbedPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
 </Project>
