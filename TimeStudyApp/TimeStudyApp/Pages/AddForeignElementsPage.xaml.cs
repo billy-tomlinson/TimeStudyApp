@@ -21,14 +21,11 @@ namespace TimeStudy.Pages
 
         protected override void OnAppearing()
         {
-            if (Utilities.ActivityTableUpdated || Utilities.OperatorTableUpdated || Utilities.ObservationTableUpdated || Utilities.ActivitySampleTableUpdated)
+            if (Utilities.ActivitySampleTableUpdated)
             {
-                if (!Utilities.ForeignElementsPageHasUpdatedActivityChanges
-                        || !Utilities.ForeignElementsPageHasUpdatedOperatorChanges
-                        || !Utilities.ForeignElementsPageHasUpdatedActivitySampleChanges)
+                if (!Utilities.ForeignElementsPageHasUpdatedActivitySampleChanges)
                 {
-                    Utilities.ForeignElementsPageHasUpdatedActivityChanges = true;
-                    Utilities.ForeignElementsPageHasUpdatedOperatorChanges = true;
+  
                     Utilities.ForeignElementsPageHasUpdatedActivitySampleChanges = true;
 
                     Utilities.UpdateTableFlags();

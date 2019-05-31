@@ -55,17 +55,6 @@ namespace TimeStudy.Services
 
         public static void UpdateTableFlags()
         {
-            if (TimeStudyPageHasUpdatedActivityChanges && ActivityPageHasUpdatedActivityChanges 
-                    && ForeignElementsPageHasUpdatedActivityChanges && MergePageHasUpdatedActivityChanges
-                    && AllActivitiesPageHasUpdatedActivityChanges)
-                ActivityTableUpdated = false;
-
-            if (TimeStudyPageHasUpdatedOperatorChanges && ActivityPageHasUpdatedOperatorChanges
-                    && ForeignElementsPageHasUpdatedOperatorChanges)
-                OperatorTableUpdated = false;
-
-            if (TimeStudyPageHasUpdatedObservationChanges && ActivityPageHasUpdatedObservationChanges)
-                ObservationTableUpdated = false;
 
             if(ActivityPageHasUpdatedActivitySampleChanges && ForeignElementsPageHasUpdatedActivitySampleChanges)
                 ActivitySampleTableUpdated = false;

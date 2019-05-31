@@ -148,23 +148,6 @@ namespace TimeStudy.Services
 
             switch (name)
             {
-                case "Operator":
-                    Utilities.OperatorTableUpdated = true;
-                    Utilities.ActivityPageHasUpdatedOperatorChanges = false;
-                    Utilities.TimeStudyPageHasUpdatedOperatorChanges = false;
-                    break;
-                case "Activity":
-                    Utilities.ActivityTableUpdated = true;
-                    Utilities.ActivityPageHasUpdatedActivityChanges = false;
-                    Utilities.TimeStudyPageHasUpdatedActivityChanges = false;
-                    Utilities.MergePageHasUpdatedActivityChanges = false;
-                    Utilities.AllActivitiesPageHasUpdatedActivityChanges = false;
-                    break;
-                case "Observation":
-                    Utilities.ObservationTableUpdated = true;
-                    Utilities.ActivityPageHasUpdatedObservationChanges = false;
-                    Utilities.TimeStudyPageHasUpdatedObservationChanges = false;
-                    break;
                 case "ActivitySampleStudy":
                     Utilities.ActivitySampleTableUpdated = true;
                     Utilities.ForeignElementsPageHasUpdatedActivitySampleChanges = false;
