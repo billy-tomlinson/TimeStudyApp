@@ -2,9 +2,9 @@
 
 namespace TimeStudy.Views
 {
-    public partial class RatingView : ContentView
+    public partial class ElementRatingView : ContentView
     {
-        public RatingView()
+        public ElementRatingView()
         {
             InitializeComponent();
         }

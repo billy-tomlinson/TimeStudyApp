@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Remove="Pages\MainPage.xaml.cs" />
     <Compile Remove="Model\MergedActivities.cs" />
+    <Compile Remove="Views\ElementRatingView.xaml.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\StateMachine\" />

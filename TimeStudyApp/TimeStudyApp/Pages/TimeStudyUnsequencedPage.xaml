@@ -60,8 +60,6 @@
                             <ColumnDefinition Width="1.2*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                       <!-- <Label Grid.Row="0" Grid.Column="0" Text="Cycle" FontSize="9" TextColor="Black" HorizontalTextAlignment="Start" />
-                        <Label Grid.Row="0" Grid.Column="1" Text="Lap" FontSize="9" TextColor="Black" HorizontalTextAlignment="Start" />-->
                         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Element" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
                         <Label Grid.Row="0" Grid.Column="3" Text="Elapsed" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
                         <Label Grid.Row="0" Grid.Column="4" Text="Lap Time" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
@@ -94,8 +92,6 @@
                                         <ColumnDefinition Width="1.2*">
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <!--<Label Grid.Row="0" Grid.Column="0" Text="{Binding CurrentCycle}" FontSize="11" HorizontalTextAlignment="Start" TextColor="Black" />
-                                    <Label Grid.Row="0" Grid.Column="1" Text="{Binding CurrentSequence}" FontSize="11" HorizontalTextAlignment="Start" TextColor="Black" />-->
                                     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding CurrentElementWithoutLapTimeName}" HorizontalTextAlignment="Start" FontSize="13" TextColor="Black" />
                                     <Label Grid.Row="0" Grid.Column="3" Text="{Binding StopWatchTime}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
                                     <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
@@ -126,8 +122,6 @@
                                                 <ColumnDefinition Width="1.2*">
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-<!--                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Cycle}" FontSize="11" HorizontalTextAlignment="Start" />
-                                            <Label Grid.Row="0" Grid.Column="1" Text="{Binding Sequence}" FontSize="11" HorizontalTextAlignment="Start" />-->
                                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Element}" HorizontalTextAlignment="Start" FontSize="13" />
                                             <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="12" />
                                             <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTimeFormatted}" HorizontalTextAlignment="Start" FontSize="12" />
@@ -159,7 +153,7 @@
                 </StackLayout>
             </StackLayout>
             <views:ActivitiesView IsVisible="{Binding ActivitiesVisible}" BackgroundColor="#FCFAFA" MinimumHeightRequest="350" Margin="10" VerticalOptions="Center" HorizontalOptions="Center" />
-            <views:RatingView IsVisible="{Binding RatingsVisible}" Padding="10, 0, 10 ,0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All" />
+            <views:ElementRatingView IsVisible="{Binding RatingsVisible}" Padding="10, 0, 10 ,0" AbsoluteLayout.LayoutBounds="0.5, 0.5, 25, 25" AbsoluteLayout.LayoutFlags="All" />
             <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
