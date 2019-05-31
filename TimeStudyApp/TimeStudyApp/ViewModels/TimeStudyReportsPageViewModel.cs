@@ -5,11 +5,11 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class ReportsPageViewModel : BaseViewModel
+    public class TimeStudyReportsPageViewModel : BaseViewModel
     {
         public Command SendEmail { get; set; }
 
-        public ReportsPageViewModel()
+        public TimeStudyReportsPageViewModel()
         {
             ConstructorSetUp();
         }

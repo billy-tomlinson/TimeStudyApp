@@ -4,12 +4,12 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class StudyMenuViewModel : BaseViewModel
+    public class TimeStudyMenuViewModel : BaseViewModel
     {
         public Command NewStudy { get; set; }
         public Command ExistingStudy { get; set; }
 
-        public StudyMenuViewModel()
+        public TimeStudyMenuViewModel()
         {
             NewStudy = new Command(NewStudyPage);
             ExistingStudy = new Command(ExistingStudyPage);

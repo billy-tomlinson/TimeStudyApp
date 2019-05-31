@@ -5,9 +5,9 @@ using Xamarin.Forms.Xaml;
 namespace TimeStudy.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class WelcomePage : ContentPage
+	public partial class TimeStudyWelcomePage : ContentPage
 	{
-		public WelcomePage ()
+		public TimeStudyWelcomePage ()
 		{
 			InitializeComponent ();
             timeStudy.Source = ImageSource.FromFile("stopwatch.png");

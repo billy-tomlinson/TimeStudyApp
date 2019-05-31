@@ -6,7 +6,7 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class MenuPageViewModel : BaseViewModel
+    public class HamburgerMenuPageViewModel : BaseViewModel
     {
         public ICommand StudyMenu { get; set; }
         public ICommand ExistingStudies { get; set; }
@@ -19,7 +19,7 @@ namespace TimeStudy.ViewModels
 
         public string VersionAndBuild => "version " + Utilities.Version + " build " + Utilities.Build;
 
-        public MenuPageViewModel()
+        public HamburgerMenuPageViewModel()
         {
             StudyMenu = new Command(GoStudyMenu);
             ExistingStudies = new Command(GoExistingStudies);

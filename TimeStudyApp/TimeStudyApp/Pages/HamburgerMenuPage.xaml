@@ -8,7 +8,7 @@
         <OnPlatform x:TypeArguments="Thickness" iOS=" 0 , 20 , 0 , 0" />
     </ContentPage.Padding>
     <ContentPage.BindingContext>
-        <viewModels:MenuPageViewModel />
+        <viewModels:HamburgerMenuPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <StackLayout>

@@ -215,15 +215,12 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\alert.png" />
-    <BundleResource Include="Resources\chevrondown.png" />
-    <BundleResource Include="Resources\chevronup.png" />
     <BundleResource Include="Resources\comments.png" />
     <BundleResource Include="Resources\delete.png" />
     <BundleResource Include="Resources\group.png" />
     <BundleResource Include="Resources\hamburger.png" />
     <BundleResource Include="Resources\hourglassempty.png" />
     <BundleResource Include="Resources\hourglassfull.png" />
-    <BundleResource Include="Resources\merge.png" />
     <BundleResource Include="Resources\new.png" />
     <BundleResource Include="Resources\operators.png" />
     <BundleResource Include="Resources\operatorsIcon.png" />
@@ -232,7 +229,6 @@
     <BundleResource Include="Resources\settings.png" />
     <BundleResource Include="Resources\stopwatch.png" />
     <BundleResource Include="Resources\studysetup.png" />
-    <BundleResource Include="Resources\thumb.png" />
     <BundleResource Include="Resources\tools.png" />
     <BundleResource Include="Resources\undo.png" />
   </ItemGroup>

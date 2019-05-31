@@ -5,7 +5,7 @@
              xmlns:views="clr-namespace:TimeStudy.Views" 
              x:Class="TimeStudy.Pages.TimeStudyReportsPage">
     <ContentPage.BindingContext>
-        <TimeStudy:ReportsPageViewModel />
+        <TimeStudy:TimeStudyReportsPageViewModel />
     </ContentPage.BindingContext>
     <NavigationPage.TitleView>
         <Grid>
