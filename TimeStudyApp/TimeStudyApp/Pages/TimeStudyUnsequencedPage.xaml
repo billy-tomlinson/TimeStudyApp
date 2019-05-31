@@ -40,10 +40,10 @@
                         <Button Grid.Row="0" Grid.Column="2" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" IsEnabled="{Binding IsForeignEnabled}"/>
                     </Grid>
                 </StackLayout>
-                <StackLayout Padding="5,2,5,0" BackgroundColor="White">
+                <StackLayout Padding="5,2,5,2" BackgroundColor="White">
                     <Grid Padding="3" Margin="3">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="*">
+                            <RowDefinition Height="16">
                             </RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
@@ -51,13 +51,13 @@
                             </ColumnDefinition>
                             <ColumnDefinition Width="0.6*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="3.5*">
+                            <ColumnDefinition Width="3.8*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="1.8*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="1.8*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="1.5*">
+                            <ColumnDefinition Width="1.2*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                        <!-- <Label Grid.Row="0" Grid.Column="0" Text="Cycle" FontSize="9" TextColor="Black" HorizontalTextAlignment="Start" />
@@ -85,13 +85,13 @@
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="0.6*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="3.5*">
+                                        <ColumnDefinition Width="3.8*">
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="1.8*">
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="1.8*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="1.5*">
+                                        <ColumnDefinition Width="1.2*">
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <!--<Label Grid.Row="0" Grid.Column="0" Text="{Binding CurrentCycle}" FontSize="11" HorizontalTextAlignment="Start" TextColor="Black" />
@@ -117,13 +117,13 @@
                                                 </ColumnDefinition>
                                                 <ColumnDefinition Width="0.6*">
                                                 </ColumnDefinition>
-                                                <ColumnDefinition Width="3.5*">
+                                                <ColumnDefinition Width="3.8*">
                                                 </ColumnDefinition>
                                                 <ColumnDefinition Width="1.8*">
                                                 </ColumnDefinition>
                                                 <ColumnDefinition Width="1.8*">
                                                 </ColumnDefinition>
-                                                <ColumnDefinition Width="1.5*">
+                                                <ColumnDefinition Width="1.2*">
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
 <!--                                            <Label Grid.Row="0" Grid.Column="0" Text="{Binding Cycle}" FontSize="11" HorizontalTextAlignment="Start" />
