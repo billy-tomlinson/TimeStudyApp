@@ -12,7 +12,7 @@
                                     <ViewCell>
                                         <Grid Padding="1" Margin="1" BackgroundColor="Transparent" VerticalOptions="StartAndExpand">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition />
+                                                <RowDefinition Height="*" />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
