@@ -13,7 +13,8 @@
                         VerticalOptions="StartAndExpand" 
                         BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-            <StackLayout IsVisible="{Binding IsPageVisible}" 
+            <StackLayout IsVisible="{Binding IsPageVisible}"
+                         IsEnabled="{Binding IsPageEnabled}" 
                          BackgroundColor="Transparent" 
                          Padding="2" Margin="2" 
                          Opacity="{Binding Opacity}" 
