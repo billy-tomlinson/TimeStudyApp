@@ -4,10 +4,10 @@ namespace TimeStudyApp.Services.StateMachine
 {
     public class StateFactory
     {
-        TimeStudyUnsequencedViewModel viewModel;
+        TimeStudyMainPageViewModel viewModel;
         ApplicationState stateservice = new ApplicationState();
 
-        public StateFactory(TimeStudyUnsequencedViewModel viewModel)
+        public StateFactory(TimeStudyMainPageViewModel viewModel)
         {
             this.viewModel = viewModel;
         }

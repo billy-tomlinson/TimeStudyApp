@@ -148,10 +148,14 @@ namespace TimeStudy.Services
 
             switch (name)
             {
-                case "ActivitySampleStudy":
-                    Utilities.ActivitySampleTableUpdated = true;
-                    Utilities.ForeignElementsPageHasUpdatedActivitySampleChanges = false;
-                    Utilities.ActivityPageHasUpdatedActivitySampleChanges = false;
+                case "WorkElement":
+                    Utilities.WorkElementTableUpdated = true;
+                    Utilities.RatedTimeStudyPageHasUpdatedWorkElementChanges = false;
+                    break;
+                case "RatedTimeStudy":
+                    Utilities.RatedTimeStudyTableUpdated = true;
+                    Utilities.ForeignElementsPageHasUpdatedRatedTimeStudyChanges = false;
+                    Utilities.StandardElementsPageHasUpdatedRatedTimeStudyChanges = false;
                     break;
                 default:
                     break;

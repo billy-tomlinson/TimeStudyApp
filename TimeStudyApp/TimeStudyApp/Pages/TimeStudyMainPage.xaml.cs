@@ -19,6 +19,25 @@ namespace TimeStudy.Pages
         }
         protected override void OnAppearing()
         {
+
+            if (Utilities.WorkElementTableUpdated)
+            {
+                if (!Utilities.RatedTimeStudyPageHasUpdatedWorkElementChanges)
+                {
+                    Utilities.TimeStudyMainPageHasUpdatedWorkElementChanges = true;
+
+                    Utilities.UpdateTableFlags();
+
+                    var viewModel = new TimeStudyMainPageViewModel()
+                    {
+                        RatingsVisible = false,
+                        ActivitiesVisible = false,
+                    };
+
+                    BindingContext = viewModel;
+                }
+            }
+
             Utilities.ClearNavigation();
             base.OnAppearing();
         }

@@ -8,10 +8,10 @@ namespace TimeStudyApp.Services.StateMachine
 {
     public class UnratedInterruptElementRunningState : BaseState
     {
-        TimeStudyUnsequencedViewModel viewModel;
+        TimeStudyMainPageViewModel viewModel;
         ApplicationState stateservice = new ApplicationState();
 
-        public UnratedInterruptElementRunningState(TimeStudyUnsequencedViewModel viewModel)
+        public UnratedInterruptElementRunningState(TimeStudyMainPageViewModel viewModel)
         {
             this.viewModel = viewModel;
         }

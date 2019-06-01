@@ -9,10 +9,10 @@ namespace TimeStudyApp.Services.StateMachine
     public class UnratedOccassionalElementRunningState : BaseState
     {
 
-        TimeStudyUnsequencedViewModel viewModel;
+        TimeStudyMainPageViewModel viewModel;
         ApplicationState stateservice = new ApplicationState();
 
-        public UnratedOccassionalElementRunningState(TimeStudyUnsequencedViewModel viewModel)
+        public UnratedOccassionalElementRunningState(TimeStudyMainPageViewModel viewModel)
         {
             this.viewModel = viewModel;
         }

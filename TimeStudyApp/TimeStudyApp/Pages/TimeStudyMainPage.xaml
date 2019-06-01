@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:TimeStudy.Views" 
              x:Class="TimeStudy.Pages.TimeStudyMainPage">
     <ContentPage.BindingContext>
-        <TimeStudy:TimeStudyUnsequencedViewModel />
+        <TimeStudy:TimeStudyMainPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
         <AbsoluteLayout HorizontalOptions="Center"

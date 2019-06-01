@@ -6,10 +6,10 @@ namespace TimeStudyApp.Services.StateMachine
 {
     public class NoElementRunningState : BaseState
     {
-        TimeStudyUnsequencedViewModel viewModel;
+        TimeStudyMainPageViewModel viewModel;
         ApplicationState stateservice = new ApplicationState();
 
-        public NoElementRunningState(TimeStudyUnsequencedViewModel viewModel)
+        public NoElementRunningState(TimeStudyMainPageViewModel viewModel)
         {
             this.viewModel = viewModel;
         }

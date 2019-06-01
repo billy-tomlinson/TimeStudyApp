@@ -21,16 +21,20 @@ namespace TimeStudy.Pages
 
         protected override void OnAppearing()
         {
-            if (Utilities.ActivitySampleTableUpdated)
+            if (Utilities.RatedTimeStudyTableUpdated)
             {
-                if (!Utilities.ForeignElementsPageHasUpdatedActivitySampleChanges)
+                if (!Utilities.ForeignElementsPageHasUpdatedRatedTimeStudyChanges)
                 {
-  
-                    Utilities.ForeignElementsPageHasUpdatedActivitySampleChanges = true;
+                    Utilities.ForeignElementsPageHasUpdatedRatedTimeStudyChanges = true;
 
                     Utilities.UpdateTableFlags();
 
-                    BindingContext = new AddForeignElementsViewModel();
+                    var viewModel = new AddForeignElementsViewModel
+                    {
+                        CommentsVisible = false
+                    };
+
+                    BindingContext = viewModel;
                 }
             }
 

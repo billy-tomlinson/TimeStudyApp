@@ -146,7 +146,7 @@ namespace TimeStudy.ViewModels
                     };
 
                     SaveActivityDetails(activity);
-                    Utilities.ActivityPageHasUpdatedActivityChanges = true;
+                    Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace TimeStudy.ViewModels
             {
                 Activity.Comment = Comment.ToUpper();
                 ActivityRepo.SaveItem(Activity);
-                Utilities.ActivityPageHasUpdatedActivityChanges = true;
+                Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
             }
 
             Opacity = 1;
@@ -276,7 +276,7 @@ namespace TimeStudy.ViewModels
                 .OrderByDescending(x => x.Id));
 
             CategoriesVisible = false;
-            Utilities.ActivityPageHasUpdatedActivityChanges = true;
+            Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
         }
 
         void MoveElementUpOnePlace(object sender)
@@ -408,7 +408,7 @@ namespace TimeStudy.ViewModels
 
             HasElements = ItemsCollection.Count > 0;
 
-            Utilities.ActivityPageHasUpdatedActivityChanges = true;
+            Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
         }
 
         private async Task DeleteActivity(int value)
@@ -508,7 +508,7 @@ namespace TimeStudy.ViewModels
                 activity.DeleteIcon = deleteIcon;
 
                 SaveActivityDetails(activity);
-                Utilities.ActivityPageHasUpdatedActivityChanges = true;
+                Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
             }
         }
     }

@@ -5,7 +5,6 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Plugin.Messaging;
-//using Syncfusion.XlsIO;
 using TimeStudy.Model;
 using TimeStudyApp.Model;
 using TimeStudyApp.Services;
@@ -32,24 +31,24 @@ namespace TimeStudy.Services
         public static string Build { get => DependencyService.Get<IAppVersion>().GetBuild(); }
 
         public static bool OperatorTableUpdated { get; set; }
-        public static bool ActivityTableUpdated { get; set; }
+        public static bool WorkElementTableUpdated { get; set; }
         public static bool ObservationTableUpdated { get; set; }
-        public static bool ActivitySampleTableUpdated { get; set; }
+        public static bool RatedTimeStudyTableUpdated { get; set; }
 
-        public static bool TimeStudyPageHasUpdatedActivityChanges { get; set; }
-        public static bool TimeStudyPageHasUpdatedOperatorChanges { get; set; }
+        public static bool RatedTimeStudyPageHasUpdatedWorkElementChanges { get; set; }
+        public static bool TimeStudyMainPageHasUpdatedWorkElementChanges { get; set; }
         public static bool TimeStudyPageHasUpdatedObservationChanges { get; set; }
 
-        public static bool ActivityPageHasUpdatedActivityChanges { get; set; }
+        public static bool StandardElementPageHasUpdatedStandardElementChanges { get; set; }
         public static bool ActivityPageHasUpdatedOperatorChanges { get; set; }
         public static bool ActivityPageHasUpdatedObservationChanges { get; set; }
-        public static bool ActivityPageHasUpdatedActivitySampleChanges { get; set; }
+        public static bool StandardElementsPageHasUpdatedRatedTimeStudyChanges { get; set; }
 
         public static bool ForeignElementsPageHasUpdatedActivityChanges { get; set; }
         public static bool ForeignElementsPageHasUpdatedOperatorChanges { get; set; }
-        public static bool ForeignElementsPageHasUpdatedActivitySampleChanges { get; set; }
+        public static bool ForeignElementsPageHasUpdatedRatedTimeStudyChanges { get; set; }
 
-        public static bool MergePageHasUpdatedActivityChanges { get; set; }
+        public static bool ForeignElementPageHasUpdatedForeignElementChanges { get; set; }
 
         public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
@@ -57,9 +56,11 @@ namespace TimeStudy.Services
 
         public static void UpdateTableFlags()
         {
+            if (TimeStudyMainPageHasUpdatedWorkElementChanges)
+                WorkElementTableUpdated = false;
 
-            if(ActivityPageHasUpdatedActivitySampleChanges && ForeignElementsPageHasUpdatedActivitySampleChanges)
-                ActivitySampleTableUpdated = false;
+            if (StandardElementsPageHasUpdatedRatedTimeStudyChanges && ForeignElementsPageHasUpdatedRatedTimeStudyChanges)
+                RatedTimeStudyTableUpdated = false;
         }
 
         public static async Task Navigate(Page page)

@@ -12,7 +12,7 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class TimeStudyUnsequencedViewModel : BaseViewModel
+    public class TimeStudyMainPageViewModel : BaseViewModel
     {
         public Command StartTimer { get; set; }
         public Command LapTimer { get; set; }
@@ -56,7 +56,7 @@ namespace TimeStudy.ViewModels
 
         public int CycleCount;
 
-        public TimeStudyUnsequencedViewModel()
+        public TimeStudyMainPageViewModel()
         {
             ConstructorSetUp();
         }

@@ -22,11 +22,11 @@ namespace TimeStudy.Pages
 
         protected override void OnAppearing()
         {
-            if (Utilities.ActivitySampleTableUpdated)
+            if (Utilities.RatedTimeStudyTableUpdated)
             {
-                if (!Utilities.ActivityPageHasUpdatedActivitySampleChanges)
+                if (!Utilities.StandardElementsPageHasUpdatedRatedTimeStudyChanges)
                 {
-                    Utilities.ActivityPageHasUpdatedActivitySampleChanges = true;
+                    Utilities.StandardElementsPageHasUpdatedRatedTimeStudyChanges = true;
 
                     Utilities.UpdateTableFlags();
 
@@ -34,6 +34,7 @@ namespace TimeStudy.Pages
                     {
                         CommentsVisible = false
                     };
+
                     BindingContext = viewModel;
                 }
             }
