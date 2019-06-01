@@ -1,8 +1,6 @@
-﻿using TimeStudy.Custom;
-using TimeStudy.Services;
+﻿using TimeStudy.Services;
 using TimeStudy.ViewModels;
 using Xamarin.Forms;
-using Xamarin.Forms.PlatformConfiguration;
 
 namespace TimeStudy.Pages
 {

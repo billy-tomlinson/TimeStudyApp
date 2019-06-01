@@ -21,6 +21,7 @@ namespace TimeStudy.Services
         public static int LastRatedLapTimeId { get; set; }
         public static bool IsCompleted { get; set; }
         public static bool IsForeignElement { get; set; }
+        public static bool IsRunning { get; set; } = false;
         public static bool RatedStudy { get; set; }
         public static string Connection { get; set; }
         public static DateTime TimeStudyStarted { get; set; }

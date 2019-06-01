@@ -19,22 +19,24 @@ namespace TimeStudy.Pages
         }
         protected override void OnAppearing()
         {
-
-            if (Utilities.WorkElementTableUpdated)
+            if (!Utilities.IsRunning)
             {
-                if (!Utilities.RatedTimeStudyPageHasUpdatedWorkElementChanges)
+                if (Utilities.WorkElementTableUpdated)
                 {
-                    Utilities.TimeStudyMainPageHasUpdatedWorkElementChanges = true;
-
-                    Utilities.UpdateTableFlags();
-
-                    var viewModel = new TimeStudyMainPageViewModel()
+                    if (!Utilities.RatedTimeStudyPageHasUpdatedWorkElementChanges)
                     {
-                        RatingsVisible = false,
-                        ActivitiesVisible = false,
-                    };
+                        Utilities.TimeStudyMainPageHasUpdatedWorkElementChanges = true;
 
-                    BindingContext = viewModel;
+                        Utilities.UpdateTableFlags();
+
+                        var viewModel = new TimeStudyMainPageViewModel()
+                        {
+                            RatingsVisible = false,
+                            ActivitiesVisible = false,
+                        };
+
+                        BindingContext = viewModel;
+                    }
                 }
             }
 

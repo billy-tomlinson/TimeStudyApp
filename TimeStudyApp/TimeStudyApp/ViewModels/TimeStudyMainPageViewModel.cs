@@ -153,6 +153,7 @@ namespace TimeStudy.ViewModels
 
         public void RunTimer()
         {
+
             TimerService.StartTimer(new TimeSpan(0, 0, 0, 0, 100), CallBackForTimer());
         }
 
@@ -258,6 +259,7 @@ namespace TimeStudy.ViewModels
 
         public void StartTimerEvent()
         {
+            Utilities.IsRunning = true;
             IsRunning = true;
             IsCancelEnabled = !IsRunning;
             IsStartEnabled = false;
@@ -309,6 +311,7 @@ namespace TimeStudy.ViewModels
 
             if (SaveButtonClicked)
             {
+                Utilities.IsRunning = false;
                 var studyVersion = StudyHistoryVersionRepo.GetItems()
                             .FirstOrDefault(x => x.StudyId == Utilities.StudyId && x.Id == Utilities.StudyVersion);
                 studyVersion.TimeStudyStarted = Utilities.TimeStudyStarted;
@@ -345,7 +348,6 @@ namespace TimeStudy.ViewModels
             Utilities.CurrentRunningElementId = 0;
             Utilities.LastRatedLapTimeId = 0;
             Utilities.TimeWhenLapOrForiegnButtonClicked = 0;
-
         }
 
         public Custom.CustomButton RatingButton;
