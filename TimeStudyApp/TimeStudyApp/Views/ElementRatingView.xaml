@@ -23,7 +23,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <local:CustomButton  Style="{StaticResource plainButton}" x:Name="myButton0" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding CurrentElementWithoutLapTimeName}" FontSize="15" TextColor="Red" />
+                    <local:CustomButton  Style="{StaticResource plainButton}" x:Name="myButton0" Grid.Row="0" Grid.Column="2" Grid.ColumnSpan="2" Text="{Binding CurrentElementWithoutLapTimeName}" FontSize="10" TextColor="Red" />
                     <local:CustomButton Style="{StaticResource ratingButton}" x:Name="myButton1" Text="145" Rating="145" Grid.Row="0" Grid.Column="0" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton1}" />
                     <local:CustomButton Style="{StaticResource ratingButton}" x:Name="myButton2" Text="150" Rating="150" Grid.Row="0" Grid.Column="1" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton2}" />
                     <local:CustomButton Style="{StaticResource ratingButton}" x:Name="myButton3" Text="125" Rating="125" Grid.Row="1" Grid.Column="0" Command="{Binding RatingSelected}" CommandParameter="{x:Reference myButton3}" />

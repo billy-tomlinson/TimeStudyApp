@@ -4,15 +4,15 @@
         <StackLayout>
             <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
                 <Label Text="Activities" IsVisible="{Binding Isvisible}" TextColor="Black" />
-                <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="10">
+                <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="5">
                     <ScrollView>
                         <local:RepeaterView ItemsSource="{Binding GroupActivities}">
                             <local:RepeaterView.ItemTemplate>
                                 <DataTemplate>
                                     <ViewCell>
-                                        <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
+                                        <Grid Padding="1" Margin="1" BackgroundColor="Transparent" VerticalOptions="StartAndExpand">
                                             <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
+                                                <RowDefinition />
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="*" />
