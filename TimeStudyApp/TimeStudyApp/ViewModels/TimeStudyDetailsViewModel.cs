@@ -66,7 +66,7 @@ namespace TimeStudy.ViewModels
             }
         }
 
-        RatedTimeStudy sampleStudy;
+        Model.RatedTimeStudy sampleStudy;
         public RatedTimeStudy SampleStudy
         {
             get { return sampleStudy; }
@@ -83,7 +83,7 @@ namespace TimeStudy.ViewModels
             IsActive = true;
             Utilities.StudyId = 0;
 
-            SampleStudy = new RatedTimeStudy()
+            SampleStudy = new Model.RatedTimeStudy()
             {
                 IsRated = true,
                 Date = DateTime.Now,

@@ -32,7 +32,7 @@ namespace TimeStudy.ViewModels
         public Command SubmitDetails { get; set; }
 
 
-        public IBaseRepository<TimeStudyHistoryVersion> StudyHistoryVersionRepo => new BaseRepository<TimeStudyHistoryVersion>(conn);
+        public IBaseRepository<RatedTimeStudyHistoryVersion> StudyHistoryVersionRepo => new BaseRepository<RatedTimeStudyHistoryVersion>(conn);
 
         public IBaseRepository<LapTime> LapTimeRepo => new BaseRepository<LapTime>(conn);
 
@@ -44,7 +44,7 @@ namespace TimeStudy.ViewModels
 
         public IBaseRepository<WorkElementName> ActivityNameRepo => new BaseRepository<WorkElementName>(conn);
 
-        public IBaseRepository<RatedTimeStudy> TimeStudyRepo => new BaseRepository<RatedTimeStudy>(conn);
+        public IBaseRepository<Model.RatedTimeStudy> TimeStudyRepo => new BaseRepository<Model.RatedTimeStudy>(conn);
 
         static ObservableCollection<WorkElement> activities;
         public ObservableCollection<WorkElement> Activities

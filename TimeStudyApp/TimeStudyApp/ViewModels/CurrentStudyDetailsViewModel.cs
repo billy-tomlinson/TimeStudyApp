@@ -28,7 +28,7 @@ namespace TimeStudy.ViewModels
             return true;
         }
 
-        RatedTimeStudy sampleStudy;
+        Model.RatedTimeStudy sampleStudy;
         public RatedTimeStudy SampleStudy
         {
             get { return sampleStudy; }

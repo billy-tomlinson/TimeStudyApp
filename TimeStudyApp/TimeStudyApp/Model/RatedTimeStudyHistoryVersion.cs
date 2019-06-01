@@ -5,10 +5,10 @@ using TimeStudy.Model;
 
 namespace TimeStudyApp.Model
 {
-    [Table("TimeStudyHistoryVersion")]
-    public class TimeStudyHistoryVersion : BaseEntity
+    [Table("RatedTimeStudyHistoryVersion")]
+    public class RatedTimeStudyHistoryVersion : BaseEntity
     {
-        [ForeignKey(typeof(RatedTimeStudy))]
+        [ForeignKey(typeof(TimeStudy.Model.RatedTimeStudy))]
         public int StudyId { get; set; }
 
         public DateTime Date { get; set; }

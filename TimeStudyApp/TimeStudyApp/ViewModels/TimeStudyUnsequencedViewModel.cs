@@ -133,7 +133,7 @@ namespace TimeStudy.ViewModels
 
             if (generateNewVersionRecord && IsPageVisible)
             {
-                var studyHistoryVersion = new TimeStudyHistoryVersion()
+                var studyHistoryVersion = new RatedTimeStudyHistoryVersion()
                 {
                     StudyId = Utilities.StudyId,
                     Date = DateTime.Now,

@@ -17,13 +17,13 @@ namespace TimeStudyApp.UnitTests
         private const string connString = "/Users/billytomlinson/TimeStudyProduction.db3";
         //private const string connString = "TimeStudyDBNew.db3";
 
-        private readonly IBaseRepository<RatedTimeStudy> sampleRepo;
+        private readonly IBaseRepository<TimeStudy.Model.RatedTimeStudy> sampleRepo;
         private readonly IBaseRepository<WorkElement> activityRepo;
         private readonly IBaseRepository<LapTimeHistoric> lapTimeRepo;
-        private readonly IBaseRepository<TimeStudyHistoryVersion> studyVersionRepo;
+        private readonly IBaseRepository<RatedTimeStudyHistoryVersion> studyVersionRepo;
         //private readonly IBaseRepository<LapTimeHistoric> lapTimeHistoricRepo;
 
-        RatedTimeStudy sample;
+        TimeStudy.Model.RatedTimeStudy sample;
         List<WorkElement> allStudyActivities;
         //List<LapTime> totalLapTimes;
         List<LapTimeHistoric> totalLapTimes;
@@ -66,10 +66,10 @@ namespace TimeStudyApp.UnitTests
             BaseViewModel model = new BaseViewModel(connString);
             Utilities.StudyId = 2;
             Utilities.StudyVersion = 35;
-            sampleRepo = new BaseRepository<RatedTimeStudy>(connString);
+            sampleRepo = new BaseRepository<TimeStudy.Model.RatedTimeStudy>(connString);
             activityRepo = new BaseRepository<WorkElement>(connString);
             //lapTimeRepo = new BaseRepository<LapTime>(connString);
-            studyVersionRepo = new BaseRepository<TimeStudyHistoryVersion>(connString);
+            studyVersionRepo = new BaseRepository<RatedTimeStudyHistoryVersion>(connString);
             lapTimeRepo = new BaseRepository<LapTimeHistoric>(connString);
 
             BaseViewModel modelA = new BaseViewModel(connString);

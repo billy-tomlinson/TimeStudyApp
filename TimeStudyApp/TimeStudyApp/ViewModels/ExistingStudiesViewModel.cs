@@ -17,12 +17,12 @@ namespace TimeStudy.ViewModels
         {
             this.completed = completed;
 
-            ActivitySamples = new ObservableCollection<RatedTimeStudy>(TimeStudyRepo.GetAllWithChildren());
+            ActivitySamples = new ObservableCollection<Model.RatedTimeStudy>(TimeStudyRepo.GetAllWithChildren());
 
             if (completed)
             {
                 var historic = StudyHistoryVersionRepo.GetItems();
-                var historicStudies = new List<RatedTimeStudy>();
+                var historicStudies = new List<Model.RatedTimeStudy>();
                 foreach (var item in historic)
                 {
                     var study = TimeStudyRepo.GetItem(item.StudyId);
@@ -35,12 +35,12 @@ namespace TimeStudy.ViewModels
                     }
                 }
 
-                ActivitySamples = new ObservableCollection<RatedTimeStudy>(historicStudies);
+                ActivitySamples = new ObservableCollection<Model.RatedTimeStudy>(historicStudies);
             }
         }
 
-        static ObservableCollection<RatedTimeStudy> activitySamples;
-        public ObservableCollection<RatedTimeStudy> ActivitySamples
+        static ObservableCollection<Model.RatedTimeStudy> activitySamples;
+        public ObservableCollection<Model.RatedTimeStudy> ActivitySamples
         {
             get => activitySamples;
             set
@@ -66,7 +66,7 @@ namespace TimeStudy.ViewModels
                     await Task.Delay(200);
                     Opacity = 0.2;
 
-                    var study = item as RatedTimeStudy;
+                    var study = item as Model.RatedTimeStudy;
                     study.ObservedColour = Xamarin.Forms.Color.Silver.GetShortHexString();
                     Utilities.StudyId = study.Id;
                     Utilities.StudyVersion = study.Version;

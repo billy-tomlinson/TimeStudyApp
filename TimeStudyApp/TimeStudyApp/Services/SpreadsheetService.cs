@@ -12,12 +12,12 @@ namespace TimeStudy.Services
 {
     public class SpreadsheetService
     {
-        private  IBaseRepository<RatedTimeStudy> timeStudyRepo;
+        private  IBaseRepository<Model.RatedTimeStudy> timeStudyRepo;
         private  IBaseRepository<WorkElement> elementRepo;
         private  IBaseRepository<LapTimeHistoric> lapTimeRepo;
-        private  IBaseRepository<TimeStudyHistoryVersion> studyVersionRepo;
+        private  IBaseRepository<RatedTimeStudyHistoryVersion> studyVersionRepo;
 
-        RatedTimeStudy sample;
+        Model.RatedTimeStudy sample;
         List<WorkElement> allStudyActivities;
         List<LapTimeHistoric> totalLapTimes;
 
@@ -39,10 +39,10 @@ namespace TimeStudy.Services
 
         public TimeStudySpreadSheet CreateExcelWorkBook()
         {
-            timeStudyRepo = new BaseRepository<RatedTimeStudy>(Utilities.Connection);
+            timeStudyRepo = new BaseRepository<Model.RatedTimeStudy>(Utilities.Connection);
             elementRepo = new BaseRepository<WorkElement>(Utilities.Connection);
             lapTimeRepo = new BaseRepository<LapTimeHistoric>(Utilities.Connection);
-            studyVersionRepo = new BaseRepository<TimeStudyHistoryVersion> (Utilities.Connection);
+            studyVersionRepo = new BaseRepository<RatedTimeStudyHistoryVersion> (Utilities.Connection);
 
             BaseViewModel modelA = new BaseViewModel(Utilities.Connection);
             sample = timeStudyRepo.GetItem(Utilities.StudyId);
