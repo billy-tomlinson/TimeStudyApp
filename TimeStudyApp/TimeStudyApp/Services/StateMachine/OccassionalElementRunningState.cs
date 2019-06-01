@@ -69,7 +69,7 @@ namespace TimeStudyApp.Services.StateMachine
             viewModel.CurrentApplicationState.CurrentState = Status.ElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
 
-            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_WorkElements_WithChildren();
             viewModel.GroupElementsForActivitiesView();
         }
     }

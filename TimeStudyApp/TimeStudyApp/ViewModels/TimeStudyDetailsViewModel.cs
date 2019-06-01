@@ -26,7 +26,7 @@ namespace TimeStudy.ViewModels
                 {
                     StudyPageOpacity = 0.5;
                     SampleStudy.IsRated = true;
-                    Utilities.StudyId = TimeStudyRepo.SaveItem(SampleStudy);
+                    Utilities.StudyId = RatedTimeStudyRepo.SaveItem(SampleStudy);
                     StudyNumber = Utilities.StudyId;
                     CreateUnratedActivities();
 
@@ -93,7 +93,7 @@ namespace TimeStudy.ViewModels
             IsPageVisible = true;
 
             int lastStudyId = 0;
-            var studies = TimeStudyRepo.GetItems()?.ToList();
+            var studies = RatedTimeStudyRepo.GetItems()?.ToList();
 
             if (studies.Count > 0)
                 lastStudyId = studies.OrderByDescending(x => x.Id)
@@ -124,7 +124,7 @@ namespace TimeStudy.ViewModels
 
         public void CreateUnratedActivities()
         {
-            var activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "INEFFECTIVE");
+            var activityName = WorkElementNameRepo.GetItems().FirstOrDefault(x => x.Name == "INEFFECTIVE");
 
             if(activityName == null)
                 activityName = new WorkElementName { Name = "INEFFECTIVE" };
@@ -143,7 +143,7 @@ namespace TimeStudy.ViewModels
 
             };
 
-            activityName = ActivityNameRepo.GetItems().FirstOrDefault(x => x.Name == "LOST TIME");
+            activityName = WorkElementNameRepo.GetItems().FirstOrDefault(x => x.Name == "LOST TIME");
 
             if (activityName == null)
                 activityName = new WorkElementName { Name = "LOST TIME" };
@@ -161,13 +161,13 @@ namespace TimeStudy.ViewModels
                 //IsForeignElement = true
             };
 
-            ActivityNameRepo.SaveItem(unrated1.ActivityName);
-            ActivityRepo.SaveItem(unrated1);
-            ActivityRepo.UpdateWithChildren(unrated1);
+            WorkElementNameRepo.SaveItem(unrated1.ActivityName);
+            WorkElementRepo.SaveItem(unrated1);
+            WorkElementRepo.UpdateWithChildren(unrated1);
 
-            ActivityNameRepo.SaveItem(unrated2.ActivityName);
-            ActivityRepo.SaveItem(unrated2);
-            ActivityRepo.UpdateWithChildren(unrated2);
+            WorkElementNameRepo.SaveItem(unrated2.ActivityName);
+            WorkElementRepo.SaveItem(unrated2);
+            WorkElementRepo.UpdateWithChildren(unrated2);
         }
     }
 }

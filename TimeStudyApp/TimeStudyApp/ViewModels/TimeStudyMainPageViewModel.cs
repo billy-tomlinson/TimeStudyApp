@@ -108,9 +108,9 @@ namespace TimeStudy.ViewModels
 
             SelectedForeignElements = new List<WorkElement>();
 
-            Activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
+            WorkElements = Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren();
 
-            CollectionOfElements = Get_All_Enabled_Activities();
+            CollectionOfElements = Get_All_Enabled_WorkElements();
 
             GroupElementsForActivitiesView();
 
@@ -140,7 +140,7 @@ namespace TimeStudy.ViewModels
                     Time = DateTime.Now.TimeOfDay
                 };
                 var version = StudyHistoryVersionRepo.SaveItem(studyHistoryVersion);
-                var currentStudy = TimeStudyRepo.GetWithChildren(Utilities.StudyId);
+                var currentStudy = RatedTimeStudyRepo.GetWithChildren(Utilities.StudyId);
                 Utilities.StudyVersion = version;
             }
 
@@ -201,7 +201,7 @@ namespace TimeStudy.ViewModels
             if (Utilities.StudyId == 0 || Utilities.IsCompleted)
                 return false;
 
-            if (Activities.Count == 0)
+            if (WorkElements.Count == 0)
             {
                 InvalidText = $"Please add at least one element to study {Utilities.StudyId.ToString()}";
                 return false;
@@ -401,7 +401,7 @@ namespace TimeStudy.ViewModels
             IsPageEnabled = false;
             IsForeignEnabled = false;
             IsNonForeignEnabled = true;
-            CollectionOfElements = Get_All_Enabled_Activities_WithChildren();
+            CollectionOfElements = Get_All_Enabled_WorkElements_WithChildren();
             GroupElementsForActivitiesView();
 
             ApplicationState = ApplicationStateFactory.GetCurrentState();

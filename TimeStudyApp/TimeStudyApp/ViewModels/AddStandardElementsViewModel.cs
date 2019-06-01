@@ -123,13 +123,13 @@ namespace TimeStudy.ViewModels
 
             if (!IsInvalid)
             {
-                var duplicatesCheck = ActivityRepo.GetAllWithChildren()
+                var duplicatesCheck = WorkElementRepo.GetAllWithChildren()
                     .Where(x => x.StudyId == Utilities.StudyId)
                     .FirstOrDefault(_ => _.Name?.ToUpper() == Name.ToUpper().Trim());
 
                 if (duplicatesCheck == null)
                 {
-                    var activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().Count();
+                    var activities = Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren().Count();
 
                     var activityName = new WorkElementName()
                     {
@@ -145,7 +145,7 @@ namespace TimeStudy.ViewModels
                         Sequence = activities + 1
                     };
 
-                    SaveActivityDetails(activity);
+                    SaveWorkElementDetails(activity);
                     Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
                 }
                 else
@@ -157,7 +157,7 @@ namespace TimeStudy.ViewModels
                 }
 
                 SetElementsColour();
-                ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+                ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
                     .OrderByDescending(x => x.Id));
 
                 HasElements = ItemsCollection.Count > 0;
@@ -172,7 +172,7 @@ namespace TimeStudy.ViewModels
             if (Comment != null)
             {
                 Activity.Comment = Comment.ToUpper();
-                ActivityRepo.SaveItem(Activity);
+                WorkElementRepo.SaveItem(Activity);
                 Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
             }
 
@@ -241,7 +241,7 @@ namespace TimeStudy.ViewModels
             ShowClose = true;
             Opacity = 0.2;
 
-            var activities = Get_Rated_Enabled_Activities();
+            var activities = Get_Rated_Enabled_WorkElements();
 
             if ((activities.Count > 0))
             {
@@ -270,9 +270,9 @@ namespace TimeStudy.ViewModels
             }
 
             Activity.IsValueAdded = !IsNonValueAdded;
-            ActivityRepo.SaveItem(Activity);
+            WorkElementRepo.SaveItem(Activity);
             Opacity = 1.0;
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
                 .OrderByDescending(x => x.Id));
 
             CategoriesVisible = false;
@@ -289,13 +289,13 @@ namespace TimeStudy.ViewModels
             sequenceNumber = activity1.Sequence;
             activity1.Sequence = sequenceNumber - 1;
 
-            var activity2 = ActivityRepo.GetItems()
+            var activity2 = WorkElementRepo.GetItems()
                 .FirstOrDefault(x => x.Sequence == sequenceNumber - 1 && x.StudyId == Utilities.StudyId);
             activity2.Sequence = sequenceNumber;
-            ActivityRepo.SaveItem(activity1);
-            ActivityRepo.SaveItem(activity2);
+            WorkElementRepo.SaveItem(activity1);
+            WorkElementRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren().OrderBy(x => x.Sequence));
+            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren().OrderBy(x => x.Sequence));
         }
 
         void MoveElementDownOnePlace(object sender)
@@ -309,13 +309,13 @@ namespace TimeStudy.ViewModels
 
             activity1.Sequence = sequenceNumber + 1;
 
-            var activity2 = ActivityRepo.GetItems()
+            var activity2 = WorkElementRepo.GetItems()
                 .FirstOrDefault(x => x.Sequence == sequenceNumber + 1 && x.StudyId == Utilities.StudyId);
             activity2.Sequence = sequenceNumber;
-            ActivityRepo.SaveItem(activity1);
-            ActivityRepo.SaveItem(activity2);
+            WorkElementRepo.SaveItem(activity1);
+            WorkElementRepo.SaveItem(activity2);
 
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
                 .OrderByDescending(x => x.Id));
         }
 
@@ -334,29 +334,29 @@ namespace TimeStudy.ViewModels
 
         private void SetElementsColour()
         {
-            var activities = Get_All_NonValueAdded_Enabled_Unrated_Activities();
+            var activities = Get_All_NonValueAdded_Enabled_Unrated_WorkElements();
 
             foreach (var item in activities)
             {
                 item.ItemColour = Utilities.InactiveColour;
                 item.ObservedColour = Utilities.InactiveColour;
-                ActivityRepo.SaveItem(item);
+                WorkElementRepo.SaveItem(item);
             }
 
-            activities = Get_All_NonValueAdded_Enabled_Rated_Activities();
+            activities = Get_All_NonValueAdded_Enabled_Rated_WorkElements();
 
             foreach (var item in activities)
             {
                 item.ItemColour = Utilities.NonValueAddedColour;
                 item.ObservedColour = Utilities.NonValueAddedColour;
-                ActivityRepo.SaveItem(item);
+                WorkElementRepo.SaveItem(item);
             }
         }
 
         void AddSelectedEvent(object sender)
         {
             var value = (int)sender;
-            Activity = ActivityRepo.GetItem(value);
+            Activity = WorkElementRepo.GetItem(value);
             Comment = Activity.Comment;
             Opacity = 0.2;
             CommentsVisible = true;
@@ -366,13 +366,13 @@ namespace TimeStudy.ViewModels
         {
             if (StudyInProcess) return;
 
-            var activities = Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren();
+            var activities = Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren();
             foreach (var item in activities)
             {
                 item.Opacity = 1;
                 item.IsEnabled = true;
                 item.DeleteIcon = Utilities.DeleteImage;
-                ActivityRepo.SaveItem(item);
+                WorkElementRepo.SaveItem(item);
             }
         }
 
@@ -380,7 +380,7 @@ namespace TimeStudy.ViewModels
         {
             var value = (int)sender;
 
-            Activity = ActivityRepo.GetItem(value);
+            Activity = WorkElementRepo.GetItem(value);
 
             if (!StudyInProcess)
                 await DeleteActivity(value);
@@ -399,11 +399,11 @@ namespace TimeStudy.ViewModels
                     Activity.DeleteIcon = Utilities.UndoImage;
                 }
 
-                ActivityRepo.SaveItem(Activity);
+                WorkElementRepo.SaveItem(Activity);
             }
 
             SetElementsColour();
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
                 .OrderByDescending(x => x.Id));
 
             HasElements = ItemsCollection.Count > 0;
@@ -418,14 +418,14 @@ namespace TimeStudy.ViewModels
             Opacity = 0.2;
             Task deleteTask = Task.Run(() =>
             {
-                Activity = ActivityRepo.GetWithChildren(value);
+                Activity = WorkElementRepo.GetWithChildren(value);
 
-                ActivityRepo.DeleteItem(Activity);
+                WorkElementRepo.DeleteItem(Activity);
 
-                ActivityNameRepo.DeleteItem(Activity.ActivityName);
+                WorkElementNameRepo.DeleteItem(Activity.ActivityName);
 
                 SetElementsColour();
-                ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+                ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
                     .OrderByDescending(x => x.Id));
                 ActivitiesCount = ItemsCollection.Count;
             });
@@ -458,7 +458,7 @@ namespace TimeStudy.ViewModels
             CheckActivitiesInUse();
             SetElementsColour();
             SetAllActivitiesBackToEnabled();
-            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_Activities_WithChildren()
+            ItemsCollection = new ObservableCollection<WorkElement>(Get_All_ValueAdded_Rated_Enabled_WorkElements_WithChildren()
                 .OrderByDescending(x => x.Id));
             ActivitiesCount = ItemsCollection.Count;
 
@@ -482,7 +482,7 @@ namespace TimeStudy.ViewModels
 
         private void CheckActivitiesInUse()
         {
-            var activities = Get_All_Enabled_Activities();
+            var activities = Get_All_Enabled_WorkElements();
 
             foreach (var item in activities)
             {
@@ -504,10 +504,10 @@ namespace TimeStudy.ViewModels
 
                 var deleteIcon = item.Rated ? Utilities.DeleteImage : string.Empty;
 
-                var activity = ActivityRepo.GetWithChildren(item.Id);
+                var activity = WorkElementRepo.GetWithChildren(item.Id);
                 activity.DeleteIcon = deleteIcon;
 
-                SaveActivityDetails(activity);
+                SaveWorkElementDetails(activity);
                 Utilities.StandardElementPageHasUpdatedStandardElementChanges = true;
             }
         }

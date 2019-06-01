@@ -93,7 +93,7 @@ namespace TimeStudyApp.Services.StateMachine
             viewModel.CurrentApplicationState.CurrentState = Status.UnratedOccassionalElementRunning;
             stateservice.SaveApplicationState(viewModel.CurrentApplicationState);
 
-            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_WorkElements_WithChildren();
             viewModel.GroupElementsForActivitiesView();
 
             var currentSelected = viewModel.CollectionOfElements.FirstOrDefault(x => x.Id == Utilities.CurrentSelectedElementId);

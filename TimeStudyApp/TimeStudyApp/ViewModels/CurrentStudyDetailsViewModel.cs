@@ -10,7 +10,7 @@ namespace TimeStudy.ViewModels
         {
             IsPageVisible = IsStudyValid();
 
-            SampleStudy = TimeStudyRepo.GetItem(Utilities.StudyId);
+            SampleStudy = RatedTimeStudyRepo.GetItem(Utilities.StudyId);
         }
 
         private bool IsStudyValid()
@@ -19,7 +19,7 @@ namespace TimeStudy.ViewModels
             if (Utilities.StudyId == 0 || Utilities.IsCompleted)
                 return false;
 
-            if (Activities.Count == 0)
+            if (WorkElements.Count == 0)
             {
                 InvalidText = $"Please add at least one element to study {Utilities.StudyId.ToString()}";
                 return false;

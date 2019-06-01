@@ -17,7 +17,7 @@ namespace TimeStudy.ViewModels
         {
             this.completed = completed;
 
-            ActivitySamples = new ObservableCollection<Model.RatedTimeStudy>(TimeStudyRepo.GetAllWithChildren());
+            ActivitySamples = new ObservableCollection<Model.RatedTimeStudy>(RatedTimeStudyRepo.GetAllWithChildren());
 
             if (completed)
             {
@@ -25,7 +25,7 @@ namespace TimeStudy.ViewModels
                 var historicStudies = new List<Model.RatedTimeStudy>();
                 foreach (var item in historic)
                 {
-                    var study = TimeStudyRepo.GetItem(item.StudyId);
+                    var study = RatedTimeStudyRepo.GetItem(item.StudyId);
                     if(study != null)
                     {
                         study.Version = item.Id;

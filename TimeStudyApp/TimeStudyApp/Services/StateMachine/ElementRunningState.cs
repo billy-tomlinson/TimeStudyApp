@@ -124,7 +124,7 @@ namespace TimeStudyApp.Services.StateMachine
 
         public override void ShowStandardElements()
         {
-            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_Activities_WithChildren();
+            viewModel.CollectionOfElements = viewModel.Get_All_Enabled_WorkElements_WithChildren();
             viewModel.GroupElementsForActivitiesView();
 
             viewModel.LapTimerEvent();
