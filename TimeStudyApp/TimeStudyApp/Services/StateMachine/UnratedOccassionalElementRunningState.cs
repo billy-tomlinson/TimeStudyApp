@@ -54,7 +54,7 @@ namespace TimeStudyApp.Services.StateMachine
                 viewModel.IsForeignEnabled = false;
                 viewModel.IsInvalid = false;
                 viewModel.Opacity = 0.2;
-                viewModel.ActivitiesVisible = true;
+                viewModel.ActivitiesVisible = false;
             }
         }
 
