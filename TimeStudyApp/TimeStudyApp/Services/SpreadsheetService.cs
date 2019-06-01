@@ -12,7 +12,7 @@ namespace TimeStudy.Services
 {
     public class SpreadsheetService
     {
-        private  IBaseRepository<Model.RatedTimeStudy> timeStudyRepo;
+        private  IBaseRepository<RatedTimeStudy> timeStudyRepo;
         private  IBaseRepository<WorkElement> elementRepo;
         private  IBaseRepository<LapTimeHistoric> lapTimeRepo;
         private  IBaseRepository<RatedTimeStudyHistoryVersion> studyVersionRepo;

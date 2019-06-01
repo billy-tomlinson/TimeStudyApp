@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -23,34 +22,20 @@ namespace TimeStudy.Services
         public static bool IsCompleted { get; set; }
         public static bool IsForeignElement { get; set; }
         public static bool RatedStudy { get; set; }
-        public static bool AllObservationsTaken { get; set; }
         public static string Connection { get; set; }
-        public static DateTime LastNotification { get; set; } = DateTime.Now;
         public static DateTime TimeStudyStarted { get; set; }
         public static string Version { get => DependencyService.Get<IAppVersion>().GetVersion(); }
         public static string Build { get => DependencyService.Get<IAppVersion>().GetBuild(); }
 
-        public static bool OperatorTableUpdated { get; set; }
         public static bool WorkElementTableUpdated { get; set; }
-        public static bool ObservationTableUpdated { get; set; }
         public static bool RatedTimeStudyTableUpdated { get; set; }
 
         public static bool RatedTimeStudyPageHasUpdatedWorkElementChanges { get; set; }
         public static bool TimeStudyMainPageHasUpdatedWorkElementChanges { get; set; }
-        public static bool TimeStudyPageHasUpdatedObservationChanges { get; set; }
 
         public static bool StandardElementPageHasUpdatedStandardElementChanges { get; set; }
-        public static bool ActivityPageHasUpdatedOperatorChanges { get; set; }
-        public static bool ActivityPageHasUpdatedObservationChanges { get; set; }
         public static bool StandardElementsPageHasUpdatedRatedTimeStudyChanges { get; set; }
-
-        public static bool ForeignElementsPageHasUpdatedActivityChanges { get; set; }
-        public static bool ForeignElementsPageHasUpdatedOperatorChanges { get; set; }
         public static bool ForeignElementsPageHasUpdatedRatedTimeStudyChanges { get; set; }
-
-        public static bool ForeignElementPageHasUpdatedForeignElementChanges { get; set; }
-
-        public static bool AllActivitiesPageHasUpdatedActivityChanges { get; set; }
 
         public static bool LapButtonClicked { get; set; }
 
@@ -82,8 +67,6 @@ namespace TimeStudy.Services
         public const string DeleteImage = "delete.png";
         public static string UndoImage = "undo.png";
         public const string CommentsImage = "comments.png";
-        public const string MoveUpImage = "chevronup.png";
-        public static string MoveDownImage = "chevrondown.png";
 
         public static void ClearNavigation()
         {
@@ -149,60 +132,6 @@ namespace TimeStudy.Services
             lapTimeRepo.ExecuteSQLCommand(sqlCommand);
         }
 
-        public static TimeStudySpreadSheet CreateExcelWorkBook<T>(IEnumerable<T> items)
-        {
-            //string path;
-            //Guid guid = Guid.NewGuid();
-            //string fileName = $"TimeStudy_{guid}_{StudyId}.xlsx";
-
-
-            //var obsRepo = new BaseRepository<Observation>(Connection);
-            //var opsRepo = new BaseRepository<Operator>(Connection);
-
-            //var operators = opsRepo.GetAllWithChildren().Where(x => x.StudyId == StudyId);
-
-            //using (var excelEngine = new ExcelEngine())
-            //{
-            //excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
-
-            //var workbook = excelEngine.Excel.Workbooks.Create(1);
-
-            //foreach (var op in operators)
-            //{
-            //    var data = new List<SpreadSheetObservation>();
-            //    var obs = obsRepo.GetItems().Where(x => x.OperatorId == op.Id);
-
-            //    foreach (var observation in obs)
-            //    {
-            //        data.Add(new SpreadSheetObservation()
-            //        {
-            //            ActivityName = observation.ActivityName,
-            //           // StudyId = StudyId,
-            //            OperatorName = op.Name,
-            //            ObservationNumber = observation.ObservationNumber,
-            //            Rating = observation.Rating
-
-            //        });
-            //    }
-            //    var destSheet = workbook.Worksheets.Create(op.Name);
-            //    destSheet.ImportData(data, 1, 1, true);
-
-            //}
-
-            //MemoryStream stream = new MemoryStream();
-
-            //workbook.SaveAs(stream);
-            //workbook.Close();
-
-            //path = DependencyService.Get<ISave>()
-            //.SaveSpreadSheet(fileName, "application/msexcel", stream)
-            //.Result;
-            //}
-
-            //return new SpreadSheet() { FileName = fileName, FilePath = path };
-            return new TimeStudySpreadSheet();
-        }
-
         public static void SendEmail(TimeStudySpreadSheet spreadSheet)
         {
             var email = new EmailMessageBuilder()
@@ -216,26 +145,6 @@ namespace TimeStudy.Services
             {
                 emailTask.SendEmail(email);
             }
-        }
-
-        public static int CalculateObservationsRequired(double activityPercentage)
-        {
-
-            var percentage = activityPercentage == 100 ? 1 : activityPercentage;
-            //n=4p - n = ( 4 x 17 ) = 68
-            var fourMultipliedByPercentage = 4 * percentage;
-
-            //(100-p) = (100 - 17 ) = 83
-            var oneHundredMinusPercentage = 100 - percentage;
-
-            //n=4p(100-p) = 68 x 83 = 5644
-            var calculationOfPercentage = fourMultipliedByPercentage * oneHundredMinusPercentage;
-
-            //n=4p(100-p)/L x L  = 5644/100
-            var numberOfObservations = (int)calculationOfPercentage / 100;
-
-            return numberOfObservations;
-
         }
 
         public static LapTime SetUpCurrentLapTime(WorkElement activity, int cycleCount, RunningStatus status, 

@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace TimeStudy.ViewModels
 {
-    public class AddElementsUnsequencedViewModel : BaseViewModel
+    public class AddStandardElementsViewModel : BaseViewModel
     {
         public Command SaveActivity { get; set; }
         public Command SaveComment { get; set; }
@@ -24,12 +24,12 @@ namespace TimeStudy.ViewModels
         public WorkElement Activity;
         public int ActivitiesCount;
        
-        public AddElementsUnsequencedViewModel()
+        public AddStandardElementsViewModel()
         {
             ConstructorSetUp();
         }
 
-        public AddElementsUnsequencedViewModel(string conn) : base(conn)
+        public AddStandardElementsViewModel(string conn) : base(conn)
         {
             ConstructorSetUp();
         }

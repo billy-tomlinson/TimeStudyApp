@@ -6,7 +6,7 @@
              xmlns:views="clr-namespace:TimeStudy.Views" 
              x:Class="TimeStudy.Pages.AddStandardElementsPage">
     <ContentPage.BindingContext>
-        <viewModels:AddElementsUnsequencedViewModel />
+        <viewModels:AddStandardElementsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
           <AbsoluteLayout HorizontalOptions="Center" 
