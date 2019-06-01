@@ -2,9 +2,9 @@
 
 namespace TimeStudy.Views
 {
-    public partial class ActivitiesView : ContentView
+    public partial class ElementsView : ContentView
     {
-        public ActivitiesView()
+        public ElementsView()
         {
             InitializeComponent();
             NavigationPage.SetHasNavigationBar(this, false);

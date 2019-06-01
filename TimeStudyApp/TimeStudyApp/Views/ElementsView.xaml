@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:TimeStudy.Custom" x:Class="TimeStudy.Views.ActivitiesView" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="ActivitiesViewPage">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:TimeStudy.Custom" x:Class="TimeStudy.Views.ElementsView" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="ActivitiesViewPage">
     <ContentView.Content>
         <StackLayout>
             <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
