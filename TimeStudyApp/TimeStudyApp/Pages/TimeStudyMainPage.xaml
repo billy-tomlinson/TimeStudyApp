@@ -61,10 +61,10 @@
                             <ColumnDefinition Width="1.2*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Element" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
-                        <Label Grid.Row="0" Grid.Column="3" Text="Elapsed" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
-                        <Label Grid.Row="0" Grid.Column="4" Text="Lap Time" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
-                        <Label Grid.Row="0" Grid.Column="5" Text="Rating" HorizontalTextAlignment="Start" FontSize="9" TextColor="Black" />
+                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Element" Style="{StaticResource existingStudiesView}" FontSize="9" />
+                        <Label Grid.Row="0" Grid.Column="3" Text="Elapsed" Style="{StaticResource existingStudiesView}" FontSize="9" />
+                        <Label Grid.Row="0" Grid.Column="4" Text="Lap Time" Style="{StaticResource existingStudiesView}" FontSize="9" />
+                        <Label Grid.Row="0" Grid.Column="5" Text="Rating" Style="{StaticResource existingStudiesView}" FontSize="9"  />
                     </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
@@ -77,7 +77,7 @@
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
                         <ListView.Header>
-                            <StackLayout Padding="5,2,5,2" BackgroundColor="Silver">
+                            <StackLayout Padding="5,2,5,2" BackgroundColor="#FCBA20">
                                 <Grid Padding="5" Margin="5">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*">
@@ -97,10 +97,10 @@
                                         <ColumnDefinition Width="1.2*">
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding CurrentElementWithoutLapTimeName}" HorizontalTextAlignment="Start" FontSize="13" TextColor="Black" />
-                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding StopWatchTime}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
-                                    <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" HorizontalTextAlignment="Start" FontSize="12" TextColor="Black" />
-                                    <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Start" FontSize="11" TextColor="Black" />
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding CurrentElementWithoutLapTimeName}" Style="{StaticResource existingStudiesView}" FontSize="13" TextColor="White"/>
+                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding StopWatchTime}" Style="{StaticResource existingStudiesView}" TextColor="White"/>
+                                    <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" Style="{StaticResource existingStudiesView}" TextColor="White"/>
+                                    <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" FontSize="11" TextColor="White"/>
                                 </Grid>
                             </StackLayout>
                         </ListView.Header>
@@ -127,10 +127,10 @@
                                                 <ColumnDefinition Width="1.2*">
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
-                                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Element}" HorizontalTextAlignment="Start" FontSize="13" />
-                                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" HorizontalTextAlignment="Start" FontSize="12" />
-                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTimeFormatted}" HorizontalTextAlignment="Start" FontSize="12" />
-                                            <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Center" FontSize="12" />
+                                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Element}" Style="{StaticResource existingStudiesView}" FontSize="13" />
+                                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" Style="{StaticResource existingStudiesView}" />
+                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTimeFormatted}" Style="{StaticResource existingStudiesView}" />
+                                            <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Center" Style="{StaticResource existingStudiesView}" />
                                         </Grid>
                                     </StackLayout>
                                 </ViewCell>
