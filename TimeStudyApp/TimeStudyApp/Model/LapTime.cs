@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 using TimeStudy.Services;
@@ -34,6 +35,12 @@ namespace TimeStudy.Model
         public string IndividualLapTimeFormatted { get; set; }
 
         public double IndividualLapTime { get; set; }
+
+        public double IndividualLapDouble { get; set; }
+
+        public TimeSpan TotalElapsedTimeImperial { get; set; }
+
+        public TimeSpan IndividualLapImperial { get; set; }
 
         [Ignore]
         public double IndividualLapBMS 

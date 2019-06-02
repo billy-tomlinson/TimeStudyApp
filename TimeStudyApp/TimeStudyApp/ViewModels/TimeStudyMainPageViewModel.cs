@@ -30,7 +30,8 @@ namespace TimeStudy.ViewModels
         public Command CloseRatingsView { get; set; }
         public Command ShowRatingView { get; set; }
         public Command FinishStudyFromActivities { get; set; }
-        public new Command CloseView { get; set; } 
+        public new Command CloseView { get; set; }
+        public Command SwitchTimeFormat { get; set; }
 
         private bool SaveButtonClicked;
         private bool IsRunning;
@@ -55,6 +56,9 @@ namespace TimeStudy.ViewModels
         public List<LapTime> AllForiegnLapTimes = new List<LapTime>();
 
         public int CycleCount;
+
+        public const string Imperial = "%h\\:%m\\:ss\\.ff";
+        public const string CentiMinute = "#00.000";
 
         public TimeStudyMainPageViewModel()
         {
@@ -82,6 +86,7 @@ namespace TimeStudy.ViewModels
             ShowRatingView = new Command(ShowRatingViewEvent);
             FinishStudyFromActivities = new Command(FinishStudyFromActivitiesEvent);
             CloseView = new Command(CloseValidationView);
+            SwitchTimeFormat = new Command(SwitchTimeFormatEvent);
 
             ApplicationStateFactory = new StateFactory(this);
 
@@ -149,6 +154,22 @@ namespace TimeStudy.ViewModels
             TimerService.Stop();
 
             Utilities.MoveLapsToHistoryTable();
+
+            SetUpFontSizes();
+        }
+
+        private void SetUpFontSizes()
+        {
+            TimeFontSize = 12;
+            switch (Device.RuntimePlatform)
+            {
+                case Device.iOS:
+                    StopWatchFontSize = 35;
+                    break;
+                case Device.Android:
+                    StopWatchFontSize = 30;
+                    break;
+            }
         }
 
         public void RunTimer()
@@ -170,11 +191,11 @@ namespace TimeStudy.ViewModels
 
                 var timeElaspedSinceStart = DateTime.Now.TimeOfDay - StartTime;
 
-                var realTicks = timeElaspedSinceStart.Ticks / 1000000;
+                var realTicks = timeElaspedSinceStart.Ticks / 1000;
 
                 RealTimeTicks = TimeWhenStopButtonClicked + (double)realTicks / 600;
 
-                StopWatchTime = RealTimeTicks.ToString("00.000");
+                StopWatchTime = FormattedStopWatchTime();
 
                 return IsRunning;
             };
@@ -537,13 +558,19 @@ namespace TimeStudy.ViewModels
 
             calculatedLapTime = currentLapTime.TimeWhenLapStarted != 0 ? LapTime : Utilities.TimeWhenLapOrForiegnButtonClicked;
 
+            var individualLapImperial = TimeSpan.FromMinutes(calculatedLapTime);
+            var totalElapsedTimeImperial = TimeSpan.FromMinutes(Utilities.TimeWhenLapOrForiegnButtonClicked);
+
             currentLapTime.IndividualLapTime = calculatedLapTime;
-            currentLapTime.IndividualLapTimeFormatted = calculatedLapTime.ToString("00.000");
+            currentLapTime.IndividualLapTimeFormatted = IsImperial ? individualLapImperial.ToString(Imperial) : calculatedLapTime.ToString(CentiMinute);
             currentLapTime.TotalElapsedTimeDouble = Utilities.TimeWhenLapOrForiegnButtonClicked;
-            currentLapTime.TotalElapsedTime = Utilities.TimeWhenLapOrForiegnButtonClicked.ToString("00.000");
+            currentLapTime.TotalElapsedTime = IsImperial ? totalElapsedTimeImperial.ToString(Imperial) : Utilities.TimeWhenLapOrForiegnButtonClicked.ToString(CentiMinute);
             currentLapTime.ElementColour = Color.Gray;
             currentLapTime.ForeignElements = SelectedForeignElements;
             currentLapTime.Status = RunningStatus.Completed;
+            currentLapTime.TotalElapsedTimeImperial = totalElapsedTimeImperial;
+            currentLapTime.IndividualLapImperial = individualLapImperial;
+
             LapTimeRepo.SaveItem(currentLapTime);
         }
 
@@ -617,6 +644,59 @@ namespace TimeStudy.ViewModels
             }
         }
 
+        public void SwitchTimeFormatEvent()
+        {
+            IsImperial = !IsImperial;
+
+            StopWatchColour = IsImperial ? Color.Black : Color.White;
+            StopWatchTime = FormattedStopWatchTime();
+
+            var newLapTimes = new List<LapTime>();
+
+            foreach (var item in LapTimes)
+            {
+                var newLapTime = new LapTime()
+                {
+                    IndividualLapDouble = item.IndividualLapTime,
+                    IndividualLapImperial = item.IndividualLapImperial,
+                    TotalElapsedTimeDouble = item.TotalElapsedTimeDouble,
+                    TotalElapsedTimeImperial = item.TotalElapsedTimeImperial,
+                    IndividualLapTimeFormatted = IsImperial ? item.IndividualLapImperial.ToString(Imperial) : item.IndividualLapTime.ToString(CentiMinute),
+                    TotalElapsedTime = IsImperial ? item.TotalElapsedTimeImperial.ToString(Imperial) : item.TotalElapsedTimeDouble.ToString(CentiMinute),
+                    ActivityId = item.ActivityId,
+                    Cycle = item.Cycle,
+                    Element = item.Element,
+                    ElementColour = item.ElementColour,
+                    ForeignElements = item.ForeignElements,
+                    HasBeenPaused = item.HasBeenPaused,
+                    Id = item.Id,
+                    IndividualLapTime = item.IndividualLapTime,
+                    IsForeignElement = item.IsForeignElement,
+                    IsRated = item.IsRated,
+                    IsValueAdded = item.IsValueAdded,
+                    Rating = item.Rating,
+                    Sequence = item.Sequence,
+                    Status = item.Status,
+                    StudyId = item.StudyId,
+                    TimeWhenLapStarted = item.TimeWhenLapStarted,
+                    Version = item.Version
+                };
+
+                newLapTimes.Add(newLapTime);
+            }
+
+            LapTimes = new ObservableCollection<LapTime>(newLapTimes);
+
+            OnPropertyChanged("LapTimes");
+
+            Utilities.LapButtonClicked = true;
+        }
+
+        private string FormattedStopWatchTime()
+        {
+            return IsImperial ? TimeSpan.FromMinutes(RealTimeTicks).ToString("%h\\:%m\\:ss\\.f") : RealTimeTicks.ToString(CentiMinute);
+        }
+
         public new void CloseValidationView()
         {
             if (!FinishStudyFromActivitiesClicked)
@@ -632,6 +712,79 @@ namespace TimeStudy.ViewModels
                 IsInvalid = false;
                 Opacity = 0.2;
                 ActivitiesVisible = true;
+            }
+        }
+
+        static bool isImperial;
+        public bool IsImperial
+        {
+            get => isImperial;
+            set
+            {
+                isImperial = value;
+                OnPropertyChanged();
+                if (isImperial)
+                {
+                    TimeFontSize = 10;
+                    switch (Device.RuntimePlatform)
+                    {
+                        case Device.iOS:
+                            StopWatchFontSize = 30;
+                            break;
+                        case Device.Android:
+                            StopWatchFontSize = 25;
+                            break;
+                    }
+                }
+                else
+                {
+                    TimeFontSize = 12;
+                    switch (Device.RuntimePlatform)
+                    {
+                        case Device.iOS:
+                            StopWatchFontSize = 35;
+                            break;
+                        case Device.Android:
+                            StopWatchFontSize = 30;
+                            break;
+                    }
+                }
+                    
+                OnPropertyChanged("TimeFontSize");
+            }
+        }
+
+        static int timeFontSize;
+        public int TimeFontSize
+        {
+            get => timeFontSize;
+            set
+            {
+                timeFontSize = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        static int stopWatchFontSize;
+        public int StopWatchFontSize
+        {
+            get => stopWatchFontSize;
+            set
+            {
+                stopWatchFontSize = value;
+                OnPropertyChanged();
+            }
+        }
+
+        static Color stopWatchColour = Color.White;
+        public Color StopWatchColour
+        {
+            get => stopWatchColour;
+            set
+            {
+                stopWatchColour = value;
+                OnPropertyChanged();
             }
         }
 

@@ -4,25 +4,16 @@
              xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
              xmlns:local="clr-namespace:TimeStudy.Custom" 
              xmlns:views="clr-namespace:TimeStudy.Views" 
-             x:Class="TimeStudy.Pages.TimeStudyMainPage">
+             x:Class="TimeStudy.Pages.TimeStudyMainPage"
+             x:Name="TimeStudyView">
     <ContentPage.BindingContext>
         <TimeStudy:TimeStudyMainPageViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center"
-                        VerticalOptions="StartAndExpand" 
-                        BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-            <StackLayout IsVisible="{Binding IsPageVisible}"
-                         IsEnabled="{Binding IsPageEnabled}" 
-                         BackgroundColor="Transparent" 
-                         Padding="2" Margin="2" 
-                         Opacity="{Binding Opacity}" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-                         AbsoluteLayout.LayoutFlags="All">
-                <StackLayout 
-                    HorizontalOptions="CenterAndExpand"  
-                    Orientation="Vertical">
+            <StackLayout IsVisible="{Binding IsPageVisible}" IsEnabled="{Binding IsPageEnabled}" BackgroundColor="Transparent" Padding="2" Margin="2" Opacity="{Binding Opacity}" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+                <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
                     <Grid Padding="5" Margin="5">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto">
@@ -37,8 +28,12 @@
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0" Grid.Column="0" Text="         " HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
-                        <Label Grid.Row="0" Grid.Column="1"  Text="{Binding StopWatchTime}" Font="{StaticResource StopWatchFont}" HorizontalTextAlignment="Start" HorizontalOptions="FillAndExpand" />
-                        <Button Grid.Row="0" Grid.Column="2" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" IsEnabled="{Binding IsForeignEnabled}"/>
+                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding StopWatchTime}" TextColor="{Binding StopWatchColour}" HorizontalTextAlignment="Start" HorizontalOptions="FillAndExpand" FontSize="{Binding Path = BindingContext.StopWatchFontSize, Source={x:Reference TimeStudyView}}">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SwitchTimeFormat}" />
+                            </Label.GestureRecognizers>
+                        </Label>
+                        <Button Grid.Row="0" Grid.Column="2" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" IsEnabled="{Binding IsForeignEnabled}" />
                     </Grid>
                 </StackLayout>
                 <StackLayout Padding="5,2,5,2" BackgroundColor="White">
@@ -48,15 +43,15 @@
                             </RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="0.9*">
+                            <ColumnDefinition Width="0.5*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="0.6*">
+                            <ColumnDefinition Width="0.5*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="3.8*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="1.8*">
+                            <ColumnDefinition Width="2*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="1.8*">
+                            <ColumnDefinition Width="2*">
                             </ColumnDefinition>
                             <ColumnDefinition Width="1.2*">
                             </ColumnDefinition>
@@ -64,15 +59,11 @@
                         <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="Element" Style="{StaticResource existingStudiesView}" FontSize="9" />
                         <Label Grid.Row="0" Grid.Column="3" Text="Elapsed" Style="{StaticResource existingStudiesView}" FontSize="9" />
                         <Label Grid.Row="0" Grid.Column="4" Text="Lap Time" Style="{StaticResource existingStudiesView}" FontSize="9" />
-                        <Label Grid.Row="0" Grid.Column="5" Text="Rating" Style="{StaticResource existingStudiesView}" FontSize="9"  />
+                        <Label Grid.Row="0" Grid.Column="5" Text="Rating" Style="{StaticResource existingStudiesView}" FontSize="9" />
                     </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
-                    <local:CustomListView x:Name="ListViewTimes" 
-                                          Margin="0,5" 
-                                          ItemsSource="{Binding LapTimes}" 
-                                          HeightRequest="410" 
-                                          IsEnabled="true">
+                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" HeightRequest="410" IsEnabled="true">
                         <x:Arguments>
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
@@ -84,23 +75,23 @@
                                         </RowDefinition>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.9*">
+                                        <ColumnDefinition Width="0.7*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="0.6*">
+                                        <ColumnDefinition Width="0.5*">
                                         </ColumnDefinition>
                                         <ColumnDefinition Width="3.8*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="1.8*">
+                                        <ColumnDefinition Width="2*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="1.8*">
+                                        <ColumnDefinition Width="2*">
                                         </ColumnDefinition>
-                                        <ColumnDefinition Width="1.2*">
+                                        <ColumnDefinition Width="1*">
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding CurrentElementWithoutLapTimeName}" Style="{StaticResource existingStudiesView}" FontSize="13" TextColor="White"/>
-                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding StopWatchTime}" Style="{StaticResource existingStudiesView}" TextColor="White"/>
-                                    <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" Style="{StaticResource existingStudiesView}" TextColor="White"/>
-                                    <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" FontSize="11" TextColor="White"/>
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding CurrentElementWithoutLapTimeName}" Style="{StaticResource existingStudiesView}" FontSize="13" TextColor="White" />
+                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding StopWatchTime}" Style="{StaticResource existingStudiesView}" TextColor="White" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
+                                    <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" Style="{StaticResource existingStudiesView}" TextColor="White" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
+                                    <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" FontSize="11" TextColor="White" />
                                 </Grid>
                             </StackLayout>
                         </ListView.Header>
@@ -114,22 +105,22 @@
                                                 </RowDefinition>
                                             </Grid.RowDefinitions>
                                             <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="0.9*">
+                                                <ColumnDefinition Width="0.7*">
                                                 </ColumnDefinition>
-                                                <ColumnDefinition Width="0.6*">
+                                                <ColumnDefinition Width="0.5*">
                                                 </ColumnDefinition>
                                                 <ColumnDefinition Width="3.8*">
                                                 </ColumnDefinition>
-                                                <ColumnDefinition Width="1.8*">
+                                                <ColumnDefinition Width="2*">
                                                 </ColumnDefinition>
-                                                <ColumnDefinition Width="1.8*">
+                                                <ColumnDefinition Width="2*">
                                                 </ColumnDefinition>
-                                                <ColumnDefinition Width="1.2*">
+                                                <ColumnDefinition Width="1*">
                                                 </ColumnDefinition>
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Element}" Style="{StaticResource existingStudiesView}" FontSize="13" />
-                                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" Style="{StaticResource existingStudiesView}" />
-                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTimeFormatted}" Style="{StaticResource existingStudiesView}" />
+                                            <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" Style="{StaticResource existingStudiesView}" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
+                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTimeFormatted}" Style="{StaticResource existingStudiesView}" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
                                             <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Center" Style="{StaticResource existingStudiesView}" />
                                         </Grid>
                                     </StackLayout>
@@ -152,8 +143,8 @@
                             <ColumnDefinition Width="*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LapButtonText}" Command="{Binding ShowStandardElements}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" HeightRequest="75"/>
-                        <Button Grid.Row="0" Grid.Column="2" Text=" Finish " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" HeightRequest="75"/>
+                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding LapButtonText}" Command="{Binding ShowStandardElements}" IsEnabled="{Binding IsLapEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" HeightRequest="75" />
+                        <Button Grid.Row="0" Grid.Column="2" Text=" Finish " Command="{Binding StopTimer}" IsEnabled="{Binding IsStopEnabled}" HorizontalOptions="Fill" Style="{StaticResource stopWatchButton}" HeightRequest="75" />
                     </Grid>
                 </StackLayout>
             </StackLayout>
