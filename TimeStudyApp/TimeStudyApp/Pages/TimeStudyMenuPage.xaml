@@ -26,6 +26,13 @@
                 </StackLayout>
                 <Button Text="Begin New Study" WidthRequest="200" Command="{Binding NewStudy}" />
                 <Button Text="View Existing Studies" WidthRequest="200" Command="{Binding ExistingStudy}" />
+                <StackLayout Padding="15, 80, 15 ,10" Spacing="20" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label Text="Click Begin New Study to set up a new study. " VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="Click View Existing Studies to view studies that have already been created and completed studies." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="To re-observe an existing study, select a study from the Studies tab and a new study can be taken using the same elements." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="To re-send an analysis report, select a study from the Completed Studies tab. Studies can be distinguished by study number/version number." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
+                </StackLayout>
             </StackLayout>
         </AbsoluteLayout>
     </ContentPage.Content>

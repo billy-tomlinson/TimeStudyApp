@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" 
-             xmlns:views="clr-namespace:TimeStudy.Views" 
-             x:Class="TimeStudy.Pages.TimeStudyReportsPage">
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:TimeStudy="clr-namespace:TimeStudy.ViewModels" xmlns:views="clr-namespace:TimeStudy.Views" x:Class="TimeStudy.Pages.TimeStudyReportsPage">
     <ContentPage.BindingContext>
         <TimeStudy:TimeStudyReportsPageViewModel />
     </ContentPage.BindingContext>
@@ -23,22 +19,20 @@
         </Grid>
     </NavigationPage.TitleView>
     <ContentPage.Content>
-        <AbsoluteLayout HorizontalOptions="Center" 
-                        VerticalOptions="StartAndExpand" 
-                        BackgroundColor="Transparent">
+        <AbsoluteLayout HorizontalOptions="Center" VerticalOptions="StartAndExpand" BackgroundColor="Transparent">
             <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-            <StackLayout BackgroundColor="Transparent" 
-                         IsVisible="{Binding IsPageVisible}" 
-                         Opacity="{Binding Opacity}" 
-                         Padding="2" 
-                         Margin="2" 
-                         AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                         AbsoluteLayout.LayoutFlags="All">
+            <StackLayout BackgroundColor="Transparent" IsVisible="{Binding IsPageVisible}" Opacity="{Binding Opacity}" Padding="2" Margin="2" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
                     <Label Text="Analysis Reports" FontSize="30" TextColor="Black" HorizontalOptions="Center" />
                 </StackLayout>
                 <StackLayout>
                     <Button Text="Send Report" Command="{Binding SendEmail}" IsEnabled="{Binding IsEnabled}" />
+                </StackLayout>
+                <StackLayout Padding="15, 80, 15 ,10" Spacing="20" CompressedLayout.IsHeadless="true" VerticalOptions="Center" BackgroundColor="Transparent">
+                    <Label Text="Click Send Report to forward the analysis report to recipients. " VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="Can be sent via email, or other communication media that the device supports." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <Label Text="Reports can be sent to recipients as many times as required. Select previous studies by selecting Exisiting Studies and then select a study from the Completed Studies tab." VerticalOptions="Center" HorizontalOptions="Center" XAlign="Center" FontSize="15" />
+                    <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="Red" />
                 </StackLayout>
             </StackLayout>
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">
