@@ -191,7 +191,7 @@ namespace TimeStudy.ViewModels
 
                 var timeElaspedSinceStart = DateTime.Now.TimeOfDay - StartTime;
 
-                var realTicks = timeElaspedSinceStart.Ticks / 1000;
+                var realTicks = timeElaspedSinceStart.Ticks / 1000000;
 
                 RealTimeTicks = TimeWhenStopButtonClicked + (double)realTicks / 600;
 
@@ -655,14 +655,28 @@ namespace TimeStudy.ViewModels
 
             foreach (var item in LapTimes)
             {
+                string totalElapsedTime;
+                string individualLapTime;
+
+                if (item.Status == RunningStatus.Paused)
+                {
+                    totalElapsedTime = item.TotalElapsedTime;
+                    individualLapTime = string.Empty;
+                }   
+                else
+                {
+                    totalElapsedTime = IsImperial ? item.TotalElapsedTimeImperial.ToString(Imperial) : item.TotalElapsedTimeDouble.ToString(CentiMinute);
+                    individualLapTime = IsImperial ? item.IndividualLapImperial.ToString(Imperial) : item.IndividualLapTime.ToString(CentiMinute);
+                }
+
                 var newLapTime = new LapTime()
                 {
                     IndividualLapDouble = item.IndividualLapTime,
                     IndividualLapImperial = item.IndividualLapImperial,
                     TotalElapsedTimeDouble = item.TotalElapsedTimeDouble,
                     TotalElapsedTimeImperial = item.TotalElapsedTimeImperial,
-                    IndividualLapTimeFormatted = IsImperial ? item.IndividualLapImperial.ToString(Imperial) : item.IndividualLapTime.ToString(CentiMinute),
-                    TotalElapsedTime = IsImperial ? item.TotalElapsedTimeImperial.ToString(Imperial) : item.TotalElapsedTimeDouble.ToString(CentiMinute),
+                    IndividualLapTimeFormatted = individualLapTime,
+                    TotalElapsedTime = totalElapsedTime,
                     ActivityId = item.ActivityId,
                     Cycle = item.Cycle,
                     Element = item.Element,
@@ -726,28 +740,28 @@ namespace TimeStudy.ViewModels
                 if (isImperial)
                 {
                     TimeFontSize = 10;
-                    switch (Device.RuntimePlatform)
-                    {
-                        case Device.iOS:
-                            StopWatchFontSize = 30;
-                            break;
-                        case Device.Android:
-                            StopWatchFontSize = 25;
-                            break;
-                    }
+                    //switch (Device.RuntimePlatform)
+                    //{
+                    //    case Device.iOS:
+                    //        StopWatchFontSize = 30;
+                    //        break;
+                    //    case Device.Android:
+                    //        StopWatchFontSize = 25;
+                    //        break;
+                    //}
                 }
                 else
                 {
                     TimeFontSize = 12;
-                    switch (Device.RuntimePlatform)
-                    {
-                        case Device.iOS:
-                            StopWatchFontSize = 35;
-                            break;
-                        case Device.Android:
-                            StopWatchFontSize = 30;
-                            break;
-                    }
+                    //switch (Device.RuntimePlatform)
+                    //{
+                    //    case Device.iOS:
+                    //        StopWatchFontSize = 35;
+                    //        break;
+                    //    case Device.Android:
+                    //        StopWatchFontSize = 30;
+                    //        break;
+                    //}
                 }
                     
                 OnPropertyChanged("TimeFontSize");

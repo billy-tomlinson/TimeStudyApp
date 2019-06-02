@@ -16,24 +16,24 @@
                 <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Vertical">
                     <Grid Padding="5" Margin="5">
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto">
+                            <RowDefinition Height="50">
                             </RowDefinition>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2.3*">
+                            <ColumnDefinition Width="2.5*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="5*">
+                            <ColumnDefinition Width=".5*">
                             </ColumnDefinition>
-                            <ColumnDefinition Width="2.7*">
+                            <ColumnDefinition Width="7*">
                             </ColumnDefinition>
                         </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Text="         " HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
-                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding StopWatchTime}" TextColor="{Binding StopWatchColour}" HorizontalTextAlignment="Start" HorizontalOptions="FillAndExpand" FontSize="{Binding Path = BindingContext.StopWatchFontSize, Source={x:Reference TimeStudyView}}">
+                        <Button Grid.Row="0" Grid.Column="0" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" IsEnabled="{Binding IsForeignEnabled}" />
+                        <Label Grid.Row="0" Grid.Column="1" Text="   " HorizontalTextAlignment="Start" HorizontalOptions="Fill" FontSize="10" TextColor="Black" />
+                        <Label Grid.Row="0" Grid.Column="2" Text="{Binding StopWatchTime}" TextColor="{Binding StopWatchColour}" HorizontalTextAlignment="Start" HorizontalOptions="FillAndExpand" FontSize="{Binding Path = BindingContext.StopWatchFontSize, Source={x:Reference TimeStudyView}}">
                             <Label.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding SwitchTimeFormat}" />
                             </Label.GestureRecognizers>
                         </Label>
-                        <Button Grid.Row="0" Grid.Column="2" Text="Foreign" Command="{Binding ShowForeignElementsTopButton}" HorizontalOptions="FillAndExpand" Style="{StaticResource stopWatchButton}" IsEnabled="{Binding IsForeignEnabled}" />
                     </Grid>
                 </StackLayout>
                 <StackLayout Padding="5,2,5,2" BackgroundColor="White">
