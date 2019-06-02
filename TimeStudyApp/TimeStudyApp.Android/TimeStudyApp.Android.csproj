@@ -132,6 +132,7 @@
     <AndroidResource Include="Resources\drawable\undo.png" />
     <AndroidResource Include="Resources\drawable\timestudy.png" />
     <AndroidResource Include="Resources\xml\file_paths.xml" />
+    <AndroidResource Include="Resources\drawable\timestudyicon.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\drawable\" />

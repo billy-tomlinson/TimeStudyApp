@@ -228,5 +228,7 @@
     <BundleResource Include="Resources\studysetup.png" />
     <BundleResource Include="Resources\tools.png" />
     <BundleResource Include="Resources\undo.png" />
+    <BundleResource Include="Resources\timestudy.png" />
+    <BundleResource Include="Resources\timestudyicon.png" />
   </ItemGroup>
 </Project>

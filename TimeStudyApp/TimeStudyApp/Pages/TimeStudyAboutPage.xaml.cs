@@ -8,7 +8,7 @@ namespace TimeStudyApp.Pages
         public TimeStudyAboutPage()
         {
             InitializeComponent();
-            timeStudy.Source = ImageSource.FromFile("stopwatch.png");
+            timeStudy.Source = ImageSource.FromFile("timestudyicon.png");
             NavigationPage.SetHasNavigationBar(this, true);
             NavigationPage.SetBackButtonTitle(this, "");
         }

@@ -12,11 +12,11 @@
             <OnPlatform x:TypeArguments="Font" Android="18" iOS="18" x:Key="StopWatchButtonFont" />
 
             <Style TargetType="ContentPage" ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="#4174f4" />
+                <Setter Property="BackgroundColor" Value="#12ADFA" />
                 <Setter Property="Padding" Value="5" />
             </Style>
             <Style TargetType="TabbedPage" ApplyToDerivedTypes="True">
-                <Setter Property="BarBackgroundColor" Value="#4174f4" />
+                <Setter Property="BarBackgroundColor" Value="#12ADFA" />
                 <Setter Property="BackgroundColor" Value="White" />
                 <Setter Property="BarTextColor" Value="White" />
             </Style>
@@ -48,7 +48,7 @@
                 <Setter Property="HorizontalTextAlignment" Value="Center" />
             </Style>
             <Style TargetType="NavigationPage">
-                <Setter Property="BarBackgroundColor" Value="#4174f4" />
+                <Setter Property="BarBackgroundColor" Value="#12ADFA" />
             </Style>
             <Style TargetType="BoxView">
                 <Setter Property="BackgroundColor" Value="#E8AD00" />
@@ -79,7 +79,7 @@
                 <Setter Property="Font" Value="{StaticResource RatingFontSize}" />
             </Style>
             <Style x:Key="popUpButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="#4174f4" />
+                <Setter Property="BackgroundColor" Value="#12ADFA" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="Padding" Value="10,10,10,10" />
@@ -128,6 +128,13 @@
                 <Setter Property="BackgroundColor" Value="#eee" />
                 <Setter Property="Padding" Value="0" />
                 <Setter Property="Margin" Value="0" />
+            </Style>
+            <Style TargetType="ListView">
+                <Setter Property="BackgroundColor" Value="Gray" />
+                <Setter Property="HasUnevenRows" Value="true" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="SeparatorVisibility" Value="Default" />
+                <Setter Property="SeparatorColor" Value="#605F5F" />
             </Style>
             <Label.FontFamily>
             </Label.FontFamily>
