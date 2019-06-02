@@ -63,7 +63,7 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
-                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" ItemClickedCommand="{Binding SwitchTimeFormat}" HeightRequest="410" IsEnabled="true">
+                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimesCollection}" ItemClickedCommand="{Binding SwitchTimeFormat}" HeightRequest="410" IsEnabled="true">
                         <x:Arguments>
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
@@ -120,7 +120,7 @@
                                             </Grid.ColumnDefinitions>
                                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding Element}" Style="{StaticResource existingStudiesView}" FontSize="13" />
                                             <Label Grid.Row="0" Grid.Column="3" Text="{Binding TotalElapsedTime}" Style="{StaticResource existingStudiesView}" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
-                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTimeFormatted}" Style="{StaticResource existingStudiesView}" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
+                                            <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" Style="{StaticResource existingStudiesView}" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
                                             <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" HorizontalTextAlignment="Center" Style="{StaticResource existingStudiesView}" />
                                         </Grid>
                                     </StackLayout>

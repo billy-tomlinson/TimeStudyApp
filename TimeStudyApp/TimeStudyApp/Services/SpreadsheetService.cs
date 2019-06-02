@@ -208,7 +208,7 @@ namespace TimeStudy.Services
                         && x.IsRated).ToList();
 
             double totalBMS = allRatedLapTimes.Sum(x => x.IndividualLapBMS);
-            double totalObservedTime = allRatedLapTimes.Sum(x => x.IndividualLapTime);
+            double totalObservedTime = allRatedLapTimes.Sum(x => x.IndividualLapTimeDouble);
             double averageRating = totalBMS / totalObservedTime * 100;
 
 
@@ -443,15 +443,15 @@ namespace TimeStudy.Services
             {
                 double individualLapTimeNormalised = 0;
                 if (lap.Rating != null && lap.Rating != 0)
-                    individualLapTimeNormalised = lap.IndividualLapTime * (int)lap.Rating / 100;
+                    individualLapTimeNormalised = lap.IndividualLapTimeDouble * (int)lap.Rating / 100;
                 else
-                    individualLapTimeNormalised = lap.IndividualLapTime;
+                    individualLapTimeNormalised = lap.IndividualLapTimeDouble;
 
                 data.Add(new SpreadSheetLapTime()
                 {
                     StudyId = Utilities.StudyId,
                     TotalElapsedTime = lap.TotalElapsedTimeDouble,
-                    IndividualLapTime = lap.IndividualLapTime,
+                    IndividualLapTime = lap.IndividualLapTimeDouble,
                     IsForeignElement = !lap.IsValueAdded,
                     Element = lap.Element,
                     Rating = lap.Rating,

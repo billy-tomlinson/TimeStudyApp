@@ -24,7 +24,15 @@ namespace TimeStudy.Model
 
         public string TotalElapsedTime { get; set; }
 
+        public string IndividualLapTime { get; set; }
+
         public double TotalElapsedTimeDouble { get; set; }
+
+        public double IndividualLapTimeDouble { get; set; }
+
+        public TimeSpan TotalElapsedTimeImperial { get; set; }
+
+        public TimeSpan IndividualLapTimeImperial { get; set; }
 
         public double TimeWhenLapStarted { get; set; }
 
@@ -32,22 +40,12 @@ namespace TimeStudy.Model
 
         public string Element { get; set; }
 
-        public string IndividualLapTimeFormatted { get; set; }
-
-        public double IndividualLapTime { get; set; }
-
-        public double IndividualLapDouble { get; set; }
-
-        public TimeSpan TotalElapsedTimeImperial { get; set; }
-
-        public TimeSpan IndividualLapImperial { get; set; }
-
         [Ignore]
         public double IndividualLapBMS 
         {
             get
             {
-                return Rating != null && Rating != 0 ? IndividualLapTime * (int)Rating / 100 : IndividualLapTime;
+                return Rating != null && Rating != 0 ? IndividualLapTimeDouble * (int)Rating / 100 : IndividualLapTimeDouble;
             }
         }
 

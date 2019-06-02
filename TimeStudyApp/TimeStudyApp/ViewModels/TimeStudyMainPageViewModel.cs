@@ -561,15 +561,15 @@ namespace TimeStudy.ViewModels
             var individualLapImperial = TimeSpan.FromMinutes(calculatedLapTime);
             var totalElapsedTimeImperial = TimeSpan.FromMinutes(Utilities.TimeWhenLapOrForiegnButtonClicked);
 
-            currentLapTime.IndividualLapTime = calculatedLapTime;
-            currentLapTime.IndividualLapTimeFormatted = IsImperial ? individualLapImperial.ToString(Imperial) : calculatedLapTime.ToString(CentiMinute);
+            currentLapTime.IndividualLapTimeDouble = calculatedLapTime;
+            currentLapTime.IndividualLapTime = IsImperial ? individualLapImperial.ToString(Imperial) : calculatedLapTime.ToString(CentiMinute);
             currentLapTime.TotalElapsedTimeDouble = Utilities.TimeWhenLapOrForiegnButtonClicked;
             currentLapTime.TotalElapsedTime = IsImperial ? totalElapsedTimeImperial.ToString(Imperial) : Utilities.TimeWhenLapOrForiegnButtonClicked.ToString(CentiMinute);
             currentLapTime.ElementColour = Color.Gray;
             currentLapTime.ForeignElements = SelectedForeignElements;
             currentLapTime.Status = RunningStatus.Completed;
             currentLapTime.TotalElapsedTimeImperial = totalElapsedTimeImperial;
-            currentLapTime.IndividualLapImperial = individualLapImperial;
+            currentLapTime.IndividualLapTimeImperial = individualLapImperial;
 
             LapTimeRepo.SaveItem(currentLapTime);
         }
@@ -625,7 +625,7 @@ namespace TimeStudy.ViewModels
                     var foriegnLaps = LapTimeRepo.GetItems().Where(x => x.Id > lastRecordedLapTime.Id);
                     foreach (var item in foriegnLaps)
                     {
-                        combinedForeignTimes = combinedForeignTimes + item.IndividualLapTime;
+                        combinedForeignTimes = combinedForeignTimes + item.IndividualLapTimeDouble;
                     }
 
                     LapTime = Utilities.TimeWhenLapOrForiegnButtonClicked - lastRecordedLapTime.TimeWhenLapStarted - combinedForeignTimes;
@@ -648,6 +648,15 @@ namespace TimeStudy.ViewModels
         {
             IsImperial = !IsImperial;
 
+            LapTimes = new ObservableCollection<LapTime>(RefreshAllListItems());
+
+            OnPropertyChanged("LapTimes");
+
+            Utilities.LapButtonClicked = true;
+        }
+
+        private List<LapTime> RefreshAllListItems()
+        {
             StopWatchColour = IsImperial ? Color.Black : Color.White;
             StopWatchTime = FormattedStopWatchTime();
 
@@ -662,20 +671,20 @@ namespace TimeStudy.ViewModels
                 {
                     totalElapsedTime = item.TotalElapsedTime;
                     individualLapTime = string.Empty;
-                }   
+                }
                 else
                 {
                     totalElapsedTime = IsImperial ? item.TotalElapsedTimeImperial.ToString(Imperial) : item.TotalElapsedTimeDouble.ToString(CentiMinute);
-                    individualLapTime = IsImperial ? item.IndividualLapImperial.ToString(Imperial) : item.IndividualLapTime.ToString(CentiMinute);
+                    individualLapTime = IsImperial ? item.IndividualLapTimeImperial.ToString(Imperial) : item.IndividualLapTimeDouble.ToString(CentiMinute);
                 }
 
                 var newLapTime = new LapTime()
                 {
-                    IndividualLapDouble = item.IndividualLapTime,
-                    IndividualLapImperial = item.IndividualLapImperial,
+                    IndividualLapTimeDouble = item.IndividualLapTimeDouble,
+                    IndividualLapTimeImperial = item.IndividualLapTimeImperial,
                     TotalElapsedTimeDouble = item.TotalElapsedTimeDouble,
                     TotalElapsedTimeImperial = item.TotalElapsedTimeImperial,
-                    IndividualLapTimeFormatted = individualLapTime,
+                    IndividualLapTime = individualLapTime,
                     TotalElapsedTime = totalElapsedTime,
                     ActivityId = item.ActivityId,
                     Cycle = item.Cycle,
@@ -684,7 +693,6 @@ namespace TimeStudy.ViewModels
                     ForeignElements = item.ForeignElements,
                     HasBeenPaused = item.HasBeenPaused,
                     Id = item.Id,
-                    IndividualLapTime = item.IndividualLapTime,
                     IsForeignElement = item.IsForeignElement,
                     IsRated = item.IsRated,
                     IsValueAdded = item.IsValueAdded,
@@ -699,11 +707,7 @@ namespace TimeStudy.ViewModels
                 newLapTimes.Add(newLapTime);
             }
 
-            LapTimes = new ObservableCollection<LapTime>(newLapTimes);
-
-            OnPropertyChanged("LapTimes");
-
-            Utilities.LapButtonClicked = true;
+            return newLapTimes;
         }
 
         private string FormattedStopWatchTime()
@@ -738,31 +742,9 @@ namespace TimeStudy.ViewModels
                 isImperial = value;
                 OnPropertyChanged();
                 if (isImperial)
-                {
                     TimeFontSize = 10;
-                    //switch (Device.RuntimePlatform)
-                    //{
-                    //    case Device.iOS:
-                    //        StopWatchFontSize = 30;
-                    //        break;
-                    //    case Device.Android:
-                    //        StopWatchFontSize = 25;
-                    //        break;
-                    //}
-                }
                 else
-                {
                     TimeFontSize = 12;
-                    //switch (Device.RuntimePlatform)
-                    //{
-                    //    case Device.iOS:
-                    //        StopWatchFontSize = 35;
-                    //        break;
-                    //    case Device.Android:
-                    //        StopWatchFontSize = 30;
-                    //        break;
-                    //}
-                }
                     
                 OnPropertyChanged("TimeFontSize");
             }
@@ -1056,6 +1038,21 @@ namespace TimeStudy.ViewModels
             set
             {
                 lapTimes = value;
+                OnPropertyChanged();
+                OnPropertyChanged("LapTimesCollection");
+            }
+        }
+
+        static ObservableCollection<LapTime> lapTimesCollection;
+        public ObservableCollection<LapTime> LapTimesCollection
+        {
+            get
+            {
+                return new ObservableCollection<LapTime>(RefreshAllListItems());
+            }
+            set
+            {
+                lapTimesCollection = value;
                 OnPropertyChanged();
             }
         }
