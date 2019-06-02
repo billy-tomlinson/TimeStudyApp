@@ -420,6 +420,7 @@ namespace TimeStudy.ViewModels
 
         void ShowForeignElementsEvent()
         {
+            Utilities.LapButtonClicked = true;
             Utilities.IsForeignElement = true;
             IsPageEnabled = false;
             IsForeignEnabled = false;
@@ -433,6 +434,8 @@ namespace TimeStudy.ViewModels
 
         void ShowForeignElementsTopButtonEvent()
         {
+            Utilities.LapButtonClicked = true;
+            RefreshAllListItems();
             Utilities.TimeWhenLapOrForiegnButtonClicked = RealTimeTicks;
             Utilities.IsForeignElement = true;
             IsCancelEnabled = true;
@@ -649,10 +652,6 @@ namespace TimeStudy.ViewModels
             IsImperial = !IsImperial;
 
             LapTimes = new ObservableCollection<LapTime>(RefreshAllListItems());
-
-            OnPropertyChanged("LapTimes");
-
-            Utilities.LapButtonClicked = true;
         }
 
         private List<LapTime> RefreshAllListItems()
@@ -707,7 +706,9 @@ namespace TimeStudy.ViewModels
                 newLapTimes.Add(newLapTime);
             }
 
-            return newLapTimes;
+            OnPropertyChanged("LapTimes");
+
+            return newLapTimes.OrderByDescending(x => x.Id).ToList();
         }
 
         private string FormattedStopWatchTime()
