@@ -445,6 +445,7 @@ namespace TimeStudy.ViewModels
 
         void ShowStandardElementsEvent()
         {
+            Utilities.LapButtonClicked = true;
             Utilities.TimeWhenLapOrForiegnButtonClicked = RealTimeTicks;
             Utilities.IsForeignElement = false;
             IsPageEnabled = false;
@@ -464,6 +465,8 @@ namespace TimeStudy.ViewModels
         public void LapTimerEvent()
         {
             LapButtonText = "   Lap   ";
+
+            Utilities.LapButtonClicked = true;
 
             var pausedLap = Get_Paused_LapTime();
 
@@ -495,8 +498,6 @@ namespace TimeStudy.ViewModels
             }
 
             cancelActivitiesView = false;
-            Utilities.LapButtonClicked = true;
-
         }
 
         public void ProcessForeignElementWithRating(bool rated, string name, int? rating = null)
@@ -708,7 +709,7 @@ namespace TimeStudy.ViewModels
 
             OnPropertyChanged("LapTimes");
 
-            return newLapTimes.OrderByDescending(x => x.Id).ToList();
+            return newLapTimes.OrderByDescending(x => x.TotalElapsedTimeDouble).ToList();
         }
 
         private string FormattedStopWatchTime()
