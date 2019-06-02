@@ -24,11 +24,8 @@
                 </StackLayout>
                 <local:CustomListView x:Name="List" Margin="0,10" 
                                       ItemsSource="{Binding ActivitySamples}" 
-                                      BackgroundColor="Gray" 
-                                      HasUnevenRows="true" 
                                       ItemClickedCommand="{Binding ItemClickedCommand}" 
-                                      HorizontalOptions="Center" SeparatorVisibility="Default" 
-                                      SeparatorColor="#605F5F" HeightRequest="500">
+                                      HeightRequest="500">
                     <x:Arguments>
                         <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                     </x:Arguments>
@@ -55,16 +52,16 @@
                                             <ColumnDefinition Width="*">
                                             </ColumnDefinition>
                                         </Grid.ColumnDefinitions>
-                                        <Label Grid.Row="0" Grid.Column="0" Text="NAME: " FontSize="12" HorizontalTextAlignment="Start" />
-                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="1" Grid.Column="0" Text="STUDY NUMBER: " HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding StudyNumber}" HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="2" Grid.Column="0" Text="DATE: " HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding DateTimeFormatted}" HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="3" Grid.Column="0" Text="STUDIED BY: " HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="4" Grid.Column="0" Text="VERSION: " HorizontalTextAlignment="Start" FontSize="12" />
-                                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Version}" HorizontalTextAlignment="Start" FontSize="12" />
+                                        <Label Grid.Row="0" Grid.Column="0" Text="NAME: " Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="1" Grid.Column="0" Text="STUDY NUMBER: " Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="1" Grid.Column="1" Text="{Binding StudyNumber}" Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="2" Grid.Column="0" Text="DATE: " Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="2" Grid.Column="1" Text="{Binding DateTimeFormatted}" Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="3" Grid.Column="0" Text="STUDIED BY: " Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="3" Grid.Column="1" Text="{Binding StudiedBy}" Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="4" Grid.Column="0" Text="VERSION: " Style="{StaticResource existingStudiesView}" />
+                                        <Label Grid.Row="4" Grid.Column="1" Text="{Binding Version}" Style="{StaticResource existingStudiesView}" />
                                     </Grid>
                                 </StackLayout>
                             </ViewCell>

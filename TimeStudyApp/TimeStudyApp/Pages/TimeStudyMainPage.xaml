@@ -68,7 +68,11 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
-                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" BackgroundColor="Gray" HasUnevenRows="true" HorizontalOptions="Center" SeparatorVisibility="Default" SeparatorColor="#605F5F" HeightRequest="410" IsEnabled="true">
+                    <local:CustomListView x:Name="ListViewTimes" 
+                                          Margin="0,5" 
+                                          ItemsSource="{Binding LapTimes}" 
+                                          HeightRequest="410" 
+                                          IsEnabled="true">
                         <x:Arguments>
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
