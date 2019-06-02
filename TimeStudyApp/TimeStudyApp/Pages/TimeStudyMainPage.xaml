@@ -63,7 +63,7 @@
                     </Grid>
                 </StackLayout>
                 <StackLayout HorizontalOptions="CenterAndExpand" Padding="0,0,0,5" Orientation="Horizontal">
-                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" HeightRequest="410" IsEnabled="true">
+                    <local:CustomListView x:Name="ListViewTimes" Margin="0,5" ItemsSource="{Binding LapTimes}" ItemClickedCommand="{Binding SwitchTimeFormat}" HeightRequest="410" IsEnabled="true">
                         <x:Arguments>
                             <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
                         </x:Arguments>
@@ -89,7 +89,7 @@
                                         </ColumnDefinition>
                                     </Grid.ColumnDefinitions>
                                     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Text="{Binding CurrentElementWithoutLapTimeName}" Style="{StaticResource existingStudiesView}" FontSize="13" TextColor="White" />
-                                    <Label Grid.Row="0" Grid.Column="3" Text="{Binding StopWatchTime}" Style="{StaticResource existingStudiesView}" TextColor="White" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
+                                    <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Text="{Binding StopWatchTime}" Style="{StaticResource existingStudiesView}" TextColor="White" FontSize="13" />
                                     <Label Grid.Row="0" Grid.Column="4" Text="{Binding IndividualLapTime}" Style="{StaticResource existingStudiesView}" TextColor="White" FontSize="{Binding Path = BindingContext.TimeFontSize, Source={x:Reference TimeStudyView}}" />
                                     <Label Grid.Row="0" Grid.Column="5" Text="{Binding Rating}" Style="{StaticResource existingStudiesView}" FontSize="11" TextColor="White" />
                                 </Grid>
