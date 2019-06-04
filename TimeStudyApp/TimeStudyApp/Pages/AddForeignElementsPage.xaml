@@ -9,17 +9,20 @@
         <viewModels:AddForeignElementsViewModel />
     </ContentPage.BindingContext>
     <ContentPage.Content>
-          <AbsoluteLayout HorizontalOptions="Center" 
-                            VerticalOptions="StartAndExpand" 
-                            BackgroundColor="Transparent">
+          <AbsoluteLayout 
+            HorizontalOptions="Center"               
+            VerticalOptions="StartAndExpand" 
+            BackgroundColor="Transparent">
                 <views:PageNotAllowedView IsVisible="{Binding IsPageUnavailableVisible}" />
-                <StackLayout BackgroundColor="Transparent"
-                             Padding="2" 
-                             Margin="2" 
-                             IsVisible="{Binding IsPageVisible}" 
-                             Opacity="{Binding Opacity}" 
-                             AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
-                             AbsoluteLayout.LayoutFlags="All">
+                <StackLayout 
+                BackgroundColor="Transparent"
+                 Padding="2" 
+                 Margin="2" 
+                 IsVisible="{Binding IsPageVisible}" 
+                 IsEnabled="{Binding IsPageEnabled}"
+                 Opacity="{Binding Opacity}" 
+                 AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
+                 AbsoluteLayout.LayoutFlags="All">
                 <views:StudyDetailsView Padding="10" 
                                         Margin="10" />
                 <StackLayout Orientation="Horizontal" 
@@ -63,7 +66,10 @@
                     </StackLayout>
                 </StackLayout>
             </ContentView>
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center" AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout HorizontalOptions="Center" 
+                         VerticalOptions="Center" 
+                         AbsoluteLayout.LayoutBounds="0.25, 0.25, 1, 1" 
+                         AbsoluteLayout.LayoutFlags="All">
                 <views:ValidationView x:Name="validationView" IsVisible="{Binding IsInvalid}" />
             </StackLayout>
             <StackLayout AbsoluteLayout.LayoutFlags="PositionProportional" AbsoluteLayout.LayoutBounds="0.5,0.5,-1,-1">

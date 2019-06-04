@@ -221,6 +221,7 @@ namespace TimeStudy.ViewModels
             IsInvalid = true;
             ShowClose = true;
             Opacity = 0.2;
+            IsPageEnabled = false;
 
             if ((Name != null && Name?.Trim().Length > 0))
             {
@@ -229,6 +230,7 @@ namespace TimeStudy.ViewModels
 
                 Opacity = 1;
                 IsInvalid = false;
+                IsPageEnabled = true;
             }
         }
 
