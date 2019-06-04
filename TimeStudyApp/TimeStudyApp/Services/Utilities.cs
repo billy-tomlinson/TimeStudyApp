@@ -58,9 +58,9 @@ namespace TimeStudy.Services
         public static Color Clicked = Color.FromHex("#CCCCCE");
         public static Color UnClicked = Color.FromHex("#4174f4");
 
-        public const string ValueAddedColour = "#61FF4B";
-        public const string NonValueAddedColour = "#FFE14B";
-        public const string InactiveColour = "#FF644B";
+        public const string ValueAddedColour = "#74D3AE";
+        public const string NonValueAddedColour = "#F7CE5B";
+        public const string InactiveColour = "#ED6A5A";
         public const string ValidColour = "#d5f0f1";
         public const string ClickedHex = "#CCCCCE";
 

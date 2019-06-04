@@ -1,50 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             x:Class="TimeStudy.Views.ValidationView">
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="TimeStudy.Views.ValidationView">
     <ContentView.Content>
-         <ContentView BackgroundColor="Transparent" Padding="10, 0">
-                <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" 
-                             Margin="10" WidthRequest="250" MinimumHeightRequest="150" BackgroundColor="#d0e6e4">
-                    <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200" >
-                        <Label Text="{Binding ValidationText}" TextColor="#605F5F"  HorizontalTextAlignment="Center"/>
-                    </StackLayout>
-                 <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="*" />
-                                            </Grid.ColumnDefinitions>
-
-                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}"
-                                Text="CLOSE" Style="{StaticResource popUpButton}" 
-                                Command="{Binding CloseView}" 
-                                FontSize="12" 
-                                IsVisible="{Binding ShowClose}" 
-                                HorizontalOptions="CenterAndExpand" />
-                        <Button Grid.Row="0" Grid.Column="1" Text="OVERRIDE" 
-                                Style="{StaticResource popUpButton}" 
-                                HorizontalOptions="CenterAndExpand" 
-                                IsVisible="{Binding IsOverrideVisible}" 
-                                Command="{Binding Override}" 
-                                FontSize="12"/>
-                        <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}"
-                                Text="OK" Style="{StaticResource popUpButton}" 
-                                Command="{Binding Override}" 
-                                FontSize="12" 
-                                IsVisible="{Binding ShowOkCancel}" 
-                                HorizontalOptions="CenterAndExpand" />
-                        <Button Grid.Row="0" Grid.Column="1" Text="CANCEL" 
-                                Style="{StaticResource popUpButton}" 
-                                HorizontalOptions="CenterAndExpand" 
-                                IsVisible="{Binding ShowOkCancel}" 
-                                Command="{Binding CloseView}" 
-                                FontSize="12"/>
-
-                    </Grid>
+        <ContentView BackgroundColor="Transparent" Padding="10, 0">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center" Padding="10" Margin="10" WidthRequest="250" MinimumHeightRequest="150" BackgroundColor="{StaticResource PopUpColour}">
+                <StackLayout Orientation="Vertical" HeightRequest="50" HorizontalOptions="Center" WidthRequest="200">
+                    <Label Text="{Binding ValidationText}" TextColor="#605F5F" HorizontalTextAlignment="Center" />
                 </StackLayout>
-            </ContentView>
+                <Grid Padding="3" Margin="3" BackgroundColor="Transparent">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}" Text="CLOSE" Style="{StaticResource popUpButton}" Command="{Binding CloseView}" FontSize="12" IsVisible="{Binding ShowClose}" HorizontalOptions="CenterAndExpand" />
+                    <Button Grid.Row="0" Grid.Column="1" Text="OVERRIDE" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" IsVisible="{Binding IsOverrideVisible}" Command="{Binding Override}" FontSize="12" />
+                    <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="{Binding CloseColumnSpan}" Text="OK" Style="{StaticResource popUpButton}" Command="{Binding Override}" FontSize="12" IsVisible="{Binding ShowOkCancel}" HorizontalOptions="CenterAndExpand" />
+                    <Button Grid.Row="0" Grid.Column="1" Text="CANCEL" Style="{StaticResource popUpButton}" HorizontalOptions="CenterAndExpand" IsVisible="{Binding ShowOkCancel}" Command="{Binding CloseView}" FontSize="12" />
+                </Grid>
+            </StackLayout>
+        </ContentView>
     </ContentView.Content>
 </ContentView>

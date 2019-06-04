@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:TimeStudy.Custom" x:Class="TimeStudy.Views.ElementsView" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All" x:Name="ActivitiesViewPage">
     <ContentView.Content>
-        <StackLayout>
+        <StackLayout BackgroundColor="{StaticResource PopUpColour}">
             <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
                 <Label Text="Activities" IsVisible="{Binding Isvisible}" TextColor="Black" />
                 <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="5">

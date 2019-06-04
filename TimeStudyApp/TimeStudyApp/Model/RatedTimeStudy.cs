@@ -30,7 +30,7 @@ namespace TimeStudy.Model
         public List<RatedTimeStudyHistoryVersion> HistoricalVersions { get; set; }
 
         [Ignore]
-        public string ObservedColour { get; set; } = "#E8EAEC";// Xamarin.Forms.Color.Aquamarine.GetShortHexString();
+        public string ObservedColour { get; set; } = "#E8EAEC";
 
         [Ignore]
         public string DateTimeFormatted

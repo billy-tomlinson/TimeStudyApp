@@ -6,11 +6,13 @@
     <Application.Resources>
         <ResourceDictionary>
             
-            <Color x:Key="ContentPageColour">#12ADFA</Color>
+            <Color x:Key="ContentPageColour">#93B7BE</Color>
             <Color x:Key="GreyColour">#E8EAEC</Color>
+            <Color x:Key="MenuHeaderColour">#3B8EA5</Color>
+            <Color x:Key="PopUpColour">#F3FCF0</Color>
+             <Color x:Key="PopUpButton">#3B8EA5</Color>
             
             <OnPlatform x:Key="StandardFont" x:TypeArguments="Font">
-                <!-- <On Platform="iOS" Value="MarkerFelt-Thin" />-->
                 <On Platform="Android" Value="Roboto-Light" />
                 <On Platform="UWP, WinRT, WinPhone" Value="Assets/Fonts/Lobster-Regular.ttf#Lobster" />
             </OnPlatform>
@@ -33,20 +35,20 @@
                 <Setter Property="Margin" Value="0" />
             </Style>
             <Style TargetType="Button" ApplyToDerivedTypes="True">
-                <Setter Property="BackgroundColor" Value="#FCFAFA" />
+                <Setter Property="BackgroundColor" Value="{StaticResource PopUpColour}" />
                 <Setter Property="TextColor" Value="#605F5F" />
                 <Setter Property="FontSize" Value="15" />
             </Style>
             <Style TargetType="Entry">
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="BackgroundColor" Value="#FCFAFA" />
+                <Setter Property="BackgroundColor" Value="{StaticResource PopUpColour}" />
                 <Setter Property="TextColor" Value="#605F5F" />
             </Style>
             <Style TargetType="Editor">
                 <Setter Property="HorizontalOptions" Value="Fill" />
                 <Setter Property="VerticalOptions" Value="CenterAndExpand" />
-                <Setter Property="BackgroundColor" Value="#FCFAFA" />
+                <Setter Property="BackgroundColor" Value="{StaticResource PopUpColour}" />
                 <Setter Property="TextColor" Value="#605F5F" />
             </Style>
             <Style TargetType="Label">
@@ -87,14 +89,14 @@
                 <Setter Property="Font" Value="{StaticResource RatingFontSize}" />
             </Style>
             <Style x:Key="popUpButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="{StaticResource ContentPageColour}" />
+                <Setter Property="BackgroundColor" Value="{StaticResource PopUpButton}" />
                 <Setter Property="TextColor" Value="White" />
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="Padding" Value="10,10,10,10" />
                 <Setter Property="Margin" Value="10,10,10,10" />
             </Style>
             <Style x:Key="stopWatchButton" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="{StaticResource PopUpColour}" />
                 <Setter Property="TextColor" Value="Black" />
                 <Setter Property="Font" Value="{StaticResource StopWatchButtonFont}" />
                 <Setter Property="Padding" Value="3,10,3,10" />
@@ -109,7 +111,7 @@
                 <Setter Property="FontSize" Value="15" />
             </Style>
             <Style x:Key="mainPageLabel" TargetType="Label">
-                <Setter Property="TextColor" Value="White" />
+                <Setter Property="TextColor" Value="{StaticResource PopUpColour}" />
                 <Setter Property="VerticalTextAlignment" Value="Center" />
                 <Setter Property="HorizontalTextAlignment" Value="Start" />
                 <Setter Property="FontSize" Value="14" />
