@@ -18,6 +18,7 @@
                 <StackLayout BackgroundColor="Transparent" 
                              IsVisible="{Binding IsPageVisible}" 
                              Opacity="{Binding Opacity}" 
+                             IsEnabled="{Binding IsPageEnabled}" 
                              AbsoluteLayout.LayoutBounds="0, 0, 1, 1" 
                              AbsoluteLayout.LayoutFlags="All">
                     <StackLayout BindingContext="{Binding SampleStudy}" 

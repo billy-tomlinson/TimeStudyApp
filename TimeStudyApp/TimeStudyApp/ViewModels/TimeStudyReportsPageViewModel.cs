@@ -25,37 +25,39 @@ namespace TimeStudy.ViewModels
             IsBusy = true;
             IsEnabled = false;
             Opacity = 0.2;
+            IsPageEnabled = false;
 
             Utilities.MoveLapsToHistoryTable();
 
-            try 
+            Task emailTask = Task.Run(() =>
             {
-                Task emailTask = Task.Run(() =>
+                Device.BeginInvokeOnMainThread(() =>
                 {
-                    Device.BeginInvokeOnMainThread(() =>
+                    var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
+                    if(spreadsheet == null)
                     {
-                        var spreadsheet = new SpreadsheetService().CreateExcelWorkBook();
+                        IsEnabled = true;
+                        IsBusy = false;
+                        Opacity = 1;
+
+                        ValidationText = "Unable to generate report. Please check STORAGE permissions.";
+                        Opacity = 0.2;
+                        IsInvalid = true;
+                        ShowClose = true;
+                    }
+                    else 
+                    {
                         Utilities.SendEmail(spreadsheet);
-                    });
+                        IsBusy = false;
+                        IsEnabled = true;
+                        IsPageEnabled = true;
+                        Opacity = 1;
+                    }
+
                 });
+            });
 
-                 await emailTask;
-            }
-            catch (Exception ex)
-            {
-                IsEnabled = true;
-                IsBusy = false;
-                Opacity = 1;
-
-                ValidationText = "Unable to generate report.Please check STORAGE permissions.";
-                Opacity = 0.2;
-                IsInvalid = true;
-                ShowClose = true;
-            }
-
-            IsBusy = false;
-            IsEnabled = true;
-            Opacity = 1;
+            await emailTask;
         }
     }
 }

@@ -3,7 +3,7 @@
     <ContentView.Content>
         <StackLayout BackgroundColor="{StaticResource PopUpColour}">
             <StackLayout VerticalOptions="Start" HorizontalOptions="Center">
-                <Label Text="Activities" IsVisible="{Binding Isvisible}" TextColor="Black" />
+                <Label Text="Elements" IsVisible="{Binding Isvisible}" TextColor="Black" />
                 <StackLayout IsVisible="{Binding Isvisible}" Orientation="Horizontal" Margin="5">
                     <ScrollView>
                         <local:RepeaterView ItemsSource="{Binding GroupActivities}">

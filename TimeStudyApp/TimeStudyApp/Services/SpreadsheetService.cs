@@ -60,98 +60,106 @@ namespace TimeStudy.Services
             string path;
             string fileName = $"TimeStudy_{Utilities.StudyId}_{Utilities.StudyVersion}.xlsx";
 
-            using (var excelEngine = new ExcelEngine())
+            try 
             {
-                //Set the default application version as Excel 2013.
-                //excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
-                excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2016;
+                using (var excelEngine = new ExcelEngine())
+                {
+                    //Set the default application version as Excel 2013.
+                    //excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2013;
+                    excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2016;
 
-                //Create a workbook with a worksheet
-                workbook = excelEngine.Excel.Workbooks.Create(1);
+                    //Create a workbook with a worksheet
+                    workbook = excelEngine.Excel.Workbooks.Create(1);
 
-                headerStyle = workbook.Styles.Add("HeaderStyle");
-                headerStyle.BeginUpdate();
-                headerStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 174, 33);
-                headerStyle.Font.Bold = true;
-                headerStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
-                headerStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
-                headerStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
-                headerStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                headerStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                headerStyle.EndUpdate();
-
-
-                titleStyle = workbook.Styles.Add("TitleStyle");
-                titleStyle.BeginUpdate();
-                titleStyle.Color = Syncfusion.Drawing.Color.FromArgb(93, 173, 226);
-                titleStyle.Font.Bold = true;
-                titleStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
-                titleStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
-                titleStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
-                titleStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                titleStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                titleStyle.EndUpdate();
-
-                totalsStyle = workbook.Styles.Add("TotalsStyle");
-                totalsStyle.BeginUpdate();
-                totalsStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
-                totalsStyle.Font.Bold = true;
-                totalsStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
-                totalsStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
-                totalsStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
-                totalsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                totalsStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                totalsStyle.EndUpdate();
-
-                summaryStyle = workbook.Styles.Add("SummaryStyle");
-                summaryStyle.BeginUpdate();
-                summaryStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                summaryStyle.EndUpdate();
+                    headerStyle = workbook.Styles.Add("HeaderStyle");
+                    headerStyle.BeginUpdate();
+                    headerStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 174, 33);
+                    headerStyle.Font.Bold = true;
+                    headerStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                    headerStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                    headerStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                    headerStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                    headerStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    headerStyle.EndUpdate();
 
 
-                detailsStyle = workbook.Styles.Add("DetailsStyle");
-                detailsStyle.BeginUpdate();
-                detailsStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
-                detailsStyle.Font.Bold = true;
-                detailsStyle.Font.Size = 20;
-                detailsStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
-                detailsStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
-                detailsStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
-                detailsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                detailsStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                detailsStyle.EndUpdate();
+                    titleStyle = workbook.Styles.Add("TitleStyle");
+                    titleStyle.BeginUpdate();
+                    titleStyle.Color = Syncfusion.Drawing.Color.FromArgb(93, 173, 226);
+                    titleStyle.Font.Bold = true;
+                    titleStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                    titleStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                    titleStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                    titleStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                    titleStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    titleStyle.EndUpdate();
+
+                    totalsStyle = workbook.Styles.Add("TotalsStyle");
+                    totalsStyle.BeginUpdate();
+                    totalsStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
+                    totalsStyle.Font.Bold = true;
+                    totalsStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                    totalsStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                    totalsStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                    totalsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                    totalsStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    totalsStyle.EndUpdate();
+
+                    summaryStyle = workbook.Styles.Add("SummaryStyle");
+                    summaryStyle.BeginUpdate();
+                    summaryStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    summaryStyle.EndUpdate();
 
 
-                frequencyStyle = workbook.Styles.Add("FrequencyStyle");
-                frequencyStyle.BeginUpdate();
-                frequencyStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
-                frequencyStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
-                frequencyStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
-                frequencyStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
-                frequencyStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
-                frequencyStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                frequencyStyle.EndUpdate();
+                    detailsStyle = workbook.Styles.Add("DetailsStyle");
+                    detailsStyle.BeginUpdate();
+                    detailsStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
+                    detailsStyle.Font.Bold = true;
+                    detailsStyle.Font.Size = 20;
+                    detailsStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                    detailsStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                    detailsStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                    detailsStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                    detailsStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    detailsStyle.EndUpdate();
 
-                worksheetStyle = workbook.Styles.Add("WorkSheetStyle");
-                worksheetStyle.BeginUpdate();
-                worksheetStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
-                worksheetStyle.EndUpdate();
 
-                BuildStudyDetails();
-                CreateAllLapTimesSheet();
-                BuildStudyAnalysisDetails();
+                    frequencyStyle = workbook.Styles.Add("FrequencyStyle");
+                    frequencyStyle.BeginUpdate();
+                    frequencyStyle.Color = Syncfusion.Drawing.Color.FromArgb(255, 255, 153);
+                    frequencyStyle.Borders[ExcelBordersIndex.EdgeLeft].LineStyle = ExcelLineStyle.Thin;
+                    frequencyStyle.Borders[ExcelBordersIndex.EdgeRight].LineStyle = ExcelLineStyle.Thin;
+                    frequencyStyle.Borders[ExcelBordersIndex.EdgeTop].LineStyle = ExcelLineStyle.Thin;
+                    frequencyStyle.Borders[ExcelBordersIndex.EdgeBottom].LineStyle = ExcelLineStyle.Thin;
+                    frequencyStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    frequencyStyle.EndUpdate();
 
-                workbook.Worksheets[0].Remove();
+                    worksheetStyle = workbook.Styles.Add("WorkSheetStyle");
+                    worksheetStyle.BeginUpdate();
+                    worksheetStyle.HorizontalAlignment = ExcelHAlign.HAlignCenter;
+                    worksheetStyle.EndUpdate();
 
-                var stream = new MemoryStream();
+                    BuildStudyDetails();
+                    CreateAllLapTimesSheet();
+                    BuildStudyAnalysisDetails();
 
-                workbook.SaveAs(stream);
-                workbook.Close();
+                    workbook.Worksheets[0].Remove();
 
-                path = DependencyService.Get<ISave>()
-                    .SaveSpreadSheet(fileName, "application/msexcel", stream)
-                    .Result;
+                    var stream = new MemoryStream();
+
+                    workbook.SaveAs(stream);
+                    workbook.Close();
+
+                    path = DependencyService.Get<ISave>()
+                        .SaveSpreadSheet(fileName, "application/msexcel", stream)
+                        .Result;
+                }
             }
+            catch(Exception ex)
+            {
+                return null;
+            }
+
 
             return new TimeStudySpreadSheet() { FileName = fileName, FilePath = path };
         }

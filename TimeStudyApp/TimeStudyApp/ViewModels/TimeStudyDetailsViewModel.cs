@@ -81,6 +81,7 @@ namespace TimeStudy.ViewModels
         {
        
             IsActive = true;
+            IsPageEnabled = true;
             Utilities.StudyId = 0;
 
             SampleStudy = new Model.RatedTimeStudy()
@@ -112,6 +113,7 @@ namespace TimeStudy.ViewModels
             ShowClose = true;
             IsInvalid = true;
             Opacity = 0.2;
+            IsPageEnabled = false;
 
             if ((SampleStudy.Department != null && SampleStudy.Department?.Trim().Length > 0) &&
                 (SampleStudy.Name != null && SampleStudy.Name?.Trim().Length > 0) &&
@@ -119,6 +121,7 @@ namespace TimeStudy.ViewModels
             {
                 Opacity = 1;
                 IsInvalid = false;
+                IsPageEnabled = true;
             }
         }
 
