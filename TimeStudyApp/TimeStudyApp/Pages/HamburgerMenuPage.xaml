@@ -19,21 +19,21 @@
             </StackLayout>
             <ScrollView>
                 <StackLayout BackgroundColor="White" Padding="10 , 30 , 10, 10">
-                    <Button Text="About" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding About}" />
+                    <Button Text="About" TextColor="{StaticResource DarkTextColour}" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding About}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                    <Button Text="Home" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding StudyMenu}" />
+                    <Button Text="Home" BackgroundColor="White" TextColor="{StaticResource DarkTextColour}" HorizontalOptions="StartAndExpand" Command="{Binding StudyMenu}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                    <Button Text="Current Time Study" BackgroundColor="White" TextColor="DarkGray" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />
+                    <Button Text="Current Time Study" BackgroundColor="White" TextColor="{StaticResource DarkTextColour}" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudy}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                    <Button Text="Existing Studies" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding ExistingStudies}" />
+                    <Button Text="Existing Studies" TextColor="{StaticResource DarkTextColour}" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding ExistingStudies}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                    <Button Text="Reports" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding Reports}" />
+                    <Button Text="Reports" TextColor="{StaticResource DarkTextColour}" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding Reports}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                    <Button Text="Study Set Up" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding StudySetUp}" />
+                    <Button Text="Study Set Up" TextColor="{StaticResource DarkTextColour}" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding StudySetUp}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                    <Button Text="Current Study Details" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudyDetails}" />
+                    <Button Text="Current Study Details" TextColor="{StaticResource DarkTextColour}" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CurrentStudyDetails}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
-                    <Button Text="Close Application" TextColor="DarkGray" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CloseApplication}" />
+                    <Button Text="Close Application" TextColor="{StaticResource DarkTextColour}" BackgroundColor="White" HorizontalOptions="StartAndExpand" Command="{Binding CloseApplication}" />
                     <BoxView HeightRequest="0.5" HorizontalOptions="FillAndExpand" BackgroundColor="Gray" />
                 </StackLayout>
             </ScrollView>

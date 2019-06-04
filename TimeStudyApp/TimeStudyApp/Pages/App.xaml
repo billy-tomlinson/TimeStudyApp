@@ -6,11 +6,12 @@
     <Application.Resources>
         <ResourceDictionary>
             
-            <Color x:Key="ContentPageColour">#93B7BE</Color>
+            <Color x:Key="ContentPageColour">#75A2B5</Color>
             <Color x:Key="GreyColour">#E8EAEC</Color>
-            <Color x:Key="MenuHeaderColour">#3B8EA5</Color>
+            <Color x:Key="MenuHeaderColour">#38779E</Color>
             <Color x:Key="PopUpColour">#F3FCF0</Color>
-             <Color x:Key="PopUpButton">#3B8EA5</Color>
+            <Color x:Key="PopUpButton">#38779E</Color>
+            <Color x:Key="DarkTextColour">#5D4E60</Color>
             
             <OnPlatform x:Key="StandardFont" x:TypeArguments="Font">
                 <On Platform="Android" Value="Roboto-Light" />
